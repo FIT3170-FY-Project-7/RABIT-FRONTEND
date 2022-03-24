@@ -20,6 +20,3 @@ see [CONTRIBUTING.md](CONTRIBUTING.md)
 ## Licence
 
 [MIT](LICENSE.txt)
-
-Coming soon
-<!-- TODO -->
