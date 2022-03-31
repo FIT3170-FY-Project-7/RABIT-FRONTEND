@@ -14,10 +14,9 @@ Coming soon
 
 ## Contributing
 
-Coming soon
+see [CONTRIBUTING.md](CONTRIBUTING.md)
 <!-- TODO -->
 
 ## Licence
 
-Coming soon
-<!-- TODO -->
+[MIT](LICENSE.txt)
