@@ -1,23 +1,22 @@
-# Astrophysics Data Visualisation
+# Robust Astrophysics Bayesian Inference Tool (RABIT)
 
 An online data visualisation toolkit for Bayesian parameter estimation data.
 
 ## Features
 
-Coming soon
+`Coming soon!`
 <!-- TODO -->
 
 ## Documentation
 
-Coming soon
+`Coming soon!`
 <!-- TODO -->
 
 ## Contributing
 
-Coming soon
-<!-- TODO -->
+Refer to the [contributions document](CONTRIBUTING.md).
+<!-- TODO: Setup all-contributors if not done already! -->
 
 ## Licence
 
-Coming soon
-<!-- TODO -->
+Refer to the [MIT license file](LICENSE.txt).
