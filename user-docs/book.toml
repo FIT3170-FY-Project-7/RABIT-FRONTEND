@@ -1,0 +1,11 @@
+[book]
+authors = ["FIT3170-FY-Project-7"] # TODO: replace this with the group member names
+language = "en"
+multilingual = false
+src = "src"
+title = "RABIT User Documentation"
+
+[output.html]
+git-repository-url = "https://github.com/FIT3170-FY-Project-7/RABIT"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/FIT3170-FY-Project-7/RABIT/edit/main/user-docs/{path}"
