@@ -1,5 +1,5 @@
 {
-  "name": "robust-analytical-bayesian-inference-tool",
+  "name": "rabit-bdv",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
