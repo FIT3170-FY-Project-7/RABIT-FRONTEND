@@ -1,4 +1,4 @@
-# Robust Astrophysics Bayesian Inference Tool (RABIT)
+# Robust Analytical Bayesian Inference Tool (RABIT)
 
 An online data visualisation toolkit for Bayesian parameter estimation data.
 
