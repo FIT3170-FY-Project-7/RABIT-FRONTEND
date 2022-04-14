@@ -45,6 +45,5 @@ module.exports = {
 				use  : [ { loader: 'svg-url-loader', options: { limit: 10000 } } ]
 			}
 	] },
-	plugins: [ new HtmlWebPackPlugin({ template: './src/index.html' }) ],
-	externals: { 'react': 'React' }
+	plugins: [ new HtmlWebPackPlugin({ template: './src/index.html' }) ]
 };

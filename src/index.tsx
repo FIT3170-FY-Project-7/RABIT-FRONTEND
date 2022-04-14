@@ -2,6 +2,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
+import * as React from 'react';
 
 // project imports
 import * as serviceWorker from './serviceWorker';
