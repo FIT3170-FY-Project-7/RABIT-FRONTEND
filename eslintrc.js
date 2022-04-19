@@ -1,10 +1,10 @@
 module.exports = {
     env           : { browser: true, es2021: true },
-    extends       : ["airbnb", "prettier", "plugin:react/jsx-runtime", "plugin:jsx-a11y/recommended", "plugin:react-hooks/recommended", "react-app", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    extends       : [ "airbnb", "prettier", "plugin:react/jsx-runtime", "plugin:jsx-a11y/recommended", "plugin:react-hooks/recommended", "react-app", "eslint:recommended", "plugin:@typescript-eslint/recommended" ],
     settings      : { "import/resolver": { node: { moduleDirectory: ["node_modules", "src/"] } } },
-    parser        : ["@typescript-eslint/parser", "@babel/eslint-parser"],
+    parser        : [ "@typescript-eslint/parser", "@babel/eslint-parser" ],
     parserOptions : { ecmaFeatures: { experimentalObjectRestSpread: true, impliedStrict: true }, ecmaVersion: 12, sourceType: "module" },
-    plugins       : ["prettier", "react", "react-hooks", "@typescript-eslint", "@babel"],
+    plugins       : [ "prettier", "react", "react-hooks", "@typescript-eslint", "@babel" ],
     rules         : {
         "no-restricted-imports"        : [ "error", { patterns: [ "@mui/*/*/*", "!@mui/material/test-utils/*" ] } ],
 

@@ -1,21 +1,22 @@
-// third party
+// ==============================|| IMPORTS ||============================== //
+
+// Third-party.
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createRoot } from 'react-dom/client';
-import * as React from 'react';
 
-// project imports
-import * as serviceWorker from './serviceWorker';
-import App from './App';
-import { store } from './store';
+// Berry
+import App from 'berry/App';
+import { store } from 'berry/store';
+import * as serviceWorker from 'berry/serviceWorker.js';
+import 'berry/assets/scss/style.scss';
 
-// style + assets
-import 'assets/scss/style.scss';
+// ==============================|| REACT DOM RENDER ||============================== //
 
-// ==============================|| REACT DOM RENDER  ||============================== //
-
-const container = document.getElementById('app');
-const root = createRoot(container);
+const container = document.getElementById('root');
+const root      = createRoot(container);
 root.render(
     <Provider store={store}>
         <BrowserRouter>

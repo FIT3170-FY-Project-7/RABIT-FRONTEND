@@ -2,42 +2,54 @@ const path              = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+	mode    : 'none',
 	devtool : 'source-map',
 	output  : {
 		path     : path.resolve(__dirname, 'build'),
 		filename : 'bundle.js',
 	},
 	resolve : {
-		modules    : [path.join(__dirname, 'src'), 'node_modules'],
-		alias      : { react: path.join(__dirname, 'node_modules', 'react') },
-		extensions : [".js", "jsx", ".json", ".ts", ".tsx"]
+		alias: {
+			react: path.join(__dirname, 'node_modules', 'react'),
+			berry: path.join(__dirname, 'node_modules', 'berry-material-react-free', 'src')
+		},
+		modules: [
+			path.join(__dirname, 'src'),
+			'node_modules',
+			path.join(__dirname, 'node_modules', 'berry-material-react-free', 'src'),
+			path.join(__dirname, 'node_modules', 'berry-material-react-free', 'node_modules')
+		],
+		extensions: [ ".js", ".jsx", ".json", ".ts", ".tsx" ]
 	},
 	module  : { rules: [
 			{
 				test    : /\.(js|jsx|ts|tsx)$/,
-				exclude : /node_modules/,
-				use     : { loader: 'babel-loader' }
+				exclude : /node_modules[\/\\](?!(berry-material-react-free[\/\\]src))/,
+				use     : {
+					loader: 'babel-loader',
+					options: {
+						presets : [
+							[ '@babel/preset-env', { targets: { node: 'current' } } ],
+							'@babel/preset-typescript',
+							[ '@babel/preset-react', { runtime: 'automatic' } ]
+						],
+    					plugins : [ '@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime' ]
+					}
+				}
 			},
 			{
 				test : /\.css$/,
-				use  : [
-					{ loader : 'style-loader' },
-					{ loader : 'css-loader'   }
-				]
+				use  : [ 'style-loader', 'css-loader' ]
 			},
 			{
 				test : /\.scss$/,
-				use  : [
-					{ loader : 'style-loader' },
-					{ loader : 'css-loader'   },
-					{ loader : 'sass-loader' }
-				]
+				use  : [ 'style-loader', 'css-loader', 'sass-loader' ]
 			},
 			{
 				test : /\.html$/,
 				use  : [
 					{ loader : 'html-loader' },
-					{ loader : 'markup-inline-loader' }
+					// Necessary? { loader : 'markup-inline-loader' }
 				]
 			},
 			{
