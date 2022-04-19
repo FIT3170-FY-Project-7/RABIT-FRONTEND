@@ -12,6 +12,14 @@ const dashboard = {
     type: 'group',
     children: [
         {
+            id: 'upload',
+            title: 'Upload',
+            type: 'item',
+            url: '/upload',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
+        },
+        {
             id: 'default',
             title: 'Dashboard',
             type: 'item',
