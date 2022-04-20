@@ -9,27 +9,19 @@ module.exports = {
 		filename : 'bundle.js',
 	},
 	resolve : {
-		alias: {
-			react: path.join(__dirname, 'node_modules', 'react'),
-			berry: path.join(__dirname, 'node_modules', 'berry-material-react-free', 'src')
-		},
-		modules: [
-			path.join(__dirname, 'src'),
-			'node_modules',
-			path.join(__dirname, 'node_modules', 'berry-material-react-free', 'src'),
-			path.join(__dirname, 'node_modules', 'berry-material-react-free', 'node_modules')
-		],
-		extensions: [ ".js", ".jsx", ".json", ".ts", ".tsx" ]
+		alias      : { react: path.join(__dirname, 'node_modules', 'react') },
+		modules    : [ path.join(__dirname, 'src'), 'node_modules' ],
+		extensions : [ ".js", ".jsx", ".json", ".ts", ".tsx" ]
 	},
 	module  : { rules: [
 			{
 				test    : /\.(js|jsx|ts|tsx)$/,
-				exclude : /node_modules[\/\\](?!(berry-material-react-free[\/\\]src))/,
+				exclude : /node_modules/,
 				use     : {
-					loader: 'babel-loader',
-					options: {
+					loader  : 'babel-loader',
+					options : {
 						presets : [
-							[ '@babel/preset-env', { targets: { node: 'current' } } ],
+							[ '@babel/preset-env', { targets: { node: 'current', module: 'es2022' } } ],
 							'@babel/preset-typescript',
 							[ '@babel/preset-react', { runtime: 'automatic' } ]
 						],
@@ -45,6 +37,7 @@ module.exports = {
 				test : /\.scss$/,
 				use  : [ 'style-loader', 'css-loader', 'sass-loader' ]
 			},
+			/*
 			{
 				test : /\.html$/,
 				use  : [
@@ -52,10 +45,11 @@ module.exports = {
 					// Necessary? { loader : 'markup-inline-loader' }
 				]
 			},
+			*/
 			{
 				test : /\.svg$/,
 				use  : [ { loader: 'svg-url-loader', options: { limit: 10000 } } ]
 			}
 	] },
-	plugins: [ new HtmlWebPackPlugin({ template: './src/index.html' }) ]
+	plugins: [ new HtmlWebPackPlugin({ template: './public/index.html' }) ]
 };
