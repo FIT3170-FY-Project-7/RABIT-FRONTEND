@@ -1,8 +1,8 @@
 import { Card, Box, Typography, Avatar } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
-import Label from 'src/components/Label';
-import Text from 'src/components/Text';
+import Label from '../../../components/Label';
+import Text from '../../../components/Text';
 import WatchListColumn1Chart from './WatchListColumn1Chart';
 
 const AvatarWrapper = styled(Avatar)(

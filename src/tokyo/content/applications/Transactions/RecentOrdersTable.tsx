@@ -25,8 +25,8 @@ import {
   CardHeader
 } from '@mui/material';
 
-import Label from 'src/components/Label';
-import { CryptoOrder, CryptoOrderStatus } from 'src/models/crypto_order';
+import Label from '../../../components/Label';
+import { CryptoOrder, CryptoOrderStatus } from '../../../models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import BulkActions from './BulkActions';

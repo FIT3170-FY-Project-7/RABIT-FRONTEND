@@ -16,7 +16,7 @@ import {
 import { styled } from '@mui/material/styles';
 import TrendingUp from '@mui/icons-material/TrendingUp';
 import AccountBalanceChart from './AccountBalanceChart';
-import Text from 'src/components/Text';
+import Text from '../../../components/Text';
 
 const AccountBalanceChartWrapper = styled(AccountBalanceChart)(
   () => `

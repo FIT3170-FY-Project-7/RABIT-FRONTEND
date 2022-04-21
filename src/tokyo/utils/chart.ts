@@ -1,5 +1,5 @@
 // @ts-ignore-start
-import { Chart } from "react-chartjs-2";
+import { BarElement } from 'chart.js';
 function draw() {
     const { ctx } = this._chart;
     const vm = this._view;
@@ -184,4 +184,4 @@ function draw() {
     }
 }
 
-Chart["helpers"].extend(Chart["elements"].Rectangle.prototype, { draw });
+Object.assign(BarElement.prototype, { draw });

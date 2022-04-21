@@ -3,7 +3,7 @@ import App from './App';
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import 'src/utils/chart';
+import './utils/chart';
 import * as serviceWorker from './serviceWorker';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';

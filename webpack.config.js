@@ -1,43 +1,65 @@
-const path              = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebPackPlugin      = require('html-webpack-plugin');
+const CopyWebpackPlugin      = require('copy-webpack-plugin');
+const { SourceMapDevToolPlugin } = require('webpack');
 
 module.exports = {
-	mode    : 'none',
-	devtool : 'source-map',
-	output  : {
-		path     : path.resolve(__dirname, 'build'),
-		filename : 'bundle.js',
-	},
-	resolve : {
-		alias      : { react: path.join(__dirname, 'node_modules', 'react') },
-		modules    : [ path.join(__dirname, 'src'), 'node_modules' ],
-		extensions : [ ".js", ".jsx", ".json", ".ts", ".tsx" ]
-	},
-	module  : { rules: [
-			{
-				test    : /\.(js|jsx|ts|tsx)$/,
-				exclude : /node_modules/,
-				use     : {
-					loader  : 'babel-loader',
-					options : {
-						presets : [
-							[ '@babel/preset-env', { targets: { node: 'current', module: 'es2022' } } ],
-							'@babel/preset-typescript',
-							[ '@babel/preset-react', { runtime: 'automatic' } ]
-						],
-    					plugins : [ '@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime' ]
-					}
-				}
-			},
-			{
-				test : /\.css$/,
-				use  : [ 'style-loader', 'css-loader' ]
-			},
-			{
-				test : /\.scss$/,
-				use  : [ 'style-loader', 'css-loader', 'sass-loader' ]
-			},
-			/*
+  mode: "none",
+  devtool: "source-map",
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "[name].js"
+  },
+  resolve: {
+    alias: {
+      react: path.join(__dirname, "node_modules", "react")
+    },
+    modules: [
+      path.join(__dirname, "src"),
+      "node_modules"
+    ],
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              [
+                "@babel/preset-env", {
+                  targets: {
+                    node: "current",
+                    esmodules: true
+                  }
+                }
+              ],
+              "@babel/preset-typescript",
+              [
+                "@babel/preset-react", {
+                  runtime: "automatic"
+                }
+              ]
+            ],
+            plugins: [
+              "@babel/plugin-proposal-class-properties",
+              "@babel/plugin-transform-runtime",
+              "@babel/plugin-syntax-dynamic-import"
+            ]
+          }
+        }
+      }, {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      }, {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
+      },
+      /*
 			{
 				test : /\.html$/,
 				use  : [
@@ -46,10 +68,41 @@ module.exports = {
 				]
 			},
 			*/
-			{
-				test : /\.svg$/,
-				use  : [ { loader: 'svg-url-loader', options: { limit: 10000 } } ]
-			}
-	] },
-	plugins: [ new HtmlWebPackPlugin({ template: './public/index.html' }) ]
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "svg-url-loader",
+            options: {
+              limit: 10000
+            }
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebPackPlugin({
+      template: './public/index.html',
+      filename: 'index.html',
+      inject: true,
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from        : 'public',
+          to          : 'build',
+          globOptions : { ignore: ['index.html'] }
+        }
+      ]
+    }),
+    new SourceMapDevToolPlugin({ filename: "[file].map[query]" })
+  ]
 };

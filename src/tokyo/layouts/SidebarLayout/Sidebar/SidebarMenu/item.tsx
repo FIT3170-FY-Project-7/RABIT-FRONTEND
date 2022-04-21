@@ -1,10 +1,10 @@
 import { FC, ReactNode, useState, useContext } from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
-import { SidebarContext } from 'src/contexts/SidebarContext';
+import { SidebarContext } from '../../../../contexts/SidebarContext';
 
 import PropTypes from 'prop-types';
-import { Button, Badge, Collapse, ListItem } from '@mui/material';
+import { Link, Button, Badge, Collapse, ListItem } from '@mui/material';
 
 import ExpandLessTwoToneIcon from '@mui/icons-material/ExpandLessTwoTone';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
@@ -58,7 +58,7 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
   return (
     <ListItem component="div" key={name} {...rest}>
       <Button
-        activeClassName="Mui-active"
+        // FIXME: className={({ isActive }) => clsx({ 'Mui-active': isActive })}
         component={RouterLink}
         onClick={toggleSidebar}
         to={link}

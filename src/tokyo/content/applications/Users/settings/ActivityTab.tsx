@@ -17,7 +17,7 @@ import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone';
 import CommentTwoToneIcon from '@mui/icons-material/CommentTwoTone';
 import ShareTwoToneIcon from '@mui/icons-material/ShareTwoTone';
-import Text from 'src/components/Text';
+import Text from '../../../../components/Text';
 
 const CardActionsWrapper = styled(CardActions)(
   ({ theme }) => `

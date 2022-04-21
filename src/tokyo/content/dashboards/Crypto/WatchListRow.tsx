@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
-import Text from 'src/components/Text';
-import Label from 'src/components/Label';
+import Text from '../../../components/Text';
+import Label from '../../../components/Label';
 import WatchListRowChart from './WatchListRowChart';
 
 const AvatarWrapper = styled(Avatar)(

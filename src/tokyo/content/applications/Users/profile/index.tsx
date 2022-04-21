@@ -1,6 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
-import Footer from 'src/components/Footer';
+import Footer from '../../../../components/Footer';
 
 import { Grid, Container } from '@mui/material';
 

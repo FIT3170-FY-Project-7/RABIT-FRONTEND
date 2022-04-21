@@ -4,6 +4,7 @@
         "jsx": "react-jsxdev",
         "target": "esnext",
         "module": "esnext",
-        "sourceMap": true
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true
     }
 }

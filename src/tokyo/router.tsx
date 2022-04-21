@@ -50,11 +50,10 @@ const StatusMaintenance = Loader(lazy(() => import('./content/pages/Status/Maint
 
 const routes: RouteObject[] = [
   {
-    path: '*',
     element: <BaseLayout />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Overview />
       },
       {
@@ -70,7 +69,7 @@ const routes: RouteObject[] = [
         path: 'status',
         children: [
           {
-            path: '/',
+            path: '',
             element: (
               <Navigate
                 to="404"
@@ -109,7 +108,7 @@ const routes: RouteObject[] = [
     ),
     children: [
       {
-        path: '/',
+        path: '',
         element: (
           <Navigate
             to="/dashboards/crypto"
@@ -134,7 +133,7 @@ const routes: RouteObject[] = [
     ),
     children: [
       {
-        path: '/',
+        path: '',
         element: (
           <Navigate
             to="/management/transactions"
@@ -150,7 +149,7 @@ const routes: RouteObject[] = [
         path: 'profile',
         children: [
           {
-            path: '/',
+            path: '',
             element: (
               <Navigate
                 to="details"
@@ -177,7 +176,7 @@ const routes: RouteObject[] = [
     ),
     children: [
       {
-        path: '/',
+        path: '',
         element: (
           <Navigate
             to="/components/buttons"

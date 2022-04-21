@@ -2,6 +2,8 @@ import { FC } from 'react';
 import PropTypes from 'prop-types';
 import { Doughnut } from 'react-chartjs-2';
 import { useTheme } from '@mui/material';
+import 'chart.js/auto';
+import type { ChartOptions, TooltipItem } from 'chart.js';
 
 interface ChartProps {
   data: any;
@@ -20,41 +22,42 @@ const AccountBalanceChart: FC<ChartProps> = ({ data: dataProp, ...rest }) => {
     labels: dataProp.labels
   };
 
-  const options = {
+  const options: ChartOptions<"doughnut"> = {
     responsive: true,
     maintainAspectRatio: false,
     animation: false,
-    cutoutPercentage: 60,
-    legend: {
-      display: false
-    },
-    layout: {
-      padding: 0
-    },
-    tooltips: {
-      enabled: true,
-      caretSize: 6,
-      displayColors: false,
-      mode: 'label',
-      intersect: true,
-      yPadding: 8,
-      xPadding: 16,
-      borderWidth: 2,
-      bodySpacing: 10,
-      borderColor: theme.colors.alpha.black[30],
-      backgroundColor: theme.palette.common.white,
-      titleFontColor: theme.palette.common.black,
-      bodyFontColor: theme.palette.common.black,
-      footerFontColor: theme.palette.common.black,
-      callbacks: {
-        label(tooltipItem, _data) {
-          const label = _data.labels[tooltipItem.index];
-          const value = _data.datasets[0].data[tooltipItem.index];
 
-          return `${label}: ${value}%`;
+    layout: { padding: 0 },
+
+    plugins: {
+      legend: { display: false },
+
+      tooltip: {
+        enabled: true,
+        caretSize: 6,
+        displayColors: false,
+        mode: 'index',  // Index replaces label, see https://www.chartjs.org/docs/2.7.3/general/interactions/modes.html.
+        intersect: true,
+        padding: {
+          top: 8,
+          bottom: 8,
+          left: 16,
+          right: 16
+        },
+        borderWidth: 2,
+        bodySpacing: 10,
+        borderColor: theme.colors.alpha.black[30],
+        backgroundColor: theme.palette.common.white,
+        titleColor: theme.palette.common.black,
+        bodyColor: theme.palette.common.black,
+        footerColor: theme.palette.common.black,
+        callbacks: {
+          label: (tooltipItem: TooltipItem<"doughnut">) => `${tooltipItem.label}: ${tooltipItem.dataset.data[tooltipItem.dataIndex]}%`
         }
       }
-    }
+    },
+
+    cutout: '60%'
   };
 
   return <Doughnut data={data} options={options} {...rest} />;

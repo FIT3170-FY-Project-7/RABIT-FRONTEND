@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 
-import PageTitle from 'src/components/PageTitle';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
+import PageTitle from '../../../../components/PageTitle';
+import PageTitleWrapper from '../../../../components/PageTitleWrapper';
 import { Container, Grid, Card, CardHeader, CardContent, Divider } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Footer from 'src/components/Footer';
+import Footer from '../../../../components/Footer';
 
 function Accordions() {
 
