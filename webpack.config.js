@@ -9,7 +9,8 @@ module.exports = {
   devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "[name].js"
+    filename: "[name].js",
+    publicPath: '/' // Fixes "cannot GET <page>" issues; see https://ui.dev/react-router-cannot-get-url-refresh.
   },
   resolve: {
     alias: {
@@ -81,6 +82,8 @@ module.exports = {
       }
     ]
   },
+  // Fixes "cannot GET <page>" issues; see https://ui.dev/react-router-cannot-get-url-refresh.
+  devServer: { historyApiFallback: { rewrites: [{ from: /./, to: '/index.html' }] } },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
