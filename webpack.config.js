@@ -1,7 +1,7 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebPackPlugin      = require('html-webpack-plugin');
-const CopyWebpackPlugin      = require('copy-webpack-plugin');
+const path                       = require('path');
+const { CleanWebpackPlugin }     = require('clean-webpack-plugin');
+const HtmlWebPackPlugin          = require('html-webpack-plugin');
+const CopyWebpackPlugin          = require('copy-webpack-plugin');
 const { SourceMapDevToolPlugin } = require('webpack');
 
 module.exports = {
