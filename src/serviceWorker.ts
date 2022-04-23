@@ -14,22 +14,20 @@
 // opt-in, read https://bit.ly/CRA-PWA
 
 const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' 
-  // [::1] is the IPv6 localhost address.
-  || window.location.hostname === '[::1]'
-  // 127.0.0.0/8 are considered localhost for IPv4.
-  || window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
-);
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '[::1]'     ||                                               // [::1] is the IPv6 localhost address.
+    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)  // 127.0.0.0/8 are considered localhost for IPv4.
+)
 
 type Config = {
-  onSuccess?: (registration: ServiceWorkerRegistration) => void
-  onUpdate ?: (registration: ServiceWorkerRegistration) => void
-};
+    onSuccess ?: (registration : ServiceWorkerRegistration) => void
+    onUpdate  ?: (registration : ServiceWorkerRegistration) => void
+}
 
 export function register(config?: Config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href)
 
     // Our service worker won't work if PUBLIC_URL is on a different origin
     // from what our page is served on. This might happen if a CDN is used to
@@ -37,18 +35,18 @@ export function register(config?: Config) {
     if (publicUrl.origin !== window.location.origin) return;
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
+        checkValidServiceWorker(swUrl, config)
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => console.log('This web app is being served cache-first by a service worker. To learn more, visit https://bit.ly/CRA-PWA.'));
+        navigator.serviceWorker.ready.then(() => console.log('This web app is being served cache-first by a service worker. To learn more, visit https://bit.ly/CRA-PWA.'))
       // Is not localhost. Just register service worker
       } else registerValidSW(swUrl, config)
-    });
+    })
   }
 }
 
@@ -64,26 +62,23 @@ function registerValidSW(swUrl: string, config?: Config) {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
+              // but the previous service worker will still serve the older content until all client tabs are closed.
               console.log('New content is available and will be used when all tabs for this page are closed. See https://bit.ly/CRA-PWA.');
 
-              // Execute callback
+              // Execute callback.
               if (config && config.onUpdate) config.onUpdate(registration)
             } else {
-              // At this point, everything has been precached.
-              // It's the perfect time to display a
-              // "Content is cached for offline use." message.
+              // At this point, everything has been precached. It's the perfect time to display a "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
 
-              // Execute callback
+              // Execute callback.
               if (config && config.onSuccess) config.onSuccess(registration)
             }
           }
-        };
-      };
+        }
+      }
     })
-    .catch(error => console.error('Error during service worker registration:', error));
+    .catch((error: Error) => console.error('Error during service worker registration:', error))
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {
@@ -105,6 +100,6 @@ export function unregister() {
       .serviceWorker
       .ready
       .then(registration => registration.unregister())
-      .catch(error => console.error(error.message))
+      .catch((error: Error) => console.error(error.message))
   }
 }
