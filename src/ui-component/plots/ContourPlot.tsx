@@ -38,7 +38,8 @@ function ContourPlot({ data, layout }: ContourPlotType) {
                         contours: {
                             // Makes the contour colours smoother
                             coloring: 'heatmap'
-                        }
+                        },
+                        showscale: false
                     }
                 ]}
                 layout={layout}
