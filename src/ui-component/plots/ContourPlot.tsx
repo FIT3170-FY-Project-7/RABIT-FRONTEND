@@ -3,7 +3,8 @@ import Plot from 'react-plotly.js';
 
 // Recieves 2 parameters
 type ContourPlotType = {
-    data: number[][];
+    x: number[];
+    y: number[];
 
     layout: {
         [k: string]: string | object | boolean;
@@ -27,14 +28,15 @@ type ContourPlotType = {
     };
 };
 
-function ContourPlot({ data, layout }: ContourPlotType) {
+function ContourPlot({ x, y, layout }: ContourPlotType) {
     return (
         <div>
             <Plot
                 data={[
                     {
-                        z: data,
-                        type: 'contour',
+                        x: x,
+                        y: y, 
+                        type: 'histogram2dcontour',
                         contours: {
                             // Makes the contour colours smoother
                             coloring: 'heatmap'
