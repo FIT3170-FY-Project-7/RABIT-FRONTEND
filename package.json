@@ -112,6 +112,7 @@
     },
     "overrides": {
         "react": "$react",
-        "react-dom": "$react-dom"
+        "react-dom": "$react-dom",
+        "babel-eslint": "@babel/eslint-parser"
     }
 }
