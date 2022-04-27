@@ -1,9 +1,11 @@
 // assets
 import { IconKey } from '@tabler/icons';
+import { IconFileUpload } from '@tabler/icons';
 
 // constant
 const icons = {
-    IconKey
+    IconKey,
+    IconFileUpload
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
@@ -11,9 +13,16 @@ const icons = {
 const pages = {
     id: 'pages',
     title: 'Pages',
-    caption: 'Pages Caption',
     type: 'group',
     children: [
+        {
+            id: 'upload',
+            title: 'Upload',
+            type: 'item',
+            url: '/upload',
+            icon: icons.IconFileUpload,
+            breadcrumbs: false
+        },
         {
             id: 'authentication',
             title: 'Authentication',
