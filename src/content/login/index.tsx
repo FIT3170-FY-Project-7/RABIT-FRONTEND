@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { styled } from '@mui/material/styles';
 import Logo from '../../components/LogoSign';
+import { Link } from 'react-router-dom';
 
 
 const OverviewWrapper = styled(Box)(
@@ -12,26 +13,6 @@ const OverviewWrapper = styled(Box)(
     overflow-x: hidden;
     align-items: center;
 `
-);
-
-// A styled div for text inside the login page
-const ContentDiv = styled(Box)(
-    () => `
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    `
-);
-
-// div style for form fields
-const FormField = styled(Box)(
-    () => `
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 30px;
-    padding-bottom
-    `
 );
 
 function Login() {
@@ -48,22 +29,32 @@ function Login() {
                     <Box display="flex" justifyContent="center" alignItems="center">
                         <h1>Welcome back</h1>
                     </Box>
-                    <Box display="flex" justifyContent="center" alignItems="center">
-                        <p>Enter your credentials to continue.</p>
+                    <Box>
+                        <Button variant="contained" fullWidth>Log in with Google</Button>
                     </Box>
                     <Box display="flex" justifyContent="center" alignItems="center">
+                        <p>Or enter your credentials below to continue.</p>
+                    </Box>
+                    <Box>
                         <form>
                             <div>
-                                <TextField id="username" label="Username" variant="outlined" margin="normal" required />
+                                <TextField id="username" label="Username" variant="outlined" margin="normal" required fullWidth />
                             </div>
                             <div>
-                                <TextField id="password" label="Password" type="password" variant="outlined" margin="normal" required />
+                                <TextField id="password" label="Password" type="password" variant="outlined" margin="normal" required fullWidth />
                             </div>
                             <FormGroup>
                                 <FormControlLabel control={<Checkbox />} label="Remember me"></FormControlLabel>
                             </FormGroup>
-                            <Button variant="contained" type="submit">Log in</Button>
+                            <Button variant="contained" type="submit" fullWidth>Log in</Button>
                         </form>
+                    </Box>
+                    <Box sx={{ py: 1 }}>
+                        <Link to="/signup">
+                            <Button variant="outlined" type="button" fullWidth>
+                                Don't have an account?
+                            </Button>
+                        </Link>
                     </Box>
                 </Card>
             </Container>
