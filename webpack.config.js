@@ -109,7 +109,6 @@ module.exports = {
 					},
 				],
 			},
-<<<<<<< HEAD
 		],
 	},
 
@@ -154,15 +153,3 @@ module.exports = {
 
 	optimization: { minimize: IS_PROD, minimizer: [new TerserPlugin()] },
 };
-=======
-			{
-				test : /\.svg$/,
-				use  : [ { loader: 'svg-url-loader', options: { limit: 10000 } } ]
-			}
-	] },
-	plugins: [ new HtmlWebPackPlugin({ template: './src/index.html' }) ],
-	externals: {
-        express: 'express',
-      },
-};
->>>>>>> upload-data
