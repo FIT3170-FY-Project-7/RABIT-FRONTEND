@@ -13,11 +13,9 @@
         "url": "https://github.com/FIT3170-FY-Project-7/RABIT/issues"
     },
     "main": "index.tsx",
-    "engines": {
-        "npm": ">=8.7.0"
-    },
     "scripts": {
         "start": "webpack-dev-server --mode=development --open --hot",
+        "build": "webpack --mode=production",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [

@@ -12,6 +12,7 @@ import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router';
 
 const GridWrapper = styled(Grid)(
   ({ theme }) => `
@@ -46,9 +47,9 @@ const TypographySecondary = styled(Typography)(
 function Status500() {
 
   const [pending, setPending] = useState(false);
-  function handleClick() {
-    setPending(true);
-  }
+  function handleClick() { setPending(true); }
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -97,7 +98,7 @@ function Status500() {
                 >
                   Refresh view
                 </LoadingButton>
-                <Button href="/overview" variant="contained" sx={{ ml: 1 }}>
+                <Button onClick={() => navigate(-1)} variant="contained" sx={{ ml: 1 }}>
                   Go back
                 </Button>
               </Box>
