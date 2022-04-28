@@ -36,6 +36,10 @@ const Status500         = Loader(lazy(() => import('./content/pages/Status/Statu
 const StatusComingSoon  = Loader(lazy(() => import('./content/pages/Status/ComingSoon' )))
 const StatusMaintenance = Loader(lazy(() => import('./content/pages/Status/Maintenance')))
 
+
+// File Upload Page
+const FileUpload        = Loader(lazy(() => import('./content/pages/FileUpload')))
+
 // Routes.
 const routes: RouteObject[] = [
     {
@@ -47,6 +51,7 @@ const routes: RouteObject[] = [
             { path: 'login', element: <Login/> },
             { path: 'signup', element: <Signup/>},
             { path  : '*'       , element : <Status404 />               },
+            { path: 'upload', element: <FileUpload/>},
         ]
     },
     {
