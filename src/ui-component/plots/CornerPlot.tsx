@@ -16,7 +16,20 @@ type ConerPlotPropType = {
     parameters: string[];
 };
 
+const corner_plot_size = 800;
+
+const margin = {
+    l: 0,
+    r: 0,
+    b: 0,
+    t: 0,
+    pad: 0
+};
+
 function CornerPlot({ data, parameters }: ConerPlotPropType) {
+    let width = corner_plot_size / parameters.length;
+    const layout = { width: width, height: width, margin: margin };
+
     return (
         <div>
             {/* For each initial parameter, create a new row containing a Histogram of the 
@@ -24,13 +37,13 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
             parameter and all previous parameters. */}
             {parameters.map((parameter_1: string, index: number) => {
                 return (
-                    <div>
+                    <div style={{ display: 'flex' }}>
                         {/* Contour plots for this paramter and all previous parameters */}
                         {parameters.slice(0, index).map((parameter_2: string) => (
-                            <ContourPlot data_1={data[parameter_1]} data_2={data[parameter_2]} />
+                            <ContourPlot x={data[parameter_1]} y={data[parameter_2]} layout={layout} />
                         ))}
                         {/* Histogram for current parameters */}
-                        <HistogramPlot data={data[parameter_1]} />
+                        <HistogramPlot data={data[parameter_1]} layout={layout} />
                     </div>
                 );
             })}
