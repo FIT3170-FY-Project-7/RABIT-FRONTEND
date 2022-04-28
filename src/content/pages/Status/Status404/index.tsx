@@ -13,6 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router';
 
 const MainContent = styled(Box)(
   ({ theme }) => `
@@ -39,6 +40,8 @@ const ButtonSearch = styled(Button)(
 );
 
 function Status404() {
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -82,8 +85,8 @@ function Status404() {
                 />
               </FormControl>
               <Divider sx={{ my: 4 }}>OR</Divider>
-              <Button href="/overview" variant="outlined">
-                Go to homepage
+              <Button onClick={() => navigate(-1)} variant="outlined">
+                Go back
               </Button>
             </Card>
           </Container>
