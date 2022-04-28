@@ -25,6 +25,9 @@ const UserSettings = Loader(lazy(() => import('./content/applications/Users/sett
 // Overview.
 const Overview = Loader(lazy(() => import('./content/overview')))
 
+// login page
+const Login = Loader(lazy(() => import('./content/login')))
+
 // Status pages.
 // TODO: All of these should be converted to RABIT branding.
 const Status404         = Loader(lazy(() => import('./content/pages/Status/Status404'  )))
@@ -40,6 +43,7 @@ const routes: RouteObject[] = [
             // TODO: Convert to login screen.
             { index : true      , element : <Overview />                },
             { path  : 'overview', element : <Navigate to="/" replace /> },
+            { path: 'login', element: <Login /> },
             { path  : '*'       , element : <Status404 />               },
         ]
     },
