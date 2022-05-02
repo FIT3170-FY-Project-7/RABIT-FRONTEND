@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { styled } from '@mui/material/styles';
 import Logo from '../../components/LogoSign';
-
+import { Link } from 'react-router-dom';
 
 const OverviewWrapper = styled(Box)(
     () => `
@@ -14,7 +14,7 @@ const OverviewWrapper = styled(Box)(
 `
 );
 
-function Login() {
+function SignUp() {
     return (
         <OverviewWrapper>
             <Helmet>
@@ -28,10 +28,44 @@ function Login() {
                     <Box display="flex" justifyContent="center" alignItems="center">
                         <h1>Sign up</h1>
                     </Box>
+                    <Box>
+                        <form>
+                            <div>
+                                <TextField id="fullname" label="Your name" variant="outlined" margin="normal" required fullWidth />
+                            </div>
+                            <div>
+                                <TextField id="username" label="Username" variant="outlined" margin="normal" required fullWidth />
+                            </div>
+                            <div>
+                                <TextField id="emailAddress" label="Email address" type = "email" variant="outlined" margin="normal" required fullWidth />
+                            </div>
+                            <div>
+                                <TextField id="password" label="Password" type="password" variant="outlined" margin="normal" required fullWidth />
+                            </div>
+                            <div>
+                                <TextField id="confirmPassword" label="Confirm password" type="password" variant="outlined" margin="normal" required fullWidth />
+                            </div>
+                            <div>
+                                <Box display="flex" justifyContent="center" alignItems="center">
+                                    <p>By signing up, you confirm you agree to the Terms of Service and Privacy Policy.</p>
+                                </Box>
+                            </div>
+                            <div>
+                              <Button variant="contained" type="submit" fullWidth>Sign up</Button>
+                            </div>
+                        </form>
+                    </Box>
+                    <Box sx={{ py: 1 }}>
+                        <Link to="/login">
+                            <Button variant="outlined" type="button" fullWidth>
+                                Already have an account?
+                            </Button>
+                        </Link>
+                    </Box>
                 </Card>
             </Container>
         </OverviewWrapper>
     );
 }
 
-export default Login;
+export default SignUp;
