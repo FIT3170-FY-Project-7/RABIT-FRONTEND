@@ -9,7 +9,7 @@ import type { ComponentProps, ComponentType } from 'react'
 // Layout.
 import SidebarLayout from './layouts/SidebarLayout'
 import BaseLayout    from './layouts/BaseLayout'
-
+import DataPageLayout    from './layouts/DatapageLayout'
 // Loader.
 import SuspenseLoader from './components/SuspenseLoader'
 const Loader = (Component: ComponentType) => (props: ComponentProps<typeof Component>) => (
@@ -21,7 +21,7 @@ const Loader = (Component: ComponentType) => (props: ComponentProps<typeof Compo
 // Applications.
 const UserProfile  = Loader(lazy(() => import('./content/applications/Users/profile' )))
 const UserSettings = Loader(lazy(() => import('./content/applications/Users/settings')))
-
+const Datapage  = Loader(lazy(() => import('./content/datapage')))
 // Overview.
 const Overview = Loader(lazy(() => import('./content/overview')))
 
@@ -63,7 +63,16 @@ const routes: RouteObject[] = [
                 ]
             }
         ]
+    }, 
+    {
+        element  : <DataPageLayout />,
+        children : [
+            // TODO: Convert to login screen.
+            { path: 'visualise', element: <Datapage/> },
+            { path  : '*'       , element : <Status404 />               },
+        ]
     }
+
 ]
 
 export default routes
