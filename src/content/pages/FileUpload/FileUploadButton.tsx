@@ -1,14 +1,13 @@
 import UploadIcon from '@mui/icons-material/Upload';
 import { Button } from '@mui/material';
 import axios from 'axios';
-import { boolean } from 'yup';
 
-interface FileSelect {
+interface FileUpload {
     enableButton: boolean;
     selectedFile: any;
 }
 
-export default function FileSelectButton({ enableButton, selectedFile }: FileSelect) {
+export default function FileUploadButton({ enableButton, selectedFile }: FileUpload) {
     const handleSubmission = () => {
         console.log(selectedFile);
         const data = new FormData();
