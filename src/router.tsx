@@ -25,9 +25,10 @@ const UserSettings = Loader(lazy(() => import('./content/applications/Users/sett
 // Overview.
 const Overview = Loader(lazy(() => import('./content/overview')))
 
-// login and signup page
+// login, signup and password reset page
 const Login = Loader(lazy(() => import('./content/login')))
 const Signup = Loader(lazy(() => import('./content/signup')))
+const ResetPassword = Loader(lazy(() => import('./content/resetPassword')))
 
 // Status pages.
 // TODO: All of these should be converted to RABIT branding.
@@ -46,6 +47,7 @@ const routes: RouteObject[] = [
             { path  : 'overview', element : <Navigate to="/" replace /> },
             { path: 'login', element: <Login/> },
             { path: 'signup', element: <Signup/>},
+            { path: 'reset-password', element: <ResetPassword/>},
             { path  : '*'       , element : <Status404 />               },
         ]
     },

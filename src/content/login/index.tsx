@@ -50,8 +50,13 @@ function Login() {
                         </form>
                     </Box>
                     <Box sx={{ py: 1 }}>
+                        <Link to="/reset-password"> {/* TODO: redirect to password reset page*/}
+                            <Button variant="outlined" type="button" style={{ width: "50%" }}>
+                                Forgot password?
+                            </Button>
+                        </Link>
                         <Link to="/signup">
-                            <Button variant="outlined" type="button" fullWidth>
+                            <Button variant="outlined" type="button" style={{ width: "50%" }}>
                                 Don't have an account?
                             </Button>
                         </Link>
