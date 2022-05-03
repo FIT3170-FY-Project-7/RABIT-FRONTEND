@@ -3,10 +3,15 @@ import {Scrollbars} from 'react-custom-scrollbars-2'
 import {SidebarContext} from '../../../contexts/SidebarContext'
 import Logo from '../../../components/Logo'
 
-import {Box, Drawer, Hidden} from '@mui/material'
+import {Box, Button, Drawer, Hidden, Stack} from '@mui/material'
 
+import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone';
 import {styled} from '@mui/material/styles'
 import SidebarMenu from './SidebarMenu'
+
+const Input = styled('input')({
+    display: 'none',
+  });
 
 const SidebarWrapper = styled(Box)(
     ({theme}) => `
@@ -42,10 +47,24 @@ function Sidebar() {
     return (
         <> < Hidden lgDown > <SidebarWrapper>
             <Scrollbars autoHide>
-                <TopSection>
-                    <Logo/>
-                </TopSection>
-                <SidebarMenu/>
+                <Stack alignItems = "center">
+                    <TopSection>
+                        <Logo/>
+                    </TopSection>
+                    <Input accept="*" id="import-data" multiple type="file" />
+                    <label htmlFor="import-data"> 
+                        <Button sx={{width:130}}
+                            startIcon={<UploadTwoToneIcon />}
+                            variant="contained"
+                            component="span"> 
+                        Import
+                        </Button>
+                    </label>
+                </Stack>
+                <SidebarMenu/> 
+                <Stack sx={{height:'70%'}} alignItems = "center" direction='column-reverse'>
+                    <Button variant = "outlined" component="span"> About </Button>
+                </Stack>
             </Scrollbars>
         </SidebarWrapper>
     </Hidden>
