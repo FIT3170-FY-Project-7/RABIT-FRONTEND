@@ -58,10 +58,12 @@ export default function UploadPage() {
 							<h1 style={{ lineHeight: "1rem" }}>Upload Data</h1>
 						</Box>
 						<h2>Step 1</h2>
-						<div style={{ display: "flex", flexDirection: "row" }}>
+						<div style={{ display: "flex", flexDirection: "row" , justifyContent: 'center'}}>
 							<FileSelectButton
 								updateSelectedFile={updateSelectedFile}
 							></FileSelectButton>
+						</div>
+						<div style={{ display: "flex", flexDirection: "row" , justifyContent: 'center'}}>
 							<p>{fileName}</p>
 						</div>
 						<h2>Step 2</h2>
