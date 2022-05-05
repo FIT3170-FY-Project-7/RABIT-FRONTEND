@@ -33,6 +33,7 @@ export default function UploadPage() {
 	const [fileName, setFileName] = useState("");
 	const [enableDescription, setEnableDescription] = useState(false);
 	const [enableUpload, setenableUpload] = useState(false);
+	const [buttonMessage, setButtonMessage] = useState("Fill in Title and Description fields before uploading");
 
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
@@ -43,6 +44,7 @@ export default function UploadPage() {
 	useEffect(() => {
 		if (description != "" && title != "") {
 			setenableUpload(true);
+			setButtonMessage("Upload");
 		}
 	}, [title, description]);
 
@@ -94,6 +96,7 @@ export default function UploadPage() {
 							<FileUploadButton
 								enableButton={enableUpload}
 								selectedFile={selectedFile}
+								buttonMessage = {buttonMessage}
 							></FileUploadButton>
 						</div>
 					</Card>

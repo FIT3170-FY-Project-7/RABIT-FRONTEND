@@ -6,9 +6,10 @@ import csvToJson from 'csvtojson';
 interface FileUpload {
     enableButton: boolean;
     selectedFile: any;
+    buttonMessage: String;
 }
 
-export default function FileUploadButton({ enableButton, selectedFile }: FileUpload) {
+export default function FileUploadButton({ enableButton, selectedFile, buttonMessage }: FileUpload) {
     const handleSubmission = () => {
 
 
@@ -47,7 +48,7 @@ export default function FileUploadButton({ enableButton, selectedFile }: FileUpl
     };
     return (
         <Button disabled={!enableButton} variant="contained" startIcon={<UploadIcon />} onClick={handleSubmission}>
-            Upload
+             {buttonMessage}
         </Button>
     );
 }
