@@ -34,10 +34,12 @@ export default function UploadPage() {
 	const [enableDescription, setEnableDescription] = useState(false);
 	const [enableUpload, setenableUpload] = useState(false);
 	const [buttonMessage, setButtonMessage] = useState("Fill in Title and Description fields before uploading");
-
+	const [textFieldVariant, setTextFieldVariant] = useState('filled')
+	
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
 		setFileName(state.name);
+		setTextFieldVariant('standard');
 		setEnableDescription(true);
 	};
 
@@ -82,14 +84,15 @@ export default function UploadPage() {
 								onChange={(e) => setTitle(e.target.value)}
 								required
 								label="Title"
-								variant="outlined"
+								variant={textFieldVariant}
 							/>
 							<TextField
 								fullWidth
 								disabled={!enableDescription}
 								onChange={(e) => setDescription(e.target.value)}
 								label="Description"
-								variant="outlined"
+								required
+								variant={textFieldVariant}
 								multiline
 								rows={5}
 							/>
