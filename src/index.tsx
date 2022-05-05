@@ -1,30 +1,33 @@
-// third party
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createRoot } from 'react-dom/client';
-import * as React from 'react';
+// ==============================|| IMPORTS ||============================== //
 
-// project imports
-import * as serviceWorker from './serviceWorker';
-import App from './App';
-import { store } from './store';
+// React.
+import { createRoot     } from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async'
+import { HashRouter     } from 'react-router-dom'
 
-// style + assets
-import 'assets/scss/style.scss';
+// App.
+import App from './App'
+import * as serviceWorker from './serviceWorker'
+import { SidebarProvider } from './contexts/SidebarContext'
 
-// ==============================|| REACT DOM RENDER  ||============================== //
+// Styling.
+import 'nprogress/nprogress.css'
 
-const container = document.getElementById('app');
-const root = createRoot(container);
+// ==============================|| REACT DOM RENDER ||============================== //
+
+console.log("test")
+
+const container = document.getElementById('root')
+const root      = createRoot(container)
 root.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
-);
+    <HelmetProvider>
+        <SidebarProvider>
+            <HashRouter >
+                <App />
+            </HashRouter >
+        </SidebarProvider>
+    </HelmetProvider>
+)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// TODO: Consider viability of registering the service worker, which will allow for offline use but has some caveats (see serviceWorker.ts).
+serviceWorker.unregister()
