@@ -46,7 +46,7 @@ export default function FileUploadButton({ enableButton, selectedFile }: FileUpl
 
     };
     return (
-        <Button disabled={enableButton} variant="contained" startIcon={<UploadIcon />} onClick={handleSubmission}>
+        <Button disabled={!enableButton} variant="contained" startIcon={<UploadIcon />} onClick={handleSubmission}>
             Upload
         </Button>
     );
