@@ -33,20 +33,22 @@ export default function UploadPage() {
 	const [fileName, setFileName] = useState("");
 	const [enableDescription, setEnableDescription] = useState(false);
 	const [enableUpload, setenableUpload] = useState(false);
-	const [buttonMessage, setButtonMessage] = useState("Fill in Title and Description fields before uploading");
-	const [textFieldVariant, setTextFieldVariant] = useState('filled')
-	
+	const [buttonMessage, setButtonMessage] = useState("Select a file");
+	const [textFieldVariant, setTextFieldVariant] = useState("filled");
+
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
 		setFileName(state.name);
-		setTextFieldVariant('standard');
+		setTitle(state.name);
+		setTextFieldVariant("standard");
 		setEnableDescription(true);
 	};
 
 	useEffect(() => {
 		if (description != "" && title != "") {
 			setenableUpload(true);
-			setButtonMessage("Upload");
+		} else {
+			setenableUpload(false);
 		}
 	}, [title, description]);
 
@@ -62,14 +64,19 @@ export default function UploadPage() {
 							<h1 style={{ lineHeight: "1rem" }}>Upload Data</h1>
 						</Box>
 						<h2>Step 1</h2>
-						<div style={{ display: "flex", flexDirection: "row" , justifyContent: 'center'}}>
+
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "row",
+								justifyContent: "center",
+							}}
+						>
 							<FileSelectButton
 								updateSelectedFile={updateSelectedFile}
 							></FileSelectButton>
 						</div>
-						<div style={{ display: "flex", flexDirection: "row" , justifyContent: 'center'}}>
-							<p>{fileName}</p>
-						</div>
+						<p>{fileName}</p>
 						<h2>Step 2</h2>
 						<div
 							style={{
@@ -99,7 +106,7 @@ export default function UploadPage() {
 							<FileUploadButton
 								enableButton={enableUpload}
 								selectedFile={selectedFile}
-								buttonMessage = {buttonMessage}
+								buttonMessage="Upload"
 							></FileUploadButton>
 						</div>
 					</Card>
