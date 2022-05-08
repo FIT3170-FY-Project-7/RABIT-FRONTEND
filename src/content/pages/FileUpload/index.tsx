@@ -26,6 +26,8 @@ const OverviewWrapper = styled(Box)(
 `
 );
 
+console.log("Hello")
+
 export default function UploadPage() {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
