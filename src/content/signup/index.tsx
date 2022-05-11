@@ -29,7 +29,7 @@ function SignUp() {
                 <Card sx={{ p: 8, mb: 8, borderRadius: 8, maxWidth: "sm" }}>
                     <Grid container spacing={1} alignItems="center" justifyContent="center" textAlign="center">
                         <Grid item xs={12}>
-                        <Typography variant="h1">Create an account</Typography>
+                            <Typography variant="h1">Create an account</Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <Divider sx={{ mt: 2, mb: 2 }} />
@@ -126,7 +126,6 @@ function SignupForm() {
 
     // Submission handler
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        console.log("sign up button pressed");
         e.preventDefault();
         setFullName(fullNameIR.current?.value || "");
         setUsername(usernameIR.current?.value || "");
