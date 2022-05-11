@@ -1,70 +1,100 @@
-import { Box, Container, Card, TextField, Checkbox, FormGroup, FormControlLabel, Button } from '@mui/material';
+import { Box, Container, Card, TextField, Checkbox, FormGroup, FormControlLabel, Button, Grid, Divider, Typography, ButtonGroup } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
 import { styled } from '@mui/material/styles';
 import Logo from '../../components/LogoSign';
 import { Link } from 'react-router-dom';
 
-const OverviewWrapper = styled(Box)(
-    () => `
-    overflow: auto;
-    flex: 1;
-    overflow-x: hidden;
-    align-items: center;
-`
-);
 
 function SignUp() {
     return (
-        <OverviewWrapper>
+        <Grid 
+        container
+        spacing={0}
+        direction="column"
+        overflow="hidden"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ minHeight: "100vh" }}>
             <Helmet>
-                <title>Sign up - RABIT</title>
+                Sign up - RABIT
             </Helmet>
-            <Container maxWidth="sm">
+            <Grid item xs={12}>
                 <Box display="flex" justifyContent="center" py={5} alignItems="center">
-                    <Logo />
+                    <Logo></Logo>
                 </Box>
-                <Card sx={{ p: 10, mb: 10, borderRadius: 12 }}>
-                    <Box display="flex" justifyContent="center" alignItems="center">
-                        <h1>Sign up</h1>
-                    </Box>
-                    <Box>
-                        <form>
-                            <div>
-                                <TextField id="fullname" label="Your name" variant="outlined" margin="normal" required fullWidth />
-                            </div>
-                            <div>
-                                <TextField id="username" label="Username" variant="outlined" margin="normal" required fullWidth />
-                            </div>
-                            <div>
-                                <TextField id="emailAddress" label="Email address" type = "email" variant="outlined" margin="normal" required fullWidth />
-                            </div>
-                            <div>
-                                <TextField id="password" label="Password" type="password" variant="outlined" margin="normal" required fullWidth />
-                            </div>
-                            <div>
-                                <TextField id="confirmPassword" label="Confirm password" type="password" variant="outlined" margin="normal" required fullWidth />
-                            </div>
-                            <div>
-                                <Box display="flex" justifyContent="center" alignItems="center">
-                                    <p>By signing up, you confirm you agree to the Terms of Service and Privacy Policy.</p>
-                                </Box>
-                            </div>
-                            <div>
-                              <Button variant="contained" type="submit" fullWidth>Sign up</Button>
-                            </div>
-                        </form>
-                    </Box>
-                    <Box sx={{ py: 1 }}>
-                        <Link to="/login">
-                            <Button variant="outlined" type="button" fullWidth>
-                                Already have an account?
+            </Grid>
+            <Grid item xs={12}>
+                <Card sx={{ p: 8, mb: 8, borderRadius: 8, maxWidth: "sm" }}>
+                    <Grid container spacing={1} alignItems="center" justifyContent="center" textAlign="center">
+                        <Grid item xs={12}>
+                        <Typography variant="h1">Create an account</Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                sx={{ pt: 1, pb: 1 }}
+                                variant="outlined"
+                                startIcon={
+                                    <img src="/static/images/logo/google.svg" />
+                                }
+                                fullWidth
+                            >
+                                Sign up with Google
                             </Button>
-                        </Link>
-                    </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }}>
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{ fontStyle: "italic" }}
+                                >
+                                    Or enter your details below to continue.
+                                </Typography>
+                            </Divider>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SignupForm />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <ButtonGroup fullWidth>
+                                <Button
+                                    component={Link}
+                                    to="/login"
+                                    variant="outlined"
+                                    type="button"
+                                    fullWidth
+                                >
+                                    Already have an account?
+                                </Button>
+                            </ButtonGroup>
+                        </Grid>
+                    </Grid>
                 </Card>
-            </Container>
-        </OverviewWrapper>
+            </Grid> 
+        </Grid>
+    );
+}
+
+const SignupForm = () => {
+    // TODO
+    return (
+        <Grid
+        container
+        spacing={1}
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+        component="form"
+        //onSubmit={handleSubmit}
+    >
+        // TODO signup form
+    </Grid>
     );
 }
 

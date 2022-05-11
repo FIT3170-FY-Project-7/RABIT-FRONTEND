@@ -96,7 +96,6 @@ const Login = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <ButtonGroup fullWidth>
-                                {/* TODO: redirect to password reset page*/}
                                 <Button
                                     component={Link}
                                     to="/reset-password"
