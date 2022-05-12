@@ -12,9 +12,8 @@ interface FileUpload {
 export default function FileUploadButton({ enableButton, selectedFile, buttonMessage }: FileUpload) {
     const handleSubmission = () => {
 
-
-        const csv = require('csv-parser')
         const results = [];
+
 
         selectedFile.text().then((csvStr) => {
             csvToJson()
@@ -24,8 +23,9 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
 
             var json = JSON.stringify(jsonObj);
             const data = new FormData();
-            data.append('file', selectedFile);
-            console.log(data.getAll('file'));
+            const blob = new Blob([json],{type: 'application/json'});
+            data.append("file", blob);//
+            console.log(data.getAll("file"));
             //dev solution to test upload works
             //run `npx nodemon ./server.tsx` in repo root to run local test server
             axios.post('http://localhost:8000/uploads', data).then((res) => {
@@ -36,14 +36,6 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
                     // console.log(selectedFile);
 
         });
-
-        
-
-        
-
-
-
-
 
     };
     return (
