@@ -44,10 +44,7 @@ export default function UploadPage() {
 		setEnableDescription(true);
 	};
 
-	useEffect(
-		() => setEnableUpload(description != "" && title != ""),
-		[title, description]
-	);
+	useEffect(() => setEnableUpload(title != ""), [title]);
 
 	return (
 		<Box style={{ display: "flex", justifyContent: "center" }}>
@@ -61,9 +58,6 @@ export default function UploadPage() {
 					margin: "1rem",
 				}}
 			>
-				<Typography variant="h1" align="center">
-					Upload Data
-				</Typography>
 				<Typography variant="h2">Step 1</Typography>
 				<FileSelectButton updateSelectedFile={updateSelectedFile} />
 				<Typography variant="h6">{fileName}</Typography>
@@ -83,7 +77,6 @@ export default function UploadPage() {
 					disabled={!enableDescription}
 					onChange={(e) => setDescription(e.target.value)}
 					label="Description"
-					required
 					variant={enableDescription ? "outlined" : "filled"}
 					multiline
 					rows={5}
