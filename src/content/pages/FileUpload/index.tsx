@@ -9,6 +9,9 @@ import {
 	FormControlLabel,
 	Button,
 	Input,
+	Divider,
+	Typography,
+	Grid,
 } from "@mui/material";
 import FileSelectButton from "./FileSelectButton";
 import FileUploadButton from "./FileUploadButton";
@@ -26,87 +29,71 @@ const OverviewWrapper = styled(Box)(
 `
 );
 
-console.log("Hello")
-
 export default function UploadPage() {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [fileName, setFileName] = useState("");
 	const [enableDescription, setEnableDescription] = useState(false);
-	const [enableUpload, setenableUpload] = useState(false);
-	const [buttonMessage, setButtonMessage] = useState("Fill in Title and Description fields before uploading");
-	const [textFieldVariant, setTextFieldVariant] = useState('filled')
-	
+	const [enableUpload, setEnableUpload] = useState(false);
+
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
 		setFileName(state.name);
-		setTextFieldVariant('standard');
+		setTitle(state.name);
 		setEnableDescription(true);
 	};
 
-	useEffect(() => {
-		if (description != "" && title != "") {
-			setenableUpload(true);
-			setButtonMessage("Upload");
-		}
-	}, [title, description]);
+	useEffect(
+		() => setEnableUpload(description != "" && title != ""),
+		[title, description]
+	);
 
 	return (
-		<OverviewWrapper>
-			<Container maxWidth="sm">
-				<Box display="flex" justifyContent="center" py={5} alignItems="center">
-					<Logo />
-				</Box>
-				<Box display="flex" justifyContent="center" py={5} alignItems="center">
-					<Card sx={{ p: 8, mb: 10, borderRadius: 8, width: 10000 }}>
-						<Box display="flex" justifyContent="center" alignItems="center">
-							<h1 style={{ lineHeight: "1rem" }}>Upload Data</h1>
-						</Box>
-						<h2>Step 1</h2>
-						<div style={{ display: "flex", flexDirection: "row" , justifyContent: 'center'}}>
-							<FileSelectButton
-								updateSelectedFile={updateSelectedFile}
-							></FileSelectButton>
-						</div>
-						<div style={{ display: "flex", flexDirection: "row" , justifyContent: 'center'}}>
-							<p>{fileName}</p>
-						</div>
-						<h2>Step 2</h2>
-						<div
-							style={{
-								display: "flex",
-								flexDirection: "column",
-								rowGap: "1rem",
-							}}
-						>
-							<TextField
-								defaultValue={fileName}
-								disabled={!enableDescription}
-								onChange={(e) => setTitle(e.target.value)}
-								required
-								label="Title"
-								variant={textFieldVariant}
-							/>
-							<TextField
-								fullWidth
-								disabled={!enableDescription}
-								onChange={(e) => setDescription(e.target.value)}
-								label="Description"
-								required
-								variant={textFieldVariant}
-								multiline
-								rows={5}
-							/>
-							<FileUploadButton
-								enableButton={enableUpload}
-								selectedFile={selectedFile}
-								buttonMessage = {buttonMessage}
-							></FileUploadButton>
-						</div>
-					</Card>
-				</Box>
-			</Container>
-		</OverviewWrapper>
+		<Box style={{ display: "flex", justifyContent: "center" }}>
+			<Box
+				sx={{
+					display: "grid",
+					minWidth: "80vh",
+					gap: 2,
+					gridTemplateColumns: "repeat(1, 1fr)",
+					marginTop: "2rem",
+					margin: "1rem",
+				}}
+			>
+				<Typography variant="h1" align="center">
+					Upload Data
+				</Typography>
+				<Typography variant="h2">Step 1</Typography>
+				<FileSelectButton updateSelectedFile={updateSelectedFile} />
+				<Typography variant="h6">{fileName}</Typography>
+				<Divider />
+				<Typography variant="h2">Step 2</Typography>
+				<TextField
+					fullWidth
+					defaultValue={fileName}
+					disabled={!enableDescription}
+					onChange={(e) => setTitle(e.target.value)}
+					required
+					label="Title"
+					variant={enableDescription ? "outlined" : "filled"}
+				/>
+				<TextField
+					fullWidth
+					disabled={!enableDescription}
+					onChange={(e) => setDescription(e.target.value)}
+					label="Description"
+					required
+					variant={enableDescription ? "outlined" : "filled"}
+					multiline
+					rows={5}
+				/>
+				<FileUploadButton
+					enableButton={enableUpload}
+					selectedFile={selectedFile}
+					buttonMessage="Upload"
+				/>
+			</Box>
+		</Box>
 	);
 }
