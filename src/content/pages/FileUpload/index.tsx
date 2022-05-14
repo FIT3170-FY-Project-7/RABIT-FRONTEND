@@ -36,6 +36,7 @@ export default function UploadPage() {
 	const [fileName, setFileName] = useState("");
 	const [enableDescription, setEnableDescription] = useState(false);
 	const [enableUpload, setEnableUpload] = useState(false);
+	const [uploadPercentage, setUploadPercentage] = useState(0);
 
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
@@ -85,6 +86,7 @@ export default function UploadPage() {
 					enableButton={enableUpload}
 					selectedFile={selectedFile}
 					buttonMessage="Upload"
+					uploadPercentage={uploadPercentage}
 				/>
 			</Box>
 		</Box>
