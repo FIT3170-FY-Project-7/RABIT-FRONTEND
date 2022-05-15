@@ -1,33 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-	Box,
-	Container,
-	Card,
-	TextField,
-	Checkbox,
-	FormGroup,
-	FormControlLabel,
-	Button,
-	Input,
-	Divider,
-	Typography,
-	Grid,
-} from "@mui/material";
+import { Box, TextField, Divider, Typography } from "@mui/material";
 import FileSelectButton from "./FileSelectButton";
 import FileUploadButton from "./FileUploadButton";
-import { Helmet } from "react-helmet-async";
 import { styled } from "@mui/material/styles";
-import Logo from "../../../components/LogoSign";
-import { Link } from "react-router-dom";
-
-const OverviewWrapper = styled(Box)(
-	() => `
-    overflow: auto;
-    flex: 1;
-    overflow-x: hidden;
-    align-items: center;
-`
-);
+import CheckboxDropdown from "./CheckboxDropdown";
 
 export default function UploadPage() {
 	const [title, setTitle] = useState("");
@@ -36,12 +12,66 @@ export default function UploadPage() {
 	const [fileName, setFileName] = useState("");
 	const [enableDescription, setEnableDescription] = useState(false);
 	const [enableUpload, setEnableUpload] = useState(false);
+	const [file, setFile] = useState("");
+	const [searchParamKeys, setSearchParamKeys] = useState({
+		key: "search_parameter_keys",
+		params: [],
+	});
+	const [fixedParamKeys, setFixedParamKeys] = useState({
+		key: "fixed_parameter_keys",
+		params: [],
+	});
+	const [constraintParamKeys, setConstraintParamKeys] = useState({
+		key: "constraint_parameter_keys",
+		params: [],
+	});
 
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
 		setFileName(state.name);
 		setTitle(state.name);
 		setEnableDescription(true);
+		testFileSelect();
+	};
+
+	const testFileSelect = () => {
+		var b = new Blob(
+			[
+				JSON.stringify({
+					search_parameter_keys: ["toast", "bun", "naan"],
+					fixed_parameter_keys: ["butter", "curry", "patty"],
+					constraint_parameter_keys: ["vegemite", "sauce", "ginger"],
+				}),
+			],
+			{
+				type: "application/json",
+			}
+		);
+		const fr = new FileReader();
+
+		fr.onload = function () {
+			const c: string = fr.result as string;
+			const json = JSON.parse(c);
+
+			console.log(searchParamKeys);
+
+			setSearchParamKeys({
+				...searchParamKeys,
+				params: json[searchParamKeys.key],
+			});
+			setFixedParamKeys({
+				...fixedParamKeys,
+				params: json[fixedParamKeys.key],
+			});
+			setConstraintParamKeys({
+				...constraintParamKeys,
+				params: json[constraintParamKeys.key],
+			});
+
+			console.log(searchParamKeys);
+		};
+
+		fr.readAsText(b);
 	};
 
 	useEffect(() => setEnableUpload(title != ""), [title]);
@@ -52,35 +82,63 @@ export default function UploadPage() {
 				sx={{
 					display: "grid",
 					minWidth: "80vh",
-					gap: 2,
+					gap: 4,
 					gridTemplateColumns: "repeat(1, 1fr)",
 					marginTop: "2rem",
 					margin: "1rem",
 				}}
 			>
-				<Typography variant="h2">Step 1</Typography>
-				<FileSelectButton updateSelectedFile={updateSelectedFile} />
-				<Typography variant="h6">{fileName}</Typography>
+				<Box>
+					<Typography variant="h2">Step 1</Typography>
+					<FileSelectButton updateSelectedFile={updateSelectedFile} />
+					<Typography sx={{ marginTop: "1rem" }} variant="h6">
+						{fileName}
+					</Typography>
+				</Box>
 				<Divider />
-				<Typography variant="h2">Step 2</Typography>
-				<TextField
-					fullWidth
-					defaultValue={fileName}
-					disabled={!enableDescription}
-					onChange={(e) => setTitle(e.target.value)}
-					required
-					label="Title"
-					variant={enableDescription ? "outlined" : "filled"}
-				/>
-				<TextField
-					fullWidth
-					disabled={!enableDescription}
-					onChange={(e) => setDescription(e.target.value)}
-					label="Description"
-					variant={enableDescription ? "outlined" : "filled"}
-					multiline
-					rows={5}
-				/>
+				<Box
+					sx={{
+						display: "grid",
+						gap: 2,
+						gridTemplateColumns: "repeat(1, 1fr)",
+					}}
+				>
+					<Typography variant="h2">Step 2</Typography>
+					<TextField
+						fullWidth
+						defaultValue={fileName}
+						onChange={(e) => setTitle(e.target.value)}
+						required
+						label="Title"
+						variant="filled"
+					/>
+					<TextField
+						fullWidth
+						onChange={(e) => setDescription(e.target.value)}
+						label="Description"
+						variant="filled"
+						multiline
+						rows={5}
+					/>
+				</Box>
+				<Divider />
+				<Box
+					sx={{
+						display: "grid",
+						gap: 2,
+						gridTemplateColumns: "repeat(1, 1fr)",
+					}}
+				>
+					<Typography variant="h2">Step 3</Typography>
+					<Typography variant="h6">Select parameters</Typography>
+					{enableDescription && (
+						<>
+							<CheckboxDropdown key_value={searchParamKeys} />
+							<CheckboxDropdown key_value={fixedParamKeys} />
+							<CheckboxDropdown key_value={constraintParamKeys} />
+						</>
+					)}
+				</Box>
 				<FileUploadButton
 					enableButton={enableUpload}
 					selectedFile={selectedFile}
