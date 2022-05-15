@@ -40,7 +40,7 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
                     <div style={{ display: 'flex' }}>
                         {/* Contour plots for this paramter and all previous parameters */}
                         {parameters.slice(0, index).map((parameter_2: string) => (
-                            <ContourPlot x={data[parameter_1]} y={data[parameter_2]} layout={layout} />
+                            <ContourPlot x={data[parameter_2]} y={data[parameter_1]} layout={layout} />
                         ))}
                         {/* Histogram for current parameters */}
                         <HistogramPlot data={data[parameter_1]} layout={layout} />
