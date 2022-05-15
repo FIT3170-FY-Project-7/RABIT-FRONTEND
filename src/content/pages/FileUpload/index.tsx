@@ -25,6 +25,7 @@ export default function UploadPage() {
 		key: "constraint_parameter_keys",
 		params: [],
 	});
+	const [uploadPercentage, setUploadPercentage] = useState(0);
 
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
@@ -143,6 +144,7 @@ export default function UploadPage() {
 					enableButton={enableUpload}
 					selectedFile={selectedFile}
 					buttonMessage="Upload"
+					uploadPercentage={uploadPercentage}
 				/>
 			</Box>
 		</Box>
