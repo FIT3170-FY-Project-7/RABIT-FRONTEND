@@ -9,7 +9,8 @@ import type { ComponentProps, ComponentType } from 'react'
 // Layout.
 import SidebarLayout from './layouts/SidebarLayout'
 import BaseLayout    from './layouts/BaseLayout'
-import DataPageLayout    from './layouts/DatapageLayout'
+import RabitLayout    from './layouts/RabitLayout'
+
 // Loader.
 import SuspenseLoader from './components/SuspenseLoader'
 const Loader = (Component: ComponentType) => (props: ComponentProps<typeof Component>) => (
@@ -67,7 +68,7 @@ const routes: RouteObject[] = [
         ]
     }, 
     {
-        element  : <DataPageLayout />,
+        element  : <RabitLayout />,
         children : [
             // TODO: Convert to login screen.
             { path: 'visualise', element: <Datapage/> },
