@@ -42,17 +42,16 @@ const create = (el, layout, x: number[]) => {
         })
         .style('fill', '#0088ff');
 
-    const x_s = d3.sort(x)
-    quantiles.forEach((quantile) => {
-        const quantile_x = d3.quantileSorted(x_s, quantile);
-        // draw vertical line
-        svg.append('line')
-            .attr('x1', x_axis(quantile_x))
-            .attr('y1', 0)
-            .attr('x2', x_axis(quantile_x))
-            .attr('y2', height)
-            .attr('stroke', 'red');
-    });
+    // quantiles.forEach((quantile) => {
+    //     const quantile_x = d3.quantileSorted(x_s, quantile);
+    //     // draw vertical line
+    //     svg.append('line')
+    //         .attr('x1', x_axis(quantile_x))
+    //         .attr('y1', 0)
+    //         .attr('x2', x_axis(quantile_x))
+    //         .attr('y2', height)
+    //         .attr('stroke', 'red');
+    // });
 
     console.log(`Histogram in: ${(Date.now() - start) / 1000}s`);
 };

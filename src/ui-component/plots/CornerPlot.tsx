@@ -23,7 +23,7 @@ const margin = {
     r: 0,
     b: 0,
     t: 0,
-    pad: 0
+    pad: 5,
 };
 
 function CornerPlot({ data, parameters }: ConerPlotPropType) {

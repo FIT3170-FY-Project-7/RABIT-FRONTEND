@@ -21,7 +21,7 @@ function PlotsPage() {
 
     // TEST DATA START
     let [Array1, Array2, Array3, Array4] = [[], [], [], []];
-    for (let i = 0; i < 1000000; i++) {
+    for (let i = 0; i < 100000; i++) {
         Array1.push(skewed_normal(0.3));
         Array1.push(skewed_normal(3));
         Array2.push(skewed_normal(0.1));
