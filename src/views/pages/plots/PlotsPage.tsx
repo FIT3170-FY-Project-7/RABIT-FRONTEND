@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import CornerPlot from '../../../ui-component/plots/CornerPlot';
 import ParameterSelectors from '../../../ui-component/plots/ParameterSelectors';
 
@@ -7,6 +7,7 @@ import ParameterSelectors from '../../../ui-component/plots/ParameterSelectors';
 
 function PlotsPage() {
     // TODO: Delete test data
+    // TEST DATA START
     function skewed_normal(skew) {
         let u = 0,
             v = 0;
@@ -19,7 +20,6 @@ function PlotsPage() {
         return Math.pow(num, skew);
     }
 
-    // TEST DATA START
     let [Array1, Array2, Array3, Array4] = [[], [], [], []];
     for (let i = 0; i < 100000; i++) {
         Array1.push(skewed_normal(0.3));
@@ -37,13 +37,16 @@ function PlotsPage() {
         key3: Array3,
         key4: Array4
     };
-
-    const parameters = ['key1', 'key4', 'key3', 'key2'];
     // TEST DATA END
+
+    const [parameters, setParameters] = useState(Object.keys(data));
+    const param_callback = (inactive, active) => {
+        setParameters(active);
+    }
 
     return (
         <div>
-            <ParameterSelectors />
+            <ParameterSelectors items={Object.keys(data)} callback={param_callback} />
             <CornerPlot data={data} parameters={parameters} />
         </div>
     );

@@ -64,6 +64,7 @@
     "react-plotly": "^1.0.0",
     "react-plotly.js": "^2.5.1",
     "react-redux": "^7.2.8",
+    "react-reorder": "^3.0.0-alpha.7",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
