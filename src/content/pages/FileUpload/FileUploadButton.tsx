@@ -62,10 +62,12 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
              {buttonMessage}
         </Button>
         </Box>
-        <LinearProgress variant="determinate" value={uploadPercentage} />
+        <Box sx={{ paddingTop: 2 }}>
+            <LinearProgress variant="determinate" value={uploadPercentage} />
+        </Box>
         <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${uploadPercentage}%`}</Typography>
-      </Box>
+            <Typography variant="body2" color="text.secondary">{`${uploadPercentage}%`}</Typography>
+        </Box>
         </div>
         
     );
