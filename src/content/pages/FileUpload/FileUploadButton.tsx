@@ -4,6 +4,7 @@ import axios from 'axios';
 import csvToJson from 'csvtojson';
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { Percent } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 
@@ -62,6 +63,9 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
         </Button>
         </Box>
         <LinearProgress variant="determinate" value={uploadPercentage} />
+        <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">{`${uploadPercentage}%`}</Typography>
+      </Box>
         </div>
         
     );
