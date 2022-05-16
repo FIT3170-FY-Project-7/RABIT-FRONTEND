@@ -12,6 +12,7 @@ import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
 import PlotsPage from '../../pages/authentication/plots/PlotsPage';
+import SubPlotsSpike from '../../pages/authentication/plots/SubPlotsSpike';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 

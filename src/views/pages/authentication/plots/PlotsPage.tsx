@@ -9,18 +9,27 @@ function PlotsPage() {
     // TODO: Delete test data
 
     // TEST DATA START
-    let [Array1, Array2, Array3, Array4] = [[], [], [], []];
-    for (let i = 0; i < 2000; i++) {
-        Array1.push(Math.random() * (5 + 1));
-        Array2.push(Math.random() * (5 + 1));
-        Array3.push(Math.random() * (5 + 1));
-        Array4.push(Math.random() * (5 + 1));
+    let [Array1, Array2, Array3, Array4, Array5, Array6, Array7, Array8] = [[], [], [], [], [], [], [], []];
+    for (let i = 0; i < 3000; i++) {
+        Array1.push(Math.random() * 5);
+        Array2.push(Math.random() * 5);
+        Array3.push(Math.random() * 5);
+        Array4.push(Math.random() * 5);
+        Array5.push(Math.random() * 5);
+        Array6.push(Math.random() * 5);
+        Array7.push(Math.random() * 5);
+        Array8.push(Math.random() * 5);
     }
+
     const data = {
         key1: Array1,
         key2: Array2,
         key3: Array3,
-        key4: Array4
+        key4: Array4,
+        key5: Array5,
+        key6: Array6,
+        key7: Array7,
+        key8: Array8
     };
 
     const parameters = ['key1', 'key2', 'key3', 'key4'];

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // Other components
 import ContourPlot from './ContourPlot';
@@ -28,22 +28,170 @@ const margin = {
 
 function CornerPlot({ data, parameters }: ConerPlotPropType) {
     let width = corner_plot_size / parameters.length;
-    const layout = { width: width, height: width, margin: margin };
+
+    // Pretty default layout. We could change this so there is a default layout like this, and a custom one passed in
+    // from the plotpage component, for when special layouts are required programatically (exact range, zooming?)
+    const layout = { width: width, height: width, margin: margin, xaxis: { range: [] }, yaxis: { range: [] } };
+    const [zoomedLayout, setZoomedLayout] = useState({
+        width: width,
+        height: width,
+        margin: margin,
+        xaxis: { range: [] },
+        yaxis: { range: [] }
+    });
+    const [yZoomLayout, setYZoomLayout] = useState({
+        width: width,
+        height: width,
+        margin: margin,
+        xaxis: { range: [] },
+        yaxis: { range: [] }
+    });
+
+    const [xZoomLayout, setXZoomLayout] = useState({
+        width: width,
+        height: width,
+        margin: margin,
+        xaxis: { range: [] },
+        yaxis: { range: [] }
+    });
+
+    const [histogramXZoomLayout, setHistogramXZoomLayout] = useState({
+        width: width,
+        height: width,
+        margin: margin,
+        xaxis: { range: [] },
+        yaxis: { range: [] }
+    });
+
+    const [otherYZoomLayout, setOtherYZoomLayout] = useState({
+        width: width,
+        height: width,
+        margin: margin,
+        xaxis: { range: [] },
+        yaxis: { range: [] }
+    });
+
+    const [xZoomAxis, setXZoomAxis] = useState<number>();
+    const [yZoomAxis, setYZoomAxis] = useState<number>();
+
+    function updateZoomRange(figure, x_axis, y_axis) {
+        resetLayouts();
+
+        setZoomedLayout({
+            ...zoomedLayout,
+            xaxis: { range: [figure['xaxis.range[0]'], figure['xaxis.range[1]']] },
+            yaxis: { range: [figure['yaxis.range[0]'], figure['yaxis.range[1]']] }
+        });
+        if (figure['xaxis.range[0]']) {
+            setXZoomLayout({
+                ...xZoomLayout,
+                xaxis: { range: [figure['xaxis.range[0]'], figure['xaxis.range[1]']] }
+            });
+            setOtherYZoomLayout({
+                ...otherYZoomLayout,
+                yaxis: { range: [figure['xaxis.range[0]'], figure['xaxis.range[1]']] }
+            });
+        }
+        if (figure['yaxis.range[0]']) {
+            setYZoomLayout({
+                ...yZoomLayout,
+                yaxis: { range: [figure['yaxis.range[0]'], figure['yaxis.range[1]']] }
+            });
+            setHistogramXZoomLayout({
+                ...histogramXZoomLayout,
+                xaxis: { range: [figure['yaxis.range[0]'], figure['yaxis.range[1]']] }
+            });
+        }
+        setXZoomAxis(x_axis);
+        setYZoomAxis(y_axis);
+        // setTimeout(() => printValues(), 4000);
+    }
+
+    function printValues() {
+        console.log(xZoomLayout, xZoomAxis, yZoomLayout, yZoomAxis);
+    }
+
+    function getLayout(xindex, yindex) {
+        if (xindex == xZoomAxis && yindex == yZoomAxis) {
+            return zoomedLayout;
+        } else if (xindex == xZoomAxis) {
+            return xZoomLayout;
+        } else if (yindex == yZoomAxis) {
+            return yZoomLayout;
+        } else if (xindex == yZoomAxis) {
+            return histogramXZoomLayout;
+        } else if (yindex == xZoomAxis) {
+            return otherYZoomLayout;
+        } else {
+            return layout;
+        }
+    }
+
+    function getHistogramLayout(xindex, yindex) {
+        if (xindex == xZoomAxis && yindex == yZoomAxis) {
+            return zoomedLayout;
+        } else if (xindex == xZoomAxis) {
+            return xZoomLayout;
+        } else if (yindex == yZoomAxis) {
+            return histogramXZoomLayout;
+        } else {
+            return layout;
+        }
+    }
+
+    function resetLayouts() {
+        setYZoomLayout({
+            width: width,
+            height: width,
+            margin: margin,
+            xaxis: { range: [] },
+            yaxis: { range: [] }
+        });
+        setXZoomLayout({
+            width: width,
+            height: width,
+            margin: margin,
+            xaxis: { range: [] },
+            yaxis: { range: [] }
+        });
+        setHistogramXZoomLayout({
+            width: width,
+            height: width,
+            margin: margin,
+            xaxis: { range: [] },
+            yaxis: { range: [] }
+        });
+        setOtherYZoomLayout({
+            width: width,
+            height: width,
+            margin: margin,
+            xaxis: { range: [] },
+            yaxis: { range: [] }
+        });
+    }
 
     return (
         <div>
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
             parameter and all previous parameters. */}
-            {parameters.map((parameter_1: string, index: number) => {
+            {parameters.map((parameter_1: string, yindex: number) => {
                 return (
-                    <div style={{ display: 'flex' }}>
+                    <div key={parameter_1} style={{ display: 'flex' }}>
                         {/* Contour plots for this paramter and all previous parameters */}
-                        {parameters.slice(0, index).map((parameter_2: string) => (
-                            <ContourPlot x={data[parameter_1]} y={data[parameter_2]} layout={layout} />
+                        {parameters.slice(0, yindex).map((parameter_2: string, xindex: number) => (
+                            <ContourPlot
+                                key={parameter_1 + parameter_2}
+                                x={data[parameter_2]}
+                                y={data[parameter_1]}
+                                layout={getLayout(xindex, yindex)}
+                                updatePlot={updateZoomRange}
+                                x_axis={xindex}
+                                y_axis={yindex}
+                            />
                         ))}
                         {/* Histogram for current parameters */}
-                        <HistogramPlot data={data[parameter_1]} layout={layout} />
+                        <HistogramPlot data={data[parameter_1]} layout={getHistogramLayout(yindex, yindex)} />
                     </div>
                 );
             })}

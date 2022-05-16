@@ -10,10 +10,11 @@ type ContourPlotType = {
     layout?: Partial<Plotly.Layout>;
 };
 
-function ContourPlot({ x, y, layout }: ContourPlotType) {
+function ContourPlot({ x, y, updatePlot, layout, x_axis, y_axis }) {
     return (
         <div>
             <Plot
+                onRelayout={(figure) => updatePlot(figure, x_axis, y_axis)}
                 data={[
                     {
                         x: x,
