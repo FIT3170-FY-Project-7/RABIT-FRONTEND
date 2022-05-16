@@ -4,7 +4,7 @@ import { Box, Container, Hidden, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { SidebarContext } from '../../../contexts/SidebarContext';
 
-import DataTitle from './Menu';
+import DataTitle from './Search';
 import HeaderUserbox from './Userbox';
 
 const HeaderWrapper = styled(Box)(
