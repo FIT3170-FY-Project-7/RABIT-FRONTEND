@@ -5,15 +5,17 @@ import csvToJson from 'csvtojson';
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import { Percent } from '@mui/icons-material';
+import React, { useState, useEffect } from "react";
 
 interface FileUpload {
     enableButton: boolean;
     selectedFile: any;
     buttonMessage: String;
-    uploadPercentage: any;
 }
 
-export default function FileUploadButton({ enableButton, selectedFile, buttonMessage, uploadPercentage }: FileUpload) {
+export default function FileUploadButton({ enableButton, selectedFile, buttonMessage}: FileUpload) { 
+	const [uploadPercentage, setUploadPercentage] = useState(0);
+    
     const handleSubmission = () => {
 
         const results = [];
@@ -23,9 +25,7 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
                 let percentage = Math.floor((loaded*100)/total)
                 console.log(`${loaded}kb of ${total}kb | ${percentage}%`) //correctly works as a progress bar in console (throttle speed to test or use a big file)
 
-                if(percentage<100){
-                    var UploadPercentage = percentage; //not working as of now, I am unsure how to update the uploadPercentage
-                }
+                setUploadPercentage(percentage)
             }
         }
 
