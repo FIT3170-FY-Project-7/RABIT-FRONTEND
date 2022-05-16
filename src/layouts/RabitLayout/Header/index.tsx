@@ -30,7 +30,7 @@ function Header() {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
 
   return (
-    <HeaderWrapper display="flex" alignItems="center">
+    <HeaderWrapper display="flex" alignItems="center" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Box sx={{width:'85%'}} display="flex" alignItems="center">
         <Container sx={{width:'100%'}}>
           <DataTitle />
