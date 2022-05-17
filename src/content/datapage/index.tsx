@@ -137,16 +137,18 @@ function ManagementUserSettings() {
 			<Helmet>
 				<title>User Settings - Applications</title>
 			</Helmet>
+			
 			<Grid
 				container
 				direction="row"
 				justifyContent="center"
 				alignItems="stretch"
+				sx={{marginTop:"2rem"}}
 			>
 				<Grid item xs={3} />
 				<Grid item xs={3}>
 					<PageHeader />
-					<Box>
+					<Box sx={{marginTop:"2rem"}}>
 						<TabsWrapper
 							onChange={handleTabsChange}
 							value={currentTab}
