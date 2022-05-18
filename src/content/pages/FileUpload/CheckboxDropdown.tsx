@@ -9,13 +9,13 @@ import { FormLabel } from "@mui/material";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function CheckboxDropdown({ key_value }) {
+export default function CheckboxDropdown({ keys }) {
 	return (
 		<>
 			<Autocomplete
 				fullWidth
 				multiple
-				options={key_value.params}
+				options={keys}
 				disableCloseOnSelect
 				getOptionLabel={(option) => option.toString()}
 				renderOption={(props, option, { selected }) => (
@@ -29,9 +29,7 @@ export default function CheckboxDropdown({ key_value }) {
 						{option}
 					</li>
 				)}
-				renderInput={(params) => (
-					<TextField {...params} label={key_value.key} />
-				)}
+				renderInput={(params) => <TextField {...params} label="Parameters" />}
 			/>
 		</>
 	);

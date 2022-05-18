@@ -4,6 +4,7 @@ import FileSelectButton from "./FileSelectButton";
 import FileUploadButton from "./FileUploadButton";
 import { styled } from "@mui/material/styles";
 import CheckboxDropdown from "./CheckboxDropdown";
+import * as $ from "jquery";
 
 export default function UploadPage() {
 	const [title, setTitle] = useState("");
@@ -26,52 +27,23 @@ export default function UploadPage() {
 		params: [],
 	});
 
+	const [posteriorKeys, setPosteriorKeys] = useState([]);
+
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
 		setFileName(state.name);
 		setTitle(state.name);
 		setEnableDescription(true);
-		testFileSelect();
-	};
 
-	const testFileSelect = () => {
-		var b = new Blob(
-			[
-				JSON.stringify({
-					search_parameter_keys: ["toast", "bun", "naan"],
-					fixed_parameter_keys: ["butter", "curry", "patty"],
-					constraint_parameter_keys: ["vegemite", "sauce", "ginger"],
-				}),
-			],
-			{
-				type: "application/json",
-			}
-		);
-		const fr = new FileReader();
+		const fileReader = new FileReader();
+		fileReader.readAsText(state);
 
-		fr.onload = function () {
-			const c: string = fr.result as string;
-			const json = JSON.parse(c);
-
-			console.log(searchParamKeys);
-
-			setSearchParamKeys({
-				...searchParamKeys,
-				params: json[searchParamKeys.key],
-			});
-			setFixedParamKeys({
-				...fixedParamKeys,
-				params: json[fixedParamKeys.key],
-			});
-			setConstraintParamKeys({
-				...constraintParamKeys,
-				params: json[constraintParamKeys.key],
-			});
-
-			console.log(searchParamKeys);
+		fileReader.onload = (e) => {
+			const json = JSON.parse(e.target.result as string);
+			setPosteriorKeys(Object.keys(json["posterior"]["content"]));
 		};
 
-		fr.readAsText(b);
+		console.log(posteriorKeys);
 	};
 
 	useEffect(() => setEnableUpload(title != ""), [title]);
@@ -133,9 +105,7 @@ export default function UploadPage() {
 					<Typography variant="h6">Select parameters</Typography>
 					{enableDescription && (
 						<>
-							<CheckboxDropdown key_value={searchParamKeys} />
-							<CheckboxDropdown key_value={fixedParamKeys} />
-							<CheckboxDropdown key_value={constraintParamKeys} />
+							<CheckboxDropdown keys={posteriorKeys} />
 						</>
 					)}
 				</Box>
