@@ -29,6 +29,7 @@ const margin = {
 function CornerPlot({ data, parameters }: ConerPlotPropType) {
     let width = corner_plot_size / parameters.length;
     const layout = { width: width, height: width, margin: margin };
+    <>{console.log(parameters)}</>
 
     return (
         <div>

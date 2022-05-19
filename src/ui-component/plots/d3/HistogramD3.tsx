@@ -20,12 +20,22 @@ const create = (el, layout, x: number[]) => {
         .domain(d3.extent(x))
         .range([0, width]);
 
+    /*svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", layout.width)
+        .attr("y", layout.height)
+        .text("key1");*/
+
+    
+
     const bins = d3.bin().thresholds(80)(x);
 
     const y_axis = d3
         .scaleLinear()
         .domain([0, d3.max(bins, (d) => d.length)])
         .range([height, 0]);
+    //var axisLabelX = -50;
+    //var axisLabelY = height / 2
 
     svg.selectAll('rect')
         .data(bins)
@@ -39,7 +49,10 @@ const create = (el, layout, x: number[]) => {
         })
         .attr('height', function (d) {
             return height - y_axis(d.length);
+        
+            
         })
+        
         .style('fill', '#0088ff');
 
     // quantiles.forEach((quantile) => {

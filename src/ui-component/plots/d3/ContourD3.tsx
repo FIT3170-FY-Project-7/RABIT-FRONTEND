@@ -109,7 +109,12 @@ const create = (el, layout, x: number[], y: number[]) => {
             this.stream.point(contour_x_scale * x, contour_y_scale * y);
         }
     })
-
+    const dummy =d3.select('g')
+        .append("text")
+        .attr("text-anchor", "end")
+        .attr("x", layout.width)
+        .attr("y", layout.height)
+        .text("key2");
 
     svg.append('g')
         .selectAll('path')

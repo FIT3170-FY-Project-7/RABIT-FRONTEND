@@ -3,6 +3,7 @@ import HistD3 from './d3/HistogramD3';
 
 const HistogramPlot = ({ data: x, layout }) => {
     const elem = useRef(null);
+    //console.log(x)
 
     useEffect(() => {
         HistD3.create(elem.current, layout, x);
