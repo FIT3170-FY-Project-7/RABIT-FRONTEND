@@ -171,10 +171,10 @@ function ManagementUserSettings() {
 				</Grid>
 				<Grid item xs={5}>
 					<Grid container direction="row-reverse">
-						<IconButton>
+						<IconButton onClick={handleDrawerOpen}>
 							<KeyboardDoubleArrowLeftIcon
 								fontSize="large"
-								onClick={handleDrawerOpen}
+								
 							/>
 						</IconButton>
 					</Grid>
@@ -194,15 +194,15 @@ function ManagementUserSettings() {
 						<DrawerSpacing />
 						<AppBar position="static">
 							<Toolbar>
-								<IconButton>
+								<IconButton onClick={handleDrawerClose}>
 									<KeyboardDoubleArrowRightIcon
 										fontSize="large"
-										onClick={handleDrawerClose}
+										
 									/>
 								</IconButton>
 								<Grid container direction="row-reverse">
-									<IconButton>
-										<AddIcon fontSize="large" onClick={addVariable} />
+									<IconButton onClick={addVariable}>
+										<AddIcon fontSize="large"  />
 									</IconButton>
 								</Grid>
 							</Toolbar>
@@ -222,8 +222,8 @@ function ManagementUserSettings() {
 										key={value}
 										disablePadding
 										secondaryAction={
-											<IconButton>
-												<CloseIcon onClick={removeVariable(value)} />
+											<IconButton onClick={removeVariable(value)}>
+												<CloseIcon  />
 											</IconButton>
 										}
 									>
