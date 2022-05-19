@@ -8,11 +8,13 @@ const {
 } = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const TerserPlugin = require("terser-webpack-plugin");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const DEV_PLUGINS = [
 	// Development-only plugins.
 	new SourceMapDevToolPlugin({ filename: "[file].map[query]" }),
 	new BundleAnalyzerPlugin(),
+	new SpeedMeasurePlugin(),
 ];
 const PROD_PLUGINS = []; // Production-only plugins.
 
