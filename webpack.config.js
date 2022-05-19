@@ -35,6 +35,7 @@ module.exports = (env, argv) => {
 		devtool: IS_PROD ? false : "source-map",
 
 		output: {
+			publicPath: "/",
 			path: path.resolve(__dirname, "dist"),
 			hotUpdateMainFilename: "[id].hot-update.[fullhash].json",
 			hotUpdateChunkFilename: "[id].hot-update.[fullhash].js",
