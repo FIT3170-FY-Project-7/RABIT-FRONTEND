@@ -3,6 +3,8 @@ import React from 'react';
 // Other components
 import ContourPlot from './ContourPlot';
 import HistogramPlot from './HistogramPlot';
+import AxisX from './AxisX';
+import AxisY from './AxisY';
 
 // This component will hold Histogram plots and Contour plots. It is our base component for displaying all 2d plots
 // Should receive which parameters are being plotted from parent component (plots view) ../views/pages/plots
@@ -19,35 +21,45 @@ type ConerPlotPropType = {
 const corner_plot_size = 800;
 
 const margin = {
-    l: 0,
-    r: 0,
-    b: 0,
-    t: 0,
-    pad: 5,
+    horizontal: 10,
+    vertical: 10
+};
+
+const axis = {
+    size: 100,
+    ticks: 4
 };
 
 function CornerPlot({ data, parameters }: ConerPlotPropType) {
     let width = corner_plot_size / parameters.length;
-    const layout = { width: width, height: width, margin: margin };
-    <>{console.log(parameters)}</>
+    const layout = { width: width, height: width, margin: margin, axis: axis };
 
     return (
-        <div>
+        <div style={{ width: 'min-content' }}>
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
             parameter and all previous parameters. */}
-            {parameters.map((parameter_1: string, index: number) => {
-                return (
-                    <div style={{ display: 'flex' }}>
-                        {/* Contour plots for this paramter and all previous parameters */}
-                        {parameters.slice(0, index).map((parameter_2: string) => (
-                            <ContourPlot x={data[parameter_2]} y={data[parameter_1]} layout={layout} />
-                        ))}
-                        {/* Histogram for current parameters */}
-                        <HistogramPlot data={data[parameter_1]} layout={layout} />
-                    </div>
-                );
-            })}
+            {parameters.map((parameter_1: string, index: number) => (
+                <div key={`row-${parameter_1}`} style={{ display: 'flex' }}>
+                    {/* X Axis for this row */}
+                    <AxisY key={`axis-y-${parameter_1}`} domain={[]} layout={layout} />
+
+                    {/* Contour plots for this parameter and all previous parameters */}
+                    {parameters.slice(0, index).map((parameter_2: string) => (
+                        <ContourPlot key={`cont-${parameter_2}-${parameter_1}`} x={data[parameter_2]} y={data[parameter_1]} layout={layout} />
+                    ))}
+
+                    {/* Histogram for current parameters */}
+                    <HistogramPlot key={`hist-${parameter_1}`} x={data[parameter_1]} layout={layout} />
+                </div>
+            ))}
+
+            {/* Y Axis for all parameters */}
+            <div key={"axis-x-row"} style={{ display: 'flex', float: 'right' }}>
+                {parameters.map((parameter_1: string) => (
+                    <AxisX key={`axis-x-${parameter_1}`} domain={[]} layout={layout} />
+                ))}
+            </div>
         </div>
     );
 }

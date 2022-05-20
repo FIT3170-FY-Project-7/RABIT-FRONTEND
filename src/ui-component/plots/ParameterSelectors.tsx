@@ -39,7 +39,6 @@ const ParameterSelectors = ({ items: input_items, callback }) => {
 
     const onClick = (fromId, index) => {
         return (e) => {
-            console.log(e)
             if (!e.shiftKey && e.type != 'dblclick') return;
             const toId = fromId == 'active-items' ? 'inactive-items' : 'active-items';
             const to = items[toId].concat([items[fromId][index]]);

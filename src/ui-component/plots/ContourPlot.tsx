@@ -8,10 +8,15 @@ const ContourPlot = ({ x, y, layout }) => {
         ContD3.create(elem.current, layout, x, y);
         return () => {
             ContD3.destroy(elem.current);
-        }
+        };
     });
 
-    return <div style={{width: layout.width, height: layout.height, margin: layout.margin.pad + 'px'}}  ref={elem}></div>;
+    return (
+        <div
+            style={{ width: layout.width, height: layout.height, marginRight: layout.margin.horizontal, marginTop: layout.margin.vertical }}
+            ref={elem}
+        ></div>
+    );
 };
 
 export default ContourPlot;

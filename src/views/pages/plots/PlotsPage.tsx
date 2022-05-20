@@ -39,7 +39,7 @@ function PlotsPage() {
     };
     // TEST DATA END
 
-    const [parameters, setParameters] = useState(Object.keys(data));
+    const [parameters, setParameters] = useState([]);
     const param_callback = (inactive, active) => {
         setParameters(active);
     }

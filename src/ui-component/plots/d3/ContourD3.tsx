@@ -14,7 +14,6 @@ const rectbin = (x: number[], y: number[], bins) => {
         .range([bins, 0]);
 
     const data = d3.zip(x, y) as [number, number][];
-
     const values = Array((bins + 1) ** 2).fill(0);
 
     // Based on density estimation in d3-contour/density.js
@@ -34,6 +33,7 @@ const rectbin = (x: number[], y: number[], bins) => {
         values[x_index       + (y_index + 1) * bins] += (1 - x_percent) * y_percent;
     });
 
+    // // Simpler binning method
     // data.forEach((d, i, data) => {
     //     const x_pos = x_axis(d[0]);
     //     const y_pos = y_axis(d[1]);
@@ -73,7 +73,6 @@ const create = (el, layout, x: number[], y: number[]) => {
 
     const data = d3.zip(x, y) as [number, number][];
     
-
     // Add dots
     // svg.append('g')
     //     .attr('opacity', 0.5)
@@ -89,12 +88,10 @@ const create = (el, layout, x: number[], y: number[]) => {
     //     .attr('r', 1);
     // .style("fill", "#69b3a2")
 
-
     const contour_bins = 100;
     const bins = rectbin(x, y, contour_bins);
     const contours = d3.contours()
         .size([contour_bins, contour_bins])
-        // .smooth(false)
         .thresholds((v: number[]) => {
             const v_sort = d3.sort(v);
             const v_cum = d3.cumsum(v_sort);
@@ -109,12 +106,6 @@ const create = (el, layout, x: number[], y: number[]) => {
             this.stream.point(contour_x_scale * x, contour_y_scale * y);
         }
     })
-    const dummy =d3.select('g')
-        .append("text")
-        .attr("text-anchor", "end")
-        .attr("x", layout.width)
-        .attr("y", layout.height)
-        .text("key2");
 
     svg.append('g')
         .selectAll('path')
@@ -122,7 +113,7 @@ const create = (el, layout, x: number[], y: number[]) => {
         .join('path')
         .attr('stroke-width', layout.width * 0.01)
         .attr('stroke', colors[colors.length - 1])
-        .attr('fill', (d, i) => colors[i]) // '#0072C1'
+        .attr('fill', (d, i) => colors[i])
         .attr('fill-opacity', 0.8)
         .attr('stroke-opacity', 0.8)
         .attr('d', d3.geoPath().projection(contour_transform));
