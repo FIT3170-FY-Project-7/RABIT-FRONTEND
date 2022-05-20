@@ -11,10 +11,11 @@ import React, { useState, useEffect } from "react";
 interface FileUpload {
     enableButton: boolean;
     selectedFile: any;
+    selectedKeys: Array<string>
     buttonMessage: String;
 }
 
-export default function FileUploadButton({ enableButton, selectedFile, buttonMessage}: FileUpload) { 
+export default function FileUploadButton({ enableButton, selectedFile, selectedKeys, buttonMessage}: FileUpload) { 
 	const [uploadPercentage, setUploadPercentage] = useState(0);
     
     const handleSubmission = () => {
@@ -31,14 +32,14 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
         }
 
 
-        selectedFile.text().then((csvStr) => {
-            csvToJson()
-            .fromString(csvStr)
-            .then((jsonObj)=>{
-            console.log(jsonObj);
-
-            var json = JSON.stringify(jsonObj);
+        selectedFile.text().then((jsonString) => {
+            var json = JSON.parse(jsonString);
+            json.selected_keys = selectedKeys;
+            console.log(json);
+            var jsonMerged = JSON.stringify(json);
+            console.log(jsonMerged);
             const data = new FormData();
+
             const blob = new Blob([json],{type: 'application/json'});
             data.append("file", blob);//
             console.log(data.getAll("file"));
@@ -48,9 +49,6 @@ export default function FileUploadButton({ enableButton, selectedFile, buttonMes
                 console.log(res.statusText);
                 console.log(uploadPercentage);
             });
-
-            });
-                    // console.log(selectedFile);
 
         });
 

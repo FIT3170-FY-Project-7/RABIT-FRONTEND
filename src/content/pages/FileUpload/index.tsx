@@ -110,6 +110,7 @@ export default function UploadPage() {
 				<FileUploadButton
 					enableButton={enableUpload}
 					selectedFile={selectedFile}
+					selectedKeys={selectedKeys}
 					buttonMessage="Upload"
 				/>
 			</Box>
