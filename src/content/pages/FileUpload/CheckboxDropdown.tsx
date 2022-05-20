@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+﻿import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -9,7 +9,7 @@ import { FormLabel } from "@mui/material";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function CheckboxDropdown({ keys }) {
+export default function CheckboxDropdown({ keys, setSelectedKeys }) {
 	return (
 		<>
 			<Autocomplete
@@ -30,6 +30,7 @@ export default function CheckboxDropdown({ keys }) {
 					</li>
 				)}
 				renderInput={(params) => <TextField {...params} label="Parameters" />}
+				onChange={(_e, option) => setSelectedKeys(option)}
 			/>
 		</>
 	);

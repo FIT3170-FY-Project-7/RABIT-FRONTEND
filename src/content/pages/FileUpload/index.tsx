@@ -4,7 +4,7 @@ import FileSelectButton from "./FileSelectButton";
 import FileUploadButton from "./FileUploadButton";
 import { styled } from "@mui/material/styles";
 import CheckboxDropdown from "./CheckboxDropdown";
-import * as $ from "jquery";
+import * as d3 from "d3";
 
 export default function UploadPage() {
 	const [title, setTitle] = useState("");
@@ -13,21 +13,8 @@ export default function UploadPage() {
 	const [fileName, setFileName] = useState("");
 	const [enableDescription, setEnableDescription] = useState(false);
 	const [enableUpload, setEnableUpload] = useState(false);
-	const [file, setFile] = useState("");
-	const [searchParamKeys, setSearchParamKeys] = useState({
-		key: "search_parameter_keys",
-		params: [],
-	});
-	const [fixedParamKeys, setFixedParamKeys] = useState({
-		key: "fixed_parameter_keys",
-		params: [],
-	});
-	const [constraintParamKeys, setConstraintParamKeys] = useState({
-		key: "constraint_parameter_keys",
-		params: [],
-	});
-
 	const [posteriorKeys, setPosteriorKeys] = useState([]);
+	const [selectedKeys, setSelectedKeys] = useState([]);
 
 	const updateSelectedFile = (state) => {
 		setSelectedFile(state);
@@ -39,14 +26,19 @@ export default function UploadPage() {
 		fileReader.readAsText(state);
 
 		fileReader.onload = (e) => {
+			const string = e.target.result as string;
+			console.log(string.substring(1, 100));
 			const json = JSON.parse(e.target.result as string);
 			setPosteriorKeys(Object.keys(json["posterior"]["content"]));
 		};
 
-		console.log(posteriorKeys);
+		console.log(state.name);
 	};
 
-	useEffect(() => setEnableUpload(title != ""), [title]);
+	useEffect(
+		() => setEnableUpload(title != "" && selectedKeys.length != 0),
+		[title, selectedKeys]
+	);
 
 	return (
 		<Box style={{ display: "flex", justifyContent: "center" }}>
@@ -78,17 +70,20 @@ export default function UploadPage() {
 					<Typography variant="h2">Step 2</Typography>
 					<TextField
 						fullWidth
+						disabled={!enableDescription}
 						defaultValue={fileName}
 						onChange={(e) => setTitle(e.target.value)}
-						required
 						label="Title"
-						variant="filled"
+						required
+						variant={enableDescription ? "outlined" : "filled"}
 					/>
 					<TextField
 						fullWidth
+						disabled={!enableDescription}
 						onChange={(e) => setDescription(e.target.value)}
 						label="Description"
-						variant="filled"
+						required
+						variant={enableDescription ? "outlined" : "filled"}
 						multiline
 						rows={5}
 					/>
@@ -105,7 +100,10 @@ export default function UploadPage() {
 					<Typography variant="h6">Select parameters</Typography>
 					{enableDescription && (
 						<>
-							<CheckboxDropdown keys={posteriorKeys} />
+							<CheckboxDropdown
+								keys={posteriorKeys}
+								setSelectedKeys={setSelectedKeys}
+							/>
 						</>
 					)}
 				</Box>
