@@ -38,7 +38,8 @@ const create = (el, layout, x: number[]) => {
         })
         .style('fill', '#0088ff');
 
-    
+    // Suggest for big data sets we provide user ability to toggle quantiles off, since sorting data sets of this size
+    // will be SLOW. 
     const quantiles = [0.16, 0.5, 0.84];
     const x_s = d3.sort(x);
     quantiles.forEach((quantile) => {

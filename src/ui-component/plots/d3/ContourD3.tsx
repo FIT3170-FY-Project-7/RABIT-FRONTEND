@@ -51,7 +51,7 @@ const create = (el, layout, x: number[], y: number[]) => {
     const colors = ['#80c3ff', '#40a6ff', '#0088ff'];
     const sigmas = [1, 2, 3].map(sigma);
 
-    var svg = d3
+    const svg = d3
         .select(el)
         .append('svg')
         .attr('class', 'd3')
@@ -59,23 +59,25 @@ const create = (el, layout, x: number[], y: number[]) => {
         .attr('height', layout.height)
         .attr('style', 'outline: thin solid black;');
 
-    // Add X axis
-    const x_axis = d3
-        .scaleLinear()
-        .domain(d3.extent(x))
-        .range([0, layout.width]);
-
-    // Add Y axis
-    const y_axis = d3
-        .scaleLinear()
-        .domain(d3.extent(y))
-        .range([layout.height, 0]);
-
     const data = d3.zip(x, y) as [number, number][];
+
+    // *// Adds dot points to show each data point. Massively slows render speed, but could be a toggled functionality.
+
+    // // Add X axis
+    // const x_axis = d3
+    //     .scaleLinear()
+    //     .domain(d3.extent(x))
+    //     .range([0, layout.width]);
+
+    // // Add Y axis
+    // const y_axis = d3
+    //     .scaleLinear()
+    //     .domain(d3.extent(y))
+    //     .range([layout.height, 0]);
     
-    // Add dots
+    // // Add dots
     // svg.append('g')
-    //     .attr('opacity', 0.5)
+    //     // .attr('opacity', 0.5)
     //     .selectAll('dot')
     //     .data(data)
     //     .join('circle')
@@ -86,9 +88,10 @@ const create = (el, layout, x: number[], y: number[]) => {
     //         return y_axis(d[1]);
     //     })
     //     .attr('r', 1);
-    // .style("fill", "#69b3a2")
 
-    const contour_bins = 100;
+    // *//
+
+    const contour_bins = 50;
     const bins = rectbin(x, y, contour_bins);
     const contours = d3.contours()
         .size([contour_bins, contour_bins])

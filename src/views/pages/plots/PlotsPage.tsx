@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MathJaxContext } from 'better-react-mathjax';
 import CornerPlot from '../../../ui-component/plots/CornerPlot';
 import ParameterSelector from '../../../ui-component/plots/ParameterSelector';
 
@@ -21,7 +22,7 @@ function PlotsPage() {
     }
 
     let [Array1, Array2, Array3, Array4] = [[], [], [], []];
-    for (let i = 0; i < 100000; i++) {
+    for (let i = 0; i < 10000; i++) {
         Array1.push(skewed_normal(0.3));
         Array1.push(skewed_normal(3));
         Array2.push(skewed_normal(0.1));
@@ -32,23 +33,32 @@ function PlotsPage() {
         Array4.push(skewed_normal(2.6));
     }
     const data = {
-        key1: Array1,
-        key2: Array2,
-        key3: Array3,
-        key4: Array4
+        '$\\theta_1$': Array1,
+        '$t_H$ [$s$]': Array2,
+        '$\\Delta\\phi$': Array3,
+        '$\\mathcal{M}$ [$M_{\\odot}$]': Array4
     };
     // TEST DATA END
 
-    const defaultParameters = ['key1', 'key2', 'key3', 'key4'];
+    const defaultParameters = ['$\\theta_1$', '$t_H$ [$s$]', '$\\Delta\\phi$', '$\\mathcal{M}$ [$M_{\\odot}$]'];
     const [parameters, setParameters] = useState(defaultParameters);
     const updateParameters = (_, active) => {
         setParameters(active);
     };
 
+    const config = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+        startup: {
+          typeset: false
+        }
+    };
+
     return (
         <div>
-            <ParameterSelector items={Object.keys(data)} default={defaultParameters} onUpdate={updateParameters} />
-            <CornerPlot data={data} parameters={parameters} />
+            <MathJaxContext config={config}>
+                <ParameterSelector items={Object.keys(data)} default={defaultParameters} onUpdate={updateParameters} />
+                <CornerPlot data={data} parameters={parameters} />
+            </MathJaxContext>
         </div>
     );
 }

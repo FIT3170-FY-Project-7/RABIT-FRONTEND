@@ -1,4 +1,6 @@
-import React from 'react';
+import { useContext, useRef } from 'react';
+import * as d3 from 'd3';
+import { MathJaxBaseContext } from 'better-react-mathjax';
 
 // Other components
 import ContourPlot from './ContourPlot';
@@ -27,12 +29,26 @@ const margin = {
 
 const axis = {
     size: 100,
+    tickSize: 10,
     ticks: 4
 };
 
 function CornerPlot({ data, parameters }: ConerPlotPropType) {
     let width = corner_plot_size / parameters.length;
     const layout = { width: width, height: width, margin: margin, axis: axis };
+    const mathjax = useContext(MathJaxBaseContext);
+    const mathjaxTimer = useRef(null);
+
+    // Function to rescan the page for LaTeX elements and rerender them.
+    const rerenderMathJax = () => {
+        clearTimeout(mathjaxTimer.current);
+
+        mathjaxTimer.current = setTimeout(() => {
+            mathjax.promise.then((m) => {
+                m.typeset();
+            });
+        }, 500);
+    };
 
     return (
         <div style={{ width: 'min-content' }}>
@@ -41,12 +57,17 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
             parameter and all previous parameters. */}
             {parameters.map((parameter_1: string, index: number) => (
                 <div key={`row-${parameter_1}`} style={{ display: 'flex' }}>
-                    {/* X Axis for this row */}
-                    <AxisY key={`axis-y-${parameter_1}`} domain={[]} layout={layout} />
+                    {/* Y Axis for this row */}
+                    <AxisY key={`axis-y-${parameter_1}`} domain={d3.extent(data[parameter_1])} layout={layout} label={parameter_1} rerender={rerenderMathJax}/>
 
                     {/* Contour plots for this parameter and all previous parameters */}
                     {parameters.slice(0, index).map((parameter_2: string) => (
-                        <ContourPlot key={`cont-${parameter_2}-${parameter_1}`} x={data[parameter_2]} y={data[parameter_1]} layout={layout} />
+                        <ContourPlot
+                            key={`cont-${parameter_2}-${parameter_1}`}
+                            x={data[parameter_2]}
+                            y={data[parameter_1]}
+                            layout={layout}
+                        />
                     ))}
 
                     {/* Histogram for current parameters */}
@@ -54,10 +75,10 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
                 </div>
             ))}
 
-            {/* Y Axis for all parameters */}
-            <div key={"axis-x-row"} style={{ display: 'flex', float: 'right' }}>
+            {/* X Axis for all parameters */}
+            <div key={'axis-x-row'} style={{ display: 'flex', float: 'right' }}>
                 {parameters.map((parameter_1: string) => (
-                    <AxisX key={`axis-x-${parameter_1}`} domain={[]} layout={layout} />
+                    <AxisX key={`axis-x-${parameter_1}`} domain={d3.extent(data[parameter_1])} layout={layout} label={parameter_1} rerender={rerenderMathJax}/>
                 ))}
             </div>
         </div>
