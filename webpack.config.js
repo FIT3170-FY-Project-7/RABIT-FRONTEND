@@ -34,6 +34,8 @@ module.exports = (env, argv) => {
 	return {
 		devtool: IS_PROD ? false : "source-map",
 
+		entry: "./src/index.tsx",
+
 		output: {
 			publicPath: "/",
 			path: path.resolve(__dirname, "dist"),
@@ -41,6 +43,10 @@ module.exports = (env, argv) => {
 			hotUpdateChunkFilename: "[id].hot-update.[fullhash].js",
 			filename: "[name].[fullhash].bundle.js",
 			clean: true,
+		},
+
+		devServer: {
+			historyApiFallback: true,
 		},
 
 		resolve: {

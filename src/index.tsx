@@ -15,8 +15,6 @@ import "nprogress/nprogress.css";
 
 // ==============================|| REACT DOM RENDER ||============================== //
 
-console.log("test");
-
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
