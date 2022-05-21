@@ -28,12 +28,10 @@ const UserSettings = Loader(
     lazy(() => import("./content/applications/Users/settings"))
 );
 const Datapage = Loader(lazy(() => import("./content/datapage")));
-// Overview.
-const Overview = Loader(lazy(() => import("./content/overview")));
 
 // login, signup and password reset page
-const Login = Loader(lazy(() => import("./content/login")));
-const Signup = Loader(lazy(() => import("./content/signup")));
+const Login = Loader(lazy(() => import("./content/pages/account/login")));
+const Signup = Loader(lazy(() => import("./content/pages/account/signup")));
 const ResetPassword = Loader(lazy(() => import("./content/resetPassword")));
 
 // Status pages.
@@ -56,10 +54,8 @@ const routes: RouteObject[] = [
     {
         element: <BaseLayout />,
         children: [
-            // TODO: Convert to login screen.
-            { index: true, element: <Overview /> },
-            { path: "overview", element: <Navigate to="/" replace /> },
-            { path: "login", element: <Login /> },
+            { index: true, element: <Login /> },
+            { path: "login", element: <Navigate to="/" replace /> },
             { path: "signup", element: <Signup /> },
             { path: "reset-password", element: <ResetPassword /> },
             { path: "*", element: <Status404 /> },

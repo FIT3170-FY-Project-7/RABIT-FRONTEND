@@ -1,16 +1,7 @@
-import {
-    Box,
-    Container,
-    Card,
-    TextField,
-    Button,
-    Grid,
-    Tooltip,
-} from "@mui/material";
+import { Box, Card, TextField, Button, Grid, Tooltip } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 
-import { styled } from "@mui/material/styles";
-import Logo from "../../components/LogoSign";
+import Logo from "../../../../components/LogoSign";
 import { Link } from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { ButtonGroup } from "@mui/material";
@@ -24,8 +15,6 @@ import { InputAdornment } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Divider } from "@mui/material";
-import { useEffect } from "react";
-import { useRef } from "react";
 
 const Login = () => {
     return (
@@ -112,7 +101,7 @@ const Login = () => {
                                     type="button"
                                     fullWidth
                                 >
-                                    Looking for signup?
+                                    Don't have an account?
                                 </Button>
                             </ButtonGroup>
                         </Grid>
@@ -127,49 +116,37 @@ const Login = () => {
  * Component for the login form.
  */
 const LoginForm = () => {
+    // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+    // Remember Me
     const [rememberMe, setRememberMe] = useState(false);
 
-    const [usernameIR, passwordIR] = [
-        useRef<HTMLInputElement>(null),
-        useRef<HTMLInputElement>(null),
-    ];
+    // Username
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [usernameError, setUsernameError] = useState(false);
+
+    // Password
+    const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState(false);
 
+    // Submission Handler
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setUsername(usernameIR.current?.value || "");
-        setPassword(passwordIR.current?.value || "");
-    };
-
-    // Validation methods.
-    const validateUsername = () => {
-        console.log(username);
-        setUsernameError(username.length < 3);
-    };
-    const validatePassword = () => setPasswordError(password.length < 3);
-
-    // Prevents useEffect from running login code on init.
-    const [ready, setReady] = useState(false);
-    useEffect(() => setReady(true));
-
-    // Processes new login data from the form.
-    useEffect(() => {
-        if (!ready) return;
-
         // Update the error state of the inputs.
-        validateUsername();
-        validatePassword();
+        let usernameInvalid = username.length < 3;
+        let passwordInvalid = password.length < 3;
+        setUsernameError(usernameInvalid);
+        setPasswordError(passwordInvalid);
 
         // Don't continue to login logic if there are errors.
-        if (usernameError || passwordError) return;
+        // We cannot check the useState values, as these will not be updated until the next render.
+        if (usernameInvalid || passwordInvalid) return;
 
-        /* TODO: Actual login code. */
-    }, [username, password]);
+        // TODO: Login logic.
+
+        // Prevent default form action (which would refresh the page).
+        e.preventDefault();
+    };
 
     return (
         <Grid
@@ -183,7 +160,7 @@ const LoginForm = () => {
         >
             <Grid item xs={12}>
                 <TextField
-                    inputRef={usernameIR}
+                    onChange={(e) => setUsername(e.target.value)}
                     error={usernameError}
                     label="Username"
                     placeholder="Enter username..."
@@ -194,7 +171,7 @@ const LoginForm = () => {
             </Grid>
             <Grid item xs={12}>
                 <TextField
-                    inputRef={passwordIR}
+                    onChange={(e) => setPassword(e.target.value)}
                     error={passwordError}
                     label="Password"
                     type={passwordVisible ? "text" : "password"}
