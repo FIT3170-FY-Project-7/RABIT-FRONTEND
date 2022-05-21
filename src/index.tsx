@@ -3,7 +3,8 @@
 // React.
 import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
-import { HashRouter } from "react-router-dom";
+
+import { BrowserRouter } from "react-router-dom";
 
 // App.
 import App from "./App";
@@ -20,9 +21,9 @@ const root = createRoot(container);
 root.render(
 	<HelmetProvider>
 		<SidebarProvider>
-			<HashRouter>
+			<BrowserRouter>
 				<App />
-			</HashRouter>
+			</BrowserRouter>
 		</SidebarProvider>
 	</HelmetProvider>
 );

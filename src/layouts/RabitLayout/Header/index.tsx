@@ -1,15 +1,11 @@
 import { useContext } from 'react';
 
-import { Box, Hidden, IconButton, Tooltip } from '@mui/material';
+import { Box, Container, Hidden, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import { SidebarContext } from '../../../contexts/SidebarContext';
-import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
-import DataTitle from './Menu';
-import HeaderButtons from './Buttons';
+import DataTitle from './Search';
 import HeaderUserbox from './Userbox';
-import Logo from '../../../components/Logo';
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -34,25 +30,14 @@ function Header() {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
 
   return (
-    <HeaderWrapper display="flex" alignItems="center">
-      <Box display="flex" alignItems="center">
-        <Hidden lgUp>
-          <Logo />
-        </Hidden>
-        <Hidden mdDown>
+    <HeaderWrapper display="flex" alignItems="center" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <Box sx={{width:'85%'}} display="flex" alignItems="center">
+        <Container sx={{width:'100%'}}>
           <DataTitle />
-        </Hidden>
+        </Container>
       </Box>
       <Box display="flex" alignItems="center">
-        <HeaderButtons />
         <HeaderUserbox />
-        <Hidden lgUp>
-          <Tooltip arrow title="Toggle Menu">
-            <IconButton color="primary" onClick={toggleSidebar}>
-              {!sidebarToggle ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
-            </IconButton>
-          </Tooltip>
-        </Hidden>
       </Box>
     </HeaderWrapper>
   );

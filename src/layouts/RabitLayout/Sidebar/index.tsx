@@ -2,6 +2,7 @@ import {useContext} from 'react'
 import {Scrollbars} from 'react-custom-scrollbars-2'
 import {SidebarContext} from '../../../contexts/SidebarContext'
 import Logo from '../../../components/Logo'
+import { NavLink as RouterLink } from 'react-router-dom';
 
 import {Box, Button, Drawer, Hidden, Stack} from '@mui/material'
 
@@ -54,8 +55,9 @@ function Sidebar() {
                             <Button sx={{width:130}}
                                 startIcon={<UploadTwoToneIcon />}
                                 variant="contained"
-                                component="span"> 
-                            Import
+                                component={RouterLink}
+                                to="/Upload">
+                            Upload
                             </Button>
                         </label>
                     </Stack>
