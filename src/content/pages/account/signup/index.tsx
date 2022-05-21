@@ -148,7 +148,7 @@ function SignupForm() {
         setPasswordError(passwordInvalid);
         setConfirmPasswordError(confirmPasswordInvalid);
 
-        // Don't continue to login logic if there are errors.
+        // Don't continue to signup logic if there are errors.
         // We cannot check the useState values, as these will not be updated until the next render.
         if (
             fullNameInvalid ||
