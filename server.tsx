@@ -34,6 +34,11 @@ app.post('/uploads',function(req, res) {
     })
 });
 
+app.get("/uploads/", (req, res) => {
+  const filePath = __dirname + "/uploads/" + "1653141786470"+".json";
+  res.sendFile(filePath);
+  });
+
 app.listen(8000, function() {
     console.log('App running on port 8000');
 });

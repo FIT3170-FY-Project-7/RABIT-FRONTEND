@@ -5,7 +5,7 @@ import csvToJson from 'csvtojson';
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Percent } from '@mui/icons-material';
+import { FileUpload, Percent } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
 
 interface FileUpload {
@@ -36,12 +36,14 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
         selectedFile.text().then((jsonString) => {
             var json = JSON.parse(jsonString);
             json.selected_keys = selectedKeys;
+            console.log(json.selected_keys);
             // console.log(json);
             var jsonMerged = JSON.stringify(json);
             // console.log(jsonMerged);
             const data = new FormData();
 
             const blob = new Blob([json],{type: 'application/json'});
+            console.log(json);
             data.append("file", blob);//
             // console.log(data.getAll("file"));
             //dev solution to test upload works
@@ -50,6 +52,16 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
                 // console.log(res.statusText);
                 // console.log(uploadPercentage);
             });
+
+            //getting data
+            // const filename = "1653141037449";
+
+            axios.get('http://localhost:8000/uploads',{})
+              .then(function (response) {
+                console.log(response.data);
+
+                
+              })
 
         });
 
