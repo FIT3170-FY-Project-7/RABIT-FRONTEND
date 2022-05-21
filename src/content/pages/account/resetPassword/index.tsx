@@ -6,13 +6,18 @@ import {
     Grid,
     Typography,
     Divider,
+    ButtonGroup,
 } from "@mui/material";
 import { Helmet } from "react-helmet-async";
-import { useState, useRef, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 
 import Logo from "../../../../components/LogoSign";
+import { useNavigate } from "react-router";
+import { KeyboardReturnOutlined } from "@mui/icons-material";
 
 function ResetPassword() {
+    const navigate = useNavigate();
+
     return (
         <Grid
             container
@@ -57,6 +62,22 @@ function ResetPassword() {
                         </Grid>
                         <Grid item xs={12}>
                             <ResetPasswordForm />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <ButtonGroup fullWidth>
+                                <Button
+                                    variant="outlined"
+                                    type="button"
+                                    onClick={() => navigate(-1)}
+                                    endIcon={<KeyboardReturnOutlined />}
+                                    fullWidth
+                                >
+                                    Go back...
+                                </Button>
+                            </ButtonGroup>
                         </Grid>
                     </Grid>
                 </Card>
