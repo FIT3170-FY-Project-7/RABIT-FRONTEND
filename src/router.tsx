@@ -56,6 +56,7 @@ const routes: RouteObject[] = [
 		element: <BaseLayout />,
 		children: [
 			{ index: true, element: <Login /> },
+      { path: "login", element: <Navigate to="/" replace /> },
 			{ path: "signup", element: <Signup /> },
 			{ path: "reset-password", element: <ResetPassword /> },
 			{ path: "*", element: <Status404 /> },
@@ -83,7 +84,7 @@ const routes: RouteObject[] = [
 			{ path: "visualise", element: <Datapage /> },
 			{ path: "*", element: <Status404 /> },
 		],
-	},
+	}
 ];
 
 export default routes;

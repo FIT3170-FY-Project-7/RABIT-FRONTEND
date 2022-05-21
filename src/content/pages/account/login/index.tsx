@@ -1,102 +1,219 @@
-import {
-	Box,
-	Container,
-	Card,
-	TextField,
-	Checkbox,
-	FormGroup,
-	FormControlLabel,
-	Button,
-} from "@mui/material";
+import { Box, Card, TextField, Button, Grid, Tooltip } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 
-import { styled } from "@mui/material/styles";
 import Logo from "../../../../components/LogoSign";
 import { Link } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import { ButtonGroup } from "@mui/material";
+import {
+    RememberMe,
+    RememberMeOutlined,
+    VisibilityOffOutlined,
+    VisibilityOutlined,
+} from "@mui/icons-material";
+import { InputAdornment } from "@mui/material";
+import { IconButton } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 
-const OverviewWrapper = styled(Box)(
-	() => `
-    overflow: auto;
-    flex: 1;
-    overflow-x: hidden;
-    align-items: center;
-`
-);
+const Login = () => {
+    return (
+        <Grid
+            container
+            spacing={0}
+            direction="column"
+            overflow="hidden"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ minHeight: "100vh" }}
+        >
+            <Helmet>
+                <title>RABIT | Login</title>
+            </Helmet>
+            <Grid item xs={12}>
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    py={5}
+                    alignItems="center"
+                >
+                    <Logo />
+                </Box>
+            </Grid>
+            <Grid item xs={12}>
+                <Card sx={{ p: 8, mb: 8, borderRadius: 8, maxWidth: "sm" }}>
+                    <Grid
+                        container
+                        spacing={1}
+                        alignItems="center"
+                        justifyContent="center"
+                        textAlign="center"
+                    >
+                        <Grid item xs={12}>
+                            <Typography variant="h1">Welcome Back!</Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                sx={{ pt: 1, pb: 1 }}
+                                variant="outlined"
+                                startIcon={
+                                    <img src="/static/images/logo/google.svg" />
+                                }
+                                fullWidth
+                            >
+                                Log in with Google
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }}>
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{ fontStyle: "italic" }}
+                                >
+                                    Or enter your credentials below to continue.
+                                </Typography>
+                            </Divider>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <LoginForm />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Divider sx={{ mt: 2, mb: 2 }} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <ButtonGroup fullWidth>
+                                <Button
+                                    component={Link}
+                                    to="/reset-password"
+                                    variant="outlined"
+                                    type="button"
+                                    fullWidth
+                                >
+                                    Forgot password?
+                                </Button>
+                                <Button
+                                    component={Link}
+                                    to="/signup"
+                                    variant="outlined"
+                                    type="button"
+                                    fullWidth
+                                >
+                                    Don't have an account?
+                                </Button>
+                            </ButtonGroup>
+                        </Grid>
+                    </Grid>
+                </Card>
+            </Grid>
+        </Grid>
+    );
+};
 
-function Login() {
-	return (
-		<OverviewWrapper>
-			<Helmet>
-				<title>Log in - RABIT</title>
-			</Helmet>
-			<Container maxWidth="sm">
-				<Box display="flex" justifyContent="center" py={5} alignItems="center">
-					<Logo />
-				</Box>
-				<Card sx={{ p: 10, mb: 10, borderRadius: 12 }}>
-					<Box display="flex" justifyContent="center" alignItems="center">
-						<h1>Welcome back</h1>
-					</Box>
-					<Box>
-						<Button variant="contained" fullWidth>
-							Log in with Google
-						</Button>
-					</Box>
-					<Box display="flex" justifyContent="center" alignItems="center">
-						<p>Or enter your credentials below to continue.</p>
-					</Box>
-					<Box>
-						<form>
-							<div>
-								<TextField
-									id="username"
-									label="Username"
-									variant="outlined"
-									margin="normal"
-									required
-									fullWidth
-								/>
-							</div>
-							<div>
-								<TextField
-									id="password"
-									label="Password"
-									type="password"
-									variant="outlined"
-									margin="normal"
-									required
-									fullWidth
-								/>
-							</div>
-							<FormGroup>
-								<FormControlLabel
-									control={<Checkbox />}
-									label="Remember me"
-								></FormControlLabel>
-							</FormGroup>
-							<Button variant="contained" type="submit" fullWidth>
-								Log in
-							</Button>
-						</form>
-					</Box>
-					<Box sx={{ py: 1 }}>
-						<Link to="/reset-password">
-							{" "}
-							{/* TODO: redirect to password reset page*/}
-							<Button variant="outlined" type="button" style={{ width: "50%" }}>
-								Forgot password?
-							</Button>
-						</Link>
-						<Link to="/signup">
-							<Button variant="outlined" type="button" style={{ width: "50%" }}>
-								Don't have an account?
-							</Button>
-						</Link>
-					</Box>
-				</Card>
-			</Container>
-		</OverviewWrapper>
-	);
-}
+/**
+ * Component for the login form.
+ */
+const LoginForm = () => {
+    // Password Visibility
+    const [passwordVisible, setPasswordVisible] = useState(false);
+
+    // Remember Me
+    const [rememberMe, setRememberMe] = useState(false);
+
+    // Username
+    const [username, setUsername] = useState("");
+    const [usernameError, setUsernameError] = useState(false);
+
+    // Password
+    const [password, setPassword] = useState("");
+    const [passwordError, setPasswordError] = useState(false);
+
+    // Submission Handler
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        // Update the error state of the inputs.
+        let usernameInvalid = username.length < 3;
+        let passwordInvalid = password.length < 3;
+        setUsernameError(usernameInvalid);
+        setPasswordError(passwordInvalid);
+
+        // Don't continue to login logic if there are errors.
+        // We cannot check the useState values, as these will not be updated until the next render.
+        if (usernameInvalid || passwordInvalid) return;
+
+        // TODO: Login logic.
+
+        // Prevent default form action (which would refresh the page).
+        e.preventDefault();
+    };
+
+    return (
+        <Grid
+            container
+            spacing={1}
+            alignItems="center"
+            justifyContent="center"
+            textAlign="center"
+            component="form"
+            onSubmit={handleSubmit}
+        >
+            <Grid item xs={12}>
+                <TextField
+                    onChange={(e) => setUsername(e.target.value)}
+                    error={usernameError}
+                    label="Username"
+                    placeholder="Enter username..."
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <TextField
+                    onChange={(e) => setPassword(e.target.value)}
+                    error={passwordError}
+                    label="Password"
+                    type={passwordVisible ? "text" : "password"}
+                    InputProps={{
+                        sx: { pr: 0 },
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() =>
+                                        setPasswordVisible(!passwordVisible)
+                                    }
+                                >
+                                    {passwordVisible ? (
+                                        <VisibilityOutlined />
+                                    ) : (
+                                        <VisibilityOffOutlined />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
+                    placeholder="Enter password..."
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
+            </Grid>
+            <Grid item xs={12} sx={{ display: "inline-flex" }}>
+                <Button variant="contained" type="submit" fullWidth>
+                    Log in
+                </Button>
+                <Tooltip title="Remember me" placement="right" arrow>
+                    <IconButton
+                        onClick={() => setRememberMe(!rememberMe)}
+                        sx={{ ml: 1 }}
+                    >
+                        {rememberMe ? <RememberMe /> : <RememberMeOutlined />}
+                    </IconButton>
+                </Tooltip>
+            </Grid>
+        </Grid>
+    );
+};
 
 export default Login;
