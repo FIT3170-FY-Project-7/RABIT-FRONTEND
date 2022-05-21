@@ -4,10 +4,10 @@ import Reorder from 'react-reorder';
 
 // This component should have two drop downs to select parameters from. It will be housed in the plotting page along
 // with the CornerPlot component.
-const ParameterSelectors = ({ items: input_items, callback }) => {
+const ParameterSelector = ({ items: input_items, default: initial_active, onUpdate: callback }) => {
     const [items, setItems] = useState({
-        'inactive-items': input_items,
-        'active-items': []
+        'inactive-items': input_items.filter(i => !initial_active.includes(i)),
+        'active-items': initial_active,
     });
     const [autoUpdate, setAutoUpdate] = useState(true);
 
@@ -108,4 +108,4 @@ const ParameterSelectors = ({ items: input_items, callback }) => {
     );
 }
 
-export default ParameterSelectors;
+export default ParameterSelector;

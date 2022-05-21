@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CornerPlot from '../../../ui-component/plots/CornerPlot';
-import ParameterSelectors from '../../../ui-component/plots/ParameterSelectors';
+import ParameterSelector from '../../../ui-component/plots/ParameterSelector';
 
 // This is the skeleton component for our plots page. It will host all relevant components for the user to create plots
 // including the parameter selectors and the corner plot itself.
@@ -39,14 +39,15 @@ function PlotsPage() {
     };
     // TEST DATA END
 
-    const [parameters, setParameters] = useState([]);
-    const param_callback = (inactive, active) => {
+    const defaultParameters = ['key1', 'key2', 'key3', 'key4'];
+    const [parameters, setParameters] = useState(defaultParameters);
+    const updateParameters = (_, active) => {
         setParameters(active);
-    }
+    };
 
     return (
         <div>
-            <ParameterSelectors items={Object.keys(data)} callback={param_callback} />
+            <ParameterSelector items={Object.keys(data)} default={defaultParameters} onUpdate={updateParameters} />
             <CornerPlot data={data} parameters={parameters} />
         </div>
     );
