@@ -60,7 +60,7 @@ const Login = () => {
                                 sx={{ pt: 1, pb: 1 }}
                                 variant="outlined"
                                 startIcon={
-                                    <img src="/static/images/logo/google.svg" />
+                                    <img src="/public/static/images/logo/google.svg" />
                                 }
                                 fullWidth
                             >
