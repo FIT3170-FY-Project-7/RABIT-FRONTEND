@@ -5,6 +5,7 @@ import FileUploadButton from "./FileUploadButton";
 import { styled } from "@mui/material/styles";
 import CheckboxDropdown from "./CheckboxDropdown";
 import * as d3 from "d3";
+import { CommitSharp } from "@mui/icons-material";
 
 export default function UploadPage() {
 	const [title, setTitle] = useState("");
@@ -27,12 +28,18 @@ export default function UploadPage() {
 
 		fileReader.onload = (e) => {
 			const string = e.target.result as string;
-			console.log(string.substring(1, 100));
 			const json = JSON.parse(e.target.result as string);
-			setPosteriorKeys(Object.keys(json["posterior"]["content"]));
-		};
+			const initialKeys = Object.keys(json["posterior"]["content"]);
+			var keys = new Array();
 
-		console.log(state.name);
+			// check for complex entries and exclude them
+			for (var i = 0; i < initialKeys.length; i++) {
+				if (!json["posterior"]["content"][initialKeys[i]][0]["__complex__"]) {
+					keys.push(initialKeys[i])
+				}
+			}
+			setPosteriorKeys(keys);
+		};
 	};
 
 	useEffect(

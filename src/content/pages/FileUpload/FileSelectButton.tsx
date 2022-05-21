@@ -4,7 +4,7 @@ import { Button, Input } from "@mui/material";
 
 export default function FileSelectButton({ updateSelectedFile }) {
 	const changeHandler = (event) => {
-		console.log(event.target.files[0]);
+		//console.log(event.target.files[0]);
 		updateSelectedFile(event.target.files[0]);
 	};
 
