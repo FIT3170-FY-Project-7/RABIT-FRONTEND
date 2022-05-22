@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title><%= htmlWebpackPlugin.options.metadata.title %></title>
-		<meta
-			name="description"
-			content="<%= htmlWebpackPlugin.options.metadata.description %>"
-		/>
-		<meta
-			name="keywords"
-			content="<%= htmlWebpackPlugin.options.metadata.keywords %>"
-		/>
+    <head>
+        <link
+            rel="manifest"
+            href="/public/manifest.webmanifest"
+            crossorigin="use-credentials"
+        />
 
-		<link
-			rel="manifest"
-			href="/public/manifest.webmanifest"
-			crossorigin="use-credentials"
-		/>
-
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	</head>
-	<body>
-		<noscript>You need to enable JavaScript to run this app.</noscript>
-		<div id="root"></div>
-	</body>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+    </body>
 </html>
