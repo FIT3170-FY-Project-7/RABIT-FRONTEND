@@ -29,7 +29,7 @@ function ResetPassword() {
             sx={{ minHeight: "100vh" }}
         >
             <Helmet>
-                <title>Reset Password - RABIT</title>
+                <title>Reset Password | RABIT</title>
             </Helmet>
             <Grid item xs={12}>
                 <Box

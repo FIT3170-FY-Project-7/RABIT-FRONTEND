@@ -29,7 +29,7 @@ function SignUp() {
             sx={{ minHeight: "100vh" }}
         >
             <Helmet>
-                <title>Signup - RABIT</title>
+                <title>Sign Up | RABIT</title>
             </Helmet>
             <Grid item xs={12}>
                 <Box

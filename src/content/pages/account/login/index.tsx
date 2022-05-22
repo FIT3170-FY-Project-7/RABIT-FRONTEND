@@ -28,7 +28,7 @@ const Login = () => {
             sx={{ minHeight: "100vh" }}
         >
             <Helmet>
-                <title>RABIT | Login</title>
+                <title>Login | RABIT</title>
             </Helmet>
             <Grid item xs={12}>
                 <Box
