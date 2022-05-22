@@ -9,7 +9,7 @@ import type { ComponentProps, ComponentType } from "react";
 // Layout.
 import SidebarLayout from "./layouts/SidebarLayout";
 import BaseLayout from "./layouts/BaseLayout";
-
+import DataPageLayout from "./layouts/DatapageLayout";
 // Loader.
 import SuspenseLoader from "./components/SuspenseLoader";
 const Loader =
@@ -27,13 +27,14 @@ const UserProfile = Loader(
 const UserSettings = Loader(
 	lazy(() => import("./content/applications/Users/settings"))
 );
-
+const Datapage = Loader(lazy(() => import("./content/datapage")));
 // Overview.
 const Overview = Loader(lazy(() => import("./content/overview")));
 
-// login and signup page
+// login, signup and password reset page
 const Login = Loader(lazy(() => import("./content/login")));
 const Signup = Loader(lazy(() => import("./content/signup")));
+const ResetPassword = Loader(lazy(() => import("./content/resetPassword")));
 
 // Status pages.
 // TODO: All of these should be converted to RABIT branding.
@@ -63,7 +64,7 @@ const routes: RouteObject[] = [
 			{ path: "overview", element: <Navigate to="/" replace /> },
 			{ path: "login", element: <Login /> },
 			{ path: "signup", element: <Signup /> },
-			// { path: "upload", element: <FileUpload /> },
+			{ path: "reset-password", element: <ResetPassword /> },
 			{ path: "*", element: <Status404 /> },
 		],
 	},
@@ -83,9 +84,16 @@ const routes: RouteObject[] = [
 		],
 	},
 	{
+		element: <DataPageLayout />,
+		children: [
+			// TODO: Convert to login screen.
+			{ path: "visualise", element: <Datapage /> },
+			{ path: "*", element: <Status404 /> },
+		],
+	},
+	{
 		element: <SidebarLayout />,
 		children: [{ path: "upload", element: <FileUpload /> }],
 	},
 ];
-
 export default routes;
