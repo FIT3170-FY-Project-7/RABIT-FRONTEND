@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MathJaxContext } from 'better-react-mathjax';
-import CornerPlot from '../../../ui-component/plots/CornerPlot';
-import ParameterSelector from '../../../ui-component/plots/ParameterSelector';
+import CornerPlot from './CornerPlot';
+import ParameterSelector from './ParameterSelector';
 
 // This is the skeleton component for our plots page. It will host all relevant components for the user to create plots
 // including the parameter selectors and the corner plot itself.
@@ -47,9 +47,14 @@ function PlotsPage() {
     };
 
     const config = {
-        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+        tex: {
+            inlineMath: [
+                ['$', '$'],
+                ['\\(', '\\)']
+            ]
+        },
         startup: {
-          typeset: false
+            typeset: false
         }
     };
 

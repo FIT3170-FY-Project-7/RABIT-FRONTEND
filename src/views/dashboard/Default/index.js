@@ -11,7 +11,7 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
-import PlotsPage from '../../pages/plots/PlotsPage';
+import PlotsPage from '../../../ui-component/plots/PlotsPage';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -21,9 +21,7 @@ const Dashboard = () => {
         setLoading(false);
     }, []);
 
-    return (
-        <PlotsPage />
-    );
+    return <PlotsPage />;
 };
 
 export default Dashboard;
