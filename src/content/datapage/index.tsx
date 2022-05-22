@@ -1,6 +1,7 @@
 
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/Footer';
+import PlotsPage from '../plots/PlotsPage';
 
 import { Box, Container } from '@mui/material';
 
@@ -12,7 +13,7 @@ function Datapage() {
       </Helmet>
       <Container sx={{ mt: 3 }} maxWidth="lg">
       <Box>
-      REPLACE THIS BOX COMPONENT WITH PLOTLY VISUAL :)
+      <PlotsPage/>
       </Box>
       </Container>
       <Footer />
