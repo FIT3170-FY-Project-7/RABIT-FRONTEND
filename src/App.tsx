@@ -15,7 +15,6 @@ const App = () => {
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<CssBaseline />
 				{content}
-				<PlotsPage />
 			</LocalizationProvider>
 		</ThemeProviderWrapper>
 	);
