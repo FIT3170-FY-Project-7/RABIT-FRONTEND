@@ -33,37 +33,44 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
         }
 
 
-        selectedFile.text().then((jsonString) => {
+        selectedFile.text().then(async (jsonString) => {
+
             var json = JSON.parse(jsonString);
             json.selected_keys = selectedKeys;
             console.log(json.selected_keys);
+
+            
             // console.log(json);
-            var jsonMerged = JSON.stringify(json);
+            json = JSON.stringify(json);
             // console.log(jsonMerged);
             const data = new FormData();
 
             const blob = new Blob([json],{type: 'application/json'});
-            console.log(json);
+            console.log(blob);
             data.append("file", blob);//
-            // console.log(data.getAll("file"));
+
+
             //dev solution to test upload works
             //run `npx nodemon ./server.tsx` in repo root to run local test server
-            axios.post('http://localhost:8000/uploads', data, options).then((res) => {
-                // console.log(res.statusText);
+            await axios.post('http://localhost:8000/uploads', data, options).then((res) => {
+                console.log(res.statusText);
                 // console.log(uploadPercentage);
             });
 
             //getting data
             // const filename = "1653141037449";
-
             axios.get('http://localhost:8000/uploads',{})
-              .then(function (response) {
+            .then(function (response) {
                 console.log(response.data);
+                console.log(Object.keys(response.data));
+            
+        })
 
-                
-              })
+
 
         });
+
+        
 
     };
     return (
