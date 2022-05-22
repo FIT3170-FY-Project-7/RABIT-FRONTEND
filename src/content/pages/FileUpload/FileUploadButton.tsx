@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { FileUpload, Percent } from '@mui/icons-material';
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface FileUpload {
     enableButton: boolean;
@@ -17,6 +18,7 @@ interface FileUpload {
 
 export default function FileUploadButton({ enableButton, selectedFile, selectedKeys, buttonMessage}: FileUpload) { 
 	const [uploadPercentage, setUploadPercentage] = useState(0);
+    const navigate = useNavigate();
     
     const handleSubmission = () => {
 
@@ -59,18 +61,11 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
 
             //getting data
             // const filename = "1653141037449";
-            axios.get('http://localhost:8000/uploads',{})
-            .then(function (response) {
-                console.log(response.data);
-                console.log(Object.keys(response.data));
-            
-        })
-
-
-
         });
 
+
         
+        navigate("/visualise");
 
     };
     return (
