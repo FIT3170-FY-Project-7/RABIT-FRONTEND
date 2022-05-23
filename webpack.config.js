@@ -78,7 +78,7 @@ module.exports = (env, argv) => {
 			],
 		}),
 		new BannerPlugin(
-			`${PACKAGE.name} | ${PACKAGE.version} | ${PACKAGE.author}`
+			`${PACKAGE_JSON.name} | ${PACKAGE_JSON.version} | ${PACKAGE_JSON.author}`
 		),
 		new ProgressPlugin((percent, msg, ...args) =>
 			console.log(
@@ -93,8 +93,8 @@ module.exports = (env, argv) => {
 			metadata: {
 				// Metadata to be passed to the template's placeholder strings.
 				title: "RABIT",
-				keywords: PACKAGE.keywords.join(","),
-				description: PACKAGE.description,
+				keywords: PACKAGE_JSON.keywords.join(","),
+				description: PACKAGE_JSON.description,
 			},
 		}),
 	],
