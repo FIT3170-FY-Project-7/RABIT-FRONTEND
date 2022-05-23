@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 
 // Tab imports from other files (same folder)
-import DataTab from "./DataTab";
+import PlotsPage from "../plots/PlotsPage";
 import CommentsTab from "./CommentsTab";
 
 // Icon imports
@@ -259,7 +259,7 @@ function ManagementUserSettings() {
 
 				<Grid item xs={10}>
 					<Box>
-						{currentTab === "data" && <DataTab />}
+						{currentTab === "data" && <PlotsPage />}
 						{currentTab === "comments" && <CommentsTab />}
 					</Box>
 				</Grid>

@@ -52,6 +52,9 @@ const StatusMaintenance = Loader(
     lazy(() => import("./content/pages/Status/Maintenance"))
 );
 
+// File Upload Page
+const FileUpload = Loader(lazy(() => import("./content/pages/FileUpload")));
+
 // Routes.
 const routes: RouteObject[] = [
     {
@@ -90,6 +93,10 @@ const routes: RouteObject[] = [
             { path: "*", element: <Status404 /> },
         ],
     },
+	},
+		children: [{ path: "upload", element: <FileUpload /> }],
+		element: <SidebarLayout />,
+	{
 ];
 
 export default routes;

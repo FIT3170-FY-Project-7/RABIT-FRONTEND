@@ -1,10 +1,12 @@
 // Webpack Plugins.
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const Buffer = require('buffer/').Buffer;
 const {
-    SourceMapDevToolPlugin,
-    BannerPlugin,
-    ProgressPlugin,
+	ProvidePlugin,
+	SourceMapDevToolPlugin,
+	BannerPlugin,
+	ProgressPlugin,
 } = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -34,6 +36,15 @@ module.exports = (env, argv) => {
     return {
         devtool: IS_PROD ? false : "source-map",
 
+	resolve: {
+		alias: { react: path.join(__dirname, "node_modules", "react") },
+		modules: [path.join(__dirname, "src"), "node_modules"],
+		extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+		fallback: {"stream": require.resolve("stream-browserify"),
+					"buffer": require.resolve("buffer/")}
+		
+		
+	},
         entry: "./src/index.tsx",
 
         output: {
@@ -49,11 +60,44 @@ module.exports = (env, argv) => {
             historyApiFallback: true,
         },
 
-        resolve: {
-            alias: { react: path.join(__dirname, "node_modules", "react") },
-            modules: [path.join(__dirname, "src"), "node_modules"],
-            extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
-        },
+	plugins: [
+		...(IS_PROD ? PROD_PLUGINS : DEV_PLUGINS),
+
+		new ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+        }),
+
+
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: "public",
+					to: "public",
+					globOptions: { ignore: ["index.html"] },
+				},
+			],
+		}),
+		new BannerPlugin(
+			`${PACKAGE.name} | ${PACKAGE.version} | ${PACKAGE.author}`
+		),
+		new ProgressPlugin((percent, msg, ...args) =>
+			console.log(
+				`${(percent * 100).toFixed(2).padEnd(7)}% | ${msg} | ${args.join(
+					" | "
+				)}`
+			)
+		),
+		new HtmlWebPackPlugin({
+			template: "./public/index.html", // The index.html file is used as a template here, which is why we ignore it in CopyWebpackPlugin.
+			filename: "index.html", // The output file name.
+			metadata: {
+				// Metadata to be passed to the template's placeholder strings.
+				title: "RABIT",
+				keywords: PACKAGE.keywords.join(","),
+				description: PACKAGE.description,
+			},
+		}),
+	],
 
         module: {
             rules: [
