@@ -64,12 +64,12 @@ const routes: RouteObject[] = [
             { path: "login", element: <Navigate to="/" replace /> },
             { path: "signup", element: <Signup /> },
             { path: "reset-password", element: <ResetPassword /> },
-            { path: "*", element: <Status404 /> },
+            { path: "*", element: <StatusComingSoon /> },
         ],
     },
     {
         path: "management",
-        element: <SidebarLayout />,
+        element: <RabitLayout />,
         children: [
             {
                 path: "",
