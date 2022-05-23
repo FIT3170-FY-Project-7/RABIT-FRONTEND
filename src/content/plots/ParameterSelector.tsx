@@ -1,4 +1,4 @@
-import { Button, Switch } from "@mui/material";
+import { Button, Divider, MenuItem, Switch, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Reorder from "react-reorder";
 
@@ -82,22 +82,32 @@ const ParameterSelector = ({
         width: "400px",
         overflow: "auto",
         padding: "5px",
-        backgroundColor: "#8C7CF0",
+        // backgroundColor: "#8C7CF0",
         userSelect: "none",
     };
 
     const itemStyle = {
         width: "100%",
-        padding: "5px",
-        backgroundColor: "black",
-        border: "2px solid white",
+        // padding: "5px",
+        // backgroundColor: "black",
+        // border: "2px solid white",
     };
 
     return (
         <div>
-            <div style={{ display: "flex" }}>
+            <div
+                style={{
+                    display: "flex",
+                    borderColor: "white",
+                    borderStyle: "solid",
+                    borderRadius: "1rem",
+                    backgroundColor: "#111633",
+                }}
+            >
                 <div>
-                    Inactive Parameters
+                    <Typography variant="h6" sx={{ textAlign: "center" }}>
+                        Inactive Parameters
+                    </Typography>
                     <Reorder
                         reorderId="inactive-items"
                         reorderGroup="param-selector"
@@ -105,19 +115,23 @@ const ParameterSelector = ({
                         style={style}
                     >
                         {items["inactive-items"].map((item, i) => (
-                            <div
+                            <MenuItem
                                 onDoubleClick={onClick("inactive-items", i)}
                                 onClick={onClick("inactive-items", i)}
                                 style={itemStyle}
                                 key={item}
+                                divider
                             >
                                 {item}
-                            </div>
+                            </MenuItem>
                         ))}
                     </Reorder>
                 </div>
+                <Divider orientation="vertical" />
                 <div>
-                    Active Parameters
+                    <Typography variant="h6" sx={{ textAlign: "center" }}>
+                        Active Parameters
+                    </Typography>
                     <Reorder
                         reorderId="active-items"
                         reorderGroup="param-selector"
@@ -125,14 +139,15 @@ const ParameterSelector = ({
                         style={style}
                     >
                         {items["active-items"].map((item, i) => (
-                            <div
+                            <MenuItem
                                 onDoubleClick={onClick("active-items", i)}
                                 onClick={onClick("active-items", i)}
                                 style={itemStyle}
                                 key={item}
+                                divider
                             >
                                 {item}
-                            </div>
+                            </MenuItem>
                         ))}
                     </Reorder>
                 </div>
