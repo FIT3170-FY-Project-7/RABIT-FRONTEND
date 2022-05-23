@@ -14,8 +14,9 @@
     },
     "main": "index.tsx",
     "scripts": {
-        "start": "webpack-dev-server --mode=development --open --hot",
+        "start": "webpack-dev-server --mode=development --open --hot --history-api-fallback",
         "build": "webpack --mode=production",
+        "deploylocal": "npx concurrently \"npx serve -s dist\" \"start http://localhost:3000\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -82,6 +83,7 @@
         "browser-resolve": "^2.0.0",
         "buffer": "^6.0.3",
         "clean-webpack-plugin": "^4.0.0",
+        "concurrently": "^7.2.0",
         "copy-webpack-plugin": "^10.2.4",
         "css-loader": "^6.7.1",
         "detective": "^5.2.0",
@@ -102,6 +104,8 @@
         "process": "^0.11.10",
         "sass": "^1.50.1",
         "sass-loader": "^12.6.0",
+        "serve": "^13.0.2",
+        "speed-measure-webpack-plugin": "^1.5.0",
         "style-loader": "^3.3.1",
         "svg-url-loader": "^7.1.1",
         "terser-webpack-plugin": "^5.3.1",

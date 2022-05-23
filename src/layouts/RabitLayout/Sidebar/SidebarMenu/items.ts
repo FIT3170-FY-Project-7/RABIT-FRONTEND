@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 
 import ExploreIcon from '@mui/icons-material/Explore';
 import HomeIcon from '@mui/icons-material/Home';
+import ForumIcon from '@mui/icons-material/Forum';
 
 export interface MenuItem {
   link?: string;
@@ -26,6 +27,12 @@ const menuItems: MenuItems[] = [
         icon: HomeIcon
       },
       {
+        name: 'Discussion',
+        link: '/Discussion',
+        icon: ForumIcon,
+        badge: '1'
+      },
+      {
         name: 'Explore',
         icon: ExploreIcon,
         link: '/management/profile',
@@ -40,6 +47,7 @@ const menuItems: MenuItems[] = [
           }
         ]
       }
+      
     ]
   }
   
