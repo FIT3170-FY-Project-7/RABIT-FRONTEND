@@ -1,7 +1,9 @@
 // Webpack Plugins.
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const Buffer = require('buffer/').Buffer;
 const {
+	ProvidePlugin,
 	SourceMapDevToolPlugin,
 	BannerPlugin,
 	ProgressPlugin,
@@ -41,6 +43,10 @@ module.exports = {
 		alias: { react: path.join(__dirname, "node_modules", "react") },
 		modules: [path.join(__dirname, "src"), "node_modules"],
 		extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+		fallback: {"stream": require.resolve("stream-browserify"),
+					"buffer": require.resolve("buffer/")}
+		
+		
 	},
 
 	module: {
@@ -120,6 +126,12 @@ module.exports = {
 
 	plugins: [
 		...(IS_PROD ? PROD_PLUGINS : DEV_PLUGINS),
+
+		new ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+        }),
+
+
 		new CopyWebpackPlugin({
 			patterns: [
 				{
