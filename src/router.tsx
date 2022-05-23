@@ -93,10 +93,10 @@ const routes: RouteObject[] = [
             { path: "*", element: <Status404 /> },
         ],
     },
-	{
-		children: [{ path: "upload", element: <FileUpload /> }],
-		element: <SidebarLayout />,
-    }
+    {
+        element: <RabitLayout />,
+        children: [{ path: "upload", element: <FileUpload /> }],
+    },
 ];
 
 export default routes;
