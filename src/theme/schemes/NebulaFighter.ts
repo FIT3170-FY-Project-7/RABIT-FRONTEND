@@ -49,7 +49,7 @@ const colors = {
     },
     sidebar: {
       background: themeColors.primaryAlt,
-      textColor: themeColors.secondary,
+            textColor: themeColors.trueWhite,
       dividerBg: '#272C48',
       menuItemColor: '#9EA4C1',
       menuItemColorActive: '#ffffff',
@@ -234,7 +234,7 @@ export const NebulaFighterTheme = createTheme({
     height: '88px',
     background: themeColors.primaryAlt,
     boxShadow: '0px 1px 0px #272C48',
-    textColor: colors.secondary.main
+        textColor: themeColors.trueWhite,
   },
   spacing: 8,
   palette: {
@@ -294,8 +294,8 @@ export const NebulaFighterTheme = createTheme({
       A700: '#616161'
     },
     text: {
-      primary: colors.alpha.black[100],
-      secondary: colors.alpha.black[70],
+            primary: colors.alpha.trueWhite[100],
+            secondary: colors.alpha.trueWhite[100],
       disabled: colors.alpha.black[50]
     },
     background: {
