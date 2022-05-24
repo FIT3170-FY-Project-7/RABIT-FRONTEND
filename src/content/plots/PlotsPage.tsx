@@ -3,6 +3,7 @@ import { MathJaxContext } from "better-react-mathjax";
 import CornerPlot from "./CornerPlot";
 import ParameterSelector from "./ParameterSelector";
 import axios from "axios";
+import CheckboxDropdown from "../pages/FileUpload/CheckboxDropdown";
 
 function PlotsPage() {
     /* 
@@ -53,10 +54,11 @@ function PlotsPage() {
         <div>
             {!loading && (
                 <MathJaxContext config={config}>
-                    <ParameterSelector
-                        items={Object.keys(data)}
-                        default={defaultParameters}
-                        onUpdate={updateParameters}
+                    <CheckboxDropdown
+                        defaultChecked={defaultParameters}
+                        keys={Object.keys(data)}
+                        setSelectedKeys={setParameters}
+                        sx={{ margin: "1rem" }}
                     />
                     <CornerPlot data={data} parameters={parameters} />
                 </MathJaxContext>
