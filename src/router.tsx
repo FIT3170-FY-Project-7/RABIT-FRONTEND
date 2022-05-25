@@ -64,7 +64,7 @@ const routes: RouteObject[] = [
             { path: "login", element: <Navigate to="/" replace /> },
             { path: "signup", element: <Signup /> },
             { path: "reset-password", element: <ResetPassword /> },
-            { path: "*", element: <StatusComingSoon /> },
+            { path: "*", element: <Status404 /> },
         ],
     },
     {
@@ -90,12 +90,9 @@ const routes: RouteObject[] = [
         children: [
             // TODO: Convert to login screen.
             { path: "visualise", element: <Datapage /> },
+            { path: "upload", element: <FileUpload /> },
             { path: "*", element: <Status404 /> },
         ],
-    },
-    {
-        element: <RabitLayout />,
-        children: [{ path: "upload", element: <FileUpload /> }],
     },
 ];
 
