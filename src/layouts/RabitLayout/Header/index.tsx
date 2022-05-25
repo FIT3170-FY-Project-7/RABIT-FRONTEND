@@ -1,14 +1,10 @@
-import { useContext } from 'react';
-
-import { Box, Container, Hidden, IconButton, Tooltip } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { SidebarContext } from '../../../contexts/SidebarContext';
-
-import DataTitle from './Search';
-import HeaderUserbox from './Userbox';
+import { Box } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import DataTitle from './Search'
+import HeaderUserbox from './Userbox'
 
 const HeaderWrapper = styled(Box)(
-  ({ theme }) => `
+    ({ theme }) => `
         height: ${theme.header.height};
         color: ${theme.header.textColor};
         padding: ${theme.spacing(0, 2)};
@@ -17,30 +13,27 @@ const HeaderWrapper = styled(Box)(
         background-color: ${theme.header.background};
         box-shadow: ${theme.header.boxShadow};
         position: fixed;
-        justify-content: space-between;
         width: 100%;
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             left: ${theme.sidebar.width};
             width: auto;
         }
 `
-);
+)
+
+const UserBoxWrapper = styled(Box)(({ theme }) => `margin: ${theme.spacing(0, 0, 0, 2)};`)
 
 function Header() {
-  const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
-
-  return (
-    <HeaderWrapper display="flex" alignItems="center" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-      <Box sx={{width:'85%'}} display="flex" alignItems="center">
-        <Container sx={{width:'100%'}}>
-          <DataTitle />
-        </Container>
-      </Box>
-      <Box display="flex" alignItems="center">
-        <HeaderUserbox />
-      </Box>
-    </HeaderWrapper>
-  );
+    return (
+        <HeaderWrapper display='flex' alignItems='center'>
+            <Box sx={{ width: '100%' }}>
+                <DataTitle />
+            </Box>
+            <UserBoxWrapper>
+                <HeaderUserbox />
+            </UserBoxWrapper>
+        </HeaderWrapper>
+    )
 }
 
-export default Header;
+export default Header

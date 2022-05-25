@@ -1,8 +1,8 @@
-import React from "react";
-
 import { Theme } from "@mui/material";
+import React from "react";
+import { NebulaFighterTheme } from "./schemes/NebulaFighterTheme";
 import { PureLightTheme } from "./schemes/PureLightTheme";
-import { NebulaFighterTheme } from "./schemes/NebulaFighter";
+
 
 export function themeCreator(theme: string): Theme {
 	return themeMap[theme];

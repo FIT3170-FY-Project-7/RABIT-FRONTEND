@@ -20,7 +20,7 @@ function ManagementUserSettings() {
                 <title>RABIT - Visualise</title>
             </Helmet>
             <Grid container direction='row' justifyContent='center' alignItems='stretch' sx={{ marginTop: '2rem' }}>
-                <Grid item xs={12}>
+                <Grid item xs={10}>
                     <PageHeader
                         currentTab={currentTab}
                         onTabChange={onTabChange}

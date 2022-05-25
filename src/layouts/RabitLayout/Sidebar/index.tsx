@@ -1,21 +1,17 @@
-import {useContext} from 'react'
-import {Scrollbars} from 'react-custom-scrollbars-2'
-import {SidebarContext} from '../../../contexts/SidebarContext'
+import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone'
+import { Box, Button, Hidden, Stack } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { Scrollbars } from 'react-custom-scrollbars-2'
+import { NavLink as RouterLink } from 'react-router-dom'
 import Logo from '../../../components/Logo'
-import { NavLink as RouterLink } from 'react-router-dom';
-
-import {Box, Button, Drawer, Hidden, Stack} from '@mui/material'
-
-import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone';
-import {styled} from '@mui/material/styles'
 import SidebarMenu from './SidebarMenu'
 
 const Input = styled('input')({
-    display: 'none',
-  });
+    display: 'none'
+})
 
 const SidebarWrapper = styled(Box)(
-    ({theme}) => `
+    ({ theme }) => `
         width       : ${theme.sidebar.width};
         color       : ${theme.sidebar.textColor};
         background  : ${theme.sidebar.background};
@@ -32,7 +28,7 @@ const SidebarWrapper = styled(Box)(
 )
 
 const TopSection = styled(Box)(
-    ({theme}) => `
+    ({ theme }) => `
         display        : flex;
         height         : 88px;
         align-items    : center;
@@ -43,33 +39,42 @@ const TopSection = styled(Box)(
 
 function Sidebar() {
     return (
-        <> < Hidden lgDown > <SidebarWrapper>
-            <Scrollbars autoHide>
-                <Box sx={{height:'50%'}}>
-                    <Stack alignItems = "center">
-                        <TopSection>
-                            <Logo/>
-                        </TopSection>
-                        <Input accept="*" id="import-data" multiple type="file" />
-                        <label htmlFor="import-data"> 
-                            <Button sx={{width:130}}
-                                startIcon={<UploadTwoToneIcon />}
-                                variant="contained"
-                                component={RouterLink}
-                                to="/Upload">
-                            Upload
+        <>
+            {' '}
+            <Hidden lgDown>
+                {' '}
+                <SidebarWrapper>
+                    <Scrollbars autoHide>
+                        <Box sx={{ height: '50%' }}>
+                            <Stack alignItems='center'>
+                                <TopSection>
+                                    <Logo />
+                                </TopSection>
+                                <Input accept='*' id='import-data' multiple type='file' />
+                                <label htmlFor='import-data'>
+                                    <Button
+                                        sx={{ width: 130 }}
+                                        startIcon={<UploadTwoToneIcon />}
+                                        variant='contained'
+                                        component={RouterLink}
+                                        to='/Upload'
+                                    >
+                                        Upload
+                                    </Button>
+                                </label>
+                            </Stack>
+                            <SidebarMenu />
+                        </Box>
+                        <Stack sx={{ height: '45%' }} alignItems='center' direction='column-reverse'>
+                            <Button variant='outlined' component='span'>
+                                {' '}
+                                About{' '}
                             </Button>
-                        </label>
-                    </Stack>
-                <SidebarMenu/>
-                </Box> 
-                <Stack sx={{height:'45%'}} alignItems = "center" direction='column-reverse'>
-                    <Button variant = "outlined" component="span"> About </Button>
-                </Stack>
-            </Scrollbars>
-        </SidebarWrapper>
-    </Hidden>
-</>
+                        </Stack>
+                    </Scrollbars>
+                </SidebarWrapper>
+            </Hidden>
+        </>
     )
 }
 

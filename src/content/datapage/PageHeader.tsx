@@ -1,6 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit'
 import ShareIcon from '@mui/icons-material/Share'
-import { Box, Grid, IconButton, Tab, Tabs, Typography } from '@mui/material'
+import { Box, IconButton, Tab, Tabs, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { ChangeEvent } from 'react'
 
@@ -8,8 +8,7 @@ const TabsWrapper = styled(Tabs)(
     () => `
     .MuiTabs-scrollableX {
       overflow-x: auto !important;
-    }
-`
+    }`
 )
 
 interface TabState {
@@ -26,28 +25,32 @@ function PageHeader({ currentTab, onTabChange, dataTitle, dataDescription }: Tab
     ]
 
     return (
-        <Grid container direction='row' justifyContent='center' alignItems='stretch' sx={{ marginTop: '2rem' }}>
-            <Grid item xs={3}>
+        <Box display='flex' justify-content='space-between'>
+            <Box flex={1}>
                 <Typography variant='h2' gutterBottom>
                     {dataTitle}
                 </Typography>
-                <Box sx={{ marginTop: '2rem' }}>
-                    <TabsWrapper onChange={onTabChange} value={currentTab} textColor='primary' indicatorColor='primary'>
-                        {tabs.map(tab => (
-                            <Tab key={tab.value} label={tab.label} value={tab.value} />
-                        ))}
-                    </TabsWrapper>
-                </Box>
-            </Grid>
-            <Grid item xs={1}>
+                <TabsWrapper
+                    sx={{ mt: '2rem' }}
+                    onChange={onTabChange}
+                    value={currentTab}
+                    textColor='primary'
+                    indicatorColor='primary'
+                >
+                    {tabs.map(tab => (
+                        <Tab key={tab.value} label={tab.label} value={tab.value} />
+                    ))}
+                </TabsWrapper>
+            </Box>
+            <Box ml='auto'>
                 <IconButton>
                     <EditIcon />
                 </IconButton>
                 <IconButton>
                     <ShareIcon />
                 </IconButton>
-            </Grid>
-        </Grid>
+            </Box>
+        </Box>
     )
 }
 

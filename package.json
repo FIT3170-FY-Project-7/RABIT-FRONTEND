@@ -15,8 +15,7 @@
     "main": "index.tsx",
     "scripts": {
         "start": "webpack-dev-server --mode=development --open --hot --history-api-fallback",
-        "build": "webpack --mode=production",
-        "deploylocal": "npx concurrently \"npx serve -s dist\" \"start http://localhost:3000\"",
+        "build": "webpack --mode=production && npx concurrently \"npx serve -s dist\" \"start http://localhost:3000\"",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [

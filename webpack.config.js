@@ -1,12 +1,12 @@
 // Webpack Plugins.
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const Buffer = require('buffer/').Buffer;
+const Buffer = require("buffer/").Buffer;
 const {
-	ProvidePlugin,
-	SourceMapDevToolPlugin,
-	BannerPlugin,
-	ProgressPlugin,
+    ProvidePlugin,
+    SourceMapDevToolPlugin,
+    BannerPlugin,
+    ProgressPlugin,
 } = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -36,15 +36,15 @@ module.exports = (env, argv) => {
     return {
         devtool: IS_PROD ? false : "source-map",
 
-	resolve: {
-		alias: { react: path.join(__dirname, "node_modules", "react") },
-		modules: [path.join(__dirname, "src"), "node_modules"],
-		extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
-		fallback: {"stream": require.resolve("stream-browserify"),
-					"buffer": require.resolve("buffer/")}
-		
-		
-	},
+        resolve: {
+            alias: { react: path.join(__dirname, "node_modules", "react") },
+            modules: [path.join(__dirname, "src"), "node_modules"],
+            extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+            fallback: {
+                stream: require.resolve("stream-browserify"),
+                buffer: require.resolve("buffer/"),
+            },
+        },
         entry: "./src/index.tsx",
 
         output: {
@@ -58,46 +58,8 @@ module.exports = (env, argv) => {
 
         devServer: {
             historyApiFallback: true,
+            port: 3000
         },
-
-	plugins: [
-		...(IS_PROD ? PROD_PLUGINS : DEV_PLUGINS),
-
-		new ProvidePlugin({
-            Buffer: ['buffer', 'Buffer'],
-        }),
-
-
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: "public",
-					to: "public",
-					globOptions: { ignore: ["index.html"] },
-				},
-			],
-		}),
-		new BannerPlugin(
-			`${PACKAGE_JSON.name} | ${PACKAGE_JSON.version} | ${PACKAGE_JSON.author}`
-		),
-		new ProgressPlugin((percent, msg, ...args) =>
-			console.log(
-				`${(percent * 100).toFixed(2).padEnd(7)}% | ${msg} | ${args.join(
-					" | "
-				)}`
-			)
-		),
-		new HtmlWebPackPlugin({
-			template: "./public/index.html", // The index.html file is used as a template here, which is why we ignore it in CopyWebpackPlugin.
-			filename: "index.html", // The output file name.
-			metadata: {
-				// Metadata to be passed to the template's placeholder strings.
-				title: "RABIT",
-				keywords: PACKAGE_JSON.keywords.join(","),
-				description: PACKAGE_JSON.description,
-			},
-		}),
-	],
 
         module: {
             rules: [
@@ -118,10 +80,7 @@ module.exports = (env, argv) => {
                                     },
                                 ],
                                 "@babel/preset-typescript",
-                                [
-                                    "@babel/preset-react",
-                                    { runtime: "automatic" },
-                                ],
+                                ["@babel/preset-react", { runtime: "automatic" }],
                             ],
                             plugins: [
                                 "@babel/plugin-proposal-class-properties",
@@ -136,7 +95,7 @@ module.exports = (env, argv) => {
                     test: /\.scss$/,
                     use: ["style-loader", "css-loader", "sass-loader"],
                 },
-                //{ test : /\.html$/, use : ['html-loader' /* 'markup-inline-loader' */             ] },
+                //{ test : /\.html$/, use : ['html-loader' /* 'markup-inline-loader' */                         ] },
                 {
                     test: /\.svg$/,
                     use: [
@@ -179,12 +138,6 @@ module.exports = (env, argv) => {
             ],
         },
 
-        devServer: {
-            // Fixes 'cannot GET <page>' issues; see https://ui.dev/react-router-cannot-get-url-refresh.
-            historyApiFallback: { rewrites: [{ from: /./, to: "index.html" }] },
-            compress: true,
-        },
-
         plugins: [
             ...(IS_PROD ? PROD_PLUGINS : DEV_PLUGINS),
             new CopyWebpackPlugin({
@@ -201,9 +154,9 @@ module.exports = (env, argv) => {
             ),
             new ProgressPlugin((percent, msg, ...args) =>
                 console.log(
-                    `${(percent * 100)
-                        .toFixed(2)
-                        .padEnd(7)}% | ${msg} | ${args.join(" | ")}`
+                    `${(percent * 100).toFixed(2).padEnd(7)}% | ${msg} | ${args.join(
+                        " | "
+                    )}`
                 )
             ),
             new HtmlWebPackPlugin({
