@@ -1,5 +1,5 @@
-import { alpha, createTheme, darken } from '@mui/material';
 import '@mui/lab/themeAugmentation';
+import { alpha, createTheme, darken } from '@mui/material';
 
 const themeColors = {
   primary: '#8C7CF0',
