@@ -1,8 +1,8 @@
 // Webpack Plugins.
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const Buffer = require('buffer/').Buffer
-const { ProvidePlugin, SourceMapDevToolPlugin, BannerPlugin, ProgressPlugin } = require('webpack')
+const Buffer = require('buffer/').Buffer // eslint-disable-line | This import is required for the CSV parser.
+const { SourceMapDevToolPlugin, BannerPlugin, ProgressPlugin } = require('webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const TerserPlugin = require('terser-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -13,6 +13,7 @@ const DEV_PLUGINS = [
     new BundleAnalyzerPlugin(),
     new SpeedMeasurePlugin()
 ]
+
 const PROD_PLUGINS = [] // Production-only plugins.
 
 // Path library.
@@ -37,7 +38,7 @@ module.exports = (env, argv) => {
             extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
             fallback: {
                 stream: require.resolve('stream-browserify'),
-                buffer: require.resolve('buffer/')
+                buffer: require.resolve('buffer/') // This is required for the CSV parser.
             }
         },
         entry: './src/index.tsx',
