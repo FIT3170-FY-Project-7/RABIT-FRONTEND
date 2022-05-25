@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types'
-import { Box, Typography, Card, Tooltip, Avatar, CardMedia, Button, IconButton } from '@mui/material'
+import { Avatar, Box, Button, Card, CardMedia, IconButton, Tooltip, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import PropTypes from 'prop-types'
 
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone'
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone'
-import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone'
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone'
+import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone'
 
 const Input = styled('input')({
     display: 'none'
@@ -23,8 +23,7 @@ const AvatarWrapper = styled(Card)(
     .MuiAvatar-root {
       width: ${theme.spacing(16)};
       height: ${theme.spacing(16)};
-    }
-`
+    }`
 )
 
 const ButtonUploadWrapper = styled(Box)(
@@ -47,8 +46,7 @@ const ButtonUploadWrapper = styled(Box)(
       &:hover {
         background: ${theme.colors.primary.dark};
       }
-    }
-`
+    }`
 )
 
 const CardCover = styled(Card)(
@@ -57,16 +55,14 @@ const CardCover = styled(Card)(
 
     .MuiCardMedia-root {
       height: ${theme.spacing(26)};
-    }
-`
+    }`
 )
 
 const CardCoverAction = styled(Box)(
     ({ theme }) => `
     position: absolute;
     right: ${theme.spacing(2)};
-    bottom: ${theme.spacing(2)};
-`
+    bottom: ${theme.spacing(2)};`
 )
 
 const ProfileCover = ({ user }) => {

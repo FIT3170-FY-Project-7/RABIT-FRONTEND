@@ -1,8 +1,8 @@
-import { ListSubheader, List } from '@mui/material'
-import { useLocation, matchPath } from 'react-router-dom'
+import { List, ListSubheader } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { matchPath, useLocation } from 'react-router-dom'
 import SidebarMenuItem from './item'
 import menuItems, { MenuItem } from './items'
-import { styled } from '@mui/material/styles'
 
 const MenuWrapper = styled(List)(
     ({ theme }) => `
@@ -20,8 +20,7 @@ const MenuWrapper = styled(List)(
       color: ${theme.sidebar.menuItemHeadingColor};
       padding: ${theme.spacing(0.8, 2)};
       line-height: 1.4;
-    }
-`
+    }`
 )
 
 const SubMenuWrapper = styled(List)(
@@ -120,8 +119,7 @@ const SubMenuWrapper = styled(List)(
           }
         }
       }
-    }
-`
+    }`
 )
 
 const renderSidebarMenuItems = ({ items, path }: { items: MenuItem[]; path: string }): JSX.Element => (

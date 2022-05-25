@@ -1,15 +1,15 @@
 import { useContext } from 'react'
 
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
+import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone'
 import { Box, Hidden, IconButton, Tooltip } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone'
 import { SidebarContext } from '../../../contexts/SidebarContext'
-import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
 
-import HeaderMenu from './Menu'
-import HeaderButtons from './Buttons'
-import HeaderUserbox from './Userbox'
 import Logo from '../../../components/Logo'
+import HeaderButtons from './Buttons'
+import HeaderMenu from './Menu'
+import HeaderUserbox from './Userbox'
 
 const HeaderWrapper = styled(Box)(
     ({ theme }) => `
@@ -26,8 +26,7 @@ const HeaderWrapper = styled(Box)(
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             left: ${theme.sidebar.width};
             width: auto;
-        }
-`
+        }`
 )
 
 function Header() {

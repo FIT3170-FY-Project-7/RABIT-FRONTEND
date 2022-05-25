@@ -1,28 +1,27 @@
 import {
+    Avatar,
+    Box,
     Button,
     Card,
-    Box,
-    Grid,
-    Typography,
-    Hidden,
-    Avatar,
     Divider,
-    ListItem,
-    ListItemText,
+    Grid,
+    Hidden,
     List,
-    ListItemAvatar
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Typography
 } from '@mui/material'
 
-import { styled } from '@mui/material/styles'
 import TrendingUp from '@mui/icons-material/TrendingUp'
-import AccountBalanceChart from './AccountBalanceChart'
+import { styled } from '@mui/material/styles'
 import Text from '../../../components/Text'
+import AccountBalanceChart from './AccountBalanceChart'
 
 const AccountBalanceChartWrapper = styled(AccountBalanceChart)(
     () => `
       width: 100%;
-      height: 100%;
-`
+      height: 100%;`
 )
 const AvatarSuccess = styled(Avatar)(
     ({ theme }) => `
@@ -30,8 +29,7 @@ const AvatarSuccess = styled(Avatar)(
       color: ${theme.palette.success.contrastText};
       width: ${theme.spacing(8)};
       height: ${theme.spacing(8)};
-      box-shadow: ${theme.colors.shadows.success};
-`
+      box-shadow: ${theme.colors.shadows.success};`
 )
 
 function AccountBalance() {

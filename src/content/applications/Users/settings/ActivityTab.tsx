@@ -1,29 +1,28 @@
 import {
-    Box,
-    CardMedia,
-    Typography,
-    Card,
-    CardHeader,
-    Divider,
     Avatar,
-    IconButton,
+    Box,
     Button,
+    Card,
     CardActions,
-    Link
+    CardHeader,
+    CardMedia,
+    Divider,
+    IconButton,
+    Link,
+    Typography
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone'
-import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone'
 import CommentTwoToneIcon from '@mui/icons-material/CommentTwoTone'
+import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone'
 import ShareTwoToneIcon from '@mui/icons-material/ShareTwoTone'
+import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone'
 import Text from '../../../../components/Text'
 
 const CardActionsWrapper = styled(CardActions)(
     ({ theme }) => `
      background: ${theme.colors.alpha.black[5]};
-     padding: ${theme.spacing(3)};
-`
+     padding: ${theme.spacing(3)};`
 )
 
 function ActivityTab() {

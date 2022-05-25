@@ -1,15 +1,14 @@
-import { useState } from 'react'
-import { Box, Typography, Hidden, Container, Button, Grid } from '@mui/material'
-import { Helmet } from 'react-helmet-async'
 import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone'
 import LoadingButton from '@mui/lab/LoadingButton'
+import { Box, Button, Container, Grid, Hidden, Typography } from '@mui/material'
+import { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 
 import { styled } from '@mui/material/styles'
 
 const GridWrapper = styled(Grid)(
     ({ theme }) => `
-    background: ${theme.colors.gradients.black1};
-`
+    background: ${theme.colors.gradients.black1};`
 )
 
 const MainContent = styled(Box)(
@@ -20,20 +19,17 @@ const MainContent = styled(Box)(
     overflow: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-`
+    justify-content: center;`
 )
 
 const TypographyPrimary = styled(Typography)(
     ({ theme }) => `
-      color: ${theme.colors.alpha.white[100]};
-`
+      color: ${theme.colors.alpha.white[100]};`
 )
 
 const TypographySecondary = styled(Typography)(
     ({ theme }) => `
-      color: ${theme.colors.alpha.white[70]};
-`
+      color: ${theme.colors.alpha.white[70]};`
 )
 
 function Status500() {

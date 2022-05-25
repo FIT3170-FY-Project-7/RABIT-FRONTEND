@@ -1,14 +1,14 @@
 import {
-    Typography,
+    Avatar,
     Card,
     CardHeader,
     Divider,
     List,
     ListItem,
     ListItemAvatar,
-    ListSubheader,
     ListItemText,
-    Avatar,
+    ListSubheader,
+    Typography,
     useTheme
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -18,8 +18,7 @@ const ListWrapper = styled(List)(
       .MuiListItem-root {
         border-radius: 0;
         margin: 0;
-      }
-`
+      }`
 )
 
 function PopularTags() {

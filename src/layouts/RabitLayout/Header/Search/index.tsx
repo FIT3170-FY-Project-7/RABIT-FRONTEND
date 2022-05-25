@@ -1,29 +1,27 @@
+import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone'
+import FindInPageTwoToneIcon from '@mui/icons-material/FindInPageTwoTone'
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
 import {
     Avatar,
-    Link,
     Box,
     Button,
     Divider,
+    Grid,
+    Hidden,
     InputAdornment,
     lighten,
+    Link,
     List,
     ListItem,
     ListItemAvatar,
+    Paper,
+    Popper,
     TextField,
     Theme,
-    Typography,
-    Hidden,
-    Grid,
-    Stack,
-    Popper,
-    Paper
+    Typography
 } from '@mui/material'
-import { useState } from 'react'
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
-import FindInPageTwoToneIcon from '@mui/icons-material/FindInPageTwoTone'
 import { styled } from '@mui/material/styles'
-import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone'
-import React from 'react'
+import React, { useState } from 'react'
 
 const SearchInputWrapper = styled(TextField)(
     ({ theme }) => `
@@ -31,8 +29,7 @@ const SearchInputWrapper = styled(TextField)(
 
     .MuiInputBase-input {
         font-size: ${theme.typography.pxToRem(17)};
-    }
-`
+    }`
 )
 
 var searchBarWidth = 10

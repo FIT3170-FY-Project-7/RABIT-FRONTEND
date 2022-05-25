@@ -1,8 +1,8 @@
-import { Box, Typography, Card, CardHeader, Divider, Avatar, useTheme } from '@mui/material'
+import { Avatar, Box, Card, CardHeader, Divider, Typography, useTheme } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-import ShoppingBagTwoToneIcon from '@mui/icons-material/ShoppingBagTwoTone'
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone'
+import ShoppingBagTwoToneIcon from '@mui/icons-material/ShoppingBagTwoTone'
 import StarTwoToneIcon from '@mui/icons-material/StarTwoTone'
 
 const AvatarPrimary = styled(Avatar)(
@@ -10,8 +10,7 @@ const AvatarPrimary = styled(Avatar)(
       background: ${theme.colors.primary.lighter};
       color: ${theme.colors.primary.main};
       width: ${theme.spacing(7)};
-      height: ${theme.spacing(7)};
-`
+      height: ${theme.spacing(7)};`
 )
 
 function RecentActivity() {

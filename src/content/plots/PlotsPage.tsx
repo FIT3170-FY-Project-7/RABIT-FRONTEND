@@ -51,7 +51,7 @@ function PlotsPage() {
                         defaultChecked={defaultParameters}
                         keys={Object.keys(data)}
                         setSelectedKeys={setParameters}
-                        sx={{ margin: '1rem' }}
+                        sx={{ m: '1rem' }}
                     />
                     <CornerPlot data={data} parameters={parameters} />
                 </MathJaxContext>

@@ -1,8 +1,8 @@
-import { Box, Avatar, Typography, Card, Divider } from '@mui/material'
+import { Avatar, Box, Card, Divider, Typography } from '@mui/material'
 
-import { styled } from '@mui/material/styles'
-import { formatDistance, format, subDays, subHours, subMinutes } from 'date-fns'
 import ScheduleTwoToneIcon from '@mui/icons-material/ScheduleTwoTone'
+import { styled } from '@mui/material/styles'
+import { format, formatDistance, subDays, subHours, subMinutes } from 'date-fns'
 
 const DividerWrapper = styled(Divider)(
     ({ theme }) => `
@@ -11,8 +11,7 @@ const DividerWrapper = styled(Divider)(
         background: ${theme.palette.background.default};
         font-size: ${theme.typography.pxToRem(13)};
         color: ${theme.colors.alpha.black[50]};
-      }
-`
+      }`
 )
 
 const CardWrapperPrimary = styled(Card)(
@@ -23,8 +22,7 @@ const CardWrapperPrimary = styled(Card)(
       border-radius: ${theme.general.borderRadiusXl};
       border-top-right-radius: ${theme.general.borderRadius};
       max-width: 380px;
-      display: inline-flex;
-`
+      display: inline-flex;`
 )
 
 const CardWrapperSecondary = styled(Card)(
@@ -35,8 +33,7 @@ const CardWrapperSecondary = styled(Card)(
       border-radius: ${theme.general.borderRadiusXl};
       border-top-left-radius: ${theme.general.borderRadius};
       max-width: 380px;
-      display: inline-flex;
-`
+      display: inline-flex;`
 )
 
 function ChatContent() {

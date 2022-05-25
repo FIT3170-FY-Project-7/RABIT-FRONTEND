@@ -17,8 +17,7 @@ const HeaderWrapper = styled(Box)(
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             left: ${theme.sidebar.width};
             width: auto;
-        }
-`
+        }`
 )
 
 const UserBoxWrapper = styled(Box)(({ theme }) => `margin: ${theme.spacing(0, 0, 0, 2)};`)

@@ -16,46 +16,41 @@ import {
     Typography
 } from '@mui/material'
 
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone'
-import { styled } from '@mui/material/styles'
-import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone'
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone'
-import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone'
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone'
+import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone'
+import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone'
+import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone'
+import { styled } from '@mui/material/styles'
 
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
         padding-left: ${theme.spacing(1)};
-        padding-right: ${theme.spacing(1)};
-`
+        padding-right: ${theme.spacing(1)};`
 )
 
 const MenuUserBox = styled(Box)(
     ({ theme }) => `
         background: ${theme.colors.alpha.black[5]};
-        padding: ${theme.spacing(2)};
-`
+        padding: ${theme.spacing(2)};`
 )
 
 const UserBoxText = styled(Box)(
     ({ theme }) => `
         text-align: left;
-        padding-left: ${theme.spacing(1)};
-`
+        padding-left: ${theme.spacing(1)};`
 )
 
 const UserBoxLabel = styled(Typography)(
     ({ theme }) => `
         font-weight: ${theme.typography.fontWeightBold};
         color: ${theme.palette.secondary.main};
-        display: block;
-`
+        display: block;`
 )
 
 const UserBoxDescription = styled(Typography)(
     ({ theme }) => `
-        color: ${lighten(theme.palette.secondary.main, 0.5)}
-`
+        color: ${lighten(theme.palette.secondary.main, 0.5)}`
 )
 
 function HeaderUserbox() {

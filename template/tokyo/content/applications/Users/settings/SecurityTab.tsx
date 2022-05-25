@@ -1,34 +1,34 @@
-import { useState, MouseEvent, ChangeEvent } from 'react'
 import {
-    Box,
-    Typography,
-    Card,
-    Grid,
-    ListItem,
-    List,
-    ListItemText,
-    Divider,
-    Button,
-    ListItemAvatar,
     Avatar,
-    Switch,
+    Box,
+    Button,
+    Card,
     CardHeader,
-    Tooltip,
+    Divider,
+    Grid,
     IconButton,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Switch,
     Table,
     TableBody,
     TableCell,
+    TableContainer,
     TableHead,
     TablePagination,
     TableRow,
-    TableContainer,
+    Tooltip,
+    Typography,
     useTheme
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { ChangeEvent, MouseEvent, useState } from 'react'
 
-import DoneTwoToneIcon from '@mui/icons-material/DoneTwoTone'
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone'
-import { format, subHours, subWeeks, subDays } from 'date-fns'
+import DoneTwoToneIcon from '@mui/icons-material/DoneTwoTone'
+import { format, subDays, subHours, subWeeks } from 'date-fns'
 
 const ButtonError = styled(Button)(
     ({ theme }) => `
@@ -45,15 +45,13 @@ const AvatarSuccess = styled(Avatar)(
     ({ theme }) => `
     background: ${theme.colors.success.light};
     width: ${theme.spacing(5)};
-    height: ${theme.spacing(5)};
-`
+    height: ${theme.spacing(5)};`
 )
 
 const AvatarWrapper = styled(Avatar)(
     ({ theme }) => `
     width: ${theme.spacing(5)};
-    height: ${theme.spacing(5)};
-`
+    height: ${theme.spacing(5)};`
 )
 
 function SecurityTab() {

@@ -6,14 +6,12 @@ import { styled } from '@mui/material/styles'
 
 const TypographyH1 = styled(Typography)(
     ({ theme }) => `
-    font-size: ${theme.typography.pxToRem(50)};
-`
+    font-size: ${theme.typography.pxToRem(50)};`
 )
 
 const TypographyH2 = styled(Typography)(
     ({ theme }) => `
-    font-size: ${theme.typography.pxToRem(17)};
-`
+    font-size: ${theme.typography.pxToRem(17)};`
 )
 
 const LabelWrapper = styled(Box)(
@@ -26,8 +24,7 @@ const LabelWrapper = styled(Box)(
     display: inline-block;
     font-size: ${theme.typography.pxToRem(11)};
     padding: ${theme.spacing(0.5)} ${theme.spacing(1.5)};
-    margin-bottom: ${theme.spacing(2)};
-`
+    margin-bottom: ${theme.spacing(2)};`
 )
 
 const MuiAvatar = styled(Box)(
@@ -46,8 +43,7 @@ const MuiAvatar = styled(Box)(
       width: 60%;
       height: 60%;
       display: block;
-    }
-`
+    }`
 )
 
 const TsAvatar = styled(Box)(
@@ -66,8 +62,7 @@ const TsAvatar = styled(Box)(
       width: 60%;
       height: 60%;
       display: block;
-    }
-`
+    }`
 )
 
 function Hero() {

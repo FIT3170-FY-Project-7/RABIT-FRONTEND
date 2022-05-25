@@ -1,15 +1,14 @@
-import { Card, Avatar, Tooltip, IconButton, Box, Button, Hidden, TextField, Divider } from '@mui/material'
+import { Avatar, Box, Button, Card, Divider, Hidden, IconButton, TextField, Tooltip } from '@mui/material'
 
-import { styled } from '@mui/material/styles'
 import AttachFileTwoToneIcon from '@mui/icons-material/AttachFileTwoTone'
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone'
+import { styled } from '@mui/material/styles'
 
 const DividerWrapper = styled(Divider)(
     ({ theme }) => `
         height: 40px !important;
         margin: 0 ${theme.spacing(2)};
-        align-self: center;
-`
+        align-self: center;`
 )
 
 const Input = styled('input')({

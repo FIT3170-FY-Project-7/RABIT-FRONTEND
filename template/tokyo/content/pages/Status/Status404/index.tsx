@@ -1,16 +1,16 @@
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
 import {
     Box,
+    Button,
     Card,
-    Typography,
     Container,
     Divider,
-    Button,
     FormControl,
+    InputAdornment,
     OutlinedInput,
-    InputAdornment
+    Typography
 } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone'
 
 import { styled } from '@mui/material/styles'
 
@@ -22,20 +22,17 @@ const MainContent = styled(Box)(
     overflow: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-`
+    justify-content: center;`
 )
 
 const OutlinedInputWrapper = styled(OutlinedInput)(
     ({ theme }) => `
-    background-color: ${theme.colors.alpha.white[100]};
-`
+    background-color: ${theme.colors.alpha.white[100]};`
 )
 
 const ButtonSearch = styled(Button)(
     ({ theme }) => `
-    margin-right: -${theme.spacing(1)};
-`
+    margin-right: -${theme.spacing(1)};`
 )
 
 function Status404() {

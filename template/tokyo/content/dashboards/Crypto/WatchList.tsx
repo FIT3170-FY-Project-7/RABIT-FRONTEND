@@ -1,9 +1,9 @@
+import { Box, Button, Card, Grid, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { MouseEvent, useState } from 'react'
-import { Button, Box, ToggleButton, ToggleButtonGroup, Grid, Card, Typography } from '@mui/material'
 
-import { styled } from '@mui/material/styles'
-import ViewWeekTwoToneIcon from '@mui/icons-material/ViewWeekTwoTone'
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone'
+import ViewWeekTwoToneIcon from '@mui/icons-material/ViewWeekTwoTone'
+import { styled } from '@mui/material/styles'
 import WatchListColumn1 from './WatchListColumn1'
 import WatchListColumn2 from './WatchListColumn2'
 import WatchListColumn3 from './WatchListColumn3'
@@ -13,8 +13,7 @@ const EmptyResultsWrapper = styled('img')(
     ({ theme }) => `
       max-width: 100%;
       width: ${theme.spacing(66)};
-      height: ${theme.spacing(34)};
-`
+      height: ${theme.spacing(34)};`
 )
 
 function WatchList() {

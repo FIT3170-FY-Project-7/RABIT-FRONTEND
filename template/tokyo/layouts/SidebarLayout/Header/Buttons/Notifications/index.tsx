@@ -1,7 +1,7 @@
-import { alpha, Badge, Box, Divider, IconButton, List, ListItem, Popover, Tooltip, Typography } from '@mui/material'
-import { useRef, useState } from 'react'
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone'
+import { alpha, Badge, Box, Divider, IconButton, List, ListItem, Popover, Tooltip, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { useRef, useState } from 'react'
 
 import { formatDistance, subDays } from 'date-fns'
 
@@ -25,8 +25,7 @@ const NotificationsBadge = styled(Badge)(
             box-shadow: 0 0 0 1px ${alpha(theme.palette.error.main, 0.3)};
             content: "";
         }
-    }
-`
+    }`
 )
 
 function HeaderNotifications() {

@@ -1,6 +1,6 @@
 import { Box, Hidden, Tooltip } from '@mui/material'
-import { Link } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
+import { Link } from 'react-router-dom'
 
 const LogoWrapper = styled(Link)(
     ({ theme }) => `
@@ -8,8 +8,7 @@ const LogoWrapper = styled(Link)(
         padding: ${theme.spacing(0, 1, 0, 0)};
         display: flex;
         text-decoration: none;
-        font-weight: ${theme.typography.fontWeightBold};
-`
+        font-weight: ${theme.typography.fontWeightBold};`
 )
 
 const LogoSignWrapper = styled(Box)(
@@ -17,8 +16,7 @@ const LogoSignWrapper = styled(Box)(
         width: 52px;
         height: 38px;
         margin-top: 4px;
-        transform: scale(.8);
-`
+        transform: scale(.8);`
 )
 
 const LogoSign = styled(Box)(
@@ -54,8 +52,7 @@ const LogoSign = styled(Box)(
 
         &:after {
             background: ${theme.palette.secondary.main};
-        }
-`
+        }`
 )
 
 const LogoSignInner = styled(Box)(
@@ -67,14 +64,12 @@ const LogoSignInner = styled(Box)(
         left: 12px;
         z-index: 5;
         border-radius: ${theme.general.borderRadiusSm};
-        background: ${theme.header.background};
-`
+        background: ${theme.header.background};`
 )
 
 const LogoTextWrapper = styled(Box)(
     ({ theme }) => `
-        padding-left: ${theme.spacing(1)};
-`
+        padding-left: ${theme.spacing(1)};`
 )
 
 const VersionBadge = styled(Box)(
@@ -86,15 +81,13 @@ const VersionBadge = styled(Box)(
         text-align: center;
         display: inline-block;
         line-height: 1;
-        font-size: ${theme.typography.pxToRem(11)};
-`
+        font-size: ${theme.typography.pxToRem(11)};`
 )
 
 const LogoText = styled(Box)(
     ({ theme }) => `
         font-size: ${theme.typography.pxToRem(15)};
-        font-weight: ${theme.typography.fontWeightBold};
-`
+        font-weight: ${theme.typography.fontWeightBold};`
 )
 
 function Logo() {

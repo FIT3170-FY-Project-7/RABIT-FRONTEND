@@ -1,11 +1,11 @@
-import { Box, Typography, Container, Divider, IconButton, Tooltip } from '@mui/material'
+import { Box, Container, Divider, IconButton, Tooltip, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import Logo from '../../../../components/LogoSign'
 
-import { styled } from '@mui/material/styles'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import TwitterIcon from '@mui/icons-material/Twitter'
 import InstagramIcon from '@mui/icons-material/Instagram'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import { styled } from '@mui/material/styles'
 
 const MainContent = styled(Box)(
     () => `
@@ -15,8 +15,7 @@ const MainContent = styled(Box)(
     overflow: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-`
+    justify-content: center;`
 )
 
 function StatusMaintenance() {

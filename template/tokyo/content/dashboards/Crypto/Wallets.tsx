@@ -1,15 +1,14 @@
-import { Button, Card, Grid, Box, CardContent, Typography, Avatar, Tooltip, CardActionArea } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, Grid, Tooltip, Typography } from '@mui/material'
 
-import { styled } from '@mui/material/styles'
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone'
+import { styled } from '@mui/material/styles'
 
 const AvatarWrapper = styled(Avatar)(
     ({ theme }) => `
         background: transparent;
         margin-left: -${theme.spacing(0.5)};
         margin-bottom: ${theme.spacing(1)};
-        margin-top: ${theme.spacing(2)};
-`
+        margin-top: ${theme.spacing(2)};`
 )
 
 const AvatarAddWrapper = styled(Avatar)(
@@ -17,8 +16,7 @@ const AvatarAddWrapper = styled(Avatar)(
         background: ${theme.colors.alpha.black[5]};
         color: ${theme.colors.primary.main};
         width: ${theme.spacing(8)};
-        height: ${theme.spacing(8)};
-`
+        height: ${theme.spacing(8)};`
 )
 
 const CardAddAction = styled(Card)(
@@ -40,8 +38,7 @@ const CardAddAction = styled(Card)(
         
         &:hover {
           border-color: ${theme.colors.alpha.black[100]};
-        }
-`
+        }`
 )
 
 function Wallets() {

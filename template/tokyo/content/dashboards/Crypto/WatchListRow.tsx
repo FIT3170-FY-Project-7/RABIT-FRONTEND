@@ -1,29 +1,26 @@
-import { Button, Card, Box, CardActions, Grid, Typography, Avatar, Divider } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActions, Divider, Grid, Typography } from '@mui/material'
 
 import { styled } from '@mui/material/styles'
-import Text from '../../../components/Text'
 import Label from '../../../components/Label'
+import Text from '../../../components/Text'
 import WatchListRowChart from './WatchListRowChart'
 
 const AvatarWrapper = styled(Avatar)(
     ({ theme }) => `
         background: transparent;
-        margin-right: ${theme.spacing(0.5)};
-`
+        margin-right: ${theme.spacing(0.5)};`
 )
 
 const LabelWrapper = styled(Box)(
     ({ theme }) => `
         position: absolute;
         right: ${theme.spacing(2)};
-        top: ${theme.spacing(2)};
-`
+        top: ${theme.spacing(2)};`
 )
 
 const WatchListRowChartWrapper = styled(WatchListRowChart)(
     ({ theme }) => `
-        height: 100px;
-`
+        height: 100px;`
 )
 
 function WatchListRow() {

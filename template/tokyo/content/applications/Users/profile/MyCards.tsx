@@ -1,31 +1,30 @@
-import { ChangeEvent, useState } from 'react'
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone'
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone'
 import {
+    Avatar,
     Box,
-    Grid,
-    Radio,
-    FormControlLabel,
-    Typography,
     Card,
-    CardHeader,
-    Divider,
-    lighten,
     CardActionArea,
     CardContent,
-    Tooltip,
+    CardHeader,
+    Divider,
+    FormControlLabel,
+    Grid,
     IconButton,
-    Avatar
+    lighten,
+    Radio,
+    Tooltip,
+    Typography
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone'
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone'
+import { ChangeEvent, useState } from 'react'
 
 const AvatarAddWrapper = styled(Avatar)(
     ({ theme }) => `
         background: ${theme.colors.alpha.black[5]};
         color: ${theme.colors.primary.main};
         width: ${theme.spacing(8)};
-        height: ${theme.spacing(8)};
-`
+        height: ${theme.spacing(8)};`
 )
 
 const CardLogo = styled('img')(
@@ -34,8 +33,7 @@ const CardLogo = styled('img')(
       border-radius: ${theme.general.borderRadius};
       padding: ${theme.spacing(1)};
       margin-right: ${theme.spacing(2)};
-      background: ${theme.colors.alpha.white[100]};
-`
+      background: ${theme.colors.alpha.white[100]};`
 )
 
 const CardAddAction = styled(Card)(
@@ -58,8 +56,7 @@ const CardAddAction = styled(Card)(
         
         &:hover {
           border-color: ${theme.colors.alpha.black[100]};
-        }
-`
+        }`
 )
 
 const IconButtonError = styled(IconButton)(
@@ -70,16 +67,14 @@ const IconButtonError = styled(IconButton)(
 
      &:hover {
       background: ${lighten(theme.colors.error.lighter, 0.4)};
-     }
-`
+     }`
 )
 
 const CardCc = styled(Card)(
     ({ theme }) => `
      border: 1px solid ${theme.colors.alpha.black[30]};
      background: ${theme.colors.alpha.black[5]};
-     box-shadow: none;
-`
+     box-shadow: none;`
 )
 
 function MyCards() {

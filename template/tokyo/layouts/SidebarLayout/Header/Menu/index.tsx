@@ -1,8 +1,8 @@
+import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone'
 import { Box, List, ListItem, ListItemText, Menu, MenuItem } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { styled } from '@mui/material/styles'
-import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone'
 
 const ListWrapper = styled(Box)(
     ({ theme }) => `
@@ -51,8 +51,7 @@ const ListWrapper = styled(Box)(
                     }
                 }
             }
-        }
-`
+        }`
 )
 
 function HeaderMenu() {

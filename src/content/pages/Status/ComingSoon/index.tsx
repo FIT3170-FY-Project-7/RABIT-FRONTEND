@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react'
 import {
     Box,
-    Typography,
+    Button,
     Container,
     Divider,
-    OutlinedInput,
-    IconButton,
-    Tooltip,
     FormControl,
+    FormHelperText,
+    IconButton,
     InputAdornment,
-    Button,
-    FormHelperText
+    OutlinedInput,
+    Tooltip,
+    Typography
 } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Logo from '../../../../components/LogoSign'
 
-import { styled } from '@mui/material/styles'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import TwitterIcon from '@mui/icons-material/Twitter'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import MailTwoToneIcon from '@mui/icons-material/MailTwoTone'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import { styled } from '@mui/material/styles'
 
 const MainContent = styled(Box)(
     () => `
@@ -29,32 +29,27 @@ const MainContent = styled(Box)(
     overflow: auto;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-`
+    justify-content: center;`
 )
 
 const TypographyH1 = styled(Typography)(
     ({ theme }) => `
-  font-size: ${theme.typography.pxToRem(75)};
-`
+  font-size: ${theme.typography.pxToRem(75)};`
 )
 
 const TypographyH3 = styled(Typography)(
     ({ theme }) => `
-  color: ${theme.colors.alpha.black[50]};
-`
+  color: ${theme.colors.alpha.black[50]};`
 )
 
 const OutlinedInputWrapper = styled(OutlinedInput)(
     ({ theme }) => `
-    background-color: ${theme.colors.alpha.white[100]};
-`
+    background-color: ${theme.colors.alpha.white[100]};`
 )
 
 const ButtonNotify = styled(Button)(
     ({ theme }) => `
-    margin-right: -${theme.spacing(1)};
-`
+    margin-right: -${theme.spacing(1)};`
 )
 
 function StatusComingSoon() {

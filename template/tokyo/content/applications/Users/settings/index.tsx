@@ -1,10 +1,10 @@
-import { useState, ChangeEvent } from 'react'
-import { Helmet } from 'react-helmet-async'
-import PageHeader from './PageHeader'
-import PageTitleWrapper from '../../../../components/PageTitleWrapper'
-import { Container, Tabs, Tab, Grid } from '@mui/material'
-import Footer from '../../../../components/Footer'
+import { Container, Grid, Tab, Tabs } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { ChangeEvent, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
+import Footer from '../../../../components/Footer'
+import PageTitleWrapper from '../../../../components/PageTitleWrapper'
+import PageHeader from './PageHeader'
 
 import ActivityTab from './ActivityTab'
 import EditProfileTab from './EditProfileTab'
@@ -15,8 +15,7 @@ const TabsWrapper = styled(Tabs)(
     () => `
     .MuiTabs-scrollableX {
       overflow-x: auto !important;
-    }
-`
+    }`
 )
 
 function ManagementUserSettings() {

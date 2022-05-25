@@ -1,6 +1,6 @@
 import { Box, Tooltip } from '@mui/material'
-import { Link } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
+import { Link } from 'react-router-dom'
 
 const LogoWrapper = styled(Link)(
     ({ theme }) => `
@@ -9,15 +9,13 @@ const LogoWrapper = styled(Link)(
         text-decoration: none;
         width: 53px;
         margin: 0 auto;
-        font-weight: ${theme.typography.fontWeightBold};
-`
+        font-weight: ${theme.typography.fontWeightBold};`
 )
 
 const LogoSignWrapper = styled(Box)(
     () => `
         width: 52px;
-        height: 38px;
-`
+        height: 38px;`
 )
 
 const LogoSign = styled(Box)(
@@ -53,8 +51,7 @@ const LogoSign = styled(Box)(
 
         &:after {
             background: ${theme.palette.secondary.main};
-        }
-`
+        }`
 )
 
 const LogoSignInner = styled(Box)(
@@ -66,8 +63,7 @@ const LogoSignInner = styled(Box)(
         left: 12px;
         z-index: 5;
         border-radius: ${theme.general.borderRadiusSm};
-        background: ${theme.header.background};
-`
+        background: ${theme.header.background};`
 )
 
 function Logo() {

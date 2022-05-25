@@ -1,31 +1,28 @@
+import { Avatar, Card, CardHeader, Divider, List, ListItem, ListItemAvatar, ListItemText, Switch } from '@mui/material'
 import { useState } from 'react'
-import { Card, CardHeader, ListItemText, List, ListItem, Divider, Switch, ListItemAvatar, Avatar } from '@mui/material'
 
-import { styled } from '@mui/material/styles'
+import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone'
 import LockTwoToneIcon from '@mui/icons-material/LockTwoTone'
 import PhoneLockedTwoToneIcon from '@mui/icons-material/PhoneLockedTwoTone'
-import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone'
+import { styled } from '@mui/material/styles'
 import Text from '../../../components/Text'
 
 const AvatarWrapperError = styled(Avatar)(
     ({ theme }) => `
       background-color: ${theme.colors.error.lighter};
-      color:  ${theme.colors.error.main};
-`
+      color:  ${theme.colors.error.main};`
 )
 
 const AvatarWrapperSuccess = styled(Avatar)(
     ({ theme }) => `
       background-color: ${theme.colors.success.lighter};
-      color:  ${theme.colors.success.main};
-`
+      color:  ${theme.colors.success.main};`
 )
 
 const AvatarWrapperWarning = styled(Avatar)(
     ({ theme }) => `
       background-color: ${theme.colors.warning.lighter};
-      color:  ${theme.colors.warning.main};
-`
+      color:  ${theme.colors.warning.main};`
 )
 
 function AccountSecurity() {
