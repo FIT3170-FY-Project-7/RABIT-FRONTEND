@@ -30,10 +30,6 @@ function PlotsPage() {
         })
     }, [])
 
-    const updateParameters = (_, active) => {
-        setParameters(active)
-    }
-
     // Config for MathJax rendering of mathematical symbols
     const config = {
         tex: {

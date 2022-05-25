@@ -1,18 +1,18 @@
-import { useContext } from 'react';
+import { useContext } from 'react'
 
-import { Box, Hidden, IconButton, Tooltip } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
-import { SidebarContext } from '../../../contexts/SidebarContext';
-import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import { Box, Hidden, IconButton, Tooltip } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone'
+import { SidebarContext } from '../../../contexts/SidebarContext'
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone'
 
-import HeaderMenu from './Menu';
-import HeaderButtons from './Buttons';
-import HeaderUserbox from './Userbox';
-import Logo from '../../../components/Logo';
+import HeaderMenu from './Menu'
+import HeaderButtons from './Buttons'
+import HeaderUserbox from './Userbox'
+import Logo from '../../../components/Logo'
 
 const HeaderWrapper = styled(Box)(
-  ({ theme }) => `
+    ({ theme }) => `
         height: ${theme.header.height};
         color: ${theme.header.textColor};
         padding: ${theme.spacing(0, 2)};
@@ -28,34 +28,34 @@ const HeaderWrapper = styled(Box)(
             width: auto;
         }
 `
-);
+)
 
 function Header() {
-  const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
+    const { sidebarToggle, toggleSidebar } = useContext(SidebarContext)
 
-  return (
-    <HeaderWrapper display="flex" alignItems="center">
-      <Box display="flex" alignItems="center">
-        <Hidden lgUp>
-          <Logo />
-        </Hidden>
-        <Hidden mdDown>
-          <HeaderMenu />
-        </Hidden>
-      </Box>
-      <Box display="flex" alignItems="center">
-        <HeaderButtons />
-        <HeaderUserbox />
-        <Hidden lgUp>
-          <Tooltip arrow title="Toggle Menu">
-            <IconButton color="primary" onClick={toggleSidebar}>
-              {!sidebarToggle ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
-            </IconButton>
-          </Tooltip>
-        </Hidden>
-      </Box>
-    </HeaderWrapper>
-  );
+    return (
+        <HeaderWrapper display='flex' alignItems='center'>
+            <Box display='flex' alignItems='center'>
+                <Hidden lgUp>
+                    <Logo />
+                </Hidden>
+                <Hidden mdDown>
+                    <HeaderMenu />
+                </Hidden>
+            </Box>
+            <Box display='flex' alignItems='center'>
+                <HeaderButtons />
+                <HeaderUserbox />
+                <Hidden lgUp>
+                    <Tooltip arrow title='Toggle Menu'>
+                        <IconButton color='primary' onClick={toggleSidebar}>
+                            {!sidebarToggle ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
+                        </IconButton>
+                    </Tooltip>
+                </Hidden>
+            </Box>
+        </HeaderWrapper>
+    )
 }
 
-export default Header;
+export default Header

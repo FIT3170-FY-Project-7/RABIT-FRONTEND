@@ -1,17 +1,17 @@
-import { FC, ReactNode } from 'react';
-import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { FC, ReactNode } from 'react'
+import { styled } from '@mui/material/styles'
+import { Box } from '@mui/material'
+import { Outlet } from 'react-router-dom'
 
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Sidebar from './Sidebar'
+import Header from './Header'
 
 interface SidebarLayoutProps {
-  children?: ReactNode;
+    children?: ReactNode
 }
 
 const MainWrapper = styled(Box)(
-  ({ theme }) => `
+    ({ theme }) => `
         flex: 1 1 auto;
         display: flex;
         height: 100%;
@@ -20,28 +20,28 @@ const MainWrapper = styled(Box)(
             padding-left: ${theme.sidebar.width};
         }
 `
-);
+)
 
 const MainContent = styled(Box)(
-  ({ theme }) => `
+    ({ theme }) => `
         margin-top: ${theme.header.height};
         flex: 1 1 auto;
         overflow: auto;
 `
-);
+)
 
 const SidebarLayout: FC<SidebarLayoutProps> = () => {
-  return (
-    <>
-      <Sidebar />
-      <MainWrapper>
-        <Header />
-        <MainContent>
-          <Outlet />
-        </MainContent>
-      </MainWrapper>
-    </>
-  );
-};
+    return (
+        <>
+            <Sidebar />
+            <MainWrapper>
+                <Header />
+                <MainContent>
+                    <Outlet />
+                </MainContent>
+            </MainWrapper>
+        </>
+    )
+}
 
-export default SidebarLayout;
+export default SidebarLayout
