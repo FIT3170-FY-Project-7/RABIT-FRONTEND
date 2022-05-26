@@ -13,10 +13,12 @@ interface FileUpload {
     enableButton: boolean
     selectedFile: any
     selectedKeys: Array<string>
+    title: String
+    description: String
     buttonMessage: String
 }
 
-export default function FileUploadButton({ enableButton, selectedFile, selectedKeys, buttonMessage }: FileUpload) {
+export default function FileUploadButton({ enableButton, selectedFile, selectedKeys, title, description, buttonMessage }: FileUpload) {
     const [uploadPercentage, setUploadPercentage] = useState(0)
     const navigate = useNavigate()
 
@@ -36,6 +38,8 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
         selectedFile.text().then(async jsonString => {
             var json = JSON.parse(jsonString)
             json.selected_keys = selectedKeys
+            json.title = title
+            json.description = description
             console.log(json.selected_keys)
 
             // console.log(json);

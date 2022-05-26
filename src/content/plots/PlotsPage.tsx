@@ -4,31 +4,16 @@ import { useEffect, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
 
-function PlotsPage() {
+function PlotsPage({file}) {
     /* 
 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
     including the parameter selectors and the corner plot itself. 
 
     */
-    const [data, setData] = useState({})
-    const [parameters, setParameters] = useState([])
-    const [defaultParameters, setDefaultParameters] = useState([])
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        axios.get('http://localhost:8000/uploads').then(async function (response) {
-            // console.log(response.data);
-            // console.log(Object.keys(response.data));
-            console.log('hello')
-            console.log(response.data.selected_keys)
-            setData(response.data['posterior']['content'])
-            setParameters(response.data.selected_keys)
-            setDefaultParameters(response.data.selected_keys)
-            setLoading(false)
-            console.log(defaultParameters)
-        })
-    }, [])
+    const [data, setData] = useState(file['posterior']['content'])
+    const [parameters, setParameters] = useState(file.selected_keys)
+    const [defaultParameters, setDefaultParameters] = useState(file.selected_keys)
 
     // Config for MathJax rendering of mathematical symbols
     const config = {
@@ -45,17 +30,16 @@ function PlotsPage() {
 
     return (
         <div>
-            {!loading && (
                 <MathJaxContext config={config}>
                     <CheckboxDropdown
                         defaultChecked={defaultParameters}
                         keys={Object.keys(data)}
                         setSelectedKeys={setParameters}
-                        sx={{ m: '1rem' }}
+                        sx={{ margin: '2rem 0 2rem 0' }}
                     />
                     <CornerPlot data={data} parameters={parameters} />
                 </MathJaxContext>
-            )}
+
         </div>
     )
 }

@@ -27,11 +27,13 @@ function PageHeader({ currentTab, onTabChange, dataTitle, dataDescription }: Tab
     return (
         <Box display='flex' justify-content='space-between'>
             <Box flex={1}>
-                <Typography variant='h2' gutterBottom>
+                <Typography variant='h2' sx={{marginBottom:"2rem"}} gutterBottom>
                     {dataTitle}
                 </Typography>
+                <Typography variant='h6' sx={{marginBottom:"2rem"}}  gutterBottom>
+                    {dataDescription}
+                </Typography>
                 <TabsWrapper
-                    sx={{ mt: '2rem' }}
                     onChange={onTabChange}
                     value={currentTab}
                     textColor='primary'

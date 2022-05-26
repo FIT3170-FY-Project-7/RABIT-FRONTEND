@@ -86,7 +86,6 @@ export default function UploadPage() {
                         disabled={!enableDescription}
                         onChange={e => setDescription(e.target.value)}
                         label='Description'
-                        required
                         variant={enableDescription ? 'outlined' : 'filled'}
                         multiline
                         rows={5}
@@ -116,6 +115,8 @@ export default function UploadPage() {
                     enableButton={enableUpload}
                     selectedFile={selectedFile}
                     selectedKeys={selectedKeys}
+                    title={title}
+                    description={description}
                     buttonMessage='Upload'
                 />
             </Box>
