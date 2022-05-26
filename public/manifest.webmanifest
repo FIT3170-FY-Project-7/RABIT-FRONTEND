@@ -2,7 +2,6 @@
     "theme_color": "#333333",
     "background_color": "#333333",
     "display": "standalone",
-    "start_url": ".",
     "short_name": "RABIT",
     "name": "Robust Analytical Bayesian Inference Tool",
     "icons": [
