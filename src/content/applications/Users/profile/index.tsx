@@ -10,15 +10,15 @@ import PopularTags from './PopularTags'
 import ProfileCover from './ProfileCover'
 import RecentActivity from './RecentActivity'
 
-import Avatar4 from 'assets/images/avatars/avatar4.jpg'
+import AviAvatar from 'assets/images/avatars/avivajpeyi.png'
 import Cover5 from 'assets/images/placeholders/covers/cover5.jpg'
 
 function ManagementUserProfile() {
     const user = {
         savedCards: 7,
-        name: 'Catherine Pike',
+        name: 'Avi Vajpeyi',
         coverImg: Cover5,
-        avatar: Avatar4,
+        avatar: AviAvatar,
         description:
             "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage",
         jobtitle: 'Web Developer',

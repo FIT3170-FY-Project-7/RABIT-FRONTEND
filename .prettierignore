@@ -1,5 +1,7 @@
 node_modules/
 public/
 dist/
+template/
+stats/
 package.json
 package-lock.json

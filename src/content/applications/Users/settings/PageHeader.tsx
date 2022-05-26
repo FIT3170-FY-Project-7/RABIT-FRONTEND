@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material'
 
-import Avatar1 from 'assets/images/avatars/avatar1.jpg'
+import AviAvatar from 'assets/images/avatars/avivajpeyi.png'
 
 function PageHeader() {
     const user = {
-        name: 'Catherine Pike',
-        avatar: Avatar1
+        name: 'Avi Vajpeyi',
+        avatar: AviAvatar
     }
 
     return (

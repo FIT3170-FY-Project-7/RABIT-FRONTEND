@@ -7,14 +7,14 @@ import Footer from '../../components/Footer'
 import PlotsPage from '../plots/PlotsPage'
 import CommentsTab from './CommentsTab'
 import PageHeader from './PageHeader'
-import axios from "axios"
+import axios from 'axios'
 
 function ManagementUserSettings() {
     // state variable and function setter for tab
     const [currentTab, setCurrentTab] = useState<string>('data')
     const [file, setFile] = useState(null)
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
     const [loading, setLoading] = useState(true)
 
     const onTabChange = (event: ChangeEvent<{}>, value: string): void => setCurrentTab(value)
@@ -33,11 +33,10 @@ function ManagementUserSettings() {
             <Helmet>
                 <title>RABIT - Visualise</title>
             </Helmet>
-           
+
             <Grid container direction='row' justifyContent='center' alignItems='stretch' sx={{ marginTop: '2rem' }}>
-            {
-                    !loading && (
-                        <>
+                {!loading && (
+                    <>
                         <Grid item xs={10}>
                             <PageHeader
                                 currentTab={currentTab}
@@ -51,15 +50,14 @@ function ManagementUserSettings() {
                         </Grid>
                         <Grid item xs={10}>
                             <Box>
-                                {currentTab === 'data' && <PlotsPage file={file}/>}
+                                {currentTab === 'data' && <PlotsPage file={file} />}
                                 {currentTab === 'comments' && <CommentsTab />}
                             </Box>
                         </Grid>
-                </>
-                )
-            }
+                    </>
+                )}
             </Grid>
-            
+
             <Footer />
         </>
     )

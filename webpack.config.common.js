@@ -76,7 +76,12 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
-            //{ test : /\.html$/, use : ['html-loader' /* 'markup-inline-loader' */                         ] },
+            {
+                test: /\.(png|gif|jpe?g|webp|svg)$/,
+                loader: 'image-webpack-loader',
+                // Specify "enforce: 'pre'" to apply the loader before url-loader/svg-url-loader and not duplicate it in rules with them.
+                enforce: 'pre'
+            },
             {
                 test: /\.svg$/i,
                 use: [

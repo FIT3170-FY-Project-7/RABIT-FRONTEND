@@ -27,18 +27,13 @@ function PageHeader({ currentTab, onTabChange, dataTitle, dataDescription }: Tab
     return (
         <Box display='flex' justify-content='space-between'>
             <Box flex={1}>
-                <Typography variant='h2' sx={{marginBottom:"2rem"}} gutterBottom>
+                <Typography variant='h2' sx={{ marginBottom: '2rem' }} gutterBottom>
                     {dataTitle}
                 </Typography>
-                <Typography variant='h6' sx={{marginBottom:"2rem"}}  gutterBottom>
+                <Typography variant='h6' sx={{ marginBottom: '2rem' }} gutterBottom>
                     {dataDescription}
                 </Typography>
-                <TabsWrapper
-                    onChange={onTabChange}
-                    value={currentTab}
-                    textColor='primary'
-                    indicatorColor='primary'
-                >
+                <TabsWrapper onChange={onTabChange} value={currentTab} textColor='primary' indicatorColor='primary'>
                     {tabs.map(tab => (
                         <Tab key={tab.value} label={tab.label} value={tab.value} />
                     ))}
