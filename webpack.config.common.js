@@ -37,8 +37,7 @@ module.exports = {
     output: {
         publicPath: '/',
         path: path.resolve(__dirname, 'dist'),
-        hotUpdateMainFilename: '[id].hot-update.[fullhash].json',
-        hotUpdateChunkFilename: '[id].hot-update.[fullhash].js',
+        chunkFilename: '[name].[chunkhash].chunk.js',
         filename: '[name].[fullhash].bundle.js',
         clean: true
     },
@@ -84,7 +83,7 @@ module.exports = {
                     {
                         loader: 'svg-url-loader',
                         options: {
-                            name: '[name].[fullhash].[ext]',
+                            name: '[name].[contenthash].[ext]',
                             limit: INLINE_LIMIT, // If size < INLINE_LIMIT, add escaped image URL to CSS.
                             outputPath: 'images' // If size > INLINE_LIMIT, move SVG file to public/images via file-loader.
                         }
@@ -97,7 +96,7 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            name: '[name].[fullhash].[ext]',
+                            name: '[name].[contenthash].[ext]',
                             limit: INLINE_LIMIT, // If size < INLINE_LIMIT, inline base64-encoding of the image.
                             outputPath: 'images' // If size > INLINE_LIMIT, move image to public/images via file-loader.
                         }
@@ -110,7 +109,7 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            name: '[name].[fullhash].[ext]',
+                            name: '[name].[contenthash].[ext]',
                             limit: INLINE_LIMIT, // If size < INLINE_LIMIT, inline base64-encoding of the font.
                             outputPath: 'fonts' // If size > INLINE_LIMIT, move font to public/fonts via file-loader.
                         }
