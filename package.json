@@ -1,7 +1,7 @@
 {
     "name": "rabit",
     "version": "1.0.0",
-    "description": "Robust Analytical Bayesian Inference ToolData visualisation tool leveraging Bayes parameter estimation.",
+    "description": "Data visualisation tool leveraging Bayes parameter estimation.",
     "license": "ISC",
     "repository": {
         "type": "git",

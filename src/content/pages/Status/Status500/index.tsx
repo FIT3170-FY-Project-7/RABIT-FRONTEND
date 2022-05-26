@@ -78,15 +78,13 @@ function Status500() {
                             <Container maxWidth='sm'>
                                 <Box textAlign='center'>
                                     <TypographyPrimary variant='h1' sx={{ my: 2 }}>
-                                        Tokyo Free White React Admin Dashboard
+                                        Robust Analytical Bayesian Inference Tool
                                     </TypographyPrimary>
                                     <TypographySecondary variant='h4' fontWeight='normal' sx={{ mb: 4 }}>
-                                        High performance React template built with lots of powerful Material-UI
-                                        components across multiple product niches for fast &amp; perfect apps
-                                        development processes.
+                                        Data visualisation tool leveraging Bayes parameter estimation.
                                     </TypographySecondary>
-                                    <Button href='/overview' size='large' variant='contained'>
-                                        Overview
+                                    <Button href='/login' size='large' variant='contained'>
+                                        Login
                                     </Button>
                                 </Box>
                             </Container>
