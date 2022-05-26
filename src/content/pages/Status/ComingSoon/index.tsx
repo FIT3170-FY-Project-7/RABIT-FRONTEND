@@ -21,6 +21,8 @@ import MailTwoToneIcon from '@mui/icons-material/MailTwoTone'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import { styled } from '@mui/material/styles'
 
+import LogoComingSoon from 'assets/images/status/coming-soon.svg'
+
 const MainContent = styled(Box)(
     () => `
     height: 100%;
@@ -109,7 +111,7 @@ function StatusComingSoon() {
                                 We're working on implementing the last features before our launch!
                             </Typography>
                         </Container>
-                        <img alt='Coming Soon' height={200} src='/public/static/images/status/coming-soon.svg' />
+                        <img alt='Coming Soon' height={200} src={LogoComingSoon} />
                     </Box>
 
                     <Box display='flex' justifyContent='center'>

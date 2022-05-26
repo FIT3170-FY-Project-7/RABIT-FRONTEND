@@ -1,21 +1,24 @@
 import { Helmet } from 'react-helmet-async'
 import Footer from '../../../../components/Footer'
 
-import { Grid, Container } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 
+import Addresses from './Addresses'
+import Feed from './Feed'
+import MyCards from './MyCards'
+import PopularTags from './PopularTags'
 import ProfileCover from './ProfileCover'
 import RecentActivity from './RecentActivity'
-import Feed from './Feed'
-import PopularTags from './PopularTags'
-import MyCards from './MyCards'
-import Addresses from './Addresses'
+
+import Avatar4 from 'assets/images/avatars/avatar4.jpg'
+import Cover5 from 'assets/images/placeholders/covers/cover5.jpg'
 
 function ManagementUserProfile() {
     const user = {
         savedCards: 7,
         name: 'Catherine Pike',
-        coverImg: '/public/static/images/placeholders/covers/5.jpg',
-        avatar: '/public/static/images/avatars/4.jpg',
+        coverImg: Cover5,
+        avatar: Avatar4,
         description:
             "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage",
         jobtitle: 'Web Developer',

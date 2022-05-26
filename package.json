@@ -14,9 +14,11 @@
     },
     "main": "index.tsx",
     "scripts": {
-        "start": "webpack-dev-server --mode=development --open --hot --history-api-fallback",
-        "build": "webpack --mode=production && npx concurrently \"npx serve -s dist\" \"start http://localhost:3000\"",
-        "prettyall": "npx prettier --write .",
+        "start": "webpack-dev-server --mode=development",
+        "build": "webpack --mode=production",
+        "serveDist": "npx serve -s dist",
+        "open": "start http://localhost:3000",
+        "prettyAll": "npx prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -44,6 +46,7 @@
         "axios": "^0.27.2",
         "better-react-mathjax": "^2.0.1",
         "buffer": "^6.0.3",
+        "busboy": "^1.6.0",
         "clsx": "^1.1.1",
         "cors": "^2.8.5",
         "csvtojson": "^2.0.10",
@@ -51,6 +54,7 @@
         "date-fns": "^2.28.0",
         "history": "^5.3.0",
         "lodash": "^4.17.21",
+        "multer": "^1.4.4",
         "nprogress": "^0.2.0",
         "numeral": "^2.0.6",
         "prop-types": "^15.8.1",
@@ -83,7 +87,7 @@
         "browser-resolve": "^2.0.0",
         "buffer": "^6.0.3",
         "clean-webpack-plugin": "^4.0.0",
-        "concurrently": "^7.2.0",
+        "compression-webpack-plugin": "^10.0.0",
         "copy-webpack-plugin": "^10.2.4",
         "css-loader": "^6.7.1",
         "detective": "^5.2.0",
@@ -98,23 +102,26 @@
         "html-loader": "^3.1.0",
         "html-webpack-plugin": "^5.5.0",
         "minimist": "^1.2.6",
-        "multer": "^1.4.4",
         "nodemon": "^2.0.15",
         "postcss-selector-parser": "^6.0.10",
         "prettier": "^2.6.2",
         "process": "^0.11.10",
+        "remove-markdown": "^0.5.0",
         "sass": "^1.50.1",
         "sass-loader": "^12.6.0",
         "serve": "^13.0.2",
+        "source-map-loader": "^3.0.1",
         "speed-measure-webpack-plugin": "^1.5.0",
         "style-loader": "^3.3.1",
         "svg-url-loader": "^7.1.1",
         "terser-webpack-plugin": "^5.3.1",
         "typescript": "^4.6.3",
+        "url-loader": "^4.1.1",
         "webpack": "^5.72.0",
         "webpack-bundle-analyzer": "^4.5.0",
         "webpack-cli": "^4.9.2",
-        "webpack-dev-server": "^4.8.1"
+        "webpack-dev-server": "^4.8.1",
+        "webpack-merge": "^5.8.0"
     },
     "browserslist": {
         "production": [
@@ -131,6 +138,7 @@
     "overrides": {
         "react": "$react",
         "react-dom": "$react-dom",
+        "busboy": "$busboy",
         "babel-eslint": "@babel/eslint-parser"
     }
 }

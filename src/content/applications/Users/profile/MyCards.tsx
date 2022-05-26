@@ -19,6 +19,9 @@ import {
 import { styled } from '@mui/material/styles'
 import { ChangeEvent, useState } from 'react'
 
+import MastercardLogo from 'assets/images/placeholders/logo/mastercard.png'
+import VisaLogo from 'assets/images/placeholders/logo/visa.png'
+
 const AvatarAddWrapper = styled(Avatar)(
     ({ theme }) => `
         background: ${theme.colors.alpha.black[5]};
@@ -99,7 +102,7 @@ function MyCards() {
                     <Grid item xs={12} sm={6}>
                         <CardCc sx={{ px: 2, pt: 2, pb: 1 }}>
                             <Box display='flex' alignItems='center'>
-                                <CardLogo src='/public/static/images/placeholders/logo/visa.png' alt='Visa' />
+                                <CardLogo src={VisaLogo} alt='Visa' />
                                 <Box>
                                     <Typography variant='h3' fontWeight='normal'>
                                         •••• 6879
@@ -137,7 +140,7 @@ function MyCards() {
                     <Grid item xs={12} sm={6}>
                         <CardCc sx={{ px: 2, pt: 2, pb: 1 }}>
                             <Box display='flex' alignItems='center'>
-                                <CardLogo src='/public/static/images/placeholders/logo/mastercard.png' alt='Visa' />
+                                <CardLogo src={MastercardLogo} alt='Visa' />
                                 <Box>
                                     <Typography variant='h3' fontWeight='normal'>
                                         •••• 4634

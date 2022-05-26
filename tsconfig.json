@@ -1,11 +1,12 @@
 {
-    "exclude": ["node_modules", "webpack.config.js"],
+    "exclude": ["node_modules", "webpack.config*.js"],
     "compilerOptions": {
         "moduleResolution": "node",
         "jsx": "react-jsxdev",
         "target": "esnext",
         "module": "esnext",
         "sourceMap": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "typeRoots": ["node_modules/@types", "src/types"]
     }
 }

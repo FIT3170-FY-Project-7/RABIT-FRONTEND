@@ -1,21 +1,23 @@
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import {
     Box,
-    Card,
-    TextField,
     Button,
-    Grid,
-    Divider,
-    Typography,
     ButtonGroup,
+    Card,
+    Divider,
+    Grid,
+    IconButton,
     InputAdornment,
-    IconButton
+    TextField,
+    Typography
 } from '@mui/material'
-import { VisibilityOutlined, VisibilityOffOutlined } from '@mui/icons-material'
+import { FormEvent, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useState, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 import Logo from '../../../../components/LogoSign'
+
+import GoogleLogo from 'assets/images/logo/google.svg'
 
 function SignUp() {
     return (
@@ -49,7 +51,7 @@ function SignUp() {
                             <Button
                                 sx={{ pt: 1, pb: 1 }}
                                 variant='outlined'
-                                startIcon={<img src='/public/static/images/logo/google.svg' />}
+                                startIcon={<img src={GoogleLogo} />}
                                 fullWidth
                             >
                                 Sign up with Google

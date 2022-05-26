@@ -15,6 +15,8 @@ import { Helmet } from 'react-helmet-async'
 import { styled } from '@mui/material/styles'
 import { useNavigate } from 'react-router'
 
+import Logo404 from 'assets/images/status/404.svg'
+
 const MainContent = styled(Box)(
     ({ theme }) => `
     height: 100%;
@@ -47,7 +49,7 @@ function Status404() {
             <MainContent>
                 <Container maxWidth='md'>
                     <Box textAlign='center'>
-                        <img alt='404' height={180} src='/public/static/images/status/404.svg' />
+                        <img alt='404' height={180} src={Logo404} />
                         <Typography variant='h2' sx={{ my: 2 }}>
                             The page you were looking for doesn't exist.
                         </Typography>

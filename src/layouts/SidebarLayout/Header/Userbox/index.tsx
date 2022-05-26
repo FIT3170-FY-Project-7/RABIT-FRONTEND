@@ -23,6 +23,8 @@ import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone'
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone'
 import { styled } from '@mui/material/styles'
 
+import Avatar1 from 'assets/images/avatars/avatar1.jpg'
+
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
         padding-left: ${theme.spacing(1)};
@@ -56,7 +58,7 @@ const UserBoxDescription = styled(Typography)(
 function HeaderUserbox() {
     const user = {
         name: 'Catherine Pike',
-        avatar: '/public/static/images/avatars/1.jpg',
+        avatar: Avatar1,
         jobtitle: 'Project Manager'
     }
 

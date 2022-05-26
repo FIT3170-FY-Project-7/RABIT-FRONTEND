@@ -8,8 +8,8 @@ import { BrowserRouter } from 'react-router-dom'
 
 // App.
 import App from './App'
-import * as serviceWorker from './serviceWorker'
 import { SidebarProvider } from './contexts/SidebarContext'
+import * as serviceWorker from './serviceWorker'
 
 // Styling.
 import 'nprogress/nprogress.css'

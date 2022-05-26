@@ -30,6 +30,8 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone'
 import DoneTwoToneIcon from '@mui/icons-material/DoneTwoTone'
 import { format, subDays, subHours, subWeeks } from 'date-fns'
 
+import GoogleLogo from 'assets/images/logo/google.svg'
+
 const ButtonError = styled(Button)(
     ({ theme }) => `
      background: ${theme.colors.error.main};
@@ -118,7 +120,7 @@ function SecurityTab() {
                     <List>
                         <ListItem sx={{ p: 3 }}>
                             <ListItemAvatar sx={{ pr: 2 }}>
-                                <AvatarWrapper src='/public/static/images/logo/google.svg' />
+                                <AvatarWrapper src={GoogleLogo} />
                             </ListItemAvatar>
                             <ListItemText
                                 primaryTypographyProps={{ variant: 'h5', gutterBottom: true }}

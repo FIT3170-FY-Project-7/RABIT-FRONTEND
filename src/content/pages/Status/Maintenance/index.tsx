@@ -7,6 +7,8 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import { styled } from '@mui/material/styles'
 
+import LogoMaintenance from 'assets/images/status/maintenance.svg'
+
 const MainContent = styled(Box)(
     () => `
     height: 100%;
@@ -36,7 +38,7 @@ function StatusMaintenance() {
                                 We apologize for any inconveniences caused
                             </Typography>
                         </Container>
-                        <img alt='Maintenance' height={250} src='/public/static/images/status/maintenance.svg' />
+                        <img alt='Maintenance' height={250} src={LogoMaintenance} />
                     </Box>
                     <Divider sx={{ my: 4 }} />
                     <Box display='flex' alignItems='center' justifyContent='space-between'>

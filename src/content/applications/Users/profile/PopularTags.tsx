@@ -13,6 +13,8 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
+import GoogleLogo from 'assets/images/logo/google.svg'
+
 const ListWrapper = styled(List)(
     () => `
       .MuiListItem-root {
@@ -121,7 +123,7 @@ function PopularTags() {
                 <Divider />
                 <ListItem button>
                     <ListItemAvatar>
-                        <Avatar sx={{ width: 38, height: 38 }} src='/public/static/images/logo/google.svg' />
+                        <Avatar sx={{ width: 38, height: 38 }} src={GoogleLogo} />
                     </ListItemAvatar>
                     <ListItemText
                         primaryTypographyProps={{

@@ -7,6 +7,8 @@ import { Helmet } from 'react-helmet-async'
 import { styled } from '@mui/material/styles'
 import { useNavigate } from 'react-router'
 
+import Logo500 from 'assets/images/status/500.svg'
+
 const GridWrapper = styled(Grid)(
     ({ theme }) => `
     background: ${theme.colors.gradients.black1};`
@@ -51,7 +53,7 @@ function Status500() {
                     <Grid xs={12} md={6} alignItems='center' display='flex' justifyContent='center' item>
                         <Container maxWidth='sm'>
                             <Box textAlign='center'>
-                                <img alt='500' height={260} src='/public/static/images/status/500.svg' />
+                                <img alt='500' height={260} src={Logo500} />
                                 <Typography variant='h2' sx={{ my: 2 }}>
                                     There was an error, please try again later
                                 </Typography>

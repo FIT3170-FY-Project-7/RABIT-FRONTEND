@@ -20,6 +20,8 @@ import { styled } from '@mui/material/styles'
 import { useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
+import AvatarAvi from 'assets/images/avatars/avivajpeyi.png'
+
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
         padding-left: ${theme.spacing(1)};
@@ -53,7 +55,7 @@ const UserBoxDescription = styled(Typography)(
 function HeaderUserbox() {
     const user = {
         name: 'Avi Vajpeyi',
-        avatar: '/public/static/images/avatars/avivajpeyi.jpg',
+        avatar: AvatarAvi,
         jobtitle: 'Project Manager'
     }
 

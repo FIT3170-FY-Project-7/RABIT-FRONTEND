@@ -2,6 +2,11 @@ import { Box, Hidden, Tooltip } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
 
+import RabitPurpleIcon from 'assets/images/logo/rabit-purple-icon.png'
+
+// Value is supplied by Webpack DefinePlugin.
+declare const RABIT_VERSION: string
+
 const LogoWrapper = styled(Link)(
     ({ theme }) => `
         color: ${theme.palette.text.primary};
@@ -36,17 +41,12 @@ const LogoText = styled(Box)(
 
 function Logo() {
     return (
-        <LogoWrapper to='/overview'>
-            <Box
-                component='img'
-                sx={{ height: '45px', width: '38px' }}
-                alt='RABIT Logo'
-                src='/public/static/images/logo/rabit-purple-icon.png'
-            />
+        <LogoWrapper to='/'>
+            <Box component='img' sx={{ height: '45px', width: '38px' }} alt='RABIT Logo' src={RabitPurpleIcon} />
             <Hidden smDown>
                 <LogoTextWrapper>
-                    <Tooltip title='Version 1.0.0' arrow placement='right'>
-                        <VersionBadge>1.0.0</VersionBadge>
+                    <Tooltip title={'Version ' + RABIT_VERSION} arrow placement='right'>
+                        <VersionBadge>{RABIT_VERSION}</VersionBadge>
                     </Tooltip>
                     <LogoText>RABIT</LogoText>
                 </LogoTextWrapper>

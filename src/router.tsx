@@ -1,13 +1,12 @@
 // React.Footer
-import { Suspense, lazy } from 'react'
-import { Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import { RouteObject } from 'react-router'
+import { Navigate } from 'react-router-dom'
 
 // Types.
 import type { ComponentProps, ComponentType } from 'react'
 
 // Layout.
-import SidebarLayout from './layouts/SidebarLayout'
 import BaseLayout from './layouts/BaseLayout'
 import RabitLayout from './layouts/RabitLayout'
 

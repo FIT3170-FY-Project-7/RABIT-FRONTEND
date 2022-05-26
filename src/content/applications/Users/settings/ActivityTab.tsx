@@ -19,6 +19,9 @@ import ShareTwoToneIcon from '@mui/icons-material/ShareTwoTone'
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone'
 import Text from '../../../../components/Text'
 
+import Avatar5 from 'assets/images/avatars/avatar5.jpg'
+import Cover6 from 'assets/images/placeholders/covers/cover6.jpg'
+
 const CardActionsWrapper = styled(CardActions)(
     ({ theme }) => `
      background: ${theme.colors.alpha.black[5]};
@@ -29,7 +32,7 @@ function ActivityTab() {
     return (
         <Card>
             <CardHeader
-                avatar={<Avatar src='/public/static/images/avatars/5.jpg' />}
+                avatar={<Avatar src={Avatar5} />}
                 action={
                     <IconButton color='primary'>
                         <MoreHorizTwoToneIcon fontSize='medium' />
@@ -57,11 +60,7 @@ function ActivityTab() {
                     Welcome to organizing your remote office for maximum productivity.
                 </Typography>
             </Box>
-            <CardMedia
-                sx={{ minHeight: 280 }}
-                image='/public/static/images/placeholders/covers/6.jpg'
-                title='Card Cover'
-            />
+            <CardMedia sx={{ minHeight: 280 }} image={Cover6} title='Card Cover' />
             <Box p={3}>
                 <Typography variant='h2' sx={{ pb: 1 }}>
                     Organizing Your Remote Office for Maximum Productivity

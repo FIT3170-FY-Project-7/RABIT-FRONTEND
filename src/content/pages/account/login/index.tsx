@@ -1,15 +1,13 @@
-import { Box, Card, TextField, Button, Grid, Tooltip } from '@mui/material'
+import { Box, Button, Card, Grid, TextField, Tooltip } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 
-import Logo from '../../../../components/LogoSign'
-import { Link } from 'react-router-dom'
-import { FormEvent, useState } from 'react'
-import { ButtonGroup } from '@mui/material'
 import { RememberMe, RememberMeOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
-import { InputAdornment } from '@mui/material'
-import { IconButton } from '@mui/material'
-import { Typography } from '@mui/material'
-import { Divider } from '@mui/material'
+import { ButtonGroup, Divider, IconButton, InputAdornment, Typography } from '@mui/material'
+import { FormEvent, useState } from 'react'
+import { Link } from 'react-router-dom'
+import Logo from '../../../../components/LogoSign'
+
+import GoogleLogo from 'assets/images/logo/google.svg'
 
 const Login = () => {
     return (
@@ -43,7 +41,7 @@ const Login = () => {
                             <Button
                                 sx={{ pt: 1, pb: 1 }}
                                 variant='outlined'
-                                startIcon={<img src='/public/static/images/logo/google.svg' />}
+                                startIcon={<img src={GoogleLogo} />}
                                 fullWidth
                             >
                                 Log in with Google
