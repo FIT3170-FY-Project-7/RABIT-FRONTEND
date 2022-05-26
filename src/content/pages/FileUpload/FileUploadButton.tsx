@@ -22,7 +22,7 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
     const [uploadPercentage, setUploadPercentage] = useState(0)
     const navigate = useNavigate()
 
-    const handleSubmission = () => {
+    const handleSubmission = async () => {
         const results = []
         const options = {
             onUploadProgress: progressEvent => {
@@ -35,7 +35,7 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
             }
         }
 
-        selectedFile.text().then(async jsonString => {
+        await selectedFile.text().then(async jsonString => {
             var json = JSON.parse(jsonString)
             json.selected_keys = selectedKeys
             json.title = title
@@ -55,7 +55,7 @@ export default function FileUploadButton({ enableButton, selectedFile, selectedK
             //run `npx nodemon ./server.tsx` in repo root to run local test server
             await axios.post('http://localhost:8000/uploads', data, options).then(res => {
                 console.log(res.statusText)
-                // console.log(uploadPercentage);
+                console.log(uploadPercentage);
             })
 
             //getting data
