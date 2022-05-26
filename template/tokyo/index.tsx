@@ -1,18 +1,18 @@
-import App from './App';
+import App from './App'
 
-import * as React from 'react';
-import { createRoot } from 'react-dom/client';
+import * as React from 'react'
+import { createRoot } from 'react-dom/client'
 
-import './utils/chart';
-import * as serviceWorker from './serviceWorker';
-import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
+import './utils/chart'
+import * as serviceWorker from './serviceWorker'
+import { HelmetProvider } from 'react-helmet-async'
+import { BrowserRouter } from 'react-router-dom'
 
-import 'nprogress/nprogress.css';
-import { SidebarProvider } from './contexts/SidebarContext';
+import 'nprogress/nprogress.css'
+import { SidebarProvider } from './contexts/SidebarContext'
 
-const container = document.getElementById('root');
-const root      = createRoot(container);
+const container = document.getElementById('root')
+const root = createRoot(container)
 root.render(
     <HelmetProvider>
         <SidebarProvider>
@@ -21,6 +21,6 @@ root.render(
             </BrowserRouter>
         </SidebarProvider>
     </HelmetProvider>
-);
+)
 
-serviceWorker.unregister();
+serviceWorker.unregister()

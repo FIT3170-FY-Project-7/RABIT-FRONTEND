@@ -1,12 +1,12 @@
 // assets
-import { IconKey } from '@tabler/icons';
-import { IconFileUpload } from '@tabler/icons';
+import { IconKey } from '@tabler/icons'
+import { IconFileUpload } from '@tabler/icons'
 
 // constant
 const icons = {
     IconKey,
     IconFileUpload
-};
+}
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
 
@@ -47,6 +47,6 @@ const pages = {
             ]
         }
     ]
-};
+}
 
-export default pages;
+export default pages
