@@ -1,15 +1,15 @@
-import {useContext} from 'react'
-import {Scrollbars} from 'react-custom-scrollbars-2'
-import {SidebarContext} from '../../../contexts/SidebarContext'
+import { useContext } from 'react'
+import { Scrollbars } from 'react-custom-scrollbars-2'
+import { SidebarContext } from '../../../contexts/SidebarContext'
 import Logo from '../../../components/Logo'
 
-import {Box, Drawer, Hidden} from '@mui/material'
+import { Box, Drawer, Hidden } from '@mui/material'
 
-import {styled} from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import SidebarMenu from './SidebarMenu'
 
 const SidebarWrapper = styled(Box)(
-    ({theme}) => `
+    ({ theme }) => `
         width       : ${theme.sidebar.width};
         color       : ${theme.sidebar.textColor};
         background  : ${theme.sidebar.background};
@@ -26,7 +26,7 @@ const SidebarWrapper = styled(Box)(
 )
 
 const TopSection = styled(Box)(
-    ({theme}) => `
+    ({ theme }) => `
         display        : flex;
         height         : 88px;
         align-items    : center;
@@ -36,32 +36,36 @@ const TopSection = styled(Box)(
 )
 
 function Sidebar() {
-    const {sidebarToggle, toggleSidebar} = useContext(SidebarContext)
+    const { sidebarToggle, toggleSidebar } = useContext(SidebarContext)
     const closeSidebar = () => toggleSidebar()
 
     return (
-        <> < Hidden lgDown > <SidebarWrapper>
-            <Scrollbars autoHide>
-                <TopSection>
-                    <Logo/>
-                </TopSection>
-                <SidebarMenu/>
-            </Scrollbars>
-        </SidebarWrapper>
-    </Hidden>
-    <Hidden lgUp>
-        <Drawer anchor='left' open={sidebarToggle} onClose={closeSidebar} variant='temporary' elevation={9}>
-            <SidebarWrapper>
-                <Scrollbars autoHide>
-                    <TopSection>
-                        <Logo/>
-                    </TopSection>
-                    <SidebarMenu/>
-                </Scrollbars>
-            </SidebarWrapper>
-        </Drawer>
-    </Hidden>
-</>
+        <>
+            {' '}
+            <Hidden lgDown>
+                {' '}
+                <SidebarWrapper>
+                    <Scrollbars autoHide>
+                        <TopSection>
+                            <Logo />
+                        </TopSection>
+                        <SidebarMenu />
+                    </Scrollbars>
+                </SidebarWrapper>
+            </Hidden>
+            <Hidden lgUp>
+                <Drawer anchor='left' open={sidebarToggle} onClose={closeSidebar} variant='temporary' elevation={9}>
+                    <SidebarWrapper>
+                        <Scrollbars autoHide>
+                            <TopSection>
+                                <Logo />
+                            </TopSection>
+                            <SidebarMenu />
+                        </Scrollbars>
+                    </SidebarWrapper>
+                </Drawer>
+            </Hidden>
+        </>
     )
 }
 

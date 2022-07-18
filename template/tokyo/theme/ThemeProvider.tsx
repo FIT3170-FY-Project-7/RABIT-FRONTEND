@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { ThemeProvider } from '@mui/material';
-import { themeCreator } from './base';
-import { StyledEngineProvider  } from '@mui/styled-engine';
+import React, { useState } from 'react'
+import { ThemeProvider } from '@mui/material'
+import { themeCreator } from './base'
+import { StyledEngineProvider } from '@mui/styled-engine'
 
-export const ThemeContext = React.createContext((_themeName: string): void => {});
+export const ThemeContext = React.createContext((_themeName: string): void => {})
 
-const ThemeProviderWrapper: React.FC = (props) => {
-    const curThemeName = localStorage.getItem('appTheme') || 'PureLightTheme';
-    const [themeName, _setThemeName] = useState(curThemeName);
-    const theme = themeCreator(themeName);
+const ThemeProviderWrapper: React.FC = props => {
+    const curThemeName = localStorage.getItem('appTheme') || 'PureLightTheme'
+    const [themeName, _setThemeName] = useState(curThemeName)
+    const theme = themeCreator(themeName)
     const setThemeName = (themeName: string): void => {
-        localStorage.setItem('appTheme', themeName);
-        _setThemeName(themeName);
-    };
+        localStorage.setItem('appTheme', themeName)
+        _setThemeName(themeName)
+    }
 
     return (
         <StyledEngineProvider injectFirst>
             <ThemeContext.Provider value={setThemeName}>
-                <ThemeProvider theme={theme}>{props.children}</ThemeProvider >
+                <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
             </ThemeContext.Provider>
-        </StyledEngineProvider >
-    );
-};
+        </StyledEngineProvider>
+    )
+}
 
-export default ThemeProviderWrapper;
+export default ThemeProviderWrapper

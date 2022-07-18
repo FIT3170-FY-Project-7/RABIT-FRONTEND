@@ -1,344 +1,312 @@
-import {alpha, createTheme, lighten, darken} from '@mui/material'
+import { alpha, createTheme, lighten, darken } from '@mui/material'
 import '@mui/lab/themeAugmentation'
 
 const themeColors = {
-    primary   : '#5569ff',
-    secondary : '#6E759F',
-    success   : '#44D600',
-    warning   : '#FFA319',
-    error     : '#FF1943',
-    info      : '#33C2FF',
-    black     : '#223354',
-    white     : '#ffffff',
+    primary: '#5569ff',
+    secondary: '#6E759F',
+    success: '#44D600',
+    warning: '#FFA319',
+    error: '#FF1943',
+    info: '#33C2FF',
+    black: '#223354',
+    white: '#ffffff',
     primaryAlt: '#000C57'
 }
 
 const colors = {
     gradients: {
-        blue1  : 'linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)',
-        blue2  : 'linear-gradient(135deg, #ABDCFF 0%, #0396FF 100%)',
-        blue3  : 'linear-gradient(127.55deg, #141E30 3.73%, #243B55 92.26%)',
+        blue1: 'linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)',
+        blue2: 'linear-gradient(135deg, #ABDCFF 0%, #0396FF 100%)',
+        blue3: 'linear-gradient(127.55deg, #141E30 3.73%, #243B55 92.26%)',
         orange1: 'linear-gradient(135deg, #FCCF31 0%, #F55555 100%)',
         orange2: 'linear-gradient(135deg, #FFD3A5 0%, #FD6585 100%)',
         purple1: 'linear-gradient(135deg, #43CBFF 0%, #9708CC 100%)',
-        pink1  : 'linear-gradient(135deg, #F6CEEC 0%, #D939CD 100%)',
-        pink2  : 'linear-gradient(135deg, #F761A1 0%, #8C1BAB 100%)',
-        green1 : 'linear-gradient(135deg, #FFF720 0%, #3CD500 100%)',
-        black1 : 'linear-gradient(100.66deg, #434343 6.56%, #000000 93.57%)'
+        pink1: 'linear-gradient(135deg, #F6CEEC 0%, #D939CD 100%)',
+        pink2: 'linear-gradient(135deg, #F761A1 0%, #8C1BAB 100%)',
+        green1: 'linear-gradient(135deg, #FFF720 0%, #3CD500 100%)',
+        black1: 'linear-gradient(100.66deg, #434343 6.56%, #000000 93.57%)'
     },
-    shadows  : {
+    shadows: {
         success: '0px 1px 4px rgba(68, 214, 0, 0.25), 0px 3px 12px 2px rgba(68, 214, 0, 0.35)',
-        error  : '0px 1px 4px rgba(255, 25, 67, 0.25), 0px 3px 12px 2px rgba(255, 25, 67, 0.35)',
-        info   : '0px 1px 4px rgba(51, 194, 255, 0.25), 0px 3px 12px 2px rgba(51, 194, 255, 0.35)',
+        error: '0px 1px 4px rgba(255, 25, 67, 0.25), 0px 3px 12px 2px rgba(255, 25, 67, 0.35)',
+        info: '0px 1px 4px rgba(51, 194, 255, 0.25), 0px 3px 12px 2px rgba(51, 194, 255, 0.35)',
         primary: '0px 1px 4px rgba(85, 105, 255, 0.25), 0px 3px 12px 2px rgba(85, 105, 255, 0.35)',
         warning: '0px 1px 4px rgba(255, 163, 25, 0.25), 0px 3px 12px 2px rgba(255, 163, 25, 0.35)',
-        card   : '0px 9px 16px rgba(159, 162, 191, 0.18), 0px 2px 2px rgba(159, 162, 191, 0.32)',
-        cardSm : '0px 2px 3px rgba(159, 162, 191, 0.18), 0px 1px 1px rgba(159, 162, 191, 0.32)',
-        cardLg : '0 5rem 14rem 0 rgb(255 255 255 / 30%), 0 0.8rem 2.3rem rgb(0 0 0 / 60%), 0 0.2rem 0.3rem rgb(0 0 0 / 45%)'
+        card: '0px 9px 16px rgba(159, 162, 191, 0.18), 0px 2px 2px rgba(159, 162, 191, 0.32)',
+        cardSm: '0px 2px 3px rgba(159, 162, 191, 0.18), 0px 1px 1px rgba(159, 162, 191, 0.32)',
+        cardLg: '0 5rem 14rem 0 rgb(255 255 255 / 30%), 0 0.8rem 2.3rem rgb(0 0 0 / 60%), 0 0.2rem 0.3rem rgb(0 0 0 / 45%)'
     },
-    layout   : {
+    layout: {
         general: {
             bodyBg: '#f2f5f9'
         },
         sidebar: {
-            background             : themeColors.white,
-            textColor              : themeColors.secondary,
-            dividerBg              : '#f2f5f9',
-            menuItemColor          : '#242E6F',
-            menuItemColorActive    : themeColors.primary,
-            menuItemBg             : 'transparent',
-            menuItemBgActive       : '#f2f5f9',
-            menuItemIconColor      : lighten(themeColors.secondary, 0.3),
+            background: themeColors.white,
+            textColor: themeColors.secondary,
+            dividerBg: '#f2f5f9',
+            menuItemColor: '#242E6F',
+            menuItemColorActive: themeColors.primary,
+            menuItemBg: 'transparent',
+            menuItemBgActive: '#f2f5f9',
+            menuItemIconColor: lighten(themeColors.secondary, 0.3),
             menuItemIconColorActive: themeColors.primary,
-            menuItemHeadingColor   : darken(themeColors.secondary, 0.3)
+            menuItemHeadingColor: darken(themeColors.secondary, 0.3)
         }
     },
-    alpha    : {
-        white    : {
-            5  : alpha(themeColors.white, 0.02),
-            10 : alpha(themeColors.white, 0.1),
-            30 : alpha(themeColors.white, 0.3),
-            50 : alpha(themeColors.white, 0.5),
-            70 : alpha(themeColors.white, 0.7),
+    alpha: {
+        white: {
+            5: alpha(themeColors.white, 0.02),
+            10: alpha(themeColors.white, 0.1),
+            30: alpha(themeColors.white, 0.3),
+            50: alpha(themeColors.white, 0.5),
+            70: alpha(themeColors.white, 0.7),
             100: themeColors.white
         },
         trueWhite: {
-            5  : alpha(themeColors.white, 0.02),
-            10 : alpha(themeColors.white, 0.1),
-            30 : alpha(themeColors.white, 0.3),
-            50 : alpha(themeColors.white, 0.5),
-            70 : alpha(themeColors.white, 0.7),
+            5: alpha(themeColors.white, 0.02),
+            10: alpha(themeColors.white, 0.1),
+            30: alpha(themeColors.white, 0.3),
+            50: alpha(themeColors.white, 0.5),
+            70: alpha(themeColors.white, 0.7),
             100: themeColors.white
         },
-        black    : {
-            5  : alpha(themeColors.black, 0.02),
-            10 : alpha(themeColors.black, 0.1),
-            30 : alpha(themeColors.black, 0.3),
-            50 : alpha(themeColors.black, 0.5),
-            70 : alpha(themeColors.black, 0.7),
+        black: {
+            5: alpha(themeColors.black, 0.02),
+            10: alpha(themeColors.black, 0.1),
+            30: alpha(themeColors.black, 0.3),
+            50: alpha(themeColors.black, 0.5),
+            70: alpha(themeColors.black, 0.7),
             100: themeColors.black
         }
     },
     secondary: {
         lighter: lighten(themeColors.secondary, 0.85),
-        light  : lighten(themeColors.secondary, 0.25),
-        main   : themeColors.secondary,
-        dark   : darken(themeColors.secondary, 0.2)
+        light: lighten(themeColors.secondary, 0.25),
+        main: themeColors.secondary,
+        dark: darken(themeColors.secondary, 0.2)
     },
-    primary  : {
+    primary: {
         lighter: lighten(themeColors.primary, 0.85),
-        light  : lighten(themeColors.primary, 0.3),
-        main   : themeColors.primary,
-        dark   : darken(themeColors.primary, 0.2)
+        light: lighten(themeColors.primary, 0.3),
+        main: themeColors.primary,
+        dark: darken(themeColors.primary, 0.2)
     },
-    success  : {
+    success: {
         lighter: lighten(themeColors.success, 0.85),
-        light  : lighten(themeColors.success, 0.3),
-        main   : themeColors.success,
-        dark   : darken(themeColors.success, 0.2)
+        light: lighten(themeColors.success, 0.3),
+        main: themeColors.success,
+        dark: darken(themeColors.success, 0.2)
     },
-    warning  : {
+    warning: {
         lighter: lighten(themeColors.warning, 0.85),
-        light  : lighten(themeColors.warning, 0.3),
-        main   : themeColors.warning,
-        dark   : darken(themeColors.warning, 0.2)
+        light: lighten(themeColors.warning, 0.3),
+        main: themeColors.warning,
+        dark: darken(themeColors.warning, 0.2)
     },
-    error    : {
+    error: {
         lighter: lighten(themeColors.error, 0.85),
-        light  : lighten(themeColors.error, 0.3),
-        main   : themeColors.error,
-        dark   : darken(themeColors.error, 0.2)
+        light: lighten(themeColors.error, 0.3),
+        main: themeColors.error,
+        dark: darken(themeColors.error, 0.2)
     },
-    info     : {
+    info: {
         lighter: lighten(themeColors.info, 0.85),
-        light  : lighten(themeColors.info, 0.3),
-        main   : themeColors.info,
-        dark   : darken(themeColors.info, 0.2)
+        light: lighten(themeColors.info, 0.3),
+        main: themeColors.info,
+        dark: darken(themeColors.info, 0.2)
     }
 }
 
 export const PureLightTheme = createTheme({
     // direction: i18n.dir(),
-    colors     : {
+    colors: {
         gradients: {
-            blue1  : colors.gradients.blue1,
-            blue2  : colors.gradients.blue2,
-            blue3  : colors.gradients.blue3,
+            blue1: colors.gradients.blue1,
+            blue2: colors.gradients.blue2,
+            blue3: colors.gradients.blue3,
             orange1: colors.gradients.orange1,
             orange2: colors.gradients.orange2,
             purple1: colors.gradients.purple1,
-            pink1  : colors.gradients.pink1,
-            pink2  : colors.gradients.pink2,
-            green1 : colors.gradients.green1,
-            black1 : colors.gradients.black1
+            pink1: colors.gradients.pink1,
+            pink2: colors.gradients.pink2,
+            green1: colors.gradients.green1,
+            black1: colors.gradients.black1
         },
-        shadows  : {
+        shadows: {
             success: colors.shadows.success,
-            error  : colors.shadows.error,
+            error: colors.shadows.error,
             primary: colors.shadows.primary,
             warning: colors.shadows.warning
         },
-        alpha    : {
-            white    : {
-                5  : alpha(themeColors.white, 0.02),
-                10 : alpha(themeColors.white, 0.1),
-                30 : alpha(themeColors.white, 0.3),
-                50 : alpha(themeColors.white, 0.5),
-                70 : alpha(themeColors.white, 0.7),
+        alpha: {
+            white: {
+                5: alpha(themeColors.white, 0.02),
+                10: alpha(themeColors.white, 0.1),
+                30: alpha(themeColors.white, 0.3),
+                50: alpha(themeColors.white, 0.5),
+                70: alpha(themeColors.white, 0.7),
                 100: themeColors.white
             },
             trueWhite: {
-                5  : alpha(themeColors.white, 0.02),
-                10 : alpha(themeColors.white, 0.1),
-                30 : alpha(themeColors.white, 0.3),
-                50 : alpha(themeColors.white, 0.5),
-                70 : alpha(themeColors.white, 0.7),
+                5: alpha(themeColors.white, 0.02),
+                10: alpha(themeColors.white, 0.1),
+                30: alpha(themeColors.white, 0.3),
+                50: alpha(themeColors.white, 0.5),
+                70: alpha(themeColors.white, 0.7),
                 100: themeColors.white
             },
-            black    : {
-                5  : alpha(themeColors.black, 0.02),
-                10 : alpha(themeColors.black, 0.1),
-                30 : alpha(themeColors.black, 0.3),
-                50 : alpha(themeColors.black, 0.5),
-                70 : alpha(themeColors.black, 0.7),
+            black: {
+                5: alpha(themeColors.black, 0.02),
+                10: alpha(themeColors.black, 0.1),
+                30: alpha(themeColors.black, 0.3),
+                50: alpha(themeColors.black, 0.5),
+                70: alpha(themeColors.black, 0.7),
                 100: themeColors.black
             }
         },
         secondary: {
             lighter: alpha(themeColors.secondary, 0.1),
-            light  : lighten(themeColors.secondary, 0.3),
-            main   : themeColors.secondary,
-            dark   : darken(themeColors.secondary, 0.2)
+            light: lighten(themeColors.secondary, 0.3),
+            main: themeColors.secondary,
+            dark: darken(themeColors.secondary, 0.2)
         },
-        primary  : {
+        primary: {
             lighter: alpha(themeColors.primary, 0.1),
-            light  : lighten(themeColors.primary, 0.3),
-            main   : themeColors.primary,
-            dark   : darken(themeColors.primary, 0.2)
+            light: lighten(themeColors.primary, 0.3),
+            main: themeColors.primary,
+            dark: darken(themeColors.primary, 0.2)
         },
-        success  : {
+        success: {
             lighter: alpha(themeColors.success, 0.1),
-            light  : lighten(themeColors.success, 0.3),
-            main   : themeColors.success,
-            dark   : darken(themeColors.success, 0.2)
+            light: lighten(themeColors.success, 0.3),
+            main: themeColors.success,
+            dark: darken(themeColors.success, 0.2)
         },
-        warning  : {
+        warning: {
             lighter: alpha(themeColors.warning, 0.1),
-            light  : lighten(themeColors.warning, 0.3),
-            main   : themeColors.warning,
-            dark   : darken(themeColors.warning, 0.2)
+            light: lighten(themeColors.warning, 0.3),
+            main: themeColors.warning,
+            dark: darken(themeColors.warning, 0.2)
         },
-        error    : {
+        error: {
             lighter: alpha(themeColors.error, 0.1),
-            light  : lighten(themeColors.error, 0.3),
-            main   : themeColors.error,
-            dark   : darken(themeColors.error, 0.2)
+            light: lighten(themeColors.error, 0.3),
+            main: themeColors.error,
+            dark: darken(themeColors.error, 0.2)
         },
-        info     : {
+        info: {
             lighter: alpha(themeColors.info, 0.1),
-            light  : lighten(themeColors.info, 0.3),
-            main   : themeColors.info,
-            dark   : darken(themeColors.info, 0.2)
+            light: lighten(themeColors.info, 0.3),
+            main: themeColors.info,
+            dark: darken(themeColors.info, 0.2)
         }
     },
 
-    general    : {
+    general: {
         reactFrameworkColor: '#00D8FF',
-        borderRadiusSm     : '4px',
-        borderRadius       : '6px',
-        borderRadiusLg     : '10px',
-        borderRadiusXl     : '18px'
+        borderRadiusSm: '4px',
+        borderRadius: '6px',
+        borderRadiusLg: '10px',
+        borderRadiusXl: '18px'
     },
-    sidebar    : {
-        background             : colors.layout.sidebar.background,
-        textColor              : colors.layout.sidebar.textColor,
-        dividerBg              : colors.layout.sidebar.dividerBg,
-        menuItemColor          : colors.layout.sidebar.menuItemColor,
-        menuItemColorActive    : colors.layout.sidebar.menuItemColorActive,
-        menuItemBg             : colors.layout.sidebar.menuItemBg,
-        menuItemBgActive       : colors.layout.sidebar.menuItemBgActive,
-        menuItemIconColor      : colors.layout.sidebar.menuItemIconColor,
+    sidebar: {
+        background: colors.layout.sidebar.background,
+        textColor: colors.layout.sidebar.textColor,
+        dividerBg: colors.layout.sidebar.dividerBg,
+        menuItemColor: colors.layout.sidebar.menuItemColor,
+        menuItemColorActive: colors.layout.sidebar.menuItemColorActive,
+        menuItemBg: colors.layout.sidebar.menuItemBg,
+        menuItemBgActive: colors.layout.sidebar.menuItemBgActive,
+        menuItemIconColor: colors.layout.sidebar.menuItemIconColor,
         menuItemIconColorActive: colors.layout.sidebar.menuItemIconColorActive,
-        menuItemHeadingColor   : colors.layout.sidebar.menuItemHeadingColor,
-        boxShadow              : '2px 0 3px rgba(159, 162, 191, 0.18), 1px 0 1px rgba(159, 162, 191, 0.32)',
-        width                  : '280px'
+        menuItemHeadingColor: colors.layout.sidebar.menuItemHeadingColor,
+        boxShadow: '2px 0 3px rgba(159, 162, 191, 0.18), 1px 0 1px rgba(159, 162, 191, 0.32)',
+        width: '280px'
     },
-    header     : {
-        height    : '88px',
-        background: colors
-            .alpha
-            .white[100],
-        boxShadow : colors.shadows.cardSm,
-        textColor : colors.secondary.main
+    header: {
+        height: '88px',
+        background: colors.alpha.white[100],
+        boxShadow: colors.shadows.cardSm,
+        textColor: colors.secondary.main
     },
-    spacing    : 8,
-    palette    : {
-        common     : {
-            black: colors
-                .alpha
-                .black[100],
-            white: colors
-                .alpha
-                .white[100]
+    spacing: 8,
+    palette: {
+        common: {
+            black: colors.alpha.black[100],
+            white: colors.alpha.white[100]
         },
-        mode       : 'light',
-        primary    : {
+        mode: 'light',
+        primary: {
             light: colors.primary.light,
-            main : colors.primary.main,
-            dark : colors.primary.dark
+            main: colors.primary.main,
+            dark: colors.primary.dark
         },
-        secondary  : {
+        secondary: {
             light: colors.secondary.light,
-            main : colors.secondary.main,
-            dark : colors.secondary.dark
+            main: colors.secondary.main,
+            dark: colors.secondary.dark
         },
-        error      : {
-            light       : colors.error.light,
-            main        : colors.error.main,
-            dark        : colors.error.dark,
-            contrastText: colors
-                .alpha
-                .white[100]
+        error: {
+            light: colors.error.light,
+            main: colors.error.main,
+            dark: colors.error.dark,
+            contrastText: colors.alpha.white[100]
         },
-        success    : {
-            light       : colors.success.light,
-            main        : colors.success.main,
-            dark        : colors.success.dark,
-            contrastText: colors
-                .alpha
-                .white[100]
+        success: {
+            light: colors.success.light,
+            main: colors.success.main,
+            dark: colors.success.dark,
+            contrastText: colors.alpha.white[100]
         },
-        info       : {
-            light       : colors.info.light,
-            main        : colors.info.main,
-            dark        : colors.info.dark,
-            contrastText: colors
-                .alpha
-                .white[100]
+        info: {
+            light: colors.info.light,
+            main: colors.info.main,
+            dark: colors.info.dark,
+            contrastText: colors.alpha.white[100]
         },
-        warning    : {
-            light       : colors.warning.light,
-            main        : colors.warning.main,
-            dark        : colors.warning.dark,
-            contrastText: colors
-                .alpha
-                .white[100]
+        warning: {
+            light: colors.warning.light,
+            main: colors.warning.main,
+            dark: colors.warning.dark,
+            contrastText: colors.alpha.white[100]
         },
-        grey       : {
-            50  : '#FBFBFB',
-            100 : '#F3F5F6',
-            200 : '#E8EAED',
-            300 : '#DCE0E5',
-            400 : '#bdbdbd',
-            500 : '#9e9e9e',
-            600 : '#757575',
-            700 : '#616161',
-            800 : '#424242',
-            900 : '#212121',
+        grey: {
+            50: '#FBFBFB',
+            100: '#F3F5F6',
+            200: '#E8EAED',
+            300: '#DCE0E5',
+            400: '#bdbdbd',
+            500: '#9e9e9e',
+            600: '#757575',
+            700: '#616161',
+            800: '#424242',
+            900: '#212121',
             A100: '#d5d5d5',
             A200: '#aaaaaa',
             A400: '#303030',
             A700: '#616161'
         },
-        text       : {
-            primary  : colors
-                .alpha
-                .black[100],
-            secondary: colors
-                .alpha
-                .black[70],
-            disabled : colors
-                .alpha
-                .black[50]
+        text: {
+            primary: colors.alpha.black[100],
+            secondary: colors.alpha.black[70],
+            disabled: colors.alpha.black[50]
         },
-        background : {
-            paper  : colors
-                .alpha
-                .white[100],
+        background: {
+            paper: colors.alpha.white[100],
             default: colors.layout.general.bodyBg
         },
-        action     : {
-            active            : colors
-                .alpha
-                .black[100],
-            hover             : colors.primary.lighter,
-            hoverOpacity      : 0.1,
-            selected          : colors
-                .alpha
-                .black[10],
-            selectedOpacity   : 0.1,
-            disabled          : colors
-                .alpha
-                .black[50],
-            disabledBackground: colors
-                .alpha
-                .black[5],
-            disabledOpacity   : 0.38,
-            focus             : colors
-                .alpha
-                .black[10],
-            focusOpacity      : 0.05,
-            activatedOpacity  : 0.12
+        action: {
+            active: colors.alpha.black[100],
+            hover: colors.primary.lighter,
+            hoverOpacity: 0.1,
+            selected: colors.alpha.black[10],
+            selectedOpacity: 0.1,
+            disabled: colors.alpha.black[50],
+            disabledBackground: colors.alpha.black[5],
+            disabledOpacity: 0.38,
+            focus: colors.alpha.black[10],
+            focusOpacity: 0.05,
+            activatedOpacity: 0.12
         },
         tonalOffset: 0.5
     },
@@ -351,67 +319,67 @@ export const PureLightTheme = createTheme({
             xl: 1840
         }
     },
-    components : {
-        MuiBackdrop         : {
+    components: {
+        MuiBackdrop: {
             styleOverrides: {
                 root: {
-                    backgroundColor          : alpha(darken(themeColors.primaryAlt, 0.4), 0.2),
-                    backdropFilter           : 'blur(2px)',
+                    backgroundColor: alpha(darken(themeColors.primaryAlt, 0.4), 0.2),
+                    backdropFilter: 'blur(2px)',
 
                     '&.MuiBackdrop-invisible': {
                         backgroundColor: 'transparent',
-                        backdropFilter : 'blur(2px)'
+                        backdropFilter: 'blur(2px)'
                     }
                 }
             }
         },
-        MuiFormHelperText   : {
+        MuiFormHelperText: {
             styleOverrides: {
                 root: {
                     textTransform: 'none',
-                    marginLeft   : 8,
-                    marginRight  : 8,
-                    fontWeight   : 'bold'
+                    marginLeft: 8,
+                    marginRight: 8,
+                    fontWeight: 'bold'
                 }
             }
         },
-        MuiCssBaseline      : {
+        MuiCssBaseline: {
             styleOverrides: {
-                'html, body, #root'       : {
-                    width : '100%',
+                'html, body, #root': {
+                    width: '100%',
                     height: '100%'
                 },
-                '#nprogress .bar'         : {
+                '#nprogress .bar': {
                     background: colors.primary.main
                 },
                 '#nprogress .spinner-icon': {
-                    borderTopColor : colors.primary.main,
+                    borderTopColor: colors.primary.main,
                     borderLeftColor: colors.primary.main
                 },
-                '#nprogress .peg'         : {
+                '#nprogress .peg': {
                     boxShadow: '0 0 10px ' + colors.primary.main + ', 0 0 5px' + colors.primary.main
                 },
-                ':root'                   : {
+                ':root': {
                     '--swiper-theme-color': colors.primary.main
                 },
-                code                      : {
-                    background  : colors.info.lighter,
-                    color       : colors.info.dark,
+                code: {
+                    background: colors.info.lighter,
+                    color: colors.info.dark,
                     borderRadius: 4,
-                    padding     : 4
+                    padding: 4
                 },
-                '@keyframes ripple'       : {
-                    '0%'  : {
+                '@keyframes ripple': {
+                    '0%': {
                         transform: 'scale(.8)',
-                        opacity  : 1
+                        opacity: 1
                     },
                     '100%': {
                         transform: 'scale(2.8)',
-                        opacity  : 0
+                        opacity: 0
                     }
                 },
-                '@keyframes float'        : {
-                    '0%'  : {
+                '@keyframes float': {
+                    '0%': {
                         transform: 'translate(0%, 0%)'
                     },
                     '100%': {
@@ -420,86 +388,72 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiSelect           : {
+        MuiSelect: {
             styleOverrides: {
                 iconOutlined: {
-                    color: colors
-                        .alpha
-                        .black[50]
+                    color: colors.alpha.black[50]
                 },
-                icon        : {
+                icon: {
                     top: 'calc(50% - 14px)'
                 }
             }
         },
-        MuiOutlinedInput    : {
+        MuiOutlinedInput: {
             styleOverrides: {
                 root: {
                     '& .MuiInputAdornment-positionEnd.MuiInputAdornment-outlined': {
                         paddingRight: 6
                     },
-                    '&:hover .MuiOutlinedInput-notchedOutline'                   : {
-                        borderColor: colors
-                            .alpha
-                            .black[50]
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.alpha.black[50]
                     },
-                    '&.Mui-focused:hover .MuiOutlinedInput-notchedOutline'       : {
+                    '&.Mui-focused:hover .MuiOutlinedInput-notchedOutline': {
                         borderColor: colors.primary.main
                     }
                 }
             }
         },
-        MuiListSubheader    : {
+        MuiListSubheader: {
             styleOverrides: {
                 colorPrimary: {
                     fontWeight: 'bold',
                     lineHeight: '40px',
-                    fontSize  : 13,
-                    background: colors
-                        .alpha
-                        .black[5],
-                    color     : colors
-                        .alpha
-                        .black[70]
+                    fontSize: 13,
+                    background: colors.alpha.black[5],
+                    color: colors.alpha.black[70]
                 }
             }
         },
-        MuiCardHeader       : {
+        MuiCardHeader: {
             styleOverrides: {
                 action: {
-                    marginTop   : -5,
+                    marginTop: -5,
                     marginBottom: -5
                 },
-                title : {
+                title: {
                     fontSize: 15
                 }
             }
         },
-        MuiRadio            : {
+        MuiRadio: {
             styleOverrides: {
                 root: {
                     borderRadius: '50px'
                 }
             }
         },
-        MuiChip             : {
+        MuiChip: {
             styleOverrides: {
                 colorSecondary: {
-                    background: colors
-                        .alpha
-                        .black[5],
-                    color     : colors
-                        .alpha
-                        .black[100],
+                    background: colors.alpha.black[5],
+                    color: colors.alpha.black[100],
 
-                    '&:hover' : {
-                        background: colors
-                            .alpha
-                            .black[10]
+                    '&:hover': {
+                        background: colors.alpha.black[10]
                     }
                 },
-                deleteIcon    : {
-                    color    : colors.error.light,
+                deleteIcon: {
+                    color: colors.error.light,
 
                     '&:hover': {
                         color: colors.error.main
@@ -507,80 +461,70 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiAccordion        : {
+        MuiAccordion: {
             styleOverrides: {
                 root: {
-                    boxShadow       : 'none',
+                    boxShadow: 'none',
 
                     '&.Mui-expanded': {
                         margin: 0
                     },
-                    '&::before'     : {
+                    '&::before': {
                         display: 'none'
                     }
                 }
             }
         },
-        MuiAvatar           : {
+        MuiAvatar: {
             styleOverrides: {
-                root        : {
-                    fontSize  : 14,
+                root: {
+                    fontSize: 14,
                     fontWeight: 'bold'
                 },
                 colorDefault: {
-                    background: colors
-                        .alpha
-                        .black[30],
-                    color     : colors
-                        .alpha
-                        .white[100]
+                    background: colors.alpha.black[30],
+                    color: colors.alpha.white[100]
                 }
             }
         },
-        MuiAvatarGroup      : {
+        MuiAvatarGroup: {
             styleOverrides: {
-                root  : {
+                root: {
                     alignItems: 'center'
                 },
                 avatar: {
-                    background       : colors
-                        .alpha
-                        .black[10],
-                    fontSize         : 13,
-                    color            : colors
-                        .alpha
-                        .black[70],
-                    fontWeight       : 'bold',
+                    background: colors.alpha.black[10],
+                    fontSize: 13,
+                    color: colors.alpha.black[70],
+                    fontWeight: 'bold',
 
                     '&:first-of-type': {
-                        border    : 0,
+                        border: 0,
                         background: 'transparent'
                     }
                 }
             }
         },
-        MuiListItemAvatar   : {
+        MuiListItemAvatar: {
             styleOverrides: {
                 alignItemsFlexStart: {
                     marginTop: 0
                 }
             }
         },
-        MuiPaginationItem   : {
+        MuiPaginationItem: {
             styleOverrides: {
-                page       : {
-                    fontSize  : 13,
+                page: {
+                    fontSize: 13,
                     fontWeight: 'bold',
                     transition: 'all .2s'
                 },
                 textPrimary: {
-                    '&.Mui-selected'                         : {
+                    '&.Mui-selected': {
                         boxShadow: colors.shadows.primary
                     },
-                    '&.MuiButtonBase-root:hover'             : {
-                        background: colors
-                            .alpha
-                            .black[5]
+                    '&.MuiButtonBase-root:hover': {
+                        background: colors.alpha.black[5]
                     },
                     '&.Mui-selected.MuiButtonBase-root:hover': {
                         background: colors.primary.main
@@ -588,51 +532,41 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiButton           : {
-            defaultProps  : {
+        MuiButton: {
+            defaultProps: {
                 disableRipple: true
             },
             styleOverrides: {
-                root              : {
-                    fontWeight        : 'bold',
-                    textTransform     : 'none',
-                    paddingLeft       : 16,
-                    paddingRight      : 16,
+                root: {
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    paddingLeft: 16,
+                    paddingRight: 16,
 
                     '.MuiSvgIcon-root': {
                         transition: 'all .2s'
                     }
                 },
-                endIcon           : {
+                endIcon: {
                     marginRight: -8
                 },
                 containedSecondary: {
                     backgroundColor: colors.secondary.main,
-                    color          : colors
-                        .alpha
-                        .white[100],
-                    border         : '1px solid ' + colors
-                        .alpha
-                        .black[30]
+                    color: colors.alpha.white[100],
+                    border: '1px solid ' + colors.alpha.black[30]
                 },
-                outlinedSecondary : {
-                    backgroundColor         : colors
-                        .alpha
-                        .white[100],
+                outlinedSecondary: {
+                    backgroundColor: colors.alpha.white[100],
 
                     '&:hover, &.MuiSelected': {
-                        backgroundColor: colors
-                            .alpha
-                            .black[5],
-                        color          : colors
-                            .alpha
-                            .black[100]
+                        backgroundColor: colors.alpha.black[5],
+                        color: colors.alpha.black[100]
                     }
                 }
             }
         },
-        MuiButtonBase       : {
-            defaultProps  : {
+        MuiButtonBase: {
+            defaultProps: {
                 disableRipple: false
             },
             styleOverrides: {
@@ -641,31 +575,27 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiToggleButton     : {
-            defaultProps  : {
+        MuiToggleButton: {
+            defaultProps: {
                 disableRipple: true
             },
             styleOverrides: {
                 root: {
-                    color                                          : colors.primary.main,
-                    background                                     : colors
-                        .alpha
-                        .white[100],
-                    transition                                     : 'all .2s',
+                    color: colors.primary.main,
+                    background: colors.alpha.white[100],
+                    transition: 'all .2s',
 
                     '&:hover, &.Mui-selected, &.Mui-selected:hover': {
-                        color     : colors
-                            .alpha
-                            .white[100],
+                        color: colors.alpha.white[100],
                         background: colors.primary.main
                     }
                 }
             }
         },
-        MuiIconButton       : {
+        MuiIconButton: {
             styleOverrides: {
-                root     : {
-                    borderRadius            : 6,
+                root: {
+                    borderRadius: 6,
 
                     '& .MuiTouchRipple-root': {
                         borderRadius: 6
@@ -676,7 +606,7 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiListItemText     : {
+        MuiListItemText: {
             styleOverrides: {
                 root: {
                     margin: 0
@@ -684,18 +614,16 @@ export const PureLightTheme = createTheme({
             }
         },
 
-        MuiDivider          : {
+        MuiDivider: {
             styleOverrides: {
-                root        : {
-                    background: colors
-                        .alpha
-                        .black[10],
-                    border    : 0,
-                    height    : 1
+                root: {
+                    background: colors.alpha.black[10],
+                    border: 0,
+                    height: 1
                 },
-                vertical    : {
-                    height                                      : 'auto',
-                    width                                       : 1,
+                vertical: {
+                    height: 'auto',
+                    width: 1,
 
                     '&.MuiDivider-flexItem.MuiDivider-fullWidth': {
                         height: 'auto'
@@ -709,31 +637,29 @@ export const PureLightTheme = createTheme({
                         border: 0
                     }
                 },
-                wrapper     : {
-                    background   : colors
-                        .alpha
-                        .white[100],
-                    fontWeight   : 'bold',
-                    height       : 24,
-                    lineHeight   : '24px',
-                    marginTop    : -12,
-                    color        : 'inherit',
+                wrapper: {
+                    background: colors.alpha.white[100],
+                    fontWeight: 'bold',
+                    height: 24,
+                    lineHeight: '24px',
+                    marginTop: -12,
+                    color: 'inherit',
                     textTransform: 'uppercase'
                 }
             }
         },
-        MuiPaper            : {
+        MuiPaper: {
             styleOverrides: {
-                root       : {
+                root: {
                     padding: 0
                 },
-                elevation0 : {
+                elevation0: {
                     boxShadow: 'none'
                 },
-                elevation  : {
+                elevation: {
                     boxShadow: colors.shadows.card
                 },
-                elevation2 : {
+                elevation2: {
                     boxShadow: colors.shadows.cardSm
                 },
                 elevation24: {
@@ -741,41 +667,37 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiLinearProgress   : {
+        MuiLinearProgress: {
             styleOverrides: {
                 root: {
                     borderRadius: 6,
-                    height      : 6
+                    height: 6
                 }
             }
         },
-        MuiSlider           : {
+        MuiSlider: {
             styleOverrides: {
                 root: {
                     '& .MuiSlider-valueLabelCircle, .MuiSlider-valueLabelLabel': {
                         transform: 'none'
                     },
-                    '& .MuiSlider-valueLabel'                                  : {
+                    '& .MuiSlider-valueLabel': {
                         borderRadius: 6,
-                        background  : colors
-                            .alpha
-                            .black[100],
-                        color       : colors
-                            .alpha
-                            .white[100]
+                        background: colors.alpha.black[100],
+                        color: colors.alpha.white[100]
                     }
                 }
             }
         },
-        MuiList             : {
+        MuiList: {
             styleOverrides: {
-                root   : {
-                    padding                                              : 0,
+                root: {
+                    padding: 0,
 
-                    '& .MuiListItem-button'                              : {
-                        transition              : 'all .2s',
+                    '& .MuiListItem-button': {
+                        transition: 'all .2s',
 
-                        '& > .MuiSvgIcon-root'  : {
+                        '& > .MuiSvgIcon-root': {
                             minWidth: 34
                         },
 
@@ -784,179 +706,163 @@ export const PureLightTheme = createTheme({
                         }
                     },
                     '& .MuiListItem-root.MuiButtonBase-root.Mui-selected': {
-                        backgroundColor: colors
-                            .alpha
-                            .black[10]
+                        backgroundColor: colors.alpha.black[10]
                     }
                 },
                 padding: {
-                    padding                : '12px',
+                    padding: '12px',
 
                     '& .MuiListItem-button': {
                         borderRadius: 6,
-                        margin      : '1px 0'
+                        margin: '1px 0'
                     }
                 }
             }
         },
-        MuiTabs             : {
+        MuiTabs: {
             styleOverrides: {
-                root       : {
-                    height   : 38,
+                root: {
+                    height: 38,
                     minHeight: 38,
-                    overflow : 'visible'
+                    overflow: 'visible'
                 },
-                indicator  : {
-                    height      : 38,
-                    minHeight   : 38,
+                indicator: {
+                    height: 38,
+                    minHeight: 38,
                     borderRadius: 6,
-                    border      : '1px solid ' + colors.primary.dark
+                    border: '1px solid ' + colors.primary.dark
                 },
                 scrollableX: {
                     overflow: 'visible !important'
                 }
             }
         },
-        MuiTab              : {
+        MuiTab: {
             styleOverrides: {
                 root: {
-                    padding                               : 0,
-                    height                                : 38,
-                    minHeight                             : 38,
-                    borderRadius                          : 6,
-                    transition                            : 'color .2s',
-                    textTransform                         : 'capitalize',
+                    padding: 0,
+                    height: 38,
+                    minHeight: 38,
+                    borderRadius: 6,
+                    transition: 'color .2s',
+                    textTransform: 'capitalize',
 
-                    '&.MuiButtonBase-root'                : {
-                        minWidth    : 'auto',
-                        paddingLeft : 20,
+                    '&.MuiButtonBase-root': {
+                        minWidth: 'auto',
+                        paddingLeft: 20,
                         paddingRight: 20,
-                        marginRight : 4
+                        marginRight: 4
                     },
                     '&.Mui-selected, &.Mui-selected:hover': {
-                        color : colors
-                            .alpha
-                            .white[100],
+                        color: colors.alpha.white[100],
                         zIndex: 5
                     },
-                    '&:hover'                             : {
-                        color: colors
-                            .alpha
-                            .black[100]
+                    '&:hover': {
+                        color: colors.alpha.black[100]
                     }
                 }
             }
         },
-        MuiMenu             : {
+        MuiMenu: {
             styleOverrides: {
                 paper: {
                     padding: 12
                 },
-                list : {
-                    padding                                 : 12,
+                list: {
+                    padding: 12,
 
                     '& .MuiMenuItem-root.MuiButtonBase-root': {
-                        fontSize                                     : 14,
-                        marginTop                                    : 1,
-                        marginBottom                                 : 1,
-                        transition                                   : 'all .2s',
-                        color                                        : colors
-                            .alpha
-                            .black[70],
+                        fontSize: 14,
+                        marginTop: 1,
+                        marginBottom: 1,
+                        transition: 'all .2s',
+                        color: colors.alpha.black[70],
 
-                        '& .MuiTouchRipple-root'                     : {
+                        '& .MuiTouchRipple-root': {
                             opacity: 0.2
                         },
 
                         '&:hover, &:active, &.active, &.Mui-selected': {
-                            color     : colors
-                                .alpha
-                                .black[100],
+                            color: colors.alpha.black[100],
                             background: lighten(colors.primary.lighter, 0.5)
                         }
                     }
                 }
             }
         },
-        MuiListItem         : {
+        MuiListItem: {
             styleOverrides: {
                 root: {
                     '&.MuiButtonBase-root': {
-                        color                                        : colors.secondary.main,
+                        color: colors.secondary.main,
 
                         '&:hover, &:active, &.active, &.Mui-selected': {
-                            color     : colors
-                                .alpha
-                                .black[100],
+                            color: colors.alpha.black[100],
                             background: lighten(colors.primary.lighter, 0.5)
                         }
                     }
                 }
             }
         },
-        MuiAutocomplete     : {
+        MuiAutocomplete: {
             styleOverrides: {
-                tag           : {
+                tag: {
                     margin: 1
                 },
-                root          : {
+                root: {
                     '.MuiAutocomplete-inputRoot.MuiOutlinedInput-root .MuiAutocomplete-endAdornment': {
                         right: 14
                     }
                 },
                 clearIndicator: {
-                    background : colors.error.lighter,
-                    color      : colors.error.main,
+                    background: colors.error.lighter,
+                    color: colors.error.main,
                     marginRight: 8,
 
-                    '&:hover'  : {
+                    '&:hover': {
                         background: colors.error.lighter,
-                        color     : colors.error.dark
+                        color: colors.error.dark
                     }
                 },
                 popupIndicator: {
-                    color    : colors
-                        .alpha
-                        .black[50],
+                    color: colors.alpha.black[50],
 
                     '&:hover': {
                         background: colors.primary.lighter,
-                        color     : colors.primary.main
+                        color: colors.primary.main
                     }
                 }
             }
         },
-        MuiTablePagination  : {
+        MuiTablePagination: {
             styleOverrides: {
                 toolbar: {
                     '& .MuiIconButton-root': {
                         padding: 8
                     }
                 },
-                select : {
+                select: {
                     '&:focus': {
                         backgroundColor: 'transparent'
                     }
                 }
             }
         },
-        MuiToolbar          : {
+        MuiToolbar: {
             styleOverrides: {
                 root: {
                     minHeight: '0 !important',
-                    padding  : '0 !important'
+                    padding: '0 !important'
                 }
             }
         },
-        MuiTableRow         : {
+        MuiTableRow: {
             styleOverrides: {
                 head: {
-                    background: colors
-                        .alpha
-                        .black[5]
+                    background: colors.alpha.black[5]
                 },
                 root: {
-                    transition                 : 'background-color .2s',
+                    transition: 'background-color .2s',
 
                     '&.MuiTableRow-hover:hover': {
                         backgroundColor: lighten(colors.alpha.black[5], 0.5)
@@ -964,86 +870,70 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiTableCell        : {
+        MuiTableCell: {
             styleOverrides: {
                 root: {
-                    borderBottomColor: colors
-                        .alpha
-                        .black[10],
-                    fontSize         : 14
+                    borderBottomColor: colors.alpha.black[10],
+                    fontSize: 14
                 },
                 head: {
                     textTransform: 'uppercase',
-                    fontSize     : 13,
-                    fontWeight   : 'bold',
-                    color        : colors
-                        .alpha
-                        .black[70]
+                    fontSize: 13,
+                    fontWeight: 'bold',
+                    color: colors.alpha.black[70]
                 }
             }
         },
-        MuiAlert            : {
+        MuiAlert: {
             styleOverrides: {
-                message     : {
+                message: {
                     lineHeight: 1.5,
-                    fontSize  : 14
+                    fontSize: 14
                 },
                 standardInfo: {
                     color: colors.info.main
                 },
-                action      : {
-                    color: colors
-                        .alpha
-                        .black[70]
+                action: {
+                    color: colors.alpha.black[70]
                 }
             }
         },
-        MuiTimelineDot      : {
+        MuiTimelineDot: {
             styleOverrides: {
-                root           : {
-                    margin   : 0,
-                    zIndex   : 5,
-                    position : 'absolute',
-                    top      : '50%',
+                root: {
+                    margin: 0,
+                    zIndex: 5,
+                    position: 'absolute',
+                    top: '50%',
                     marginTop: -6,
-                    left     : -6
+                    left: -6
                 },
-                outlined       : {
-                    backgroundColor: colors
-                        .alpha
-                        .white[100],
-                    boxShadow      : '0 0 0 6px ' + colors
-                        .alpha
-                        .white[100]
+                outlined: {
+                    backgroundColor: colors.alpha.white[100],
+                    boxShadow: '0 0 0 6px ' + colors.alpha.white[100]
                 },
                 outlinedPrimary: {
-                    backgroundColor: colors
-                        .alpha
-                        .white[100],
-                    boxShadow      : '0 0 0 6px ' + colors
-                        .alpha
-                        .white[100]
+                    backgroundColor: colors.alpha.white[100],
+                    boxShadow: '0 0 0 6px ' + colors.alpha.white[100]
                 }
             }
         },
         MuiTimelineConnector: {
             styleOverrides: {
                 root: {
-                    position       : 'absolute',
-                    height         : '100%',
-                    top            : 0,
-                    borderRadius   : 50,
-                    backgroundColor: colors
-                        .alpha
-                        .black[10]
+                    position: 'absolute',
+                    height: '100%',
+                    top: 0,
+                    borderRadius: 50,
+                    backgroundColor: colors.alpha.black[10]
                 }
             }
         },
-        MuiTimelineItem     : {
+        MuiTimelineItem: {
             styleOverrides: {
-                root                  : {
-                    minHeight : 0,
-                    padding   : '8px 0',
+                root: {
+                    minHeight: 0,
+                    padding: '8px 0',
 
                     '&:before': {
                         display: 'none'
@@ -1056,66 +946,51 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiTooltip          : {
+        MuiTooltip: {
             styleOverrides: {
                 tooltip: {
                     backgroundColor: alpha(colors.alpha.black['100'], 0.95),
-                    padding        : '8px 16px',
-                    fontSize       : 13
+                    padding: '8px 16px',
+                    fontSize: 13
                 },
-                arrow  : {
+                arrow: {
                     color: alpha(colors.alpha.black['100'], 0.95)
                 }
             }
         },
-        MuiSwitch           : {
+        MuiSwitch: {
             styleOverrides: {
-                root        : {
-                    height                                                  : 33,
-                    overflow                                                : 'visible',
+                root: {
+                    height: 33,
+                    overflow: 'visible',
 
-                    '& .MuiButtonBase-root'                                 : {
-                        position  : 'absolute',
-                        padding   : 6,
-                        transition: 'left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+                    '& .MuiButtonBase-root': {
+                        position: 'absolute',
+                        padding: 6,
+                        transition:
+                            'left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
                     },
-                    '& .MuiIconButton-root'                                 : {
+                    '& .MuiIconButton-root': {
                         borderRadius: 100
                     },
                     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
                         opacity: 0.3
                     }
                 },
-                thumb       : {
-                    backgroundColor: colors
-                        .alpha
-                        .white[100],
-                    border         : '1px solid ' + colors
-                        .alpha
-                        .black[30],
-                    boxShadow      : '0px 9px 14px ' + colors
-                        .alpha
-                        .black[10] + ', 0px 2px 2px ' + colors
-                        .alpha
-                        .black[10]
+                thumb: {
+                    backgroundColor: colors.alpha.white[100],
+                    border: '1px solid ' + colors.alpha.black[30],
+                    boxShadow: '0px 9px 14px ' + colors.alpha.black[10] + ', 0px 2px 2px ' + colors.alpha.black[10]
                 },
-                track       : {
-                    backgroundColor: colors
-                        .alpha
-                        .black[5],
-                    border         : '1px solid ' + colors
-                        .alpha
-                        .black[10],
-                    boxShadow      : 'inset 0px 1px 1px ' + colors
-                        .alpha
-                        .black[10],
-                    opacity        : 1
+                track: {
+                    backgroundColor: colors.alpha.black[5],
+                    border: '1px solid ' + colors.alpha.black[10],
+                    boxShadow: 'inset 0px 1px 1px ' + colors.alpha.black[10],
+                    opacity: 1
                 },
                 colorPrimary: {
-                    '& .MuiSwitch-thumb'            : {
-                        backgroundColor: colors
-                            .alpha
-                            .white[100]
+                    '& .MuiSwitch-thumb': {
+                        backgroundColor: colors.alpha.white[100]
                     },
 
                     '&.Mui-checked .MuiSwitch-thumb': {
@@ -1124,18 +999,16 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiStepper          : {
+        MuiStepper: {
             styleOverrides: {
                 root: {
-                    paddingTop   : 20,
+                    paddingTop: 20,
                     paddingBottom: 20,
-                    background   : colors
-                        .alpha
-                        .black[5]
+                    background: colors.alpha.black[5]
                 }
             }
         },
-        MuiStepIcon         : {
+        MuiStepIcon: {
             styleOverrides: {
                 root: {
                     '&.MuiStepIcon-completed': {
@@ -1144,105 +1017,98 @@ export const PureLightTheme = createTheme({
                 }
             }
         },
-        MuiTypography       : {
-            defaultProps  : {
+        MuiTypography: {
+            defaultProps: {
                 variantMapping: {
-                    h1       : 'h1',
-                    h2       : 'h2',
-                    h3       : 'div',
-                    h4       : 'div',
-                    h5       : 'div',
-                    h6       : 'div',
+                    h1: 'h1',
+                    h2: 'h2',
+                    h3: 'div',
+                    h4: 'div',
+                    h5: 'div',
+                    h6: 'div',
                     subtitle1: 'div',
                     subtitle2: 'div',
-                    body1    : 'div',
-                    body2    : 'div'
+                    body1: 'div',
+                    body2: 'div'
                 }
             },
             styleOverrides: {
                 gutterBottom: {
                     marginBottom: 4
                 },
-                paragraph   : {
-                    fontSize  : 17,
+                paragraph: {
+                    fontSize: 17,
                     lineHeight: 1.7
                 }
             }
         }
     },
-    shape      : {
+    shape: {
         borderRadius: 6
     },
-    typography : {
-        fontFamily  : ['Inter', '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"'].join(
-            ','
-        ),
-        fontSize    : 14,
+    typography: {
+        fontFamily: [
+            'Inter',
+            '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"'
+        ].join(','),
+        fontSize: 14,
         htmlFontSize: 15,
-        h1          : {
+        h1: {
             fontWeight: 700,
-            fontSize  : 30
+            fontSize: 30
         },
-        h2          : {
+        h2: {
             fontWeight: 700,
-            fontSize  : 25
+            fontSize: 25
         },
-        h3          : {
+        h3: {
             fontWeight: 700,
-            fontSize  : 21,
+            fontSize: 21,
             lineHeight: 1.4,
-            color     : colors
-                .alpha
-                .black[100]
+            color: colors.alpha.black[100]
         },
-        h4          : {
+        h4: {
             fontWeight: 700,
-            fontSize  : 16
+            fontSize: 16
         },
-        h5          : {
+        h5: {
             fontWeight: 700,
-            fontSize  : 14
+            fontSize: 14
         },
-        h6          : {
+        h6: {
             fontSize: 15
         },
-        body1       : {
+        body1: {
             fontSize: 14
         },
-        body2       : {
+        body2: {
             fontSize: 14
         },
-        button      : {
-            fontSize  : 14,
+        button: {
+            fontSize: 14,
             fontWeight: 700
         },
-        caption     : {
-            fontSize     : 13,
+        caption: {
+            fontSize: 13,
             textTransform: 'uppercase',
-            color        : colors
-                .alpha
-                .black[50]
+            color: colors.alpha.black[50]
         },
-        subtitle1   : {
+        subtitle1: {
             fontSize: 14,
-            color   : colors
-                .alpha
-                .black[70]
+            color: colors.alpha.black[70]
         },
-        subtitle2   : {
+        subtitle2: {
             fontWeight: 400,
-            fontSize  : 15,
-            color     : colors
-                .alpha
-                .black[70]
+            fontSize: 15,
+            color: colors.alpha.black[70]
         },
-        overline    : {
-            fontSize     : 13,
-            fontWeight   : 700,
+        overline: {
+            fontSize: 13,
+            fontWeight: 700,
             textTransform: 'uppercase'
         }
     },
-    shadows    : [
+    shadows: [
         'none',
         'none',
         'none',
