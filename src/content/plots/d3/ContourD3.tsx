@@ -39,12 +39,18 @@ const rectbin = (x: number[], y: number[], bins) => {
     return values
 }
 
+const config = {
+    bins: 50,
+    sigmas: [1, 2, 3],
+    quantiles: [0.16, 0.5, 0.84],
+    colors: ['#80c3ff', '#40a6ff', '#0088ff'],
+    blur_radius: 1
+}
+
 const create = (el, layout, x: number[], y: number[]) => {
-    // const start = Date.now();
+    const sigmas = config.sigmas.map(sigma)
 
-    const colors = ['#80c3ff', '#40a6ff', '#0088ff']
-    const sigmas = [1, 2, 3].map(sigma)
-
+    // Generate svg element within containing div element
     const svg = d3
         .select(el)
         .append('svg')
@@ -53,9 +59,9 @@ const create = (el, layout, x: number[], y: number[]) => {
         .attr('height', layout.height)
         .attr('style', 'outline: thin solid black;')
 
-    const data = d3.zip(x, y) as [number, number][]
-
     // *// Adds dot points to show each data point. Massively slows render speed, but could be a toggled functionality.
+
+    // const data = d3.zip(x, y) as [number, number][]
 
     // // Add X axis
     // const x_axis = d3
@@ -85,11 +91,14 @@ const create = (el, layout, x: number[], y: number[]) => {
 
     // *//
 
-    const contour_bins = 50
-    const bins = rectbin(x, y, contour_bins)
+    // Calculate and smooth bins
+    const bins = rectbin(x, y, config.bins)
+    d3.blur2({ data: bins, width: config.bins }, config.blur_radius)
+
+    // Calculate the contours
     const contours = d3
         .contours()
-        .size([contour_bins, contour_bins])
+        .size([config.bins, config.bins])
         .thresholds((v: number[]) => {
             const v_sort = d3.sort(v)
             const v_cum = d3.cumsum(v_sort)
@@ -97,26 +106,26 @@ const create = (el, layout, x: number[], y: number[]) => {
             return thresholds.map(v => v_sort[v_cum.findIndex(v_c => v_c > v)])
         })(bins)
 
-    const contour_x_scale = layout.width / contour_bins
-    const contour_y_scale = layout.height / contour_bins
+    // Transform contours to the correct size for the svg
+    const contour_x_scale = layout.width / config.bins
+    const contour_y_scale = layout.height / config.bins
     const contour_transform = d3.geoTransform({
         point: function (x, y) {
             this.stream.point(contour_x_scale * x, contour_y_scale * y)
         }
     })
 
+    // Add contours to svg element
     svg.append('g')
         .selectAll('path')
         .data(contours)
         .join('path')
         .attr('stroke-width', layout.width * 0.01)
-        .attr('stroke', colors[colors.length - 1])
-        .attr('fill', (d, i) => colors[i])
+        .attr('stroke', config.colors[config.colors.length - 1])
+        .attr('fill', (d, i) => config.colors[i])
         .attr('fill-opacity', 0.8)
         .attr('stroke-opacity', 0.8)
         .attr('d', d3.geoPath().projection(contour_transform))
-
-    // console.log(`Contour in: ${(Date.now() - start) / 1000}s`);
 }
 
 const destroy = el => {
