@@ -1,8 +1,15 @@
 import * as d3 from 'd3'
 
-const create = (el, layout, x: number[]) => {
-    // const start = Date.now();
+const config = {
+    bins: 50,
+    sigmas: [1, 2, 3],
+    quantiles: [0.16, 0.5, 0.84],
+    colors: ['#80c3ff', '#40a6ff', '#0088ff'],
+    blur_radius: 1
+}
 
+const create = (el, layout, x: number[]) => {
+    // Generate svg element within containing div element
     const svg = d3
         .select(el)
         .append('svg')
@@ -11,47 +18,56 @@ const create = (el, layout, x: number[]) => {
         .attr('height', layout.height)
         .attr('style', 'outline: thin solid black;')
 
+    const raw_bins = d3
+        .bin()
+        .thresholds(config.bins)(x)
+        .map(bin => ({ value: bin.length, x0: bin.x0, x1: bin.x1 }))
+
+    // Smooth bin values
+    const bin_values = raw_bins.map(bin => bin.value)
+    d3.blur(bin_values, config.blur_radius)
+    const bins = d3.zip(raw_bins, bin_values).map(([old_bin, new_value]) => ({
+        ...old_bin,
+        value: new_value
+    }))
+
     const x_axis = d3.scaleLinear().domain(d3.extent(x)).range([0, layout.width])
-
-    const bins = d3.bin().thresholds(80)(x)
-
     const y_axis = d3
         .scaleLinear()
-        .domain([0, d3.max(bins, d => d.length)])
+        .domain([0, d3.max(bins, d => d.value) * 1.1]) // * 1.1 to add space above maximum peak
         .range([layout.height, 0])
 
+    // Add histogram rectangles to svg
     svg.selectAll('rect')
         .data(bins)
         .join('rect')
         .attr('x', 1)
         .attr('transform', function (d) {
-            return `translate(${x_axis(d.x0)}, ${y_axis(d.length)})`
+            return `translate(${x_axis(d.x0)}, ${y_axis(d.value)})`
         })
         .attr('width', function (d) {
             return x_axis(d.x1) - x_axis(d.x0) + 1
         })
         .attr('height', function (d) {
-            return layout.height - y_axis(d.length)
+            return layout.height - y_axis(d.value)
         })
         .style('fill', '#0088ff')
 
-    // Suggest for big data sets we provide user ability to toggle quantiles off, since sorting data sets of this size
-    // will be SLOW.
-    const quantiles = [0.16, 0.5, 0.84]
-    const x_s = d3.sort(x)
-    quantiles.forEach(quantile => {
-        const quantile_x = d3.quantileSorted(x_s, quantile)
+    // If there are quantiles, calculate and add to svg
+    if (config.quantiles) {
+        const x_s = d3.sort(x)
+        config.quantiles.forEach(quantile => {
+            const quantile_x = d3.quantileSorted(x_s, quantile)
 
-        // draw vertical line
-        svg.append('line')
-            .attr('x1', x_axis(quantile_x))
-            .attr('x2', x_axis(quantile_x))
-            .attr('y1', 0)
-            .attr('y2', layout.height)
-            .attr('stroke', 'red')
-    })
-
-    //console.log(`Histogram in: ${(Date.now() - start) / 1000}s`);
+            // draw vertical line
+            svg.append('line')
+                .attr('x1', x_axis(quantile_x))
+                .attr('x2', x_axis(quantile_x))
+                .attr('y1', 0)
+                .attr('y2', layout.height)
+                .attr('stroke', 'red')
+        })
+    }
 }
 
 const destroy = el => {
