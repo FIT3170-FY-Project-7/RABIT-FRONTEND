@@ -1,12 +1,5 @@
 import * as d3 from 'd3'
-
-const config = {
-    bins: 50,
-    sigmas: [1, 2, 3],
-    quantiles: [0.16, 0.5, 0.84],
-    colors: ['#80c3ff', '#40a6ff', '#0088ff'],
-    blur_radius: 1
-}
+import { plot_config } from './constants'
 
 const create = (el, layout, x: number[]) => {
     // Generate svg element within containing div element
@@ -20,12 +13,12 @@ const create = (el, layout, x: number[]) => {
 
     const raw_bins = d3
         .bin()
-        .thresholds(config.bins)(x)
+        .thresholds(plot_config.bins)(x)
         .map(bin => ({ value: bin.length, x0: bin.x0, x1: bin.x1 }))
 
     // Smooth bin values
     const bin_values = raw_bins.map(bin => bin.value)
-    d3.blur(bin_values, config.blur_radius)
+    d3.blur(bin_values, plot_config.blur_radius)
     const bins = d3.zip(raw_bins, bin_values).map(([old_bin, new_value]) => ({
         ...old_bin,
         value: new_value
@@ -54,9 +47,9 @@ const create = (el, layout, x: number[]) => {
         .style('fill', '#0088ff')
 
     // If there are quantiles, calculate and add to svg
-    if (config.quantiles) {
+    if (plot_config.quantiles) {
         const x_s = d3.sort(x)
-        config.quantiles.forEach(quantile => {
+        plot_config.quantiles.forEach(quantile => {
             const quantile_x = d3.quantileSorted(x_s, quantile)
 
             // draw vertical line
