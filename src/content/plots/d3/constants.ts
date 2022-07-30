@@ -1,4 +1,4 @@
-export const plot_config = {
+export const PLOT_CONFIG = {
     bins: 50,
     sigmas: [1, 2, 3],
     quantiles: [0.16, 0.5, 0.84],

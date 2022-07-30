@@ -15,7 +15,7 @@ type ConerPlotPropType = {
     parameters: string[]
 }
 
-const corner_plot_size = 500
+const CORNER_PLOT_SIZE = 500
 
 const margin = {
     horizontal: 10,
@@ -34,7 +34,7 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
     Corner plot with logic to house the contour and histogram plots. Also renders the axes along the left side and bottom.
 
     */
-    let width = corner_plot_size / parameters.length
+    let width = CORNER_PLOT_SIZE / parameters.length
     const layout = { width: width, height: width, margin: margin, axis: axis }
     const mathjax = useContext(MathJaxBaseContext)
     const mathjaxTimer = useRef(null)

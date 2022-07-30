@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { plot_config } from './constants'
+import { PLOT_CONFIG } from './constants'
 
 const sigma = n => 1 - Math.E ** (-0.5 * n ** 2)
 
@@ -41,7 +41,7 @@ const rectbin = (x: number[], y: number[], bins) => {
 }
 
 const create = (el, layout, x: number[], y: number[]) => {
-    const sigmas = plot_config.sigmas.map(sigma)
+    const sigmas = PLOT_CONFIG.sigmas.map(sigma)
 
     // Generate svg element within containing div element
     const svg = d3
@@ -85,13 +85,13 @@ const create = (el, layout, x: number[], y: number[]) => {
     // *//
 
     // Calculate and smooth bins
-    const bins = rectbin(x, y, plot_config.bins)
-    d3.blur2({ data: bins, width: plot_config.bins }, plot_config.blur_radius)
+    const bins = rectbin(x, y, PLOT_CONFIG.bins)
+    d3.blur2({ data: bins, width: PLOT_CONFIG.bins }, PLOT_CONFIG.blur_radius)
 
     // Calculate the contours
     const contours = d3
         .contours()
-        .size([plot_config.bins, plot_config.bins])
+        .size([PLOT_CONFIG.bins, PLOT_CONFIG.bins])
         .thresholds((v: number[]) => {
             const v_sort = d3.sort(v)
             const v_cum = d3.cumsum(v_sort)
@@ -100,8 +100,8 @@ const create = (el, layout, x: number[], y: number[]) => {
         })(bins)
 
     // Transform contours to the correct size for the svg
-    const contour_x_scale = layout.width / plot_config.bins
-    const contour_y_scale = layout.height / plot_config.bins
+    const contour_x_scale = layout.width / PLOT_CONFIG.bins
+    const contour_y_scale = layout.height / PLOT_CONFIG.bins
     const contour_transform = d3.geoTransform({
         point: function (x, y) {
             this.stream.point(contour_x_scale * x, contour_y_scale * y)
@@ -114,8 +114,8 @@ const create = (el, layout, x: number[], y: number[]) => {
         .data(contours)
         .join('path')
         .attr('stroke-width', layout.width * 0.01)
-        .attr('stroke', plot_config.colors[plot_config.colors.length - 1])
-        .attr('fill', (d, i) => plot_config.colors[i])
+        .attr('stroke', PLOT_CONFIG.colors[PLOT_CONFIG.colors.length - 1])
+        .attr('fill', (d, i) => PLOT_CONFIG.colors[i])
         .attr('fill-opacity', 0.8)
         .attr('stroke-opacity', 0.8)
         .attr('d', d3.geoPath().projection(contour_transform))
