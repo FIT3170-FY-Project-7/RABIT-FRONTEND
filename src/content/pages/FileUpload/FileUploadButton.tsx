@@ -1,6 +1,5 @@
 import UploadIcon from '@mui/icons-material/Upload'
 import { Button } from '@mui/material'
-import axios from 'axios'
 import csvToJson from 'csvtojson'
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
@@ -8,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import api from '../../../api'
 
 interface FileUpload {
     enableButton: boolean
@@ -60,7 +60,7 @@ export default function FileUploadButton({
 
             //dev solution to test upload works
             //run `npx nodemon ./server.tsx` in repo root to run local test server
-            await axios.post('http://localhost:8000/uploads', data, options).then(res => {
+            await api.post('/uploads', data, options).then(res => {
                 console.log(res.statusText)
                 console.log(uploadPercentage)
             })
