@@ -14,8 +14,9 @@
     },
     "main": "index.tsx",
     "scripts": {
-        "start": "webpack-dev-server --mode=development",
-        "build": "webpack --mode=production",
+        "start": "webpack-dev-server --mode=development --env backend=local",
+        "startNectar": "webpack-dev-server --mode=development --env backend=online",
+        "build": "webpack --mode=production --env backend=online",
         "openProd": "npx concurrently \"npx serve -s dist\" \"npm run openDev\"",
         "openDev": "start http://localhost:3000",
         "prettyAll": "npx prettier --write .",

@@ -7,7 +7,7 @@ import Footer from '../../components/Footer'
 import PlotsPage from '../plots/PlotsPage'
 import CommentsTab from './CommentsTab'
 import PageHeader from './PageHeader'
-import axios from 'axios'
+import api from '../../api'
 
 function ManagementUserSettings() {
     // state variable and function setter for tab
@@ -20,7 +20,7 @@ function ManagementUserSettings() {
     const onTabChange = (event: ChangeEvent<{}>, value: string): void => setCurrentTab(value)
 
     useEffect(() => {
-        axios.get('http://localhost:8000/uploads').then(async function (response) {
+        api.get('/uploads').then(async function (response) {
             await setFile(response.data)
             await setTitle(response.data.title)
             await setDescription(response.data.description)
