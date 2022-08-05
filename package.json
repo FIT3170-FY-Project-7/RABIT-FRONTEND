@@ -1,7 +1,7 @@
 {
     "name": "rabit",
     "version": "1.0.0",
-    "description": "Robust Analytical Bayesian Inference ToolData visualisation tool leveraging Bayes parameter estimation.",
+    "description": "Data visualisation tool leveraging Bayes parameter estimation.",
     "license": "ISC",
     "repository": {
         "type": "git",
@@ -14,8 +14,11 @@
     },
     "main": "index.tsx",
     "scripts": {
-        "start": "webpack-dev-server --mode=development --open --hot",
+        "start": "webpack-dev-server --mode=development",
         "build": "webpack --mode=production",
+        "openProd": "npx concurrently \"npx serve -s dist\" \"npm run openDev\"",
+        "openDev": "start http://localhost:3000",
+        "prettyAll": "npx prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -40,16 +43,18 @@
         "@mui/material": "^5.6.2",
         "@types/chart.js": "^2.9.36",
         "@types/node": "^17.0.25",
-        "better-react-mathjax": "^2.0.1",
         "axios": "^0.27.2",
+        "better-react-mathjax": "^2.0.1",
         "buffer": "^6.0.3",
+        "busboy": "^1.6.0",
         "clsx": "^1.1.1",
-        "d3": "^7.4.4",
         "cors": "^2.8.5",
         "csvtojson": "^2.0.10",
+        "d3": "^7.4.4",
         "date-fns": "^2.28.0",
         "history": "^5.3.0",
         "lodash": "^4.17.21",
+        "multer": "^1.4.4",
         "nprogress": "^0.2.0",
         "numeral": "^2.0.6",
         "prop-types": "^15.8.1",
@@ -79,9 +84,12 @@
         "@types/react-router-dom": "^5.3.3",
         "@typescript-eslint/parser": "^5.20.0",
         "babel-loader": "^8.2.5",
+        "bin-version-check": "^5.0.0",
         "browser-resolve": "^2.0.0",
         "buffer": "^6.0.3",
         "clean-webpack-plugin": "^4.0.0",
+        "compression-webpack-plugin": "^10.0.0",
+        "concurrently": "^7.2.1",
         "copy-webpack-plugin": "^10.2.4",
         "css-loader": "^6.7.1",
         "detective": "^5.2.0",
@@ -95,21 +103,29 @@
         "eslint-plugin-react-hooks": "^4.4.0",
         "html-loader": "^3.1.0",
         "html-webpack-plugin": "^5.5.0",
+        "image-webpack-loader": "^8.1.0",
         "minimist": "^1.2.6",
-        "multer": "^1.4.4",
-        "nodemon": "^2.0.15",
+        "nodemon": "^2.0.16",
         "postcss-selector-parser": "^6.0.10",
+        "prettier": "^2.6.2",
         "process": "^0.11.10",
+        "remove-markdown": "^0.5.0",
         "sass": "^1.50.1",
         "sass-loader": "^12.6.0",
+        "serve": "^13.0.2",
+        "source-map-loader": "^3.0.1",
+        "speed-measure-webpack-plugin": "^1.5.0",
         "style-loader": "^3.3.1",
         "svg-url-loader": "^7.1.1",
         "terser-webpack-plugin": "^5.3.1",
         "typescript": "^4.6.3",
+        "url-loader": "^4.1.1",
         "webpack": "^5.72.0",
         "webpack-bundle-analyzer": "^4.5.0",
         "webpack-cli": "^4.9.2",
-        "webpack-dev-server": "^4.8.1"
+        "webpack-dev-server": "^4.8.1",
+        "webpack-image-loader": "^0.1.2",
+        "webpack-merge": "^5.8.0"
     },
     "browserslist": {
         "production": [
@@ -126,6 +142,8 @@
     "overrides": {
         "react": "$react",
         "react-dom": "$react-dom",
+        "busboy": "$busboy",
+        "bin-version-check": "$bin-version-check",
         "babel-eslint": "@babel/eslint-parser"
     }
 }

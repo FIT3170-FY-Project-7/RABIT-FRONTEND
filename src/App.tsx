@@ -1,23 +1,22 @@
-import { useRoutes } from "react-router-dom";
-import routes from "./router";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { useRoutes } from 'react-router-dom'
+import routes from './router'
 
-import ThemeProviderWrapper from "./theme/ThemeProvider";
-import { CssBaseline } from "@mui/material";
-import PlotsPage from "./content/plots/PlotsPage";
+import { CssBaseline } from '@mui/material'
+import ThemeProviderWrapper from './theme/ThemeProvider'
 
 const App = () => {
-	const content = useRoutes(routes);
+    const content = useRoutes(routes)
 
-	return (
-		<ThemeProviderWrapper>
-			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<CssBaseline />
-				{content}
-			</LocalizationProvider>
-		</ThemeProviderWrapper>
-	);
-};
+    return (
+        <ThemeProviderWrapper>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <CssBaseline />
+                {content}
+            </LocalizationProvider>
+        </ThemeProviderWrapper>
+    )
+}
 
-export default App;
+export default App

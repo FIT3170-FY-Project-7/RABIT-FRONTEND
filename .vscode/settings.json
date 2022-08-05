@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/template": true
+    },
+    "editor.formatOnSave": true,
+    "prettier.arrowParens": "avoid",
+    "prettier.jsxSingleQuote": true,
+    "prettier.singleQuote": true,
+    "prettier.tabWidth": 4,
+    "bookmarks.useWorkaroundForFormatters": true,
+    "search.exclude": {
+        "**/template": true
+    }
+}
