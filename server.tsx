@@ -5,6 +5,7 @@ var express = require('express')
 var app = express()
 var multer = require('multer')
 var cors = require('cors')
+const fs = require('fs/promises');
 
 app.use(cors())
 
@@ -44,3 +45,28 @@ app.get('/uploads/', function (req, res) {
 app.listen(8000, function () {
     console.log('App running on port 8000')
 })
+
+app.get('/uploads/parameters', function (req, res) {
+    const filePath = __dirname + '/uploads/' + timeStamp + '.json'
+    readKeysFromPath(filePath).then((results) => {
+        res.send(results)
+      });  
+})
+
+async function readKeysFromPath(path) {
+    try {
+        var keys = new Array()
+        const data = await fs.readFile(path, { encoding: 'utf8' });
+        const json = JSON.parse(data)
+        const initialKeys = Object.keys(json['posterior']['content'])
+        // check for complex entries and exclude them
+        for (var i = 0; i < initialKeys.length; i++) {
+            if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
+                keys.push(initialKeys[i])
+            }
+        }
+        return (keys)
+    } catch (err) {
+        console.log(err);
+    }
+}

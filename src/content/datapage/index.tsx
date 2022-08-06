@@ -20,6 +20,7 @@ function ManagementUserSettings() {
     const onTabChange = (event: ChangeEvent<{}>, value: string): void => setCurrentTab(value)
 
     useEffect(() => {
+        axios.get('http://localhost:8000/uploads/parameters').then(async function(response){console.log(response)})
         axios.get('http://localhost:8000/uploads').then(async function (response) {
             await setFile(response.data)
             await setTitle(response.data.title)
