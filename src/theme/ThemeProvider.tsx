@@ -1,11 +1,11 @@
 import { ThemeProvider } from '@mui/material'
 import { StyledEngineProvider } from '@mui/styled-engine'
-import React, { ComponentProps, useState } from 'react'
+import React, { ComponentProps, useState, ReactNode } from 'react'
 import { themeCreator } from './base'
 
 export const ThemeContext = React.createContext((_themeName: string): void => {})
 
-const ThemeProviderWrapper: React.FC = (props: ComponentProps<any>) => {
+const ThemeProviderWrapper: React.FC<{children: ReactNode}> = (props: ComponentProps<any>) => {
     const curThemeName = localStorage.getItem('appTheme') || 'NebulaFighterTheme'
     const [themeName, _setThemeName] = useState(curThemeName)
     const theme = themeCreator(themeName)
