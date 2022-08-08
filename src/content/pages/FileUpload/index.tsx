@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles'
 import CheckboxDropdown from './CheckboxDropdown'
 import * as d3 from 'd3'
 import { CommitSharp } from '@mui/icons-material'
+import Step1 from './Step1'
 
 export default function UploadPage() {
     const [title, setTitle] = useState('')
@@ -16,6 +17,9 @@ export default function UploadPage() {
     const [enableUpload, setEnableUpload] = useState(false)
     const [posteriorKeys, setPosteriorKeys] = useState([])
     const [selectedKeys, setSelectedKeys] = useState([])
+    const [stepNumber, setStepNumber] = useState(0)
+
+    const steps = [<Step1 />]
 
     const updateSelectedFile = state => {
         setSelectedFile(state)
@@ -56,13 +60,7 @@ export default function UploadPage() {
                     margin: '1rem'
                 }}
             >
-                <Box>
-                    <Typography variant='h2'>Step 1</Typography>
-                    <FileSelectButton updateSelectedFile={updateSelectedFile} />
-                    <Typography sx={{ marginTop: '1rem' }} variant='h6'>
-                        {fileName}
-                    </Typography>
-                </Box>
+                {steps[stepNumber]}
                 <Divider />
                 <Box
                     sx={{
