@@ -51,7 +51,7 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
     }
 
     return (
-        <div className='corner-plot' style={{ width: 'min-content', backgroundColor: '#070C27' }}>
+        <div id='corner-plot-id' className='corner-plot' style={{ width: 'min-content', backgroundColor: '#070C27' }}>
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
             parameter and all previous parameters. */}
