@@ -142,7 +142,6 @@
     "overrides": {
         "react": "$react",
         "react-dom": "$react-dom",
-        "busboy": "$busboy",
         "bin-version-check": "$bin-version-check",
         "babel-eslint": "@babel/eslint-parser"
     }
