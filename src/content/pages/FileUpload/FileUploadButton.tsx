@@ -1,7 +1,6 @@
 import UploadIcon from '@mui/icons-material/Upload'
 import { Button } from '@mui/material'
 import axios from 'axios'
-import csvToJson from 'csvtojson'
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -11,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 interface FileUpload {
     enableButton: boolean
-    selectedFile: any
+    selectedFiles: any
     selectedKeys: Array<string>
     title: String
     description: String
@@ -20,10 +19,7 @@ interface FileUpload {
 
 export default function FileUploadButton({
     enableButton,
-    selectedFile,
-    selectedKeys,
-    title,
-    description,
+    selectedFiles,
     buttonMessage
 }: FileUpload) {
     const [uploadPercentage, setUploadPercentage] = useState(0)
@@ -35,47 +31,37 @@ export default function FileUploadButton({
             onUploadProgress: progressEvent => {
                 const { loaded, total } = progressEvent
                 let percentage = Math.floor((loaded * 100) / total)
-                //console.log(`${loaded}kb of ${total}kb | ${percentage}%`)
-                //correctly works as a progress bar in console (throttle speed to test or use a big file)
-
                 setUploadPercentage(percentage)
             }
         }
 
-        await selectedFile.text().then(async jsonString => {
-            var json = JSON.parse(jsonString)
-            json.selected_keys = selectedKeys
-            json.title = title
-            json.description = description
-            console.log(json.selected_keys)
-
-            // console.log(json);
-            json = JSON.stringify(json)
-            // console.log(jsonMerged);
-            const data = new FormData()
-
-            const blob = new Blob([json], { type: 'application/json' })
-            console.log(blob)
-            data.append('file', blob) //
-
-            //dev solution to test upload works
-            //run `npx nodemon ./server.tsx` in repo root to run local test server
-            await axios.post('http://localhost:8000/uploads', data, options).then(res => {
+        const data = new FormData()
+        Array.from(selectedFiles).forEach(file => {
+            let blob = new Blob([file], { type: 'application/json' })
+            data.append("file", blob)
+        })
+        await axios.post('http://localhost:8000/uploads', data, options).then(res => {
                 console.log(res.statusText)
                 console.log(uploadPercentage)
             })
+        // await selectedFiles.text().then(async jsonString => {
+            
+        //     const blob = new Blob([jsonString], { type: 'application/json' })
+        //     data.append('file', blob) //
 
-            //getting data
-            // const filename = "1653141037449";
-        })
+        //     await axios.post('http://localhost:8000/uploads', data, options).then(res => {
+        //         console.log(res.statusText)
+        //         console.log(uploadPercentage)
+        //     })
+        // })
 
-        navigate('/visualise')
+        //navigate('/visualise')
     }
     return (
         <div>
             <Box style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button
-                    disabled={!enableButton}
+                    disabled={enableButton}
                     variant='contained'
                     startIcon={<UploadIcon />}
                     onClick={handleSubmission}

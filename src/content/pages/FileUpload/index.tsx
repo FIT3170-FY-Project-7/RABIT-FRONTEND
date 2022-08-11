@@ -10,39 +10,45 @@ import { CommitSharp } from '@mui/icons-material'
 export default function UploadPage() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [selectedFile, setSelectedFile] = useState(null)
-    const [fileName, setFileName] = useState('')
+    const [selectedFiles, setSelectedFiles] = useState([])
+    const [fileNames, setFileNames] = useState([])
     const [enableDescription, setEnableDescription] = useState(false)
     const [enableUpload, setEnableUpload] = useState(false)
     const [posteriorKeys, setPosteriorKeys] = useState([])
     const [selectedKeys, setSelectedKeys] = useState([])
 
-    const updateSelectedFile = state => {
-        setSelectedFile(state)
-        setFileName(state.name)
-        setTitle(state.name)
+    const updateSelectedFiles =  state => {
+        setSelectedFiles(state)
+        console.log(state)
+
+        var names = []
+        Array.from(state).forEach(file => names.push(file.name));
+
+        console.log(state)
+        setFileNames(names)
+        setTitle(names[0])
         setEnableDescription(true)
 
-        const fileReader = new FileReader()
-        fileReader.readAsText(state)
+        // const fileReader = new FileReader()
+        // fileReader.readAsText(state)
 
-        fileReader.onload = e => {
-            const string = e.target.result as string
-            const json = JSON.parse(e.target.result as string)
-            const initialKeys = Object.keys(json['posterior']['content'])
-            var keys = new Array()
+        // fileReader.onload = e => {
+        //     const string = e.target.result as string
+        //     const json = JSON.parse(e.target.result as string)
+        //     const initialKeys = Object.keys(json['posterior']['content'])
+        //     var keys = new Array()
 
-            // check for complex entries and exclude them
-            for (var i = 0; i < initialKeys.length; i++) {
-                if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
-                    keys.push(initialKeys[i])
-                }
-            }
-            setPosteriorKeys(keys)
-        }
+        //     // check for complex entries and exclude them
+        //     for (var i = 0; i < initialKeys.length; i++) {
+        //         if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
+        //             keys.push(initialKeys[i])
+        //         }
+        //     }
+        //     setPosteriorKeys(keys)
+        // }
     }
 
-    useEffect(() => setEnableUpload(title != '' && selectedKeys.length != 0), [title, selectedKeys])
+    //useEffect(() => setEnableUpload(title != '' && selectedKeys.length != 0), [title, selectedKeys])
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
@@ -58,9 +64,9 @@ export default function UploadPage() {
             >
                 <Box>
                     <Typography variant='h2'>Step 1</Typography>
-                    <FileSelectButton updateSelectedFile={updateSelectedFile} />
+                    <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
                     <Typography sx={{ marginTop: '1rem' }} variant='h6'>
-                        {fileName}
+                        {fileNames.toString()}
                     </Typography>
                 </Box>
                 <Divider />
@@ -75,7 +81,7 @@ export default function UploadPage() {
                     <TextField
                         fullWidth
                         disabled={!enableDescription}
-                        defaultValue={fileName}
+                        defaultValue={fileNames}
                         onChange={e => setTitle(e.target.value)}
                         label='Title'
                         required
@@ -92,7 +98,7 @@ export default function UploadPage() {
                     />
                 </Box>
                 <Divider />
-                <Box
+                {/* <Box
                     sx={{
                         display: 'grid',
                         gap: 2,
@@ -110,10 +116,10 @@ export default function UploadPage() {
                             />
                         </>
                     )}
-                </Box>
+                </Box> */}
                 <FileUploadButton
                     enableButton={enableUpload}
-                    selectedFile={selectedFile}
+                    selectedFiles={selectedFiles}
                     selectedKeys={selectedKeys}
                     title={title}
                     description={description}
