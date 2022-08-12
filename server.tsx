@@ -15,13 +15,13 @@ var cors = require('cors')
 app.use(cors())
 
 //CORS middleware
-var allowCrossDomain = function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'example.com');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+// var allowCrossDomain = function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', 'example.com');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-    next();
-}
+//     next();
+// }
 
 const uploadPath = path.join(__dirname, '/uploads/'); // Register the upload path
 
@@ -73,62 +73,49 @@ app.get('/uploads/', function (req, res) {
 app.post('/uploads', function (req, res) {
     console.log("post")
     req.pipe(req.busboy); // Pipe it trough busboy
+    // req.busboy.on('file', (fieldname, file, filename) => {
+    //     console.log(`Upload of '${filename}' started`);
 
-    req.busboy.on('file', (fieldname, file, filename) => {
-        console.log(`Upload of '${filename}' started`);
+    //     // Create a write stream of the new file
+    //     const fstream = fs.createWriteStream(path.join(uploadPath, filename));
+    //     // Pipe it trough
+    //     file.pipe(fstream);
 
-        // Create a write stream of the new file
-        const fstream = fs.createWriteStream(path.join(uploadPath, filename));
-        // Pipe it trough
-        file.pipe(fstream);
-
-        // On finish of the upload
-        fstream.on('close', () => {
-            console.log(`Upload of '${filename}' finished`);
-            res.redirect('back');
-        });
-    });
-
+    //     // On finish of the upload
+    //     fstream.on('close', () => {
+    //         console.log(`Upload of '${filename}' finished`);
+    //         res.redirect('back');
+    //     });
+    // });
     return res.status(200).send(req.file)
 });
 
-app.get('/uploads/parameters', function (req, res) {
-    console.log("get parameters")
-    const filePath = __dirname + '/uploads/' + timeStamp + '.json'
-    readKeysFromPath(filePath).then((results) => {
-        res.send(results)
-    });
-})
+// app.get('/uploads/parameters', function (req, res) {
+//     console.log("get parameters")
+//     const filePath = __dirname + '/uploads/' + timeStamp + '.json'
+//     readKeysFromPath(filePath).then((results) => {
+//         res.send(results)
+//     });
+// })
 
-async function readKeysFromPath(path) {
-    try {
-        var keys = new Array()
-        const data = await fs.readFile(path, { encoding: 'utf8' });
-        const json = JSON.parse(data)
-        const initialKeys = Object.keys(json['posterior']['content'])
-        // check for complex entries and exclude them
-        for (var i = 0; i < initialKeys.length; i++) {
-            if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
-                keys.push(initialKeys[i])
-            }
-        }
-        return (keys)
-    } catch (err) {
-        console.log(err);
-    }
-}
+// async function readKeysFromPath(path) {
+//     try {
+//         var keys = new Array()
+//         const data = await fs.readFile(path, { encoding: 'utf8' });
+//         const json = JSON.parse(data)
+//         const initialKeys = Object.keys(json['posterior']['content'])
+//         // check for complex entries and exclude them
+//         for (var i = 0; i < initialKeys.length; i++) {
+//             if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
+//                 keys.push(initialKeys[i])
+//             }
+//         }
+//         return (keys)
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
 
-/**
- * Serve the basic index.html with upload form
- */
-app.route('/').get((req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' });
-    res.write('<form action="upload" method="post" enctype="multipart/form-data">');
-    res.write('<input type="file" name="fileToUpload"><br>');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    return res.end();
-});
 
 const server = app.listen(8000, function () {
     console.log(`Listening on port ${server.address().port}`);

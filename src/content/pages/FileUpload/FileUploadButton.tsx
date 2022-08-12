@@ -8,20 +8,14 @@ import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-interface FileUpload {
-    enableButton: boolean
-    selectedFiles: any
-    selectedKeys: Array<string>
-    title: String
-    description: String
-    buttonMessage: String
-}
 
 export default function FileUploadButton({
+    setFileUploaded,
     enableButton,
     selectedFiles,
     buttonMessage
-}: FileUpload) {
+}) {
+
     const [uploadPercentage, setUploadPercentage] = useState(0)
     const navigate = useNavigate()
 
@@ -35,12 +29,12 @@ export default function FileUploadButton({
             }
         }
 
-        const data = new FormData()
-        Array.from(selectedFiles).forEach(file => {
-            let blob = new Blob([file], { type: 'application/json' })
-            data.append("file", blob)
-        })
-        await axios.post('http://localhost:8000/uploads', data, options).then(res => {
+        // const data = new FormData()
+        // Array.from(selectedFiles).forEach(file => {
+        //     let blob = new Blob([file], { type: 'application/json' })
+        //     data.append("file", blob)
+        // })
+        await axios.post('http://localhost:8000/uploads', selectedFiles, options).then(res => {
                 console.log(res.statusText)
                 console.log(uploadPercentage)
             })
@@ -54,6 +48,7 @@ export default function FileUploadButton({
         //         console.log(uploadPercentage)
         //     })
         // })
+        setFileUploaded(true)
 
         //navigate('/visualise')
     }

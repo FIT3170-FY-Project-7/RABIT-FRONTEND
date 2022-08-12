@@ -7,7 +7,10 @@ import CheckboxDropdown from './CheckboxDropdown'
 import * as d3 from 'd3'
 import { CommitSharp } from '@mui/icons-material'
 
+
 export default function UploadPage() {
+    const [fileUploaded, setFileUploaded] = useState(false)
+
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([])
@@ -17,7 +20,7 @@ export default function UploadPage() {
     const [posteriorKeys, setPosteriorKeys] = useState([])
     const [selectedKeys, setSelectedKeys] = useState([])
 
-    const updateSelectedFiles =  state => {
+    const updateSelectedFiles = state => {
         setSelectedFiles(state)
         console.log(state)
 
@@ -26,7 +29,7 @@ export default function UploadPage() {
 
         console.log(state)
         setFileNames(names)
-        setTitle(names[0])
+        //setTitle(names[0])
         setEnableDescription(true)
 
         // const fileReader = new FileReader()
@@ -49,6 +52,49 @@ export default function UploadPage() {
     }
 
     //useEffect(() => setEnableUpload(title != '' && selectedKeys.length != 0), [title, selectedKeys])
+    const renderList = fileNames.map((item, index) =>
+        <div
+            key={index}>{item}
+            <TextField
+                margin="dense"
+                fullWidth
+                disabled={!enableDescription}
+                defaultValue={fileNames[index]}
+                onChange={e => setTitle(e.target.value)}
+                label='Title'
+                required
+                variant={enableDescription ? 'outlined' : 'filled'}
+            />
+            <TextField
+                margin="dense"
+                fullWidth
+                disabled={!enableDescription}
+                onChange={e => setDescription(e.target.value)}
+                label='Description'
+                variant={enableDescription ? 'outlined' : 'filled'}
+                multiline
+                rows={3}
+            />
+        </div>
+    );
+
+    const parameterSelectionList = fileNames.map((item, index) => (
+        <div key={index}>
+            {item}
+            <Box>
+                <Typography variant='h6'>Select parameters</Typography>
+                {enableDescription && (
+                    <>
+                        <CheckboxDropdown
+                            defaultChecked={[]}
+                            keys={posteriorKeys}
+                            setSelectedKeys={setSelectedKeys}
+                        />
+                    </>
+                )}
+            </Box>
+        </div>
+    ));
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
@@ -63,69 +109,42 @@ export default function UploadPage() {
                 }}
             >
                 <Box>
-                    <Typography variant='h2'>Step 1</Typography>
-                    <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
-                    <Typography sx={{ marginTop: '1rem' }} variant='h6'>
-                        {fileNames.toString()}
+                    <Typography sx={{ marginTop: '1rem', marginBottom: '1rem' }} variant='h2'>
+                        Step 1: Select Files | ToDo: File Size limit,quantity limit
                     </Typography>
+                    <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
                 </Box>
                 <Divider />
-                <Box
-                    sx={{
-                        display: 'grid',
-                        gap: 2,
-                        gridTemplateColumns: 'repeat(1, 1fr)'
-                    }}
-                >
-                    <Typography variant='h2'>Step 2</Typography>
-                    <TextField
-                        fullWidth
-                        disabled={!enableDescription}
-                        defaultValue={fileNames}
-                        onChange={e => setTitle(e.target.value)}
-                        label='Title'
-                        required
-                        variant={enableDescription ? 'outlined' : 'filled'}
-                    />
-                    <TextField
-                        fullWidth
-                        disabled={!enableDescription}
-                        onChange={e => setDescription(e.target.value)}
-                        label='Description'
-                        variant={enableDescription ? 'outlined' : 'filled'}
-                        multiline
-                        rows={5}
-                    />
-                </Box>
+
+                <Typography variant='h2'>
+                    Step 2: Enter File Information | ToDo: prepare information to be saved to database alongside file location link
+                    <Typography sx={{ marginTop: '1rem' }} variant='h6'>
+                        {renderList}
+                    </Typography>
+                </Typography>
                 <Divider />
-                {/* <Box
-                    sx={{
-                        display: 'grid',
-                        gap: 2,
-                        gridTemplateColumns: 'repeat(1, 1fr)'
-                    }}
-                >
-                    <Typography variant='h2'>Step 3</Typography>
-                    <Typography variant='h6'>Select parameters</Typography>
-                    {enableDescription && (
-                        <>
-                            <CheckboxDropdown
-                                defaultChecked={[]}
-                                keys={posteriorKeys}
-                                setSelectedKeys={setSelectedKeys}
-                            />
-                        </>
-                    )}
-                </Box> */}
+
+                <Typography variant='h2'>
+                    Step 3: Upload File | ToDo: save file link and metadata to database after upload
+                </Typography>
                 <FileUploadButton
+                    setFileUploaded={setFileUploaded}
                     enableButton={enableUpload}
                     selectedFiles={selectedFiles}
-                    selectedKeys={selectedKeys}
-                    title={title}
-                    description={description}
                     buttonMessage='Upload'
                 />
+                <Divider />
+
+                <Typography variant='h2'>Step 4: Select Parameters: ToDo: yes? also save parameters selected to database somewhere?</Typography>
+                <Box>
+                    <Typography sx={{ marginTop: '1rem' }} variant='h6'>
+                        {/* {parameterSelectionList}
+                        {fileUploaded ?  "uploaded"  : 'not uploaded'} */}
+                        {fileUploaded ?  {parameterSelectionList}  : 'not uploaded'}
+                    </Typography>
+                </Box> 
             </Box>
         </Box>
     )
 }
+
