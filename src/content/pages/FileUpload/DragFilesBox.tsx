@@ -2,11 +2,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import FileSelectButton from './FileSelectButton'
+import UploadIcon from '@mui/icons-material/Upload'
 
 const CHUNKSIZE = 50000 * 1024
 const API = 'http://localhost:8000/upload'
 
-export default function Step1() {
+export default function DragFilesBox() {
     const [dropzoneActive, setDropzoneActive] = useState(false)
     const [files, setFiles] = useState([])
     const [currentFileIndex, setCurrentFileIndex] = useState(null)
@@ -50,7 +51,7 @@ export default function Step1() {
         params.set('totalChunks', Math.ceil(file.size / CHUNKSIZE).toString())
         const headers = { 'Content-Type': 'application/octet-stream' }
         const url = API + '?' + params.toString()
-        console.log(data.slice(0, 100))
+        // console.log(data.slice(0, 100))
         axios.post(url, data, { headers }).then(response => {
             const file = files[currentFileIndex]
             const filesize = files[currentFileIndex].size
@@ -115,7 +116,6 @@ export default function Step1() {
 
     return (
         <Box>
-            <Typography variant='h2'>Step 1</Typography>
             <div
                 onDragOver={e => {
                     setDropzoneActive(true)
@@ -144,11 +144,12 @@ export default function Step1() {
             <Box sx={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
                 <Button
                     variant='contained'
+                    startIcon={<UploadIcon />}
                     onClick={() => {
                         uploadFiles()
                     }}
                 >
-                    Process
+                    Upload
                 </Button>
             </Box>
         </Box>

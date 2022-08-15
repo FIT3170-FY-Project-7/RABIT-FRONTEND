@@ -74,13 +74,8 @@ export default function FileUploadButton({
     return (
         <div>
             <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                    disabled={!enableButton}
-                    variant='contained'
-                    startIcon={<UploadIcon />}
-                    onClick={handleSubmission}
-                >
-                    {buttonMessage}
+                <Button disabled={!enableButton} variant='contained' onClick={handleSubmission}>
+                    Plot
                 </Button>
             </Box>
             <Box sx={{ paddingTop: 2 }}>
