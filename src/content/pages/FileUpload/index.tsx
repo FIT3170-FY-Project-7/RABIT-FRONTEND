@@ -10,6 +10,7 @@ import DragFilesBox from './DragFilesBox'
 import FileDescriptionBox from './FileDescriptionBox'
 import ParameterSelector from './ParameterSelector'
 
+
 export default function UploadPage() {
     const [fileUploaded, setFileUploaded] = useState(false)
 
@@ -27,7 +28,7 @@ export default function UploadPage() {
         console.log(state)
 
         var names = []
-        Array.from(state).forEach(file => names.push(file.name))
+        Array.from(state).forEach(file => names.push(file.name));
 
         console.log(state)
         setFileNames(names)
@@ -54,11 +55,11 @@ export default function UploadPage() {
     }
 
     //useEffect(() => setEnableUpload(title != '' && selectedKeys.length != 0), [title, selectedKeys])
-    const renderList = fileNames.map((item, index) => (
-        <div key={index}>
-            {item}
+    const renderList = fileNames.map((item, index) =>
+        <div
+            key={index}>{item}
             <TextField
-                margin='dense'
+                margin="dense"
                 fullWidth
                 disabled={!enableDescription}
                 defaultValue={fileNames[index]}
@@ -68,7 +69,7 @@ export default function UploadPage() {
                 variant={enableDescription ? 'outlined' : 'filled'}
             />
             <TextField
-                margin='dense'
+                margin="dense"
                 fullWidth
                 disabled={!enableDescription}
                 onChange={e => setDescription(e.target.value)}
@@ -78,7 +79,7 @@ export default function UploadPage() {
                 rows={3}
             />
         </div>
-    ))
+    );
 
     const parameterSelectionList = fileNames.map((item, index) => (
         <div key={index}>
@@ -87,12 +88,16 @@ export default function UploadPage() {
                 <Typography variant='h6'>Select parameters</Typography>
                 {enableDescription && (
                     <>
-                        <CheckboxDropdown defaultChecked={[]} keys={posteriorKeys} setSelectedKeys={setSelectedKeys} />
+                        <CheckboxDropdown
+                            defaultChecked={[]}
+                            keys={posteriorKeys}
+                            setSelectedKeys={setSelectedKeys}
+                        />
                     </>
                 )}
             </Box>
         </div>
-    ))
+    ));
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
@@ -112,12 +117,11 @@ export default function UploadPage() {
                     </Typography>
                     <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
                 </Box>
-                <DragFilesBox files={selectedFiles} updateSelectedFiles={updateSelectedFiles} />
+                <DragFilesBox updateSelectedFiles={updateSelectedFiles}/>
                 <Divider />
 
                 <Typography variant='h2'>
-                    Step 2: Enter File Information | ToDo: prepare information to be saved to database alongside file
-                    location link
+                    Step 2: Enter File Information | ToDo: prepare information to be saved to database alongside file location link
                     <Typography sx={{ marginTop: '1rem' }} variant='h6'>
                         {renderList}
                     </Typography>
@@ -136,3 +140,4 @@ export default function UploadPage() {
         </Box>
     )
 }
+
