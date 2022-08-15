@@ -7,27 +7,18 @@ import UploadIcon from '@mui/icons-material/Upload'
 const CHUNKSIZE = 50000 * 1024
 const API = 'http://localhost:8000/upload'
 
-export default function DragFilesBox({updateSelectedFiles}) {
+export default function DragFilesBox({ files, updateSelectedFiles }) {
     const [dropzoneActive, setDropzoneActive] = useState(false)
-    const [files, setFiles] = useState([])
-    const [currentFileIndex, setCurrentFileIndex] = useState(null)
-    const [lastUploadedFileIndex, setLastUploadedFileIndex] = useState(null)
-    const [currentChunkIndex, setCurrentChunkIndex] = useState(null)
-    const [uploadPressed, setUploadPressed] = useState(false)
-    const [totalChunksProcessed, setTotalChunksProcessed] = useState(0)
-    const [totalChunks, setTotalChunks] = useState(0)
     const [progress, setProgress] = useState(0)
 
     // Adds files to variable after each file is dropped
     function handleDrop(e) {
         e.preventDefault()
-        updateSelectedFiles(e.dataTransfer.files)
+        updateSelectedFiles([...files, e.dataTransfer.files])
         console.log(files)
     }
 
-    useEffect(() =>
-    console.log(files)
-    , [files])
+    useEffect(() => console.log(files), [files])
 
     return (
         <Box>
