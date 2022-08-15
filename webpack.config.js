@@ -2,14 +2,14 @@
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const { merge } = require('webpack-merge')
 
-const WEBPACK_COMMON = require('./webpack.config.common.js')
+const webpackCommon = require('./webpack.config.common.js')
 const WEBPACK_DEV = require('./webpack.config.dev.js')
 const WEBPACK_PROD = require('./webpack.config.prod.js')
 
 module.exports = (env, argv) => {
     return new SpeedMeasurePlugin().wrap(
         merge(
-            WEBPACK_COMMON,
+            webpackCommon(env),
             (
                 {
                     production: () => WEBPACK_PROD,

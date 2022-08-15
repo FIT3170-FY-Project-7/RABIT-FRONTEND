@@ -15,7 +15,7 @@ type ConerPlotPropType = {
     parameters: string[]
 }
 
-const corner_plot_size = 800
+const CORNER_PLOT_SIZE = 500
 
 const margin = {
     horizontal: 10,
@@ -34,7 +34,7 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
     Corner plot with logic to house the contour and histogram plots. Also renders the axes along the left side and bottom.
 
     */
-    let width = corner_plot_size / parameters.length
+    let width = CORNER_PLOT_SIZE / parameters.length
     const layout = { width: width, height: width, margin: margin, axis: axis }
     const mathjax = useContext(MathJaxBaseContext)
     const mathjaxTimer = useRef(null)
@@ -51,7 +51,7 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
     }
 
     return (
-        <div style={{ width: 'min-content' }}>
+        <div className='corner-plot' style={{ width: 'min-content', backgroundColor: '#070C27' }}>
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
             parameter and all previous parameters. */}
@@ -82,7 +82,10 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
             ))}
 
             {/* X Axis for all parameters */}
-            <div key={'axis-x-row'} style={{ display: 'flex', float: 'right' }}>
+            <div key={'axis-x-row'} style={{ display: 'flex' }}>
+                {/* This div adds the necessary empty space in the bottom left of the plot. Floating right was causing
+                issues for plot image download, since floating takes divs out of page flow   */}
+                <div style={{ width: axis.size }}></div>
                 {parameters.map((parameter_1: string) => (
                     <AxisX
                         key={`axis-x-${parameter_1}`}
