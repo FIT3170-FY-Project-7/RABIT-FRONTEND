@@ -1,5 +1,4 @@
 import { MathJaxContext } from 'better-react-mathjax'
-import { useCallback, useState } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
@@ -47,9 +46,6 @@ function PlotsPage({ file }) {
     including the parameter selectors and the corner plot itself. 
 
     */
-    const [data, setData] = useState(file['posterior']['content'])
-    const [parameters, setParameters] = useState(file.selected_keys)
-    const [defaultParameters, setDefaultParameters] = useState(file.selected_keys)
     const [datasets, setDatasets] = useState<DatasetConfig[]>([
         {
             ...DatasetConfigDefault,
@@ -61,7 +57,6 @@ function PlotsPage({ file }) {
     const defaultParameters = file.selected_keys
 
     // Config for MathJax rendering of mathematical symbols
-    const config = {
     const MathJaxConfig = {
         tex: {
             inlineMath: [
@@ -82,6 +77,36 @@ function PlotsPage({ file }) {
         const canvas = await html2canvas(cornerPlotElmt)
         const dataURL = canvas.toDataURL('image/png')
         downloadjs(dataURL, 'corner-plot.png', 'image/png')
+    }
+
+    const colors = [
+        '#0088FF',
+        '#BF40BF',
+        '#800000',
+        '#FF8800',
+        '#FFCC00',
+        '#FFFF00',
+        '#0088FF',
+        '#00CC00',
+        '#FF0000',
+        '#FF8800',
+        '#FFCC00',
+        '#FFFF00'
+    ]
+    const processFiles = e => {
+        const reader = new FileReader()
+        reader.onload = e => {
+            const newDataset = JSON.parse(e.target.result as string)
+            setDatasets(data => [
+                ...data,
+                {
+                    ...DatasetConfigDefault,
+                    data: newDataset['posterior']['content'],
+                    color: colors[data.length]
+                }
+            ])
+        }
+        reader.readAsText(e.target.files[0])
     }
 
     // Called from CheckboxDropdown component to fill parameters with ParameterConfig values
@@ -105,16 +130,14 @@ function PlotsPage({ file }) {
 
     return (
         <div>
-            <MathJaxContext config={config}>
+            <input type='file' onChange={processFiles}></input>
+            <MathJaxContext config={MathJaxConfig}>
                 <CheckboxDropdown
                     defaultChecked={defaultParameters}
-                    keys={Object.keys(data)}
-                    setSelectedKeys={setParameters}
                     keys={Object.keys(datasets[0].data)}
                     setSelectedKeys={updateParameters}
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />
-                <CornerPlot data={data} parameters={parameters} />
                 <CornerPlot datasets={datasets} parameters={parameters} config={config} />
                 <Button variant='contained' onClick={downloadCornerPlotImage}>
                     Download Image
