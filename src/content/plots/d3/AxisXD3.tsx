@@ -8,6 +8,7 @@ const create = (el, layout, domain, label) => {
         .attr('class', 'd3')
         .attr('width', layout.width)
         .attr('height', layout.axis.size)
+        .style('overflow', 'visible')
 
     // Labeling
     svg.append('foreignObject')
