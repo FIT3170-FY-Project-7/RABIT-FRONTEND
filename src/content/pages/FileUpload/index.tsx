@@ -117,7 +117,7 @@ export default function UploadPage() {
                     </Typography>
                     <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
                 </Box>
-                <DragFilesBox updateSelectedFiles={updateSelectedFiles}/>
+                <DragFilesBox selectedFiles={selectedFiles} updateSelectedFiles={updateSelectedFiles}/>
                 <Divider />
 
                 <Typography variant='h2'>
