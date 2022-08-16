@@ -5,6 +5,7 @@ import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
 import html2canvas from 'html2canvas'
 import { Button } from '@mui/material'
+import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
 
@@ -139,6 +140,7 @@ function PlotsPage({ file }) {
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <CornerPlot datasets={datasets} parameters={parameters} config={config} />
+                <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
                 <Button variant='contained' onClick={downloadCornerPlotImage}>
                     Download Image
                 </Button>
