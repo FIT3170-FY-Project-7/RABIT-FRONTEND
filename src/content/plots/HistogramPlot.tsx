@@ -1,7 +1,14 @@
 import { useEffect, useRef } from 'react'
 import HistD3 from './d3/HistogramD3'
+import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 
-const HistogramPlot = ({ x, layout }) => {
+type HistogramPropType = {
+    datasets: DatasetConfig[]
+    parameter: ParameterConfig
+    config: PlotConfig
+}
+
+const HistogramPlot = ({ datasets, parameter, config }: HistogramPropType) => {
     /* 
 
     Renders the histogram plots using the D3 library. Calls create() in HistogramD3 to render graph SVG.
@@ -10,23 +17,23 @@ const HistogramPlot = ({ x, layout }) => {
     const elem = useRef(null)
 
     useEffect(() => {
-        HistD3.create(elem.current, layout, x)
+        datasets.map(dataset => HistD3.create(elem.current, dataset, parameter, config))
         return () => {
             HistD3.destroy(elem.current)
         }
     })
 
     return (
-        <div
+        <svg
             style={{
-                width: layout.width,
-                height: layout.height,
-                marginRight: layout.margin.horizontal,
-                marginTop: layout.margin.vertical,
-                backgroundColor: '#CFE5FF'
+                width: config.subplot_size,
+                height: config.subplot_size,
+                marginRight: config.margin.horizontal,
+                marginTop: config.margin.vertical,
+                backgroundColor: config.background_color
             }}
             ref={elem}
-        ></div>
+        ></svg>
     )
 }
 

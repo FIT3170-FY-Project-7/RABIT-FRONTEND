@@ -1,10 +1,44 @@
 import { MathJaxContext } from 'better-react-mathjax'
 import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
 import html2canvas from 'html2canvas'
 import { Button } from '@mui/material'
+import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
+import * as d3 from 'd3'
+
+const PlotConfigDefault: PlotConfig = {
+    plot_size: 500,
+    subplot_size: 150,
+    margin: {
+        horizontal: 10,
+        vertical: 10
+    },
+    axis: {
+        size: 100,
+        tickSize: 10,
+        ticks: 4
+    },
+    background_color: '#CFE5FF'
+}
+
+const DatasetConfigDefault: DatasetConfig = {
+    data: {},
+    bins: 30,
+    sigmas: [1, 2],
+    quantiles: [0.5],
+    color: '#0088FF',
+    line_width: 1.25,
+    blur_radius: 1
+}
+
+const ParameterConfigDefault: ParameterConfig = {
+    name: 'undefined',
+    display_text: 'undefined',
+    domain: [0, 0]
+}
 
 function PlotsPage({ file }) {
     /* 
@@ -16,9 +50,19 @@ function PlotsPage({ file }) {
     const [data, setData] = useState(file['posterior']['content'])
     const [parameters, setParameters] = useState(file.selected_keys)
     const [defaultParameters, setDefaultParameters] = useState(file.selected_keys)
+    const [datasets, setDatasets] = useState<DatasetConfig[]>([
+        {
+            ...DatasetConfigDefault,
+            data: file['posterior']['content']
+        }
+    ])
+    const [parameters, setParameters] = useState<ParameterConfig[]>([])
+    const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
+    const defaultParameters = file.selected_keys
 
     // Config for MathJax rendering of mathematical symbols
     const config = {
+    const MathJaxConfig = {
         tex: {
             inlineMath: [
                 ['$', '$'],
@@ -40,6 +84,25 @@ function PlotsPage({ file }) {
         downloadjs(dataURL, 'corner-plot.png', 'image/png')
     }
 
+    // Called from CheckboxDropdown component to fill parameters with ParameterConfig values
+    const updateParameters = (new_parameters: string[]) => {
+        setConfig(config => ({
+            ...config,
+            subplot_size: config.plot_size / new_parameters.length
+        }))
+        setParameters(
+            new_parameters.map(p => {
+                const combined_data = [].concat(...datasets.map(d => d.data[p]))
+                return { name: p, display_text: p, domain: d3.extent(combined_data) }
+            })
+        )
+    }
+
+    // Called to populate initial parameters
+    useEffect(() => {
+        updateParameters(defaultParameters)
+    }, [])
+
     return (
         <div>
             <MathJaxContext config={config}>
@@ -47,9 +110,12 @@ function PlotsPage({ file }) {
                     defaultChecked={defaultParameters}
                     keys={Object.keys(data)}
                     setSelectedKeys={setParameters}
+                    keys={Object.keys(datasets[0].data)}
+                    setSelectedKeys={updateParameters}
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <CornerPlot data={data} parameters={parameters} />
+                <CornerPlot datasets={datasets} parameters={parameters} config={config} />
                 <Button variant='contained' onClick={downloadCornerPlotImage}>
                     Download Image
                 </Button>

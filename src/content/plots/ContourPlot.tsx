@@ -1,7 +1,15 @@
 import { useRef, useEffect } from 'react'
 import ContD3 from './d3/ContourD3'
+import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 
-const ContourPlot = ({ x, y, layout }) => {
+type ContourPlotType = {
+    datasets: DatasetConfig[]
+    parameter_x: ParameterConfig
+    parameter_y: ParameterConfig
+    config: PlotConfig
+}
+
+const ContourPlot = ({ datasets, parameter_x, parameter_y, config }: ContourPlotType) => {
     /* 
 
     Renders the contour plots using the D3 library. Calls create() in CountourD3 to render graph SVG.
@@ -10,23 +18,23 @@ const ContourPlot = ({ x, y, layout }) => {
     const elem = useRef(null)
 
     useEffect(() => {
-        ContD3.create(elem.current, layout, x, y)
+        datasets.map(dataset => ContD3.create(elem.current, dataset, parameter_x, parameter_y, config))
         return () => {
             ContD3.destroy(elem.current)
         }
     })
 
     return (
-        <div
+        <svg
             style={{
-                width: layout.width,
-                height: layout.height,
-                marginRight: layout.margin.horizontal,
-                marginTop: layout.margin.vertical,
-                backgroundColor: '#CFE5FF'
+                width: config.subplot_size,
+                height: config.subplot_size,
+                marginRight: config.margin.horizontal,
+                marginTop: config.margin.vertical,
+                backgroundColor: config.background_color
             }}
             ref={elem}
-        ></div>
+        ></svg>
     )
 }
 

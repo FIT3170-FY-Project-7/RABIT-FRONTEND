@@ -1,7 +1,14 @@
 import { useEffect, useRef } from 'react'
 import AxisYD3 from './d3/AxisYD3'
+import { PlotConfig, ParameterConfig } from './PlotTypes'
 
-const AxisY = ({ domain, layout, label, rerender }) => {
+type AxisYPropType = {
+    parameter: ParameterConfig
+    config: PlotConfig
+    rerender: () => void
+}
+
+const AxisY = ({ parameter, config, rerender }: AxisYPropType) => {
     /* 
 
     Renders a single Y Axis using the D3 library. Calls create() in AxisYD3 to render axis SVG.
@@ -10,7 +17,7 @@ const AxisY = ({ domain, layout, label, rerender }) => {
     const elem = useRef(null)
 
     useEffect(() => {
-        AxisYD3.create(elem.current, layout, domain, label)
+        AxisYD3.create(elem.current, parameter, config)
         rerender()
 
         return () => {
@@ -21,9 +28,9 @@ const AxisY = ({ domain, layout, label, rerender }) => {
     return (
         <div
             style={{
-                width: layout.axis.size,
-                height: layout.height,
-                marginTop: layout.margin.vertical
+                width: config.axis.size,
+                height: config.subplot_size,
+                marginTop: config.margin.vertical
             }}
             ref={elem}
         ></div>

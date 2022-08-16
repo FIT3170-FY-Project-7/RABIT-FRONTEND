@@ -1,55 +1,53 @@
 import * as d3 from 'd3'
-import { PLOT_CONFIG } from './constants'
+import { PlotConfig, DatasetConfig, ParameterConfig } from '../PlotTypes'
 
-const create = (el, layout, x: number[]) => {
+const create = (el: HTMLElement, dataset: DatasetConfig, parameter: ParameterConfig, config: PlotConfig) => {
     // Generate svg element within containing div element
-    const svg = d3
-        .select(el)
-        .append('svg')
-        .attr('class', 'd3')
-        .attr('width', layout.width)
-        .attr('height', layout.height)
-        .attr('style', 'outline: thin solid black;')
+    const svg = d3.select(el)
+
+    // Extract data from dataset
+    const data = dataset.data[parameter.name]
 
     const raw_bins = d3
         .bin()
-        .thresholds(PLOT_CONFIG.bins)(x)
+        .thresholds(dataset.bins)(data)
         .map(bin => ({ value: bin.length, x0: bin.x0, x1: bin.x1 }))
 
     // Smooth bin values
     const bin_values = raw_bins.map(bin => bin.value)
-    d3.blur(bin_values, PLOT_CONFIG.blur_radius)
+    d3.blur(bin_values, dataset.blur_radius)
     const bins = d3.zip(raw_bins, bin_values).map(([old_bin, new_value]) => ({
         ...old_bin,
         value: new_value
     }))
 
-    const x_axis = d3.scaleLinear().domain(d3.extent(x)).range([0, layout.width])
+    const x_axis = d3.scaleLinear().domain(d3.extent(data)).range([0, config.subplot_size])
     const y_axis = d3
         .scaleLinear()
         .domain([0, d3.max(bins, d => d.value) * 1.1]) // * 1.1 to add space above maximum peak
-        .range([layout.height, 0])
+        .range([config.subplot_size, 0])
 
-    // Add histogram rectangles to svg
-    svg.selectAll('rect')
-        .data(bins)
-        .join('rect')
-        .attr('x', 1)
-        .attr('transform', function (d) {
-            return `translate(${x_axis(d.x0)}, ${y_axis(d.value)})`
-        })
-        .attr('width', function (d) {
-            return x_axis(d.x1) - x_axis(d.x0) + 1
-        })
-        .attr('height', function (d) {
-            return layout.height - y_axis(d.value)
-        })
-        .style('fill', '#0088ff')
+    // Create list of line points that will form the path of the histogram.
+    // Each point is a [x, y] pair.
+    const line_points = bins.reduce((acc, d) => {
+        // Add left side of bar
+        acc.push([x_axis(d.x0), y_axis(d.value)])
+        // Add right side of bar
+        acc.push([x_axis(d.x1), y_axis(d.value)])
+        return acc
+    }, [])
+
+    // Render this list of points as a path.
+    svg.append('path')
+        .attr('d', d3.line()(line_points))
+        .attr('fill', 'none')
+        .attr('stroke', dataset.color)
+        .style('stroke-width', dataset.line_width)
 
     // If there are quantiles, calculate and add to svg
-    if (PLOT_CONFIG.quantiles) {
-        const x_s = d3.sort(x)
-        PLOT_CONFIG.quantiles.forEach(quantile => {
+    if (dataset.quantiles) {
+        const x_s = d3.sort(data)
+        dataset.quantiles.forEach(quantile => {
             const quantile_x = d3.quantileSorted(x_s, quantile)
 
             // draw vertical line
@@ -57,14 +55,16 @@ const create = (el, layout, x: number[]) => {
                 .attr('x1', x_axis(quantile_x))
                 .attr('x2', x_axis(quantile_x))
                 .attr('y1', 0)
-                .attr('y2', layout.height)
-                .attr('stroke', 'red')
+                .attr('y2', config.subplot_size)
+                .attr('stroke', dataset.color)
+                .style('stroke-width', dataset.line_width)
+                .style('stroke-dasharray', '5, 5')
         })
     }
 }
 
 const destroy = el => {
-    d3.select(el).select('svg').remove()
+    d3.select(el).selectAll('*').remove()
 }
 
 export default { create, destroy }

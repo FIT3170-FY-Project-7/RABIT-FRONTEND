@@ -1,34 +1,35 @@
 import * as d3 from 'd3'
+import { PlotConfig, ParameterConfig } from '../PlotTypes'
 
-const create = (el, layout, domain, label) => {
+const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig) => {
     // Append SVG
     const svg = d3
         .select(el)
         .append('svg')
         .attr('class', 'd3')
-        .attr('width', layout.width)
-        .attr('height', layout.axis.size)
+        .attr('width', config.axis.size)
+        .attr('height', config.subplot_size)
         .style('overflow', 'visible')
 
     // Labeling
     svg.append('foreignObject')
-        .attr('width', layout.width)
-        .attr('height', layout.axis.size)
+        .attr('width', config.subplot_size)
+        .attr('height', config.axis.size)
         .append('xhtml:div')
         .style('height', '100%')
         .style('display', 'flex')
         .style('justify-content', 'center')
         .style('align-items', 'center')
-        .html(label)
+        .html(parameter.display_text)
 
     // Create scale
     const scale = d3
         .scaleLinear()
-        .domain(domain)
-        .range([0, layout.width - 1])
+        .domain(parameter.domain)
+        .range([0, config.subplot_size - 1])
 
     // Add scales to axis
-    const x_axis = d3.axisBottom(scale).ticks(layout.axis.ticks).tickSize(layout.axis.tickSize)
+    const x_axis = d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize)
 
     // Append group and insert axis
     svg.append('g').call(x_axis)

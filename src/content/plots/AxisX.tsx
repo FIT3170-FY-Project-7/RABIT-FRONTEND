@@ -1,7 +1,14 @@
 import { useEffect, useRef } from 'react'
 import AxisXD3 from './d3/AxisXD3'
+import { PlotConfig, ParameterConfig } from './PlotTypes'
 
-const AxisX = ({ domain, layout, label, rerender }) => {
+type AxisXPropType = {
+    parameter: ParameterConfig
+    config: PlotConfig
+    rerender: () => void
+}
+
+const AxisX = ({ parameter, config, rerender }: AxisXPropType) => {
     /* 
 
     Renders a single X Axis using the D3 library. Calls create() in AxisXD3 to render axis SVG.
@@ -10,7 +17,7 @@ const AxisX = ({ domain, layout, label, rerender }) => {
     const elem = useRef(null)
 
     useEffect(() => {
-        AxisXD3.create(elem.current, layout, domain, label)
+        AxisXD3.create(elem.current, parameter, config)
         rerender()
 
         return () => {
@@ -21,9 +28,9 @@ const AxisX = ({ domain, layout, label, rerender }) => {
     return (
         <div
             style={{
-                width: layout.width,
-                height: layout.axis.size,
-                marginRight: layout.margin.horizontal
+                width: config.subplot_size,
+                height: config.axis.size,
+                marginRight: config.margin.horizontal
             }}
             ref={elem}
         ></div>
