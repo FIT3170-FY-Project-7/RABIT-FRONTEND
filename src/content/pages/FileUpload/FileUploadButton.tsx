@@ -28,12 +28,13 @@ export default function FileUploadButton({
             }
         }
 
-        // const data = new FormData()
-        // Array.from(selectedFiles).forEach(file => {
-        //     let blob = new Blob([file], { type: 'application/json' })
-        //     data.append("file", blob)
-        // })
-        await axios.post('http://localhost:8000/uploads', selectedFiles, options).then(res => {
+         const data = new FormData()
+         Array.from(selectedFiles).forEach(file => {
+             let blob = new Blob([file], { type: 'application/json' })
+             data.append("file", blob)
+         })
+
+        await axios.post('http://localhost:8000/uploads', data, options).then(res => {
                 console.log(res.statusText)
                 console.log(uploadPercentage)
             })
