@@ -28,7 +28,10 @@ export default function UploadPage() {
         console.log(state)
 
         var names = []
-        Array.from(state).forEach(file => names.push(file.name));
+        type File = {
+            name?: string;
+          };
+        Array.from(state).forEach((file:File) => names.push(file.name));
 
         console.log(state)
         setFileNames(names)
