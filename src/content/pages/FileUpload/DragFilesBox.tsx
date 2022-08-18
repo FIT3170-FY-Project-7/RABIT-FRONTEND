@@ -28,9 +28,7 @@ export default function DragFilesBox({
         console.log(files)
     }
 
-    useEffect(() =>
-    console.log(files)
-    , [files])
+    useEffect(() => console.log(files), [files])
 
     return (
         <Box>
