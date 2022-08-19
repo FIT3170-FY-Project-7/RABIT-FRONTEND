@@ -27,11 +27,11 @@ const PlotConfigDefault: PlotConfig = {
 const DatasetConfigDefault: DatasetConfig = {
     data: {},
     bins: 30,
-    sigmas: [1, 2],
+    sigmas: [1, 2, 3],
     quantiles: [0.5],
     color: '#0088FF',
     line_width: 1.25,
-    blur_radius: 1
+    blur_radius: 0.1
 }
 
 const ParameterConfigDefault: ParameterConfig = {
@@ -139,8 +139,13 @@ function PlotsPage({ file }) {
                     setSelectedKeys={updateParameters}
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />
-                <CornerPlot datasets={datasets} parameters={parameters} config={config} />
-                <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                <div
+                    className='corner-plot-appearance-config-container'
+                    style={{ display: 'flex', justifyContent: 'space-around' }}
+                >
+                    <CornerPlot datasets={datasets} parameters={parameters} config={config} />
+                    <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                </div>
                 <Button variant='contained' onClick={downloadCornerPlotImage}>
                     Download Image
                 </Button>
