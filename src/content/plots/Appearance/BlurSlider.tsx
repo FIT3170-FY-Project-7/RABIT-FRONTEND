@@ -11,8 +11,8 @@ function BlurSlider({ handleBlurChange }) {
                 justifyContent: 'center'
             }}
         >
-            <div style={{ minWidth: '50px' }} id='appearance-configuration-slider-value'>
-                1
+            <div style={{ minWidth: '50px' }} className='appearance-configuration-slider-value'>
+                Blur Radius: 1.0
             </div>
             <input
                 type='range'

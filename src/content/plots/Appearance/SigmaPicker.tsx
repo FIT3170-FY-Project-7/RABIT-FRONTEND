@@ -2,8 +2,16 @@ import React from 'react'
 
 function SigmaPicker({ handleSigmaChange }) {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
-            <label htmlFor='sigma-picker'>Sigmas</label>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <div>Sigmas</div>
             <input
                 name='sigma-picker'
                 type='number'
@@ -11,7 +19,7 @@ function SigmaPicker({ handleSigmaChange }) {
                 max={4}
                 defaultValue={3}
                 onChange={event => handleSigmaChange(event)}
-                style={{ height: '60%', aspectRatio: '1', fontSize: '20px', textAlign: 'center' }}
+                style={{ height: '40px', aspectRatio: '1', fontSize: '20px', textAlign: 'center', borderRadius: '5%' }}
             ></input>
         </div>
     )

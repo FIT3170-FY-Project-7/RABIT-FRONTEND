@@ -3,15 +3,30 @@ import { TwitterPicker } from 'react-color'
 
 function ColourPicker({ handleColourChange }) {
     const [displayColourPicker, setDisplayColourPicker] = useState(false)
+    const [currentColour, setCurrentColour] = useState('grey')
     const handleClick = () => {
         setDisplayColourPicker(!displayColourPicker)
     }
     const handleClose = () => {
         setDisplayColourPicker(false)
     }
+    const handleColourSelected = colour => {
+        setCurrentColour(colour.hex)
+        handleColourChange(colour)
+    }
     return (
-        <div style={{ position: 'relative', height: '100%' }}>
-            <button onClick={handleClick} style={{ width: '40px', height: '20px' }}></button>
+        <div
+            style={{
+                position: 'relative',
+                height: '100%',
+                paddingTop: '6px'
+            }}
+        >
+            <div>Colour</div>
+            <button
+                onClick={handleClick}
+                style={{ width: '40px', height: '40px', backgroundColor: currentColour }}
+            ></button>
             {displayColourPicker ? (
                 <div
                     style={{
@@ -29,7 +44,7 @@ function ColourPicker({ handleColourChange }) {
                         }}
                         onClick={handleClose}
                     />
-                    <TwitterPicker onChange={handleColourChange} />
+                    <TwitterPicker onChange={handleColourSelected} />
                 </div>
             ) : null}
         </div>

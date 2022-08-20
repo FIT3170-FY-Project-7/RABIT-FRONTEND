@@ -1,0 +1,33 @@
+.appearance-configuration-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 20%;
+    border: 1px solid white;
+    position: relative;
+    padding: 5px;
+    overflow: visible;
+    background-color: #0a123a;
+}
+
+.appearance-pickers{
+    width: 100%;
+    height: 65%;
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.appearance-confirm-button{
+    float: right;
+    height: 100%;
+    background-color: #0a123a;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.appearance-confirm-button:hover {
+    background-color: #162a8e;
+}
