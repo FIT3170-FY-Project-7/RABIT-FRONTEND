@@ -111,9 +111,33 @@ const LoginForm = () => {
 
         // Don't continue to login logic if there are errors.
         // We cannot check the useState values, as these will not be updated until the next render.
-        if (usernameInvalid || passwordInvalid) return
+        //if (usernameInvalid || passwordInvalid) return
 
         // TODO: Login logic.
+        const asyncPostCall = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/user/login', {
+                 method: 'POST',
+                 headers: {
+                   'Content-Type': 'application/json',
+                   },
+                body: JSON.stringify({
+                    email: username,
+                    password: password
+                    })
+                 });
+                 const data = await response.json();
+                 console.log(data);
+               } 
+               
+               catch(error) {
+                  console.log(error)
+                } 
+            }
+
+            asyncPostCall()
+        
+
 
         // Prevent default form action (which would refresh the page).
         e.preventDefault()
