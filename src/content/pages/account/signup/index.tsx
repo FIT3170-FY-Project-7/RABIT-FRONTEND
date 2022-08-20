@@ -129,9 +129,33 @@ function SignupForm() {
 
         // Don't continue to signup logic if there are errors.
         // We cannot check the useState values, as these will not be updated until the next render.
-        if (fullNameInvalid || usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) return
+       if (fullNameInvalid || usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) return
+       
+        
 
         // TODO: Signup logic.
+        const asyncSignupCall = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                  },
+                body: JSON.stringify({
+                    email: email,
+                    displayName: fullName,
+                    password: password
+                    })
+                 });
+                 const data = await response.json();
+                 console.log(data);
+               }  
+               catch(error) {
+                  console.log(error)
+                } 
+            }
+        
+            asyncSignupCall()
 
         // Prevent default form action (which would refresh the page).
         e.preventDefault()
