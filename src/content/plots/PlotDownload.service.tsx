@@ -1,9 +1,10 @@
 import downloadjs from 'downloadjs'
 import html2canvas from 'html2canvas'
 import * as d3 from 'd3'
+import { NebulaFighterTheme } from '../../theme/schemes/NebulaFighterTheme'
 
 const PlotDownloadService = {
-    downloadAsPNG: async function () {
+    downloadAsPNG: async () => {
         const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
         if (!cornerPlotElmt) return
         changeColours('white', 'black')
@@ -12,9 +13,9 @@ const PlotDownloadService = {
         const dataURL = canvas.toDataURL('image/png')
         downloadjs(dataURL, 'corner-plot.png', 'image/png')
 
-        changeColours('#070C27', 'white')
+        changeColours(NebulaFighterTheme.palette.background.default, 'white')
     },
-    downloadAsSVG: function () {
+    downloadAsSVG: () => {
         const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
         changeColours('white', 'black')
         var serializer = new XMLSerializer()
@@ -38,7 +39,7 @@ const PlotDownloadService = {
         downloadLink.href = url
         downloadLink.download = 'corner-plot.svg'
         downloadLink.click()
-        changeColours('#070C27', 'white')
+        changeColours(NebulaFighterTheme.palette.background.default, 'white')
     }
 }
 
