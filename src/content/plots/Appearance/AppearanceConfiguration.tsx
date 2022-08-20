@@ -1,6 +1,8 @@
 import React from 'react'
 import { DatasetConfig } from '../PlotTypes'
+import BlurSlider from './BlurSlider'
 import ColourPicker from './ColourPicker'
+import SigmaPicker from './SigmaPicker'
 
 type AppearanceConfigPropType = {
     datasets: DatasetConfig[]
@@ -14,13 +16,13 @@ const AppearanceConfig = ({ datasets, setDatasets }: AppearanceConfigPropType) =
         setDatasets(new_datasets)
     }
 
-    const handleSigmaChange = (event, index: number) => {
+    const handleSigmaChange = (index: number) => event => {
         const new_datasets = [...datasets]
         new_datasets[index].sigmas = Array.from({ length: event.target.value }, (_, index) => index + 1)
         setDatasets(new_datasets)
     }
 
-    const handleBlurChange = (event, index: number) => {
+    const handleBlurChange = (index: number) => event => {
         const new_datasets = [...datasets]
         new_datasets[index].blur_radius = event.target.value
         document.getElementById('appearance-configuration-slider-value').innerHTML = event.target.value
@@ -43,22 +45,9 @@ const AppearanceConfig = ({ datasets, setDatasets }: AppearanceConfigPropType) =
                     }}
                 >
                     <ColourPicker key={`picker-${index}`} handleColourChange={handleColourChange(index)} />
-                    <input
-                        type='number'
-                        min={1}
-                        max={15}
-                        defaultValue={3}
-                        onChange={event => handleSigmaChange(event, index)}
-                    ></input>
-                    <input
-                        type='range'
-                        min='0'
-                        max='5'
-                        step='0.1'
-                        defaultValue='1'
-                        onChange={event => handleBlurChange(event, index)}
-                    />
-                    <div style={{ minWidth: '50px' }} id='appearance-configuration-slider-value' />
+                    <SigmaPicker handleSigmaChange={handleSigmaChange(index)} />
+
+                    <BlurSlider handleBlurChange={handleBlurChange(index)} />
                 </div>
             ))}
         </div>

@@ -10,7 +10,7 @@ function ColourPicker({ handleColourChange }) {
         setDisplayColourPicker(false)
     }
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', height: '100%' }}>
             <button onClick={handleClick} style={{ width: '40px', height: '20px' }}></button>
             {displayColourPicker ? (
                 <div
