@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { TwitterPicker } from 'react-color'
+import { colours } from '../constants/Colours'
 
 function ColourPicker({ handleColourChange }) {
     const [displayColourPicker, setDisplayColourPicker] = useState(false)
-    const [currentColour, setCurrentColour] = useState('grey')
+    const [currentColour, setCurrentColour] = useState(colours.plotDefault)
     const handleClick = () => {
         setDisplayColourPicker(!displayColourPicker)
     }

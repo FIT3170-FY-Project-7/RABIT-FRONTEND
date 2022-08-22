@@ -5,6 +5,7 @@ import ColourPicker from './ColourPicker'
 import SigmaPicker from './SigmaPicker'
 import { DatasetConfig } from '../PlotTypes'
 import './DatasetConfiguration.css'
+import { colours } from '../constants/Colours'
 
 type DatasetConfigurationPropType = {
     dataset: DatasetConfig
@@ -46,11 +47,15 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
         element.innerHTML = `Blur Radius: ${blur_num}`
     }
 
-    const handleConfirmClicked = () => {
+    const handleApplyClicked = () => {
         submitPickerValues(newDataset)
     }
     return (
-        <Card key={`appearance-config-${index}`} className='dataset-configuration-container'>
+        <Card
+            key={`appearance-config-${index}`}
+            className='dataset-configuration-container'
+            style={{ backgroundColor: colours.appearanceConfigBackground }}
+        >
             <div style={{ width: '100%', height: '15%', borderBottom: '1px solid white' }}>
                 <h5 style={{ margin: '0' }}>Dataset {index + 1}</h5>
             </div>
@@ -60,8 +65,12 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
                 <BlurSlider handleBlurChange={handleBlurChange(index)} />
             </div>
             <div style={{ width: '100%', height: '20%' }}>
-                <button className='appearance-confirm-button' onClick={handleConfirmClicked}>
-                    Confirm
+                <button
+                    className='appearance-apply-button'
+                    onClick={handleApplyClicked}
+                    style={{ backgroundColor: colours.appearanceConfigBackground }}
+                >
+                    Apply
                 </button>
             </div>
         </Card>

@@ -8,7 +8,6 @@
     padding: 5px;
     margin-bottom: 10px;
     overflow: visible;
-    background-color: #0a123a;
 }
 
 .appearance-pickers{
@@ -20,15 +19,14 @@
     align-items: center;
 }
 
-.appearance-confirm-button{
+.appearance-apply-button{
     float: right;
     height: 100%;
-    background-color: #0a123a;
     border: none;
     border-radius: 5%;
     cursor: pointer;
 }
 
-.appearance-confirm-button:hover {
-    background-color: #162a8e;
+.appearance-apply-button:hover {
+    background-color: #162a8e !important;
 }
