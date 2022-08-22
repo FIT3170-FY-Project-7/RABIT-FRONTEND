@@ -1,4 +1,4 @@
-.appearance-configuration-container{
+.dataset-configuration-container{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -6,6 +6,7 @@
     border: 1px solid white;
     position: relative;
     padding: 5px;
+    margin-bottom: 10px;
     overflow: visible;
     background-color: #0a123a;
 }

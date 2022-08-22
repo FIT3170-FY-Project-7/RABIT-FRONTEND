@@ -18,8 +18,7 @@ function ColourPicker({ handleColourChange }) {
         <div
             style={{
                 position: 'relative',
-                height: '100%',
-                paddingTop: '6px'
+                paddingTop: '2px'
             }}
         >
             <div>Colour</div>

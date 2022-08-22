@@ -6,7 +6,6 @@ function SigmaPicker({ handleSigmaChange }) {
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '100%',
                 alignItems: 'center',
                 justifyContent: 'center'
             }}
@@ -15,6 +14,7 @@ function SigmaPicker({ handleSigmaChange }) {
             <input
                 name='sigma-picker'
                 type='number'
+                className='appearance-configuration-sigma-picker-input'
                 min={1}
                 max={4}
                 defaultValue={3}
