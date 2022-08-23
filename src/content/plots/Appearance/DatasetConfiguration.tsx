@@ -6,14 +6,23 @@ import SigmaPicker from './SigmaPicker'
 import { DatasetConfig } from '../PlotTypes'
 import './DatasetConfiguration.css'
 import { colours } from '../constants/Colours'
+import ReorderButtons from './ReorderButtons'
 
 type DatasetConfigurationPropType = {
     dataset: DatasetConfig
     index: number
-    submitPickerValues: any
+    datasetsLength: number
+    reorderCallback: (prevIndex: number, nextIndex: number) => void
+    updateDatasets: (dataset: DatasetConfig) => void
 }
 
-function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetConfigurationPropType) {
+function DatasetConfiguration({
+    dataset,
+    index,
+    datasetsLength,
+    reorderCallback,
+    updateDatasets
+}: DatasetConfigurationPropType) {
     const [newDataset, setNewDataset] = useState({ ...dataset })
     const [isSaved, setIsSaved] = useState(true)
 
@@ -53,8 +62,9 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
 
     const handleApplyClicked = () => {
         setIsSaved(true)
-        submitPickerValues(newDataset)
+        updateDatasets(newDataset)
     }
+
     return (
         <Card
             key={`appearance-config-${index}`}
@@ -68,6 +78,7 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
                 <ColourPicker key={`picker-${index}`} handleColourChange={handleColourChange(index)} />
                 <SigmaPicker handleSigmaChange={handleSigmaChange(index)} />
                 <BlurSlider handleBlurChange={handleBlurChange(index)} />
+                <ReorderButtons index={index} datasetsLength={datasetsLength} reorderCallback={reorderCallback} />
             </div>
             <div style={{ width: '100%', height: '20%' }}>
                 <button
