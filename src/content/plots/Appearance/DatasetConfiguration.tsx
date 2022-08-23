@@ -15,8 +15,10 @@ type DatasetConfigurationPropType = {
 
 function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetConfigurationPropType) {
     const [newDataset, setNewDataset] = useState({ ...dataset })
+    const [isSaved, setIsSaved] = useState(true)
 
     const handleColourChange = (index: number) => colour => {
+        setIsSaved(false)
         setNewDataset(prevState => ({
             ...prevState,
             color: colour.hex
@@ -24,6 +26,7 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
     }
 
     const handleSigmaChange = (index: number) => event => {
+        setIsSaved(false)
         let sigmas_input = event.target.value
         if (sigmas_input > 4) {
             sigmas_input = 4
@@ -35,6 +38,7 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
     }
 
     const handleBlurChange = (index: number) => event => {
+        setIsSaved(false)
         let blur_num = event.target.value
         setNewDataset(prevState => ({
             ...prevState,
@@ -48,6 +52,7 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
     }
 
     const handleApplyClicked = () => {
+        setIsSaved(true)
         submitPickerValues(newDataset)
     }
     return (
@@ -67,6 +72,7 @@ function DatasetConfiguration({ dataset, index, submitPickerValues }: DatasetCon
             <div style={{ width: '100%', height: '20%' }}>
                 <button
                     className='appearance-apply-button'
+                    disabled={isSaved}
                     onClick={handleApplyClicked}
                     style={{ backgroundColor: colours.appearanceConfigBackground }}
                 >
