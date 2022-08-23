@@ -31,6 +31,8 @@ export default function FileUploadButton({ setFileUploaded, enableButton, select
         await axios.post('http://localhost:8000/uploads', data, options).then(res => {
             console.log(res.statusText)
             console.log(uploadPercentage)
+            navigate('/visualise');
+            //Insert file id once database linked
         })
         // await selectedFiles.text().then(async jsonString => {
 
