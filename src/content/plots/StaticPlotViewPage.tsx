@@ -31,6 +31,7 @@ function StaticPlotViewPage() {
     // e.g. rabit/visualise/view/123
     // Plot ID will be 123
     const plot_id = window.location.href.split('/').slice(-1).pop()
+    console.log(plot_id)
 
     // TODO: Use effect to fetch datasetConfig and parameterConfig by ID
 

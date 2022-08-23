@@ -12,6 +12,7 @@ import RabitLayout from './layouts/RabitLayout'
 
 // Loader.
 import SuspenseLoader from './components/SuspenseLoader'
+import StaticPlotViewPage from './content/plots/StaticPlotViewPage'
 const Loader = (Component: ComponentType) => (props: ComponentProps<typeof Component>) =>
     (
         <Suspense fallback={<SuspenseLoader />}>
@@ -73,7 +74,8 @@ const routes: RouteObject[] = [
         element: <RabitLayout />,
         children: [
             // TODO: Convert to login screen.
-            { path: 'visualise', element: <Datapage /> },
+            { path: '/visualise', element: <Datapage /> },
+            { path: '/visualise/view/:id', element: <StaticPlotViewPage /> },
             { path: 'upload', element: <FileUpload /> },
             { path: '*', element: <Status404 /> }
         ]
