@@ -23,17 +23,19 @@ const PlotConfigDefault: PlotConfig = {
 }
 
 function StaticPlotViewPage() {
+    {
+        /* This page will render for the route "/visualise/view/*" for any id after view/  */
+    }
     const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
     const [datasetConfig, setDatasetConfig] = useState<DatasetConfig[]>([])
     const [parameterConfig, setParameterConfig] = useState<ParameterConfig[]>([])
 
-    // Fetch plot id assuming it is the last part of the URL
-    // e.g. rabit/visualise/view/123
+    // Fetch plot ID assuming it is the last part of the URL
+    // E.g. Rabit/visualise/view/123
     // Plot ID will be 123
     const plot_id = window.location.href.split('/').slice(-1).pop()
-    console.log(plot_id)
 
-    // TODO: Use effect to fetch datasetConfig and parameterConfig by ID
+    // TODO: Use effect to fetch datasetConfig and parameterConfig by ID.
 
     useEffect(() => {
         setConfig(config => ({
