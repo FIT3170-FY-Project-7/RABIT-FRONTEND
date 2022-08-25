@@ -3,6 +3,7 @@ import { Box, TextField, Divider, Typography, Button } from '@mui/material'
 import FileSelectButton from './FileSelectButton'
 import FileUploadButton from './FileUploadButton'
 import CheckboxDropdown from './CheckboxDropdown'
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import DragFilesBox from './DragFilesBox'
 import FileDescriptionBox from './FileDescriptionBox'
 import ParameterSelector from './ParameterSelector'
@@ -17,6 +18,8 @@ export default function UploadPage() {
     // const [selectedKeys, setSelectedKeys] = useState([])
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [sizeLimitError, setsizeLimitError] = useState('')
+    const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
     // const [keys, setKeys] = useState([])
 
     const updateSelectedFiles = state => {
@@ -29,7 +32,14 @@ export default function UploadPage() {
 
         Array.from(state).forEach((file: File) => names.push(file.name))
 
+        if(selectedFiles.length >= 3){
+            console.log('error')
+            setEnableSizeLimitError(true)
+            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
+        }
+
         console.log('state', state)
+        console.log('state', selectedFiles.length)
         console.log('select', selectedFiles)
         setFileNames(names)
         setEnableDescription(true)
@@ -64,6 +74,14 @@ export default function UploadPage() {
                             {file.name}
                         </Button>
                     ))}
+                    
+                    {
+                        enableSizeLimitError?<Button variant="outlined" color="error"
+                        style={{
+                            maxWidth: 'fit-content',
+                            marginTop: 25
+                        }}><PriorityHighIcon></PriorityHighIcon>{sizeLimitError}</Button>:null
+                    }
                 </Box>
 
                 <Typography variant='h4' style={{textAlign: 'center'}}>OR</Typography>
