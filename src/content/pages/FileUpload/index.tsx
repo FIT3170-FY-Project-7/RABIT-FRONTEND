@@ -12,7 +12,6 @@ import ParameterSelector from './ParameterSelector'
 
 export default function UploadPage() {
     const [fileUploaded, setFileUploaded] = useState(false)
-
     const [selectedFiles, setSelectedFiles] = useState([])
     const [fileNames, setFileNames] = useState([])
     const [enableDescription, setEnableDescription] = useState(false)
@@ -68,16 +67,20 @@ export default function UploadPage() {
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
+
+            
             <Box
                 sx={{
                     display: 'grid',
                     minWidth: '80vh',
-                    gap: 4,
+                    gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
                     marginTop: '2rem',
                     margin: '1rem'
                 }}
             >
+
+                <Typography variant='h2'>Step 1: Select Files</Typography>
                 <DragFilesBox selectedFiles={selectedFiles} updateSelectedFiles={updateSelectedFiles} />
                 <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
                     {selectedFiles.map((file, ind) => (
@@ -93,10 +96,25 @@ export default function UploadPage() {
                         </Button>
                     ))}
                 </Box>
+
+                <Typography variant='h4' style={{textAlign: 'center'}}>OR</Typography>
+                <Box
+                    sx={{
+                        margin: '1rem'
+                    }}
+                
+                >
+                    <FileSelectButton updateSelectedFiles={updateSelectedFiles}/>
+                </Box>
+                
+
+
+
+
                 <Divider />
 
                 <Typography variant='h2'>
-                    Upload Description | ToDo: prepare information to be saved to database alongside file location link
+                    Step 2: Create Title
                     <Typography sx={{ marginTop: '1rem' }} variant='h6'>
                         <TextField
                             margin='dense'
@@ -123,7 +141,7 @@ export default function UploadPage() {
                 <Divider />
 
                 <Typography variant='h2'>
-                    Step 3: Upload File | ToDo: save file link and metadata to database after upload
+                    Step 3: Upload Files
                 </Typography>
                 <FileUploadButton
                     setFileUploaded={setFileUploaded}
