@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Box, TextField, Divider, Typography, Button } from '@mui/material'
 import FileSelectButton from './FileSelectButton'
 import FileUploadButton from './FileUploadButton'
-import { styled } from '@mui/material/styles'
 import CheckboxDropdown from './CheckboxDropdown'
-import * as d3 from 'd3'
-import { CommitSharp } from '@mui/icons-material'
 import DragFilesBox from './DragFilesBox'
 import FileDescriptionBox from './FileDescriptionBox'
 import ParameterSelector from './ParameterSelector'
@@ -16,11 +13,11 @@ export default function UploadPage() {
     const [fileNames, setFileNames] = useState([])
     const [enableDescription, setEnableDescription] = useState(false)
     const [enableUpload, setEnableUpload] = useState(true)
-    const [posteriorKeys, setPosteriorKeys] = useState([])
-    const [selectedKeys, setSelectedKeys] = useState([])
+    // const [posteriorKeys, setPosteriorKeys] = useState([])
+    // const [selectedKeys, setSelectedKeys] = useState([])
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [keys, setKeys] = useState([])
+    // const [keys, setKeys] = useState([])
 
     const updateSelectedFiles = state => {
         setSelectedFiles([...selectedFiles, ...state])
@@ -39,49 +36,21 @@ export default function UploadPage() {
     }
 
     useEffect(() => console.log(selectedFiles), [selectedFiles])
-    const renderList = fileNames.map((item, index) => (
-        <div key={index}>
-            {item}
-            <TextField
-                margin='dense'
-                fullWidth
-                disabled={!enableDescription}
-                defaultValue={fileNames[index]}
-                onChange={e => setTitle(e.target.value)}
-                label='Title'
-                required
-                variant={enableDescription ? 'outlined' : 'filled'}
-            />
-            <TextField
-                margin='dense'
-                fullWidth
-                disabled={!enableDescription}
-                onChange={e => setDescription(e.target.value)}
-                label='Description'
-                variant={enableDescription ? 'outlined' : 'filled'}
-                multiline
-                rows={3}
-            />
-        </div>
-    ))
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
 
-            
             <Box
                 sx={{
                     display: 'grid',
                     minWidth: '80vh',
                     gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
-                    marginTop: '2rem',
                     margin: '1rem'
                 }}
             >
-
                 <Typography variant='h2'>Step 1: Select Files</Typography>
-                <DragFilesBox selectedFiles={selectedFiles} updateSelectedFiles={updateSelectedFiles} />
+                <DragFilesBox  updateSelectedFiles={updateSelectedFiles} />
                 <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
                     {selectedFiles.map((file, ind) => (
                         <Button
@@ -102,14 +71,9 @@ export default function UploadPage() {
                     sx={{
                         margin: '1rem'
                     }}
-                
                 >
                     <FileSelectButton updateSelectedFiles={updateSelectedFiles}/>
                 </Box>
-                
-
-
-
 
                 <Divider />
 
@@ -123,7 +87,6 @@ export default function UploadPage() {
                             defaultValue={fileNames[0]}
                             onChange={e => setTitle(e.target.value)}
                             label='Title'
-                            required
                             variant={enableDescription ? 'outlined' : 'filled'}
                         />
                         <TextField

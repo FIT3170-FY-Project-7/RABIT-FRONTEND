@@ -1,7 +1,6 @@
 ﻿import { Box, Typography } from '@mui/material'
-import React from 'react'
 import CheckboxDropdown from './CheckboxDropdown'
-import FileUploadButton from './FileUploadButton'
+
 
 function ParameterSelector({ posteriorKeys, setSelectedKeys }) {
     return (

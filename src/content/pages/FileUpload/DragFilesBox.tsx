@@ -1,22 +1,11 @@
 ﻿import { Box, Button, LinearProgress, Typography } from '@mui/material'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import FileSelectButton from './FileSelectButton'
-import UploadIcon from '@mui/icons-material/Upload'
-
 const CHUNKSIZE = 50000 * 1024
 const API = 'http://localhost:8000/upload'
 
-export default function DragFilesBox({ selectedFiles, updateSelectedFiles }) {
+export default function DragFilesBox({ updateSelectedFiles }) {
     const [dropzoneActive, setDropzoneActive] = useState(false)
     const [files, setFiles] = useState([])
-    const [currentFileIndex, setCurrentFileIndex] = useState(null)
-    const [lastUploadedFileIndex, setLastUploadedFileIndex] = useState(null)
-    const [currentChunkIndex, setCurrentChunkIndex] = useState(null)
-    const [uploadPressed, setUploadPressed] = useState(false)
-    const [totalChunksProcessed, setTotalChunksProcessed] = useState(0)
-    const [totalChunks, setTotalChunks] = useState(0)
-    const [progress, setProgress] = useState(0)
 
     // Adds files to variable after each file is dropped
     function handleDrop(e) {
