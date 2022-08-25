@@ -62,6 +62,7 @@
         "html2canvas": "^1.4.1",
         "imagemin-optipng": "^8.0.0",
         "imagemin-pngquant": "^9.0.2",
+        "jwt-decode": "^3.1.2",
         "lodash": "^4.17.21",
         "multer": "^1.4.4",
         "nprogress": "^0.2.0",

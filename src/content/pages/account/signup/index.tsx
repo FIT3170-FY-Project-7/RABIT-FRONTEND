@@ -14,7 +14,7 @@ import {
 import { FormEvent, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-
+import React, {useContext} from 'react'
 import Logo from '../../../../components/LogoSign'
 
 import GoogleLogo from 'assets/images/logo/google.svg'
@@ -90,6 +90,7 @@ function SignUp() {
 }
 
 function SignupForm() {
+
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
 
@@ -136,7 +137,7 @@ function SignupForm() {
         // TODO: Signup logic.
         const asyncSignupCall = async () => {
             try {
-                const response = await fetch('http://localhost:8000/user/signup', {
+                const response = await fetch('http://localhost:8000/raw-data/create-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ function SignupForm() {
                 body: JSON.stringify({
                     email: email,
                     displayName: fullName,
-                    password: password
+                    userid: password
                     })
                  });
                  const data = await response.json();
@@ -153,8 +154,10 @@ function SignupForm() {
                catch(error) {
                   console.log(error)
                 } 
+                
             }
-        
+            
+            
             asyncSignupCall()
 
         // Prevent default form action (which would refresh the page).

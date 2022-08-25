@@ -1,12 +1,13 @@
 import { Box, Button, Card, Grid, TextField, Tooltip } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-
 import { RememberMe, RememberMeOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import { ButtonGroup, Divider, IconButton, InputAdornment, Typography } from '@mui/material'
 import { FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, Routes, Route} from 'react-router-dom'
 import Logo from '../../../../components/LogoSign'
-
+import React, {useContext} from 'react'
+import {UserContext} from '../../../Auth/UserContext'
+import jwt_decode from "jwt-decode";
 import GoogleLogo from 'assets/images/logo/google.svg'
 
 const Login = () => {
@@ -87,9 +88,12 @@ const Login = () => {
  * Component for the login form.
  */
 const LoginForm = () => {
+    const navigate = useNavigate();
+
+    const {JWT, setJWT} = useContext(UserContext)
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
-
+    
     // Remember Me
     const [rememberMe, setRememberMe] = useState(false)
 
@@ -100,6 +104,9 @@ const LoginForm = () => {
     // Password
     const [password, setPassword] = useState('')
     const [passwordError, setPasswordError] = useState(false)
+
+    // var decoded = jwt_decode("eyJhbGciOiJSUzI1NiIsImtpZCI6ImE4YmZhNzU2NDk4ZmRjNTZlNmVmODQ4YWY5NTI5ZThiZWZkZDM3NDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9vdC1mb3J0LTM0NTQwNSIsImF1ZCI6InJvb3QtZm9ydC0zNDU0MDUiLCJhdXRoX3RpbWUiOjE2NjE0MjUwMTQsInVzZXJfaWQiOiJDU2wwOHpSVHBBWFVISksyQVBwZVRaZzltMHcyIiwic3ViIjoiQ1NsMDh6UlRwQVhVSEpLMkFQcGVUWmc5bTB3MiIsImlhdCI6MTY2MTQyNTAxNCwiZXhwIjoxNjYxNDI4NjE0LCJlbWFpbCI6ImpyeW1kcjEyM0Bob3RtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJqcnltZHIxMjNAaG90bWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.X-CpoH1d63RGyf-iekMWZ1962Cx43ex5Q4qoY5_z10KFGX2NRgVG9fLEP_xem5CPAHlJazlS5roAH4Qy4gQlnKe-btNMt4Z02EIBudWQBFeXFauP3X9LT4-BCPDa5U5a3dUCm4vWnjjuk1X2Czphxqhi1O9c0G_1DF3QAWKZ_ELEJuqYYrsBEHkhyVKKrCungnW57qQDJtK7zQ5NkGzwuQsNAHZeBPSqWDW4Gqc2fHbJC8yH_v1e3hxLhPC6Ik3El8MVPnnTyHaeOI2bgUL3ED9oFhM6QxJxZBzXP695QlmM4nG9pq9lVD1onbKCkYOHMd3ZdLu9B_AUMvVgedprvw");
+    // console.log(decoded)
 
     // Submission Handler
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -114,6 +121,7 @@ const LoginForm = () => {
         //if (usernameInvalid || passwordInvalid) return
 
         // TODO: Login logic.
+
         const asyncPostCall = async () => {
             try {
                 const response = await fetch('http://localhost:8000/user/login', {
@@ -127,20 +135,26 @@ const LoginForm = () => {
                     })
                  });
                  const data = await response.json();
-                 console.log(data);
+                 setJWT(data)
                } 
                
                catch(error) {
                   console.log(error)
                 } 
             }
-
-            asyncPostCall()
+            
+        asyncPostCall()
         
-
 
         // Prevent default form action (which would refresh the page).
         e.preventDefault()
+        console.log(JWT)
+        if(JWT){
+            navigate("/management/profile")
+        }else{
+            console.log("Press login again lmao")
+        }
+
     }
 
     return (
@@ -187,7 +201,7 @@ const LoginForm = () => {
                 />
             </Grid>
             <Grid item xs={12} sx={{ display: 'inline-flex' }}>
-                <Button variant='contained' type='submit' fullWidth>
+                <Button variant='contained' type='submit' fullWidth >
                     Log in
                 </Button>
                 <Tooltip title='Remember me' placement='right' arrow>
@@ -199,5 +213,4 @@ const LoginForm = () => {
         </Grid>
     )
 }
-
 export default Login
