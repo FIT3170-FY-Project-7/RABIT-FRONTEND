@@ -45,6 +45,12 @@ export default function UploadPage() {
         setEnableDescription(true)
     }
 
+    const deleteSelectedFile = file => {
+        const newFiles = [...selectedFiles];     // make a var for the new array
+        newFiles.splice(file, 1);        // remove the file from the array
+        setSelectedFiles(newFiles);              // update the state
+      };
+
     useEffect(() => console.log(selectedFiles), [selectedFiles])
 
     return (
@@ -82,6 +88,7 @@ export default function UploadPage() {
                             marginTop: 25
                         }}><PriorityHighIcon></PriorityHighIcon>{sizeLimitError}</Button>:null
                     }
+                    <Button onClick={deleteSelectedFile}>Delete Last</Button>
                 </Box>
 
                 <Typography variant='h4' style={{textAlign: 'center'}}>OR</Typography>
