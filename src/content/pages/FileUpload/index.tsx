@@ -18,7 +18,7 @@ export default function UploadPage() {
     // const [selectedKeys, setSelectedKeys] = useState([])
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [sizeLimitError, setsizeLimitError] = useState('')
+    const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
     const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
     // const [keys, setKeys] = useState([])
 
@@ -49,6 +49,10 @@ export default function UploadPage() {
         const newFiles = [...selectedFiles];     // make a var for the new array
         newFiles.splice(file, 1);        // remove the file from the array
         setSelectedFiles(newFiles);              // update the state
+
+        if(selectedFiles.length <= 4){ //remove error if less then 4 files again
+            setEnableSizeLimitError(false)
+        }
       };
 
     useEffect(() => console.log(selectedFiles), [selectedFiles])
