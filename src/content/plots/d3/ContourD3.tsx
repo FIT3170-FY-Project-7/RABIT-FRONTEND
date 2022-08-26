@@ -1,3 +1,5 @@
+// Contour Plots created using D3
+
 import * as d3 from 'd3'
 import { PlotConfig, DatasetConfig, ParameterConfig } from '../PlotTypes'
 

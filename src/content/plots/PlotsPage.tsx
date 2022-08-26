@@ -42,10 +42,8 @@ const ParameterConfigDefault: ParameterConfig = {
 
 function PlotsPage({ file }) {
     /* 
-
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
-    including the parameter selectors and the corner plot itself. 
-
+    including the parameter selectors and the corner plot itself. It also hosts the download button and the appearance config.
     */
     const [datasets, setDatasets] = useState<DatasetConfig[]>([
         {

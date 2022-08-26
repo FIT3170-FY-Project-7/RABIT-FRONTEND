@@ -11,9 +11,7 @@ type ContourPlotType = {
 
 const ContourPlot = ({ datasets, parameter_x, parameter_y, config }: ContourPlotType) => {
     /* 
-
     Renders the contour plots using the D3 library. Calls create() in CountourD3 to render graph SVG.
-
     */
     const elem = useRef(null)
 

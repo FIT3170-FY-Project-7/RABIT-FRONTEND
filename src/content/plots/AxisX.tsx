@@ -10,9 +10,7 @@ type AxisXPropType = {
 
 const AxisX = ({ parameter, config, rerender }: AxisXPropType) => {
     /* 
-
     Renders a single X Axis using the D3 library. Calls create() in AxisXD3 to render axis SVG.
-
     */
     const elem = useRef(null)
 

@@ -1,6 +1,9 @@
 import React from 'react'
 
 function SigmaPicker({ handleSigmaChange }) {
+    /*
+    Creates a number picker that allows us to change the sigma values for the plot.
+    */
     return (
         <div
             style={{

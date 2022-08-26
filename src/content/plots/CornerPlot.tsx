@@ -16,9 +16,7 @@ type CornerPlotPropType = {
 
 function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
     /* 
-
     Corner plot with logic to house the contour and histogram plots. Also renders the axes along the left side and bottom.
-
     */
     const mathjax = useContext(MathJaxBaseContext)
     const mathjaxTimer = useRef(null)

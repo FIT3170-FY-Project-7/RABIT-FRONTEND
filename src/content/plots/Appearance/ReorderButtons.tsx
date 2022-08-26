@@ -1,4 +1,7 @@
 const ReorderButtons = ({ index, datasetsLength, reorderCallback }) => {
+    /*
+    Reorder buttons are used to move a dataset front or back in the graphed plots.
+    */
     return (
         <div
             style={{

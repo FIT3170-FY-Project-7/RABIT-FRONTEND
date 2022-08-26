@@ -10,9 +10,7 @@ type AxisYPropType = {
 
 const AxisY = ({ parameter, config, rerender }: AxisYPropType) => {
     /* 
-
     Renders a single Y Axis using the D3 library. Calls create() in AxisYD3 to render axis SVG.
-
     */
     const elem = useRef(null)
 

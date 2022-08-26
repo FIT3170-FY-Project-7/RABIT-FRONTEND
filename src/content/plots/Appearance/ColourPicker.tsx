@@ -3,6 +3,9 @@ import { TwitterPicker } from 'react-color'
 import { colours } from '../constants/Colours'
 
 function ColourPicker({ handleColourChange }) {
+    /*
+    Creates a colour picker to change the colour of the plot.
+    */
     const [displayColourPicker, setDisplayColourPicker] = useState(false)
     const [currentColour, setCurrentColour] = useState(colours.plotDefault)
     const handleClick = () => {

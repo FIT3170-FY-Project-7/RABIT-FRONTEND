@@ -1,6 +1,9 @@
 import React from 'react'
 
 function BlurSlider({ handleBlurChange }) {
+    /*
+    Creates a slider to change the smoothness of the plot.
+    */
     return (
         <div
             style={{
