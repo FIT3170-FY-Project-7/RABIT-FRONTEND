@@ -13,6 +13,7 @@ function SigmaPicker({ initial, handleSigmaChange }) {
             style={{
                 display: 'flex',
                 flexDirection: 'column',
+                height: '100%',
                 alignItems: 'center',
                 justifyContent: 'center'
             }}
@@ -26,8 +27,16 @@ function SigmaPicker({ initial, handleSigmaChange }) {
                 max={4}
                 defaultValue={initial.length ?? 3}
                 onChange={event => handleSigmaChange(event)}
-                style={{ height: '40px', aspectRatio: '1', fontSize: '20px', textAlign: 'center', borderRadius: '5%' }}
                 ref={inputRef}
+                style={{
+                    height: '40px',
+                    aspectRatio: '1',
+                    fontSize: '20px',
+                    textAlign: 'center',
+                    borderRadius: '5%',
+                    border: '1px solid rgba(255,255,255,0.5)',
+                    backgroundColor: '#1B2038'
+                }}
             ></input>
         </div>
     )

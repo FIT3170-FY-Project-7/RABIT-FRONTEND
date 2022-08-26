@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import { TwitterPicker } from 'react-color'
 import { colours } from '../constants/Colours'
 
-function ColourPicker({ initial, handleColourChange }) {
+function ColourPicker({ handleColourChange, initial }) {
     /*
     Creates a colour picker to change the colour of the plot.
     */
     const [displayColourPicker, setDisplayColourPicker] = useState(false)
+
     const [currentColour, setCurrentColour] = useState(initial ?? colours.plotDefault)
+
     const handleClick = () => {
         setDisplayColourPicker(!displayColourPicker)
     }
@@ -22,6 +24,7 @@ function ColourPicker({ initial, handleColourChange }) {
     useEffect(() => {
         setCurrentColour(initial ?? colours.plotDefault)
     }, [initial])
+
     return (
         <div
             style={{
@@ -32,7 +35,14 @@ function ColourPicker({ initial, handleColourChange }) {
             <div>Colour</div>
             <button
                 onClick={handleClick}
-                style={{ width: '40px', height: '40px', backgroundColor: currentColour }}
+                style={{
+                    width: '40px',
+                    height: '40px',
+                    backgroundColor: currentColour,
+                    borderRadius: '20%',
+                    border: 'none',
+                    cursor: 'pointer'
+                }}
             ></button>
             {displayColourPicker ? (
                 <div

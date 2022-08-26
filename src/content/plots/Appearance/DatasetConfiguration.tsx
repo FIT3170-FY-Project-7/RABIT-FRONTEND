@@ -7,6 +7,7 @@ import { DatasetConfig } from '../PlotTypes'
 import './DatasetConfiguration.css'
 import { colours } from '../constants/Colours'
 import ReorderButtons from './ReorderButtons'
+import data from '../../datapage/sample_2'
 
 type DatasetConfigurationPropType = {
     dataset: DatasetConfig
@@ -33,6 +34,8 @@ function DatasetConfiguration({
             color: colour.hex
         }))
     }
+
+    console.log('Dataset:', index, dataset)
 
     const handleSigmaChange = (index: number) => event => {
         setIsSaved(false)
@@ -65,8 +68,16 @@ function DatasetConfiguration({
             className='dataset-configuration-container'
             style={{ backgroundColor: colours.appearanceConfigBackground }}
         >
-            <div style={{ width: '100%', height: '15%', borderBottom: '1px solid white' }}>
-                <h5 style={{ margin: '0' }}>Dataset {index + 1}</h5>
+            <div style={{ width: '100%', height: '15%', display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ margin: '0', fontWeight: 'bold' }}>Dataset {index + 1}</div>
+                <button
+                    className='appearance-apply-button'
+                    disabled={isSaved}
+                    onClick={handleApplyClicked}
+                    style={{ backgroundColor: colours.appearanceConfigBackground }}
+                >
+                    Apply
+                </button>
             </div>
             <div className='appearance-pickers'>
                 <ColourPicker
@@ -76,17 +87,8 @@ function DatasetConfiguration({
                 />
                 <SigmaPicker initial={dataset.sigmas} handleSigmaChange={handleSigmaChange(index)} />
                 <BlurSlider initial={dataset.blur_radius} handleBlurChange={handleBlurChange(index)} />
+
                 <ReorderButtons index={index} datasetsLength={datasetsLength} reorderCallback={reorderCallback} />
-            </div>
-            <div style={{ width: '100%', height: '20%' }}>
-                <button
-                    className='appearance-apply-button'
-                    disabled={isSaved}
-                    onClick={handleApplyClicked}
-                    style={{ backgroundColor: colours.appearanceConfigBackground }}
-                >
-                    Apply
-                </button>
             </div>
         </Card>
     )

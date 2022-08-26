@@ -1,5 +1,3 @@
-import { randomInt } from 'crypto'
-import React, { useState } from 'react'
 import { DatasetConfig } from '../PlotTypes'
 import DatasetConfiguration from './DatasetConfiguration'
 
@@ -18,8 +16,8 @@ const AppearanceConfig = ({ datasets, setDatasets }: AppearanceConfigPropType) =
     const reorderDatasets = (prevIndex: number, nextIndex: number) => {
         const new_datasets = [...datasets]
         const tempDataset = new_datasets[prevIndex]
-        new_datasets[prevIndex] = new_datasets[nextIndex]
-        new_datasets[nextIndex] = tempDataset
+        new_datasets[prevIndex] = { ...new_datasets[nextIndex] }
+        new_datasets[nextIndex] = { ...tempDataset }
         setDatasets(new_datasets)
     }
 
