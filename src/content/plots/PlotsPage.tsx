@@ -31,7 +31,7 @@ const DatasetConfigDefault: DatasetConfig = {
     quantiles: [0.5],
     color: '#0088FF',
     line_width: 1.25,
-    blur_radius: 0.1
+    blur_radius: 1
 }
 
 const ParameterConfigDefault: ParameterConfig = {

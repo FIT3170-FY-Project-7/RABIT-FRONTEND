@@ -1,4 +1,5 @@
-import React from 'react'
+import { randomInt } from 'crypto'
+import React, { useState } from 'react'
 import { DatasetConfig } from '../PlotTypes'
 import DatasetConfiguration from './DatasetConfiguration'
 
@@ -23,7 +24,7 @@ const AppearanceConfig = ({ datasets, setDatasets }: AppearanceConfigPropType) =
     }
 
     return (
-        <div style={{ position: 'relative', width: '35%', minWidth: '310px' }}>
+        <div style={{ position: 'relative', width: '35%', minWidth: '320px' }}>
             {datasets.map((dataset: DatasetConfig, index: number) => (
                 <DatasetConfiguration
                     key={`dataset-config-${index}`}

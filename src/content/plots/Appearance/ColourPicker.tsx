@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TwitterPicker } from 'react-color'
 import { colours } from '../constants/Colours'
 
-function ColourPicker({ handleColourChange }) {
+function ColourPicker({ initial, handleColourChange }) {
     /*
     Creates a colour picker to change the colour of the plot.
     */
     const [displayColourPicker, setDisplayColourPicker] = useState(false)
-    const [currentColour, setCurrentColour] = useState(colours.plotDefault)
+    const [currentColour, setCurrentColour] = useState(initial ?? colours.plotDefault)
     const handleClick = () => {
         setDisplayColourPicker(!displayColourPicker)
     }
@@ -18,6 +18,10 @@ function ColourPicker({ handleColourChange }) {
         setCurrentColour(colour.hex)
         handleColourChange(colour)
     }
+
+    useEffect(() => {
+        setCurrentColour(initial ?? colours.plotDefault)
+    }, [initial])
     return (
         <div
             style={{
