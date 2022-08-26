@@ -11,7 +11,7 @@ import api from '../../../api'
 
 interface FileUpload {
     enableButton: boolean
-    selectedFile: any
+    selectedFiles: any
     selectedKeys: Array<string>
     title: string
     description: string
@@ -20,7 +20,7 @@ interface FileUpload {
 
 export default function FileUploadButton({
     enableButton,
-    selectedFile,
+    selectedFiles,
     selectedKeys,
     title,
     description,
@@ -42,20 +42,20 @@ export default function FileUploadButton({
         }
 
 
-
-        const jsonString = await selectedFile.text()
-        const json = {
+        const data = new FormData()
+        data.append('name', title)
+        for (const selectedFile of selectedFiles) {
+            const jsonString = await selectedFile.text()
+            const json = {
                 selectedKeys,
                 title,
                 description,
                 posterior: { content: JSON.parse(jsonString)?.posterior?.content }
             }
 
-        const data = new FormData()
-        data.append('name', title)
-
-        const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
-        data.append('file', blob)
+            const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
+            data.append('file', blob)
+        }
 
         const response = await api.post('/raw-data', data, options)
 

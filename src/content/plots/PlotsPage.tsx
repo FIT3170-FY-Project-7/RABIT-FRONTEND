@@ -13,8 +13,8 @@ function PlotsPage({ file }) {
 
     */
     const [data, setData] = useState(file['posterior']['content'])
-    const [parameters, setParameters] = useState(file.selectedKeys)
-    const [defaultParameters, setDefaultParameters] = useState(file.selectedKeys)
+    const [parameters, setParameters] = useState(file.selectedKeys ?? [])
+    const [defaultParameters, setDefaultParameters] = useState(file.selectedKeys ?? [])
 
     // Config for MathJax rendering of mathematical symbols
     const config = {
