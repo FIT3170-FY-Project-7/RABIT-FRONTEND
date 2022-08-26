@@ -41,17 +41,20 @@ export default function FileUploadButton({
             }
         }
 
+
+
         const jsonString = await selectedFile.text()
-        let json = JSON.parse(jsonString)
-        json.selected_keys = selectedKeys
-        json.title = title
-        json.description = description
-        json = JSON.stringify(json)
+        const json = {
+                selectedKeys,
+                title,
+                description,
+                posterior: { content: JSON.parse(jsonString)?.posterior?.content }
+            }
 
         const data = new FormData()
         data.append('name', title)
 
-        const blob = new Blob([json], { type: 'application/json' })
+        const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
         data.append('file', blob)
 
         const response = await api.post('/raw-data', data, options)
