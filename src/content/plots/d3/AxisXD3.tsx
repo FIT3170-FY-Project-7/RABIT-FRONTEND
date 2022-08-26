@@ -13,6 +13,7 @@ const create = (el, layout, domain, label) => {
     svg.append('foreignObject')
         .attr('width', layout.width)
         .attr('height', layout.axis.size)
+        .style('color', 'white')
         .append('xhtml:div')
         .style('height', '100%')
         .style('display', 'flex')
@@ -27,10 +28,12 @@ const create = (el, layout, domain, label) => {
         .range([0, layout.width - 1])
 
     // Add scales to axis
-    const x_axis = d3.axisBottom(scale).ticks(layout.axis.ticks).tickSize(layout.axis.tickSize)
+    const x_axis = svg.append('g').call(d3.axisBottom(scale).ticks(layout.axis.ticks).tickSize(layout.axis.tickSize))
 
-    // Append group and insert axis
-    svg.append('g').call(x_axis)
+    // Explicitly colour the axis so they display correctly when downloaded
+    x_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
+    x_axis.selectAll('path').style('stroke', 'white').classed('axis-lines', true)
+    x_axis.selectAll('text').style('fill', 'white').classed('axis-labels', true)
 }
 
 const destroy = el => {

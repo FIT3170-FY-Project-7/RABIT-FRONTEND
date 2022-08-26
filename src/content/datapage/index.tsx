@@ -7,7 +7,8 @@ import Footer from '../../components/Footer'
 import PlotsPage from '../plots/PlotsPage'
 import CommentsTab from './CommentsTab'
 import PageHeader from './PageHeader'
-import axios from 'axios'
+import api from '../../api'
+import { useParams } from 'react-router-dom'
 
 function ManagementUserSettings() {
     // state variable and function setter for tab
@@ -16,16 +17,16 @@ function ManagementUserSettings() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [loading, setLoading] = useState(true)
+    const { id } = useParams()
 
     const onTabChange = (event: ChangeEvent<{}>, value: string): void => setCurrentTab(value)
 
     useEffect(() => {
-        axios.get('http://localhost:8000/uploads/parameters').then(async function(response){console.log(response)})
-        axios.get('http://localhost:8000/uploads').then(async function (response) {
-            await setFile(response.data)
-            await setTitle(response.data.title)
-            await setDescription(response.data.description)
-            await setLoading(false)
+        api.get(`/raw-data/${id}`).then(function (response) {
+            setFile(response.data.data)
+            setTitle(response.data.name)
+            // setDescription(response.data.description)
+            setLoading(false)
         })
     }, [])
 

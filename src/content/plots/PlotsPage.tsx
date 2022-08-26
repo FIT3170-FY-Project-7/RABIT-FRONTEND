@@ -1,7 +1,9 @@
 import { MathJaxContext } from 'better-react-mathjax'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
+import { Button } from '@mui/material'
+import PlotDownloadService from './PlotDownload.service'
 
 function PlotsPage({ file }) {
     /* 
@@ -11,8 +13,8 @@ function PlotsPage({ file }) {
 
     */
     const [data, setData] = useState(file['posterior']['content'])
-    const [parameters, setParameters] = useState(file.selected_keys)
-    const [defaultParameters, setDefaultParameters] = useState(file.selected_keys)
+    const [parameters, setParameters] = useState(file.selectedKeys ?? [])
+    const [defaultParameters, setDefaultParameters] = useState(file.selectedKeys ?? [])
 
     // Config for MathJax rendering of mathematical symbols
     const config = {
@@ -27,6 +29,15 @@ function PlotsPage({ file }) {
         }
     }
 
+    // Functions for corner plot image download.
+    const downloadCornerPlotPNG = async () => {
+        PlotDownloadService.downloadAsPNG()
+    }
+
+    const downloadCornerPlotSVG = async () => {
+        PlotDownloadService.downloadAsSVG()
+    }
+
     return (
         <div>
             <MathJaxContext config={config}>
@@ -37,6 +48,12 @@ function PlotsPage({ file }) {
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <CornerPlot data={data} parameters={parameters} />
+                <Button variant='contained' onClick={downloadCornerPlotPNG}>
+                    Download as PNG
+                </Button>
+                <Button variant='contained' onClick={downloadCornerPlotSVG}>
+                    Download as SVG
+                </Button>
             </MathJaxContext>
         </div>
     )

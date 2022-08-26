@@ -1,53 +1,76 @@
 import UploadIcon from '@mui/icons-material/Upload'
 import { Button } from '@mui/material'
-import axios from 'axios'
+import csvToJson from 'csvtojson'
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fileURLToPath } from 'url'
+import api from '../../../api'
 
-export default function FileUploadButton({ setFileUploaded, enableButton, selectedFiles }) {
+interface FileUpload {
+    enableButton: boolean
+    selectedFiles: any
+    selectedKeys: Array<string>
+    title: string
+    description: string
+    buttonMessage: string
+}
 
+export default function FileUploadButton({
+    enableButton,
+    selectedFiles,
+    selectedKeys,
+    title,
+    description,
+    buttonMessage
+}: FileUpload) {
     const [uploadPercentage, setUploadPercentage] = useState(0)
     const navigate = useNavigate()
 
     const handleSubmission = async () => {
         const options = {
             onUploadProgress: progressEvent => {
-                // updates progress bar
                 const { loaded, total } = progressEvent
                 let percentage = Math.floor((loaded * 100) / total)
+                //console.log(`${loaded}kb of ${total}kb | ${percentage}%`)
+                //correctly works as a progress bar in console (throttle speed to test or use a big file)
+
                 setUploadPercentage(percentage)
             }
         }
 
+
         const data = new FormData()
-        Array.from(selectedFiles).forEach(file => {
+        data.append('name', title)
+        for (const selectedFile of selectedFiles) {
+            const jsonString = await selectedFile.text()
+            const json = {
+                selectedKeys,
+                title,
+                description,
+                posterior: { content: JSON.parse(jsonString)?.posterior?.content }
+            }
 
-
-            // converts file into blob and then appends to data, A formdata object
-            let blob = new Blob([file], { type: 'application/json' })
+            const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
             data.append('file', blob)
-        })
+        }
 
-        await axios.post('http://localhost:8000/uploads', data, options).then(res => {
-            console.log(res.statusText)
-            console.log(uploadPercentage)
-            setFileUploaded(true)
-            navigate('/visualise');
-            //Insert file id once database linked
-        })
+        const response = await api.post('/raw-data', data, options)
 
-        
-
+        navigate(`/visualise/${response.data.id}`)
     }
     return (
         <div>
             <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button disabled={!enableButton} variant='contained' onClick={handleSubmission} startIcon={<UploadIcon />}>
-                    Upload
+                <Button
+                    disabled={!enableButton}
+                    variant='contained'
+                    startIcon={<UploadIcon />}
+                    onClick={handleSubmission}
+                >
+                    {buttonMessage}
                 </Button>
             </Box>
             <Box sx={{ paddingTop: 2 }}>
