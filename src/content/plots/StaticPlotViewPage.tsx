@@ -36,6 +36,10 @@ function StaticPlotViewPage() {
     const plot_id = window.location.href.split('/').slice(-1).pop()
 
     // TODO: Use effect to fetch datasetConfig and parameterConfig by ID.
+    // -----------------------------------------------------------------
+    // API CALL
+    // set datasetConfig and parameterConfig
+    // -----------------------------------------------------------------
 
     useEffect(() => {
         setConfig(config => ({
