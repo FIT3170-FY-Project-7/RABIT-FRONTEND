@@ -10,6 +10,7 @@ import ActivityTab from './ActivityTab'
 import EditProfileTab from './EditProfileTab'
 import NotificationsTab from './NotificationsTab'
 import SecurityTab from './SecurityTab'
+import PlotsTab from './PlotsTab'
 
 const TabsWrapper = styled(Tabs)(
     () => `
@@ -25,7 +26,8 @@ function ManagementUserSettings() {
         { value: 'activity', label: 'Activity' },
         { value: 'edit_profile', label: 'Edit Profile' },
         { value: 'notifications', label: 'Notifications' },
-        { value: 'security', label: 'Passwords/Security' }
+        { value: 'security', label: 'Passwords/Security' },
+        { value: 'plots', label: 'My Plots' }
     ]
 
     const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
@@ -61,6 +63,7 @@ function ManagementUserSettings() {
                         {currentTab === 'edit_profile' && <EditProfileTab />}
                         {currentTab === 'notifications' && <NotificationsTab />}
                         {currentTab === 'security' && <SecurityTab />}
+                        {currentTab === 'plots' && <PlotsTab />}
                     </Grid>
                 </Grid>
             </Container>
