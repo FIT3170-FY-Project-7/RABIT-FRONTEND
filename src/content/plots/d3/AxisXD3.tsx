@@ -17,6 +17,7 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     svg.append('foreignObject')
         .attr('width', config.subplot_size)
         .attr('height', config.axis.size)
+        .style('color', 'white')
         .append('xhtml:div')
         .style('height', '100%')
         .style('display', 'flex')
@@ -31,10 +32,12 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
         .range([0, config.subplot_size - 1])
 
     // Add scales to axis
-    const x_axis = d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize)
+    const x_axis = svg.append('g').call(d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize))
 
-    // Append group and insert axis
-    svg.append('g').call(x_axis)
+    // Explicitly colour the axis so they display correctly when downloaded
+    x_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
+    x_axis.selectAll('path').style('stroke', 'white').classed('axis-lines', true)
+    x_axis.selectAll('text').style('fill', 'white').classed('axis-labels', true)
 }
 
 const destroy = el => {

@@ -1,123 +1,144 @@
 import React, { useState, useEffect } from 'react'
-import { Box, TextField, Divider, Typography } from '@mui/material'
+import { Box, TextField, Divider, Typography, Button } from '@mui/material'
 import FileSelectButton from './FileSelectButton'
 import FileUploadButton from './FileUploadButton'
-import { styled } from '@mui/material/styles'
 import CheckboxDropdown from './CheckboxDropdown'
-import * as d3 from 'd3'
-import { CommitSharp } from '@mui/icons-material'
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import DragFilesBox from './DragFilesBox'
+import FileDescriptionBox from './FileDescriptionBox'
+import ParameterSelector from './ParameterSelector'
 
 export default function UploadPage() {
+    const [fileUploaded, setFileUploaded] = useState(false)
+    const [selectedFiles, setSelectedFiles] = useState([])
+    const [fileNames, setFileNames] = useState([])
+    const [enableDescription, setEnableDescription] = useState(false)
+    const [enableUpload, setEnableUpload] = useState(true)
+    // const [posteriorKeys, setPosteriorKeys] = useState([])
+    // const [selectedKeys, setSelectedKeys] = useState([])
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [selectedFile, setSelectedFile] = useState(null)
-    const [fileName, setFileName] = useState('')
-    const [enableDescription, setEnableDescription] = useState(false)
-    const [enableUpload, setEnableUpload] = useState(false)
-    const [posteriorKeys, setPosteriorKeys] = useState([])
-    const [selectedKeys, setSelectedKeys] = useState([])
+    const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
+    const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
+    // const [keys, setKeys] = useState([])
 
-    const updateSelectedFile = state => {
-        setSelectedFile(state)
-        setFileName(state.name)
-        setTitle(state.name)
-        setEnableDescription(true)
+    const updateSelectedFiles = state => {
+        setSelectedFiles([...selectedFiles, ...state])
 
-        const fileReader = new FileReader()
-        fileReader.readAsText(state)
-
-        fileReader.onload = e => {
-            const string = e.target.result as string
-            const json = JSON.parse(e.target.result as string)
-            const initialKeys = Object.keys(json['posterior']['content'])
-            var keys = new Array()
-
-            // check for complex entries and exclude them
-            for (var i = 0; i < initialKeys.length; i++) {
-                if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
-                    keys.push(initialKeys[i])
-                }
-            }
-            setPosteriorKeys(keys)
+        var names = []
+        type File = {
+            name?: string
         }
+
+        Array.from(state).forEach((file: File) => names.push(file.name))
+
+        if(selectedFiles.length >= 3){
+            console.log('error')
+            setEnableSizeLimitError(true)
+            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
+        }
+
+        console.log('state', state)
+        console.log('state', selectedFiles.length)
+        console.log('select', selectedFiles)
+        setFileNames(names)
+        setEnableDescription(true)
     }
 
-    useEffect(() => setEnableUpload(title != '' && selectedKeys.length != 0), [title, selectedKeys])
+    const deleteSelectedFile = file => {
+        const newFiles = [...selectedFiles];     // make a var for the new array
+        newFiles.splice(file, 1);        // remove the file from the array
+        setSelectedFiles(newFiles);              // update the state
+
+        if(selectedFiles.length <= 4){ //remove error if less then 4 files again
+            setEnableSizeLimitError(false)
+        }
+      };
+
+    useEffect(() => console.log(selectedFiles), [selectedFiles])
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
+
             <Box
                 sx={{
                     display: 'grid',
                     minWidth: '80vh',
-                    gap: 4,
+                    gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
-                    marginTop: '2rem',
                     margin: '1rem'
                 }}
             >
-                <Box>
-                    <Typography variant='h2'>Step 1</Typography>
-                    <FileSelectButton updateSelectedFile={updateSelectedFile} />
+                <Typography variant='h2'>Step 1: Select Files</Typography>
+                <DragFilesBox  updateSelectedFiles={updateSelectedFiles} />
+                <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
+                    {selectedFiles.map((file, ind) => (
+                        <Button
+                            key={ind}
+                            variant='outlined'
+                            style={{
+                                maxWidth: 'fit-content',
+                                marginTop: ind > 0 ? '1rem' : ''
+                            }}
+                        >
+                            {file.name}
+                        </Button>
+                    ))}
+                    
+                    {
+                        enableSizeLimitError?<Button variant="outlined" color="error"
+                        style={{
+                            maxWidth: 'fit-content',
+                            marginTop: 25
+                        }}><PriorityHighIcon></PriorityHighIcon>{sizeLimitError}</Button>:null
+                    }
+                    <Button onClick={deleteSelectedFile}>Delete Last</Button>
+                </Box>
+
+                <Typography variant='h4' style={{textAlign: 'center'}}>OR</Typography>
+                <Box
+                    sx={{
+                        margin: '1rem'
+                    }}
+                >
+                    <FileSelectButton updateSelectedFiles={updateSelectedFiles}/>
+                </Box>
+
+                <Divider />
+
+                <Typography variant='h2'>
+                    Step 2: Create Title
                     <Typography sx={{ marginTop: '1rem' }} variant='h6'>
-                        {fileName}
+                        <TextField
+                            margin='dense'
+                            fullWidth
+                            disabled={!enableDescription}
+                            defaultValue={fileNames[0]}
+                            onChange={e => setTitle(e.target.value)}
+                            label='Title'
+                            variant={enableDescription ? 'outlined' : 'filled'}
+                        />
+                        <TextField
+                            margin='dense'
+                            fullWidth
+                            disabled={!enableDescription}
+                            onChange={e => setDescription(e.target.value)}
+                            label='Description'
+                            variant={enableDescription ? 'outlined' : 'filled'}
+                            multiline
+                            rows={3}
+                        />
                     </Typography>
-                </Box>
+                </Typography>
                 <Divider />
-                <Box
-                    sx={{
-                        display: 'grid',
-                        gap: 2,
-                        gridTemplateColumns: 'repeat(1, 1fr)'
-                    }}
-                >
-                    <Typography variant='h2'>Step 2</Typography>
-                    <TextField
-                        fullWidth
-                        disabled={!enableDescription}
-                        defaultValue={fileName}
-                        onChange={e => setTitle(e.target.value)}
-                        label='Title'
-                        required
-                        variant={enableDescription ? 'outlined' : 'filled'}
-                    />
-                    <TextField
-                        fullWidth
-                        disabled={!enableDescription}
-                        onChange={e => setDescription(e.target.value)}
-                        label='Description'
-                        variant={enableDescription ? 'outlined' : 'filled'}
-                        multiline
-                        rows={5}
-                    />
-                </Box>
-                <Divider />
-                <Box
-                    sx={{
-                        display: 'grid',
-                        gap: 2,
-                        gridTemplateColumns: 'repeat(1, 1fr)'
-                    }}
-                >
-                    <Typography variant='h2'>Step 3</Typography>
-                    <Typography variant='h6'>Select parameters</Typography>
-                    {enableDescription && (
-                        <>
-                            <CheckboxDropdown
-                                defaultChecked={[]}
-                                keys={posteriorKeys}
-                                setSelectedKeys={setSelectedKeys}
-                            />
-                        </>
-                    )}
-                </Box>
+
+                <Typography variant='h2'>
+                    Step 3: Upload Files
+                </Typography>
                 <FileUploadButton
+                    setFileUploaded={setFileUploaded}
                     enableButton={enableUpload}
-                    selectedFile={selectedFile}
-                    selectedKeys={selectedKeys}
-                    title={title}
-                    description={description}
-                    buttonMessage='Upload'
+                    selectedFiles={selectedFiles}
                 />
             </Box>
         </Box>

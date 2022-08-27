@@ -2,9 +2,8 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
-import downloadjs from 'downloadjs'
-import html2canvas from 'html2canvas'
 import { Button } from '@mui/material'
+import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
@@ -68,14 +67,13 @@ function PlotsPage({ file }) {
         }
     }
 
-    // Function for corner plot image download.
-    const downloadCornerPlotImage = async () => {
-        const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-        if (!cornerPlotElmt) return
+    // Functions for corner plot image download.
+    const downloadCornerPlotPNG = async () => {
+        PlotDownloadService.downloadAsPNG()
+    }
 
-        const canvas = await html2canvas(cornerPlotElmt)
-        const dataURL = canvas.toDataURL('image/png')
-        downloadjs(dataURL, 'corner-plot.png', 'image/png')
+    const downloadCornerPlotSVG = async () => {
+        PlotDownloadService.downloadAsSVG()
     }
 
     const colors = [
@@ -146,8 +144,11 @@ function PlotsPage({ file }) {
                     <CornerPlot datasets={datasets} parameters={parameters} config={config} />
                     <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
                 </div>
-                <Button variant='contained' onClick={downloadCornerPlotImage}>
-                    Download Image
+                <Button variant='contained' onClick={downloadCornerPlotPNG}>
+                    Download as PNG
+                </Button>
+                <Button variant='contained' onClick={downloadCornerPlotSVG}>
+                    Download as SVG
                 </Button>
             </MathJaxContext>
         </div>

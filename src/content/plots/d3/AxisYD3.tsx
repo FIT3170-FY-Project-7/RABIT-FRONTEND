@@ -18,6 +18,7 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
         .attr('width', config.subplot_size)
         .attr('height', config.axis.size)
         .attr('transform', `rotate(-90), translate(${-config.subplot_size}, 0)`)
+        .style('color', 'white')
         .append('xhtml:div')
         .style('height', '100%')
         .style('display', 'flex')
@@ -32,10 +33,15 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
         .range([config.subplot_size - 1, 0])
 
     // Add scales to axis
-    const y_axis = d3.axisLeft(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize)
+    const y_axis = svg
+        .append('g')
+        .attr('transform', `translate(${config.axis.size}, 0)`)
+        .call(d3.axisLeft(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize))
 
-    // Append group and insert axis
-    svg.append('g').attr('transform', `translate(${config.axis.size}, 0)`).call(y_axis)
+    // Explicitly colour the axis so they display correctly when downloaded
+    y_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
+    y_axis.selectAll('path').style('stroke', 'white').classed('axis-lines', true)
+    y_axis.selectAll('text').style('fill', 'white').classed('axis-labels', true)
 }
 
 const destroy = el => {
