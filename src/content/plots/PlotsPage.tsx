@@ -1,5 +1,5 @@
 import { MathJaxContext } from 'better-react-mathjax'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
@@ -122,10 +122,12 @@ function PlotsPage({ file }) {
         )
     }
 
-    // Called to populate initial parameters
+    // Called to populate initial parameters on first update and whenever parameters change
+    const firstUpdateRef = useRef(true)
     useEffect(() => {
-        updateParameters(defaultParameters)
-    }, [])
+        updateParameters(firstUpdateRef.current ? defaultParameters : parameters.map(p => p.name))
+        firstUpdateRef.current = false
+    }, [datasets])
 
     return (
         <div>

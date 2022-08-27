@@ -7,7 +7,6 @@ import { DatasetConfig } from '../PlotTypes'
 import './DatasetConfiguration.css'
 import { colours } from '../constants/Colours'
 import ReorderButtons from './ReorderButtons'
-import data from '../../datapage/sample_2'
 
 type DatasetConfigurationPropType = {
     dataset: DatasetConfig

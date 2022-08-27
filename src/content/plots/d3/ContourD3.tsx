@@ -5,11 +5,7 @@ import { PlotConfig, DatasetConfig, ParameterConfig } from '../PlotTypes'
 
 const sigma = n => 1 - Math.E ** (-0.5 * n ** 2)
 
-const rectbin = (x: number[], y: number[], bins) => {
-    const x_axis = d3.scaleLinear().domain(d3.extent(x)).range([0, bins])
-
-    const y_axis = d3.scaleLinear().domain(d3.extent(y)).range([bins, 0])
-
+const rectbin = (x: number[], y: number[], bins, x_axis, y_axis) => {
     const data = d3.zip(x, y) as [number, number][]
     const values = Array((bins + 1) ** 2).fill(0)
 
@@ -51,7 +47,7 @@ const create = (
 ) => {
     const sigmas = dataset.sigmas.map(sigma)
 
-    // Generate svg element within containing div element
+    // Select main svg element
     const svg = d3.select(el)
 
     // *// Adds dot points to show each data point. Massively slows render speed, but could be a toggled functionality.
@@ -88,9 +84,11 @@ const create = (
     // Extract x and y values from dataset
     const x_data = dataset.data[parameter_x.name]
     const y_data = dataset.data[parameter_y.name]
+    const x_axis = d3.scaleLinear().domain(parameter_x.domain).range([0, dataset.bins])
+    const y_axis = d3.scaleLinear().domain(parameter_y.domain).range([dataset.bins, 0])
 
     // Calculate and smooth bins
-    const bins = rectbin(x_data, y_data, dataset.bins)
+    const bins = rectbin(x_data, y_data, dataset.bins, x_axis, y_axis)
     d3.blur2({ data: bins, width: dataset.bins }, dataset.blur_radius)
 
     // Calculate the contours

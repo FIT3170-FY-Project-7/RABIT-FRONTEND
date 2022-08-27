@@ -4,15 +4,17 @@ import * as d3 from 'd3'
 import { PlotConfig, DatasetConfig, ParameterConfig } from '../PlotTypes'
 
 const create = (el: HTMLElement, dataset: DatasetConfig, parameter: ParameterConfig, config: PlotConfig) => {
-    // Generate svg element within containing div element
+    // Select main svg element
     const svg = d3.select(el)
 
     // Extract data from dataset
     const data = dataset.data[parameter.name]
 
+    const equalThresholds = (data, min, max) => d3.range(dataset.bins).map(t => min + (t / dataset.bins) * (max - min))
     const raw_bins = d3
         .bin()
-        .thresholds(dataset.bins)(data)
+        .domain(parameter.domain)
+        .thresholds(equalThresholds)(data)
         .map(bin => ({ value: bin.length, x0: bin.x0, x1: bin.x1 }))
 
     // Smooth bin values
@@ -23,7 +25,7 @@ const create = (el: HTMLElement, dataset: DatasetConfig, parameter: ParameterCon
         value: new_value
     }))
 
-    const x_axis = d3.scaleLinear().domain(d3.extent(data)).range([0, config.subplot_size])
+    const x_axis = d3.scaleLinear().domain(parameter.domain).range([0, config.subplot_size])
     const y_axis = d3
         .scaleLinear()
         .domain([0, d3.max(bins, d => d.value) * 1.1]) // * 1.1 to add space above maximum peak
