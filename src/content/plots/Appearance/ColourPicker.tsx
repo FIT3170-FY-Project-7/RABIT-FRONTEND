@@ -29,41 +29,46 @@ function ColourPicker({ handleColourChange, initial }) {
         <div
             style={{
                 position: 'relative',
-                paddingTop: '2px'
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
             }}
         >
             <div>Colour</div>
-            <button
-                onClick={handleClick}
-                style={{
-                    width: '40px',
-                    height: '40px',
-                    backgroundColor: currentColour,
-                    borderRadius: '20%',
-                    border: 'none',
-                    cursor: 'pointer'
-                }}
-            ></button>
-            {displayColourPicker ? (
-                <div
+            <div>
+                <button
+                    onClick={handleClick}
                     style={{
-                        position: 'absolute',
-                        zIndex: '2'
+                        width: '40px',
+                        height: '40px',
+                        backgroundColor: currentColour,
+                        borderRadius: '20%',
+                        border: 'none',
+                        cursor: 'pointer'
                     }}
-                >
+                ></button>
+                {displayColourPicker ? (
                     <div
                         style={{
-                            position: 'fixed',
-                            top: '0px',
-                            right: '0px',
-                            bottom: '0px',
-                            left: '0px'
+                            position: 'absolute',
+                            zIndex: '2'
                         }}
-                        onClick={handleClose}
-                    />
-                    <TwitterPicker onChange={handleColourSelected} />
-                </div>
-            ) : null}
+                    >
+                        <div
+                            style={{
+                                position: 'fixed',
+                                top: '0px',
+                                right: '0px',
+                                bottom: '0px',
+                                left: '0px'
+                            }}
+                            onClick={handleClose}
+                        />
+                        <TwitterPicker onChange={handleColourSelected} />
+                    </div>
+                ) : null}
+            </div>
         </div>
     )
 }

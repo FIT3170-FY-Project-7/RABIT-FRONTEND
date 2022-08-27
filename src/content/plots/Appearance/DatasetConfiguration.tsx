@@ -35,8 +35,6 @@ function DatasetConfiguration({
         }))
     }
 
-    console.log('Dataset:', index, dataset)
-
     const handleSigmaChange = (index: number) => event => {
         setIsSaved(false)
         let sigmas_input = event.target.value

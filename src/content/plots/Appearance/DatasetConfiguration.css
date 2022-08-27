@@ -8,8 +8,7 @@
     position: relative;
     margin-bottom: 10px;
     overflow: visible;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
 }
 
 .appearance-pickers{
@@ -26,6 +25,9 @@
     border: none;
     border-radius: 5%;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .appearance-apply-button:hover {
