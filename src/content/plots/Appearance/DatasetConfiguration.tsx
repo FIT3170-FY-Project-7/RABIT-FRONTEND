@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from '@mui/material'
 import BlurSlider from './BlurSlider'
 import ColourPicker from './ColourPicker'
@@ -26,6 +26,10 @@ function DatasetConfiguration({
 }: DatasetConfigurationPropType) {
     const [newDataset, setNewDataset] = useState({ ...dataset })
     const [isSaved, setIsSaved] = useState(true)
+
+    useEffect(() => {
+        setNewDataset({ ...dataset })
+    }, [dataset])
 
     const handleColourChange = (index: number) => colour => {
         setIsSaved(false)

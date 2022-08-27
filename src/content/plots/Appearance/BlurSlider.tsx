@@ -6,7 +6,6 @@ function BlurSlider({ initial, handleBlurChange }) {
     const inputRef = useRef(null)
     const textRef = useRef(null)
     useEffect(() => {
-        console.log(inputRef.current)
         inputRef.current.value = initial
         textRef.current.innerText = `Blur Radius: ${Number(initial).toFixed(1)}`
     }, [initial])

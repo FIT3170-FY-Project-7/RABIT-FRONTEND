@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { colours } from '../constants/Colours'
 
 function SigmaPicker({ initial, handleSigmaChange }) {
     /*
@@ -35,7 +36,7 @@ function SigmaPicker({ initial, handleSigmaChange }) {
                     textAlign: 'center',
                     borderRadius: '5%',
                     border: '1px solid rgba(255,255,255,0.5)',
-                    backgroundColor: '#1B2038'
+                    backgroundColor: colours.pickerBackground
                 }}
             ></input>
         </div>
