@@ -1,5 +1,5 @@
 import { MathJaxContext } from 'better-react-mathjax'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
 import { Button } from '@mui/material'
@@ -39,20 +39,36 @@ const ParameterConfigDefault: ParameterConfig = {
     domain: [0, 0]
 }
 
-function PlotsPage({ file }) {
+const colors = [
+    '#0088FF',
+    '#BF40BF',
+    '#800000',
+    '#FF8800',
+    '#FFCC00',
+    '#FFFF00',
+    '#0088FF',
+    '#00CC00',
+    '#FF0000',
+    '#FF8800',
+    '#FFCC00',
+    '#FFFF00'
+]
+
+function PlotsPage({ files, availableParameters }) {
     /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
     including the parameter selectors and the corner plot itself. It also hosts the download button and the appearance config.
     */
-    const [datasets, setDatasets] = useState<DatasetConfig[]>([
-        {
+    const [datasets, setDatasets] = useState<DatasetConfig[]>(
+        files.map((file, index) => ({
             ...DatasetConfigDefault,
-            data: file['posterior']['content']
-        }
-    ])
+            color: colors[index],
+            data: file.posterior.content
+        }))
+    )
     const [parameters, setParameters] = useState<ParameterConfig[]>([])
     const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
-    const defaultParameters = file.selected_keys
+    const defaultParameters = files.selected_keys ?? []
 
     // Config for MathJax rendering of mathematical symbols
     const MathJaxConfig = {
@@ -74,36 +90,6 @@ function PlotsPage({ file }) {
 
     const downloadCornerPlotSVG = async () => {
         PlotDownloadService.downloadAsSVG()
-    }
-
-    const colors = [
-        '#0088FF',
-        '#BF40BF',
-        '#800000',
-        '#FF8800',
-        '#FFCC00',
-        '#FFFF00',
-        '#0088FF',
-        '#00CC00',
-        '#FF0000',
-        '#FF8800',
-        '#FFCC00',
-        '#FFFF00'
-    ]
-    const processFiles = e => {
-        const reader = new FileReader()
-        reader.onload = e => {
-            const newDataset = JSON.parse(e.target.result as string)
-            setDatasets(data => [
-                ...data,
-                {
-                    ...DatasetConfigDefault,
-                    data: newDataset['posterior']['content'],
-                    color: colors[data.length]
-                }
-            ])
-        }
-        reader.readAsText(e.target.files[0])
     }
 
     // Called from CheckboxDropdown component to fill parameters with ParameterConfig values
@@ -129,11 +115,10 @@ function PlotsPage({ file }) {
 
     return (
         <div>
-            <input type='file' onChange={processFiles}></input>
             <MathJaxContext config={MathJaxConfig}>
                 <CheckboxDropdown
                     defaultChecked={defaultParameters}
-                    keys={Object.keys(datasets[0].data)}
+                    keys={availableParameters ?? []}
                     setSelectedKeys={updateParameters}
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />

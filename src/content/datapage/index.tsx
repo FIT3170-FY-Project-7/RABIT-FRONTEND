@@ -13,7 +13,8 @@ import { useParams } from 'react-router-dom'
 function ManagementUserSettings() {
     // state variable and function setter for tab
     const [currentTab, setCurrentTab] = useState<string>('data')
-    const [file, setFile] = useState(null)
+    const [files, setFiles] = useState(null)
+    const [parameters, setParameters] = useState(null)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [loading, setLoading] = useState(true)
@@ -23,7 +24,9 @@ function ManagementUserSettings() {
 
     useEffect(() => {
         api.get(`/raw-data/${id}`).then(function (response) {
-            setFile(response.data.data)
+            console.log(response)
+            setFiles(response.data.data)
+            setParameters(response.data.parameters)
             setTitle(response.data.name)
             // setDescription(response.data.description)
             setLoading(false)
@@ -52,7 +55,7 @@ function ManagementUserSettings() {
                         </Grid>
                         <Grid item xs={10}>
                             <Box>
-                                {currentTab === 'data' && <PlotsPage file={file} />}
+                                {currentTab === 'data' && <PlotsPage files={files} availableParameters={parameters} />}
                                 {currentTab === 'comments' && <CommentsTab />}
                             </Box>
                         </Grid>
