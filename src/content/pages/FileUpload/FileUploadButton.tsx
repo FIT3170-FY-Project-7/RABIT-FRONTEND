@@ -11,16 +11,16 @@ import api from '../../../api'
 
 interface FileUpload {
     enableButton: boolean
-    selectedFile: any
+    selectedFiles: any
     selectedKeys: Array<string>
-    title: String
-    description: String
-    buttonMessage: String
+    title: string
+    description: string
+    buttonMessage: string
 }
 
 export default function FileUploadButton({
     enableButton,
-    selectedFile,
+    selectedFiles,
     selectedKeys,
     title,
     description,
@@ -30,7 +30,6 @@ export default function FileUploadButton({
     const navigate = useNavigate()
 
     const handleSubmission = async () => {
-        const results = []
         const options = {
             onUploadProgress: progressEvent => {
                 const { loaded, total } = progressEvent
@@ -42,34 +41,25 @@ export default function FileUploadButton({
             }
         }
 
-        await selectedFile.text().then(async jsonString => {
-            var json = JSON.parse(jsonString)
-            json.selected_keys = selectedKeys
-            json.title = title
-            json.description = description
-            console.log(json.selected_keys)
 
-            // console.log(json);
-            json = JSON.stringify(json)
-            // console.log(jsonMerged);
-            const data = new FormData()
+        const data = new FormData()
+        data.append('name', title)
+        for (const selectedFile of selectedFiles) {
+            const jsonString = await selectedFile.text()
+            const json = {
+                selectedKeys,
+                title,
+                description,
+                posterior: { content: JSON.parse(jsonString)?.posterior?.content }
+            }
 
-            const blob = new Blob([json], { type: 'application/json' })
-            console.log(blob)
-            data.append('file', blob) //
+            const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
+            data.append('file', blob)
+        }
 
-            //dev solution to test upload works
-            //run `npx nodemon ./server.tsx` in repo root to run local test server
-            await api.post('/uploads', data, options).then(res => {
-                console.log(res.statusText)
-                console.log(uploadPercentage)
-            })
+        const response = await api.post('/raw-data', data, options)
 
-            //getting data
-            // const filename = "1653141037449";
-        })
-
-        navigate('/visualise')
+        navigate(`/visualise/${response.data.id}`)
     }
     return (
         <div>

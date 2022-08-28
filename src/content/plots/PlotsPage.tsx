@@ -2,9 +2,8 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useCallback, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
-import downloadjs from 'downloadjs'
-import html2canvas from 'html2canvas'
 import { Button } from '@mui/material'
+import PlotDownloadService from './PlotDownload.service'
 
 function PlotsPage({ file }) {
     /* 
@@ -14,8 +13,8 @@ function PlotsPage({ file }) {
 
     */
     const [data, setData] = useState(file['posterior']['content'])
-    const [parameters, setParameters] = useState(file.selected_keys)
-    const [defaultParameters, setDefaultParameters] = useState(file.selected_keys)
+    const [parameters, setParameters] = useState(file.selectedKeys ?? [])
+    const [defaultParameters, setDefaultParameters] = useState(file.selectedKeys ?? [])
 
     // Config for MathJax rendering of mathematical symbols
     const config = {
@@ -30,14 +29,13 @@ function PlotsPage({ file }) {
         }
     }
 
-    // Function for corner plot image download.
-    const downloadCornerPlotImage = async () => {
-        const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-        if (!cornerPlotElmt) return
+    // Functions for corner plot image download.
+    const downloadCornerPlotPNG = async () => {
+        PlotDownloadService.downloadAsPNG()
+    }
 
-        const canvas = await html2canvas(cornerPlotElmt)
-        const dataURL = canvas.toDataURL('image/png')
-        downloadjs(dataURL, 'corner-plot.png', 'image/png')
+    const downloadCornerPlotSVG = async () => {
+        PlotDownloadService.downloadAsSVG()
     }
 
     return (
@@ -50,8 +48,11 @@ function PlotsPage({ file }) {
                     sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <CornerPlot data={data} parameters={parameters} />
-                <Button variant='contained' onClick={downloadCornerPlotImage}>
-                    Download Image
+                <Button variant='contained' onClick={downloadCornerPlotPNG}>
+                    Download as PNG
+                </Button>
+                <Button variant='contained' onClick={downloadCornerPlotSVG}>
+                    Download as SVG
                 </Button>
             </MathJaxContext>
         </div>

@@ -16,7 +16,8 @@
     "scripts": {
         "start": "webpack-dev-server --mode=development --env backend=local",
         "startNectar": "webpack-dev-server --mode=development --env backend=online",
-        "build": "webpack --mode=production --env backend=online",
+        "build": "webpack --mode=production --env backend=local",
+        "buildNectar": "webpack --mode=production --env backend=online",
         "openProd": "npx concurrently \"npx serve -s dist\" \"npm run openDev\"",
         "openDev": "start http://localhost:3000",
         "prettyAll": "npx prettier --write .",
@@ -50,13 +51,14 @@
         "axios": "^0.27.2",
         "better-react-mathjax": "^2.0.1",
         "buffer": "^6.0.3",
-        "busboy": "^1.6.0",
         "clsx": "^1.1.1",
         "cors": "^2.8.5",
         "csvtojson": "^2.0.10",
         "d3": "^7.4.4",
         "d3-array": "^3.2.0",
         "date-fns": "^2.28.0",
+        "express-busboy": "^9.0.0",
+        "fs-extra": "^5.0.0",
         "downloadjs": "^1.4.7",
         "history": "^5.3.0",
         "html2canvas": "^1.4.1",
@@ -64,7 +66,7 @@
         "imagemin-pngquant": "^9.0.2",
         "jwt-decode": "^3.1.2",
         "lodash": "^4.17.21",
-        "multer": "^1.4.4",
+        "multer": "^1.4.5-lts.1",
         "nprogress": "^0.2.0",
         "numeral": "^2.0.6",
         "prop-types": "^15.8.1",
@@ -152,7 +154,6 @@
     "overrides": {
         "react": "$react",
         "react-dom": "$react-dom",
-        "busboy": "$busboy",
         "bin-version-check": "$bin-version-check",
         "babel-eslint": "@babel/eslint-parser"
     }
