@@ -13,12 +13,16 @@
     ListItemButton,
     Divider
 } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 import { styled } from '@mui/material/styles'
-import api from '../../../../api'
-import { useNavigate } from 'react-router-dom'
+
+const AvatarWrapper = styled(Avatar)(
+    ({ theme }) => `
+    width: ${theme.spacing(5)};
+    height: ${theme.spacing(5)};`
+)
 
 const images = [
     'https://images.unsplash.com/photo-1614732484003-ef9881555dc3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
@@ -46,21 +50,6 @@ const plots = [
 ]
 
 function PlotsTab() {
-    const navigate = useNavigate()
-    useEffect(() => {
-        getPlotDetails()
-    }, [])
-
-    const getPlotDetails = async () => {
-        const id = ''
-        const response = await api.get(`/raw-data/user/${id}`)
-    }
-
-    const navigateToPlot = id => {
-        console.log(id)
-        // navigate(`/visualise/${id}`)
-    }
-
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -72,9 +61,6 @@ function PlotsTab() {
                     {plots.map(plot => (
                         <div key={plot.title}>
                             <ListItem
-                                onClick={() => {
-                                    navigateToPlot(plot.title)
-                                }}
                                 secondaryAction={
                                     <IconButton color='primary' aria-label='delete plot' component='label'>
                                         <DeleteIcon />
