@@ -14,7 +14,6 @@ import {
 import { FormEvent, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import React, {useContext} from 'react'
 import Logo from '../../../../components/LogoSign'
 
 import GoogleLogo from 'assets/images/logo/google.svg'
@@ -90,7 +89,6 @@ function SignUp() {
 }
 
 function SignupForm() {
-
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
 
@@ -130,35 +128,30 @@ function SignupForm() {
 
         // Don't continue to signup logic if there are errors.
         // We cannot check the useState values, as these will not be updated until the next render.
-       if (fullNameInvalid || usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) return
-       
-        
+        if (fullNameInvalid || usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) return
 
         // TODO: Signup logic.
         const asyncSignupCall = async () => {
             try {
                 const response = await fetch('http://localhost:8000/raw-data/create-user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                  },
-                body: JSON.stringify({
-                    email: email,
-                    displayName: fullName,
-                    userid: password
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        displayName: fullName,
+                        userid: password
                     })
-                 });
-                 const data = await response.json();
-                 console.log(data);
-               }  
-               catch(error) {
-                  console.log(error)
-                } 
-                
+                })
+                const data = await response.json()
+                console.log(data)
+            } catch (error) {
+                console.log(error)
             }
-            
-            
-            asyncSignupCall()
+        }
+
+        asyncSignupCall()
 
         // Prevent default form action (which would refresh the page).
         e.preventDefault()

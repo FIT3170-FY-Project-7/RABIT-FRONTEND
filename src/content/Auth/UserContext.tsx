@@ -1,3 +1,10 @@
-import {createContext} from 'react'
+import { createContext, useContext } from 'react'
 
-export const UserContext = createContext(null);
+interface IContext {
+    login: (email: string, password: string) => void
+    logout: () => void
+    jwt: string
+}
+export const UserContext = createContext<IContext>(null)
+
+export const useUserContext = () => useContext(UserContext)
