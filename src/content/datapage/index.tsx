@@ -11,8 +11,6 @@ import api from '../../api'
 import { useParams } from 'react-router-dom'
 
 function ManagementUserSettings() {
-    // state variable and function setter for tab
-    const [currentTab, setCurrentTab] = useState<string>('data')
     const [files, setFiles] = useState(null)
     const [parameters, setParameters] = useState(null)
     const [title, setTitle] = useState('')
@@ -20,51 +18,27 @@ function ManagementUserSettings() {
     const [loading, setLoading] = useState(true)
     const { id } = useParams()
 
-    const onTabChange = (event: ChangeEvent<{}>, value: string): void => setCurrentTab(value)
-
     useEffect(() => {
         api.get(`/raw-data/${id}`).then(function (response) {
             console.log(response)
             setFiles(response.data.data)
             setParameters(response.data.parameters)
-            setTitle(response.data.name)
-            // setDescription(response.data.description)
+            setTitle(response.data.title)
+            setDescription(response.data.description)
             setLoading(false)
         })
     }, [])
 
     return (
-        <>
+        <Box padding='1rem' height='100%' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}>
             <Helmet>
                 <title>RABIT - Visualise</title>
             </Helmet>
-
-            <Grid container direction='row' justifyContent='center' alignItems='stretch' sx={{ marginTop: '2rem' }}>
-                {!loading && (
-                    <>
-                        <Grid item xs={10}>
-                            <PageHeader
-                                currentTab={currentTab}
-                                onTabChange={onTabChange}
-                                dataTitle={title}
-                                dataDescription={description}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Divider />
-                        </Grid>
-                        <Grid item xs={10}>
-                            <Box>
-                                {currentTab === 'data' && <PlotsPage files={files} availableParameters={parameters} />}
-                                {currentTab === 'comments' && <CommentsTab />}
-                            </Box>
-                        </Grid>
-                    </>
-                )}
-            </Grid>
-
+            {!loading && (
+                <PlotsPage files={files} availableParameters={parameters} title={title} description={description} />
+            )}
             <Footer />
-        </>
+        </Box>
     )
 }
 

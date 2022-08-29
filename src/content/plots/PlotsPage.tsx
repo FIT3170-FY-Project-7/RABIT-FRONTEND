@@ -2,7 +2,7 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
-import { Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
@@ -54,7 +54,7 @@ const colors = [
     '#FFFF00'
 ]
 
-function PlotsPage({ files, availableParameters }) {
+function PlotsPage({ files, availableParameters, title, description }) {
     /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
     including the parameter selectors and the corner plot itself. It also hosts the download button and the appearance config.
@@ -114,29 +114,43 @@ function PlotsPage({ files, availableParameters }) {
     }, [datasets])
 
     return (
-        <div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
+            <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
+                Visualise {title ?? 'Data'}
+            </Typography>
+            {description && (
+                <Typography variant='body1' sx={{ marginBottom: '1rem' }}>
+                    {description}
+                </Typography>
+            )}
             <MathJaxContext config={MathJaxConfig}>
+                <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
+                    Select parameters to plot
+                </Typography>
                 <CheckboxDropdown
                     defaultChecked={defaultParameters}
                     keys={availableParameters ?? []}
                     setSelectedKeys={updateParameters}
-                    sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <div
                     className='corner-plot-appearance-config-container'
-                    style={{ display: 'flex', justifyContent: 'space-around' }}
+                    style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}
                 >
                     <CornerPlot datasets={datasets} parameters={parameters} config={config} />
-                    <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                    <Box>
+                        <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Button variant='contained' onClick={downloadCornerPlotPNG} sx={{ marginRight: '1rem' }}>
+                                Download as PNG
+                            </Button>
+                            <Button variant='contained' onClick={downloadCornerPlotSVG}>
+                                Download as SVG
+                            </Button>
+                        </Box>
+                    </Box>
                 </div>
-                <Button variant='contained' onClick={downloadCornerPlotPNG}>
-                    Download as PNG
-                </Button>
-                <Button variant='contained' onClick={downloadCornerPlotSVG}>
-                    Download as SVG
-                </Button>
             </MathJaxContext>
-        </div>
+        </Box>
     )
 }
 

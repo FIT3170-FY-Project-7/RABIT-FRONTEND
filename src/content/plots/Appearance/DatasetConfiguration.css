@@ -1,26 +1,27 @@
-.dataset-configuration-container{
+.dataset-configuration-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
     height: 130px;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     position: relative;
     margin-bottom: 10px;
     overflow: visible;
     padding: 0 20px;
 }
 
-.appearance-pickers{
+.appearance-pickers {
     width: 100%;
     height: 65%;
     display: flex;
     position: relative;
     justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
 }
 
-.appearance-apply-button{
+.appearance-apply-button {
     height: 100%;
     border: none;
     border-radius: 5%;

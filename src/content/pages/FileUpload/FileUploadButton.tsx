@@ -11,8 +11,7 @@ import api from '../../../api'
 
 interface FileUpload {
     enableButton: boolean
-    selectedFiles: any
-    selectedKeys: Array<string>
+    selectedFiles: File[]
     title: string
     description: string
     buttonMessage: string
@@ -21,7 +20,6 @@ interface FileUpload {
 export default function FileUploadButton({
     enableButton,
     selectedFiles,
-    selectedKeys,
     title,
     description,
     buttonMessage
@@ -41,19 +39,16 @@ export default function FileUploadButton({
             }
         }
 
-
         const data = new FormData()
-        data.append('name', title)
+        data.append('title', title)
+        data.append('description', description)
         for (const selectedFile of selectedFiles) {
-            const jsonString = await selectedFile.text()
-            const json = {
-                selectedKeys,
-                title,
-                description,
-                posterior: { content: JSON.parse(jsonString)?.posterior?.content }
+            const content = await selectedFile.text()
+            const fileData = {
+                posterior: { content: JSON.parse(content)?.posterior?.content }
             }
 
-            const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
+            const blob = new Blob([JSON.stringify(fileData)], { type: 'application/json' })
             data.append('file', blob)
         }
 
@@ -63,22 +58,27 @@ export default function FileUploadButton({
     }
     return (
         <div>
-            <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                    disabled={!enableButton}
-                    variant='contained'
-                    startIcon={<UploadIcon />}
-                    onClick={handleSubmission}
-                >
-                    {buttonMessage}
-                </Button>
-            </Box>
-            <Box sx={{ paddingTop: 2 }}>
-                <LinearProgress variant='determinate' value={uploadPercentage} />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-                <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
-            </Box>
+            {uploadPercentage ? (
+                <>
+                    <Box sx={{ paddingTop: 2 }}>
+                        <LinearProgress variant='determinate' value={uploadPercentage} />
+                    </Box>
+                    <Box sx={{ minWidth: 35 }}>
+                        <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
+                    </Box>
+                </>
+            ) : (
+                <Box style={{ display: 'flex', justifyContent: 'end' }}>
+                    <Button
+                        disabled={!enableButton}
+                        variant='contained'
+                        startIcon={<UploadIcon />}
+                        onClick={handleSubmission}
+                    >
+                        {buttonMessage}
+                    </Button>
+                </Box>
+            )}
         </div>
     )
 }
