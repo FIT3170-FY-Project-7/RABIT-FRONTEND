@@ -1,39 +1,42 @@
-import * as d3 from 'd3'
-import MathJax from 'better-react-mathjax'
+// The Y axis created using D3
 
-const create = (el, layout, domain, label) => {
+import * as d3 from 'd3'
+import { PlotConfig, ParameterConfig } from '../PlotTypes'
+
+const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig) => {
     // Append SVG
     const svg = d3
         .select(el)
         .append('svg')
         .attr('class', 'd3')
-        .attr('width', layout.axis.size)
-        .attr('height', layout.height)
+        .attr('width', config.axis.size)
+        .attr('height', config.subplot_size)
+        .style('overflow', 'visible')
 
     // Labeling
     svg.append('foreignObject')
-        .attr('width', layout.height)
-        .attr('height', layout.axis.size)
-        .attr('transform', `rotate(-90), translate(${-layout.height}, 0)`)
+        .attr('width', config.subplot_size)
+        .attr('height', config.axis.size)
+        .attr('transform', `rotate(-90), translate(${-config.subplot_size}, 0)`)
         .style('color', 'white')
         .append('xhtml:div')
         .style('height', '100%')
         .style('display', 'flex')
         .style('justify-content', 'center')
         .style('align-items', 'center')
-        .html(label)
+        .html(parameter.display_text)
 
     // Create scale
     const scale = d3
         .scaleLinear()
-        .domain(domain)
-        .range([layout.height - 1, 0])
+        .domain(parameter.domain)
+        .range([config.subplot_size - 1, 0])
 
     // Add scales to axis
     const y_axis = svg
         .append('g')
-        .attr('transform', `translate(${layout.axis.size}, 0)`)
-        .call(d3.axisLeft(scale).ticks(layout.axis.ticks).tickSize(layout.axis.tickSize))
+        .attr('transform', `translate(${config.axis.size}, 0)`)
+        .call(d3.axisLeft(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize))
 
     // Explicitly colour the axis so they display correctly when downloaded
     y_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
