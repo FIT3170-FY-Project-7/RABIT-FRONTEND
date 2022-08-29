@@ -36,7 +36,8 @@ function SigmaPicker({ initial, handleSigmaChange }) {
                     textAlign: 'center',
                     borderRadius: '5%',
                     border: '1px solid rgba(255,255,255,0.5)',
-                    backgroundColor: colours.pickerBackground
+                    backgroundColor: colours.pickerBackground,
+                    width: '75px'
                 }}
             ></input>
         </div>

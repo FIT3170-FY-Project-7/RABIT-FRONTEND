@@ -23,16 +23,7 @@ const HeaderWrapper = styled(Box)(
 const UserBoxWrapper = styled(Box)(({ theme }) => `margin: ${theme.spacing(0, 0, 0, 2)};`)
 
 function Header() {
-    return (
-        <HeaderWrapper display='flex' alignItems='center'>
-            <Box sx={{ width: '100%' }}>
-                <DataTitle />
-            </Box>
-            <UserBoxWrapper>
-                <HeaderUserbox />
-            </UserBoxWrapper>
-        </HeaderWrapper>
-    )
+    return <div />
 }
 
 export default Header

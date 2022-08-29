@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import { DatasetConfig } from '../PlotTypes'
 import DatasetConfiguration from './DatasetConfiguration'
 
@@ -22,7 +23,7 @@ const AppearanceConfig = ({ datasets, setDatasets }: AppearanceConfigPropType) =
     }
 
     return (
-        <div style={{ position: 'relative', width: '35%', minWidth: '320px' }}>
+        <Box>
             {datasets.map((dataset: DatasetConfig, index: number) => (
                 <DatasetConfiguration
                     key={`dataset-config-${index}`}
@@ -33,7 +34,7 @@ const AppearanceConfig = ({ datasets, setDatasets }: AppearanceConfigPropType) =
                     updateDatasets={updateDatasets(index)}
                 ></DatasetConfiguration>
             ))}
-        </div>
+        </Box>
     )
 }
 

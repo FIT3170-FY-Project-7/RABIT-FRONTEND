@@ -2,14 +2,14 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
-import { Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
 
 const PlotConfigDefault: PlotConfig = {
-    plot_size: 500,
+    plot_size: 750,
     subplot_size: 150,
     margin: {
         horizontal: 10,
@@ -114,29 +114,38 @@ function PlotsPage({ files, availableParameters }) {
     }, [datasets])
 
     return (
-        <div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
+            <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
+                Visualise Data
+            </Typography>
             <MathJaxContext config={MathJaxConfig}>
+                <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
+                    Select parameters to plot
+                </Typography>
                 <CheckboxDropdown
                     defaultChecked={defaultParameters}
                     keys={availableParameters ?? []}
                     setSelectedKeys={updateParameters}
-                    sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <div
                     className='corner-plot-appearance-config-container'
-                    style={{ display: 'flex', justifyContent: 'space-around' }}
+                    style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}
                 >
                     <CornerPlot datasets={datasets} parameters={parameters} config={config} />
-                    <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                    <Box>
+                        <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Button variant='contained' onClick={downloadCornerPlotPNG} sx={{ marginRight: '1rem' }}>
+                                Download as PNG
+                            </Button>
+                            <Button variant='contained' onClick={downloadCornerPlotSVG}>
+                                Download as SVG
+                            </Button>
+                        </Box>
+                    </Box>
                 </div>
-                <Button variant='contained' onClick={downloadCornerPlotPNG}>
-                    Download as PNG
-                </Button>
-                <Button variant='contained' onClick={downloadCornerPlotSVG}>
-                    Download as SVG
-                </Button>
             </MathJaxContext>
-        </div>
+        </Box>
     )
 }
 
