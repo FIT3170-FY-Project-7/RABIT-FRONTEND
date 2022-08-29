@@ -16,7 +16,7 @@ import GoogleLogo from 'assets/images/logo/google.svg'
 import { FormEvent, useState } from 'react'
 import { useNotify } from 'react-admin'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../../../components/LogoSign'
 import { useUserContext } from '../../../Auth/UserContext'
 
@@ -99,8 +99,8 @@ const Login = () => {
  */
 const LoginForm = () => {
     const { login } = useUserContext()
+    const navigate = useNavigate()
     const notify = useNotify()
-
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
 
@@ -131,7 +131,13 @@ const LoginForm = () => {
         // test
         // Prevent default form action (which would refresh the page).
         e.preventDefault()
-        login(username, password)
+
+        try {
+            login(username, password)
+            navigate('/management/profile')
+        } catch (err) {
+            notify(err)
+        }
     }
 
     return (
