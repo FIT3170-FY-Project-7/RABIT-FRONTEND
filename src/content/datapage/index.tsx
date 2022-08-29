@@ -27,8 +27,8 @@ function ManagementUserSettings() {
             console.log(response)
             setFiles(response.data.data)
             setParameters(response.data.parameters)
-            setTitle(response.data.name)
-            // setDescription(response.data.description)
+            setTitle(response.data.title)
+            setDescription(response.data.description)
             setLoading(false)
         })
     }, [])
@@ -38,7 +38,9 @@ function ManagementUserSettings() {
             <Helmet>
                 <title>RABIT - Visualise</title>
             </Helmet>
-            {!loading && <PlotsPage files={files} availableParameters={parameters} />}
+            {!loading && (
+                <PlotsPage files={files} availableParameters={parameters} title={title} description={description} />
+            )}
             <Footer />
         </Box>
     )

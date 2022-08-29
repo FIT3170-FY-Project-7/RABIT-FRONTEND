@@ -54,7 +54,7 @@ const colors = [
     '#FFFF00'
 ]
 
-function PlotsPage({ files, availableParameters }) {
+function PlotsPage({ files, availableParameters, title, description }) {
     /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
     including the parameter selectors and the corner plot itself. It also hosts the download button and the appearance config.
@@ -116,8 +116,13 @@ function PlotsPage({ files, availableParameters }) {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
             <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
-                Visualise Data
+                Visualise {title ?? 'Data'}
             </Typography>
+            {description && (
+                <Typography variant='body1' sx={{ marginBottom: '1rem' }}>
+                    {description}
+                </Typography>
+            )}
             <MathJaxContext config={MathJaxConfig}>
                 <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
                     Select parameters to plot
