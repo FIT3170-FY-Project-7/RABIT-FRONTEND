@@ -9,7 +9,7 @@ import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
 
 const PlotConfigDefault: PlotConfig = {
-    plot_size: 750,
+    plot_size: 500,
     subplot_size: 150,
     margin: {
         horizontal: 10,
