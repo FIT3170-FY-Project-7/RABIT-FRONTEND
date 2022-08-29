@@ -22,8 +22,6 @@ const SidebarWrapper = styled(Box)(
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             position                    : fixed;
             z-index                     : 10;
-            border-top-right-radius     : ${theme.general.borderRadius};
-            border-bottom-right-radius  : ${theme.general.borderRadius};
         }
     `
 )
@@ -40,19 +38,17 @@ const TopSection = styled(Box)(
 
 function Sidebar() {
     return (
-        <Hidden lgDown>
-            <SidebarWrapper>
-                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <TopSection>
-                        <Logo />
-                    </TopSection>
-                    <SidebarMenu />
-                    <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
-                        <HeaderUserbox />
-                    </Box>
+        <SidebarWrapper>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <TopSection>
+                    <Logo />
+                </TopSection>
+                <SidebarMenu />
+                <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
+                    <HeaderUserbox />
                 </Box>
-            </SidebarWrapper>
-        </Hidden>
+            </Box>
+        </SidebarWrapper>
     )
 }
 
