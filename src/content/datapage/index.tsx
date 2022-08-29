@@ -11,16 +11,12 @@ import api from '../../api'
 import { useParams } from 'react-router-dom'
 
 function ManagementUserSettings() {
-    // state variable and function setter for tab
-    const [currentTab, setCurrentTab] = useState<string>('data')
     const [files, setFiles] = useState(null)
     const [parameters, setParameters] = useState(null)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [loading, setLoading] = useState(true)
     const { id } = useParams()
-
-    const onTabChange = (event: ChangeEvent<{}>, value: string): void => setCurrentTab(value)
 
     useEffect(() => {
         api.get(`/raw-data/${id}`).then(function (response) {
