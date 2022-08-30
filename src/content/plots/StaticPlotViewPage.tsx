@@ -4,8 +4,9 @@ import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
 import html2canvas from 'html2canvas'
 import { Button } from '@mui/material'
-import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
+import { PlotConfig, DatasetConfig, ParameterConfig, ApiParameterConfig } from './PlotTypes'
 import { colours } from './constants/Colours'
+import api from '../../api'
 
 const PlotConfigDefault: PlotConfig = {
     plot_size: 700,
@@ -35,18 +36,32 @@ function StaticPlotViewPage() {
     // Plot ID will be 123
     const plot_id = window.location.href.split('/').slice(-1).pop()
 
-    // TODO: Use effect to fetch datasetConfig and parameterConfig by ID.
-    // -----------------------------------------------------------------
-    // API CALL
-    // set datasetConfig and parameterConfig
-    // -----------------------------------------------------------------
-
+    // ============================================
+    // Todo: Investigate weird output results (slightly different from normal plotting)
+    // ============================================
     useEffect(() => {
         setConfig(config => ({
             ...config,
             subplot_size: config.plot_size / parameterConfig.length
         }))
+
+        api.get(`/plot/${plot_id}`).then(res => {
+            console.log(res.data)
+            setConfig(res.data.plot_config)
+            setDatasetConfig(res.data.dataset_configs)
+            setParameterConfig(mapApiParams(res.data.parameter_configs))
+        })
     }, [])
+
+    const mapApiParams = (apiParams: ApiParameterConfig[]): ParameterConfig[] => {
+        return apiParams.map((apiParam): ParameterConfig => {
+            return {
+                name: apiParam.parameter_name,
+                display_text: apiParam.parameter_name,
+                domain: apiParam.domain
+            }
+        })
+    }
 
     // Config for MathJax rendering of mathematical symbols
     const MathJaxConfig = {

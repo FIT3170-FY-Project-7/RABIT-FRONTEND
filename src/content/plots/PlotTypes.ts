@@ -30,3 +30,10 @@ export type ParameterConfig = {
     display_text: string
     domain: [number, number]
 }
+
+export type ApiParameterConfig = {
+    parameter_id: string
+    parameter_name: string
+    file_id: string
+    domain: [number, number]
+}
