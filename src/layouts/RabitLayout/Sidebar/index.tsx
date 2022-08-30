@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import { NavLink as RouterLink } from 'react-router-dom'
 import Logo from '../../../components/Logo'
+import HeaderUserbox from '../Header/Userbox'
 import SidebarMenu from './SidebarMenu'
 
 const Input = styled('input')({
@@ -21,8 +22,6 @@ const SidebarWrapper = styled(Box)(
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             position                    : fixed;
             z-index                     : 10;
-            border-top-right-radius     : ${theme.general.borderRadius};
-            border-bottom-right-radius  : ${theme.general.borderRadius};
         }
     `
 )
@@ -39,42 +38,17 @@ const TopSection = styled(Box)(
 
 function Sidebar() {
     return (
-        <>
-            {' '}
-            <Hidden lgDown>
-                {' '}
-                <SidebarWrapper>
-                    <Scrollbars autoHide>
-                        <Box sx={{ height: '50%' }}>
-                            <Stack alignItems='center'>
-                                <TopSection>
-                                    <Logo />
-                                </TopSection>
-                                <Input accept='*' id='import-data' multiple type='file' />
-                                <label htmlFor='import-data'>
-                                    <Button
-                                        sx={{ width: 130 }}
-                                        startIcon={<UploadTwoToneIcon />}
-                                        variant='contained'
-                                        component={RouterLink}
-                                        to='/Upload'
-                                    >
-                                        Upload
-                                    </Button>
-                                </label>
-                            </Stack>
-                            <SidebarMenu />
-                        </Box>
-                        <Stack sx={{ height: '45%' }} alignItems='center' direction='column-reverse'>
-                            <Button variant='outlined' component='span'>
-                                {' '}
-                                About{' '}
-                            </Button>
-                        </Stack>
-                    </Scrollbars>
-                </SidebarWrapper>
-            </Hidden>
-        </>
+        <SidebarWrapper>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <TopSection>
+                    <Logo />
+                </TopSection>
+                <SidebarMenu />
+                <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
+                    <HeaderUserbox />
+                </Box>
+            </Box>
+        </SidebarWrapper>
     )
 }
 

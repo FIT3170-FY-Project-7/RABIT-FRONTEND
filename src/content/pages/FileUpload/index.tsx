@@ -1,150 +1,136 @@
 import React, { useState, useEffect } from 'react'
-import { Box, TextField, Divider, Typography } from '@mui/material'
+import { Box, TextField, Divider, Typography, Button } from '@mui/material'
 import FileSelectButton from './FileSelectButton'
 import FileUploadButton from './FileUploadButton'
-import { styled } from '@mui/material/styles'
 import CheckboxDropdown from './CheckboxDropdown'
-import * as d3 from 'd3'
-import { CommitSharp } from '@mui/icons-material'
-
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
+import DragFilesBox from './DragFilesBox'
+import FileDescriptionBox from './FileDescriptionBox'
+import ParameterSelector from './ParameterSelector'
 
 export default function UploadPage() {
-    const [fileUploaded, setFileUploaded] = useState(false)
-
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([])
     const [fileNames, setFileNames] = useState([])
-    const [enableDescription, setEnableDescription] = useState(false)
-    const [enableUpload, setEnableUpload] = useState(false)
-    const [posteriorKeys, setPosteriorKeys] = useState([])
-    const [selectedKeys, setSelectedKeys] = useState([])
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
+    const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
 
     const updateSelectedFiles = state => {
-        setSelectedFiles(state)
-        console.log(state)
+        setSelectedFiles([...selectedFiles, ...state])
 
         var names = []
-        Array.from(state).forEach(file => names.push(file.name));
+        type File = {
+            name?: string
+        }
 
-        console.log(state)
+        Array.from(state).forEach((file: File) => names.push(file.name))
+
+        if (selectedFiles.length >= 3) {
+            console.log('error')
+            setEnableSizeLimitError(true)
+            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
+        }
+
+        console.log('state', state)
+        console.log('state', selectedFiles.length)
+        console.log('select', selectedFiles)
         setFileNames(names)
-        //setTitle(names[0])
-        setEnableDescription(true)
-
-        // const fileReader = new FileReader()
-        // fileReader.readAsText(state)
-
-        // fileReader.onload = e => {
-        //     const string = e.target.result as string
-        //     const json = JSON.parse(e.target.result as string)
-        //     const initialKeys = Object.keys(json['posterior']['content'])
-        //     var keys = new Array()
-
-        //     // check for complex entries and exclude them
-        //     for (var i = 0; i < initialKeys.length; i++) {
-        //         if (!json['posterior']['content'][initialKeys[i]][0]['__complex__']) {
-        //             keys.push(initialKeys[i])
-        //         }
-        //     }
-        //     setPosteriorKeys(keys)
-        // }
     }
 
-    //useEffect(() => setEnableUpload(title != '' && selectedKeys.length != 0), [title, selectedKeys])
-    const renderList = fileNames.map((item, index) =>
-        <div
-            key={index}>{item}
-            <TextField
-                margin="dense"
-                fullWidth
-                disabled={!enableDescription}
-                defaultValue={fileNames[index]}
-                onChange={e => setTitle(e.target.value)}
-                label='Title'
-                required
-                variant={enableDescription ? 'outlined' : 'filled'}
-            />
-            <TextField
-                margin="dense"
-                fullWidth
-                disabled={!enableDescription}
-                onChange={e => setDescription(e.target.value)}
-                label='Description'
-                variant={enableDescription ? 'outlined' : 'filled'}
-                multiline
-                rows={3}
-            />
-        </div>
-    );
+    const deleteSelectedFile = file => {
+        const newFiles = [...selectedFiles] // make a var for the new array
+        newFiles.splice(file, 1) // remove the file from the array
+        setSelectedFiles(newFiles) // update the state
 
-    const parameterSelectionList = fileNames.map((item, index) => (
-        <div key={index}>
-            {item}
-            <Box>
-                <Typography variant='h6'>Select parameters</Typography>
-                {enableDescription && (
-                    <>
-                        <CheckboxDropdown
-                            defaultChecked={[]}
-                            keys={posteriorKeys}
-                            setSelectedKeys={setSelectedKeys}
-                        />
-                    </>
-                )}
-            </Box>
-        </div>
-    ));
+        if (selectedFiles.length <= 4) {
+            //remove error if less then 4 files again
+            setEnableSizeLimitError(false)
+        }
+    }
+
+    useEffect(() => console.log(selectedFiles), [selectedFiles])
 
     return (
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
             <Box
                 sx={{
                     display: 'grid',
-                    minWidth: '80vh',
-                    gap: 4,
+                    width: '100%',
+                    maxWidth: '1000px',
+                    gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
-                    marginTop: '2rem',
                     margin: '1rem'
                 }}
             >
-                <Box>
-                    <Typography sx={{ marginTop: '1rem', marginBottom: '1rem' }} variant='h2'>
-                        Step 1: Select Files | ToDo: File Size limit,quantity limit
-                    </Typography>
+                <Typography variant='h1'>Upload Raw Data</Typography>
+                <TextField
+                    margin='dense'
+                    fullWidth
+                    defaultValue={fileNames[0]}
+                    onChange={e => setTitle(e.target.value)}
+                    label='Title'
+                    variant='filled'
+                />
+                <TextField
+                    margin='dense'
+                    fullWidth
+                    onChange={e => setDescription(e.target.value)}
+                    label='Description'
+                    multiline
+                    rows={3}
+                    variant='filled'
+                />
+                <Box
+                    sx={{
+                        margin: '1rem'
+                    }}
+                >
                     <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
                 </Box>
-                <Divider />
-
-                <Typography variant='h2'>
-                    Step 2: Enter File Information | ToDo: prepare information to be saved to database alongside file location link
-                    <Typography sx={{ marginTop: '1rem' }} variant='h6'>
-                        {renderList}
-                    </Typography>
+                <Typography variant='h4' style={{ textAlign: 'center' }}>
+                    OR
                 </Typography>
-                <Divider />
+                <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
+                <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
+                    {selectedFiles.map((file, ind) => (
+                        <Button
+                            type='button'
+                            key={ind}
+                            variant='outlined'
+                            style={{
+                                maxWidth: 'fit-content',
+                                marginTop: ind > 0 ? '1rem' : ''
+                            }}
+                        >
+                            {file.name}
+                        </Button>
+                    ))}
 
-                <Typography variant='h2'>
-                    Step 3: Upload File | ToDo: save file link and metadata to database after upload
-                </Typography>
+                    {enableSizeLimitError ? (
+                        <Button
+                            type='button'
+                            variant='outlined'
+                            color='error'
+                            style={{
+                                maxWidth: 'fit-content',
+                                marginTop: 25
+                            }}
+                        >
+                            <PriorityHighIcon></PriorityHighIcon>
+                            {sizeLimitError}
+                        </Button>
+                    ) : null}
+                    <Button onClick={deleteSelectedFile}>Delete Last</Button>
+                </Box>
                 <FileUploadButton
-                    setFileUploaded={setFileUploaded}
-                    enableButton={enableUpload}
+                    enableButton={!!selectedFiles?.length}
                     selectedFiles={selectedFiles}
-                    buttonMessage='Upload'
+                    title={title}
+                    description={description}
+                    buttonMessage='Upload file(s)'
                 />
-                <Divider />
-
-                <Typography variant='h2'>Step 4: Select Parameters: ToDo: yes? also save parameters selected to database somewhere?</Typography>
-                <Box>
-                    <Typography sx={{ marginTop: '1rem' }} variant='h6'>
-                        {/* {parameterSelectionList}
-                        {fileUploaded ?  "uploaded"  : 'not uploaded'} */}
-                        {fileUploaded ?  {parameterSelectionList}  : 'not uploaded'}
-                    </Typography>
-                </Box> 
             </Box>
         </Box>
     )
 }
-

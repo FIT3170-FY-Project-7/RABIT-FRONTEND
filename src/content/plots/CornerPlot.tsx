@@ -1,5 +1,4 @@
 import { useContext, useRef } from 'react'
-import * as d3 from 'd3'
 import { MathJaxBaseContext } from 'better-react-mathjax'
 
 // Other components
@@ -7,35 +6,19 @@ import ContourPlot from './ContourPlot'
 import HistogramPlot from './HistogramPlot'
 import AxisX from './AxisX'
 import AxisY from './AxisY'
+import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
+import { NebulaFighterTheme } from '../../theme/schemes/NebulaFighterTheme'
 
-type ConerPlotPropType = {
-    data: {
-        [key: string]: number[]
-    }
-    parameters: string[]
+type CornerPlotPropType = {
+    datasets: DatasetConfig[]
+    parameters: ParameterConfig[]
+    config: PlotConfig
 }
 
-const corner_plot_size = 800
-
-const margin = {
-    horizontal: 10,
-    vertical: 10
-}
-
-const axis = {
-    size: 100,
-    tickSize: 10,
-    ticks: 4
-}
-
-function CornerPlot({ data, parameters }: ConerPlotPropType) {
+function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
     /* 
-
     Corner plot with logic to house the contour and histogram plots. Also renders the axes along the left side and bottom.
-
     */
-    let width = corner_plot_size / parameters.length
-    const layout = { width: width, height: width, margin: margin, axis: axis }
     const mathjax = useContext(MathJaxBaseContext)
     const mathjaxTimer = useRef(null)
 
@@ -51,44 +34,59 @@ function CornerPlot({ data, parameters }: ConerPlotPropType) {
     }
 
     return (
-        <div style={{ width: 'min-content' }}>
+        <div
+            id='corner-plot-id'
+            className='corner-plot'
+            style={{ flexGrow: 1, backgroundColor: NebulaFighterTheme.palette.background.default }}
+        >
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
             parameter and all previous parameters. */}
-            {parameters.map((parameter_1: string, index: number) => (
-                <div key={`row-${parameter_1}`} style={{ display: 'flex' }}>
-                    {/* Y Axis for this row */}
-                    <AxisY
-                        key={`axis-y-${parameter_1}`}
-                        domain={d3.extent(data[parameter_1])}
-                        layout={layout}
-                        label={parameter_1}
-                        rerender={rerenderMathJax}
-                    />
+            {parameters.map((parameter_1: ParameterConfig, index: number) => (
+                <div key={`row-${parameter_1.name}`} style={{ display: 'flex' }}>
+                    {/* Y Axis for this row, do not add for first row since vertical axis do not matter on a histogram */}
+                    {index > 0 ? (
+                        <AxisY
+                            key={`axis-y-${parameter_1.name}`}
+                            parameter={parameter_1}
+                            config={config}
+                            rerender={rerenderMathJax}
+                        />
+                    ) : (
+                        <div style={{ width: config.axis.size }}></div>
+                    )}
 
                     {/* Contour plots for this parameter and all previous parameters */}
-                    {parameters.slice(0, index).map((parameter_2: string) => (
+                    {parameters.slice(0, index).map(parameter_2 => (
                         <ContourPlot
-                            key={`cont-${parameter_2}-${parameter_1}`}
-                            x={data[parameter_2]}
-                            y={data[parameter_1]}
-                            layout={layout}
+                            key={`cont-${parameter_2.name}-${parameter_1.name}`}
+                            datasets={datasets}
+                            parameter_x={parameter_2}
+                            parameter_y={parameter_1}
+                            config={config}
                         />
                     ))}
 
                     {/* Histogram for current parameters */}
-                    <HistogramPlot key={`hist-${parameter_1}`} x={data[parameter_1]} layout={layout} />
+                    <HistogramPlot
+                        key={`hist-${parameter_1.name}`}
+                        datasets={datasets}
+                        parameter={parameter_1}
+                        config={config}
+                    />
                 </div>
             ))}
 
             {/* X Axis for all parameters */}
-            <div key={'axis-x-row'} style={{ display: 'flex', float: 'right' }}>
-                {parameters.map((parameter_1: string) => (
+            <div key={'axis-x-row'} style={{ display: 'flex' }}>
+                {/* This div adds the necessary empty space in the bottom left of the plot. Floating right was causing
+                issues for plot image download, since floating takes divs out of page flow   */}
+                <div style={{ width: config.axis.size }}></div>
+                {parameters.map((parameter_1: ParameterConfig) => (
                     <AxisX
-                        key={`axis-x-${parameter_1}`}
-                        domain={d3.extent(data[parameter_1])}
-                        layout={layout}
-                        label={parameter_1}
+                        key={`axis-x-${parameter_1.name}`}
+                        parameter={parameter_1}
+                        config={config}
                         rerender={rerenderMathJax}
                     />
                 ))}

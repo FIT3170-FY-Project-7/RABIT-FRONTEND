@@ -23,9 +23,11 @@ const MainWrapper = styled(Box)(
 
 const MainContent = styled(Box)(
     ({ theme }) => `
-        margin-top: ${theme.header.height};
-        flex: 1 1 auto;
-        overflow: auto;`
+        margin: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        `
 )
 
 const SidebarLayout: FC<SidebarLayoutProps> = () => {
