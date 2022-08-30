@@ -31,7 +31,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         api.post('/user/login', { email, password }).then(
             response => {
                 setjwt(response.data.jwt)
-                console.log(response.data.jwt)
                 localStorage.setItem('jwt', response.data.jwt);
                 navigate('/management/profile')
             },
