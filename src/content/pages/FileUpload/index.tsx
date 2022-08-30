@@ -15,6 +15,7 @@ export default function UploadPage() {
     const [description, setDescription] = useState('')
     const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
     const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
+    const [enableDeleteLast, setDeleteLast] = useState(false)
 
     const updateSelectedFiles = state => {
         setSelectedFiles([...selectedFiles, ...state])
@@ -31,6 +32,11 @@ export default function UploadPage() {
             setEnableSizeLimitError(true)
             setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
         }
+
+        if (selectedFiles.length > 0){
+            setDeleteLast(true)
+        }
+
 
         console.log('state', state)
         console.log('state', selectedFiles.length)
@@ -121,7 +127,10 @@ export default function UploadPage() {
                             {sizeLimitError}
                         </Button>
                     ) : null}
+
+                    {enableDeleteLast? (
                     <Button onClick={deleteSelectedFile}>Delete Last</Button>
+                    ) : null}
                 </Box>
                 <FileUploadButton
                     enableButton={!!selectedFiles?.length}
