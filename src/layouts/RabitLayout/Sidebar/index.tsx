@@ -2,10 +2,12 @@ import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone'
 import { Box, Button, Hidden, Stack } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
-import { NavLink as RouterLink } from 'react-router-dom'
+import { NavLink as RouterLink, useNavigate } from 'react-router-dom'
 import Logo from '../../../components/Logo'
 import HeaderUserbox from '../Header/Userbox'
 import SidebarMenu from './SidebarMenu'
+import UploadIcon from '@mui/icons-material/Upload'
+import Fab from '@mui/material/Fab'
 
 const Input = styled('input')({
     display: 'none'
@@ -37,12 +39,17 @@ const TopSection = styled(Box)(
 )
 
 function Sidebar() {
+    const navigate = useNavigate()
     return (
         <SidebarWrapper>
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
                 <TopSection>
                     <Logo />
                 </TopSection>
+                <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
+                    <UploadIcon sx={{ mr: 1 }} /> Upload
+                </Fab>
+
                 <SidebarMenu />
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
                     <HeaderUserbox />

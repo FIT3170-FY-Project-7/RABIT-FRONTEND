@@ -20,11 +20,6 @@ const menuItems: MenuItems[] = [
         heading: '',
         items: [
             {
-                name: 'Upload',
-                link: '/upload',
-                icon: UploadIcon
-            },
-            {
                 name: 'Past Uploads',
                 link: '/history',
                 icon: AccessTimeIcon
