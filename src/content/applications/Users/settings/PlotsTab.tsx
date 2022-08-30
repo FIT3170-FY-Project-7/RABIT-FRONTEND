@@ -13,12 +13,13 @@
     ListItemButton,
     Divider
 } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 import { styled } from '@mui/material/styles'
 import api from '../../../../api'
 import { useNavigate } from 'react-router-dom'
+import { UserContext, useUserContext } from '../../../Auth/UserContext'
 
 const images = [
     'https://images.unsplash.com/photo-1614732484003-ef9881555dc3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
@@ -30,35 +31,32 @@ const images = [
     'https://images.unsplash.com/photo-1614314107768-6018061b5b72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80'
 ]
 
-const plots = [
-    {
-        title: 'Planets of the Universe',
-        last_modified: '2022-10-09'
-    },
-    {
-        title: 'The Chain',
-        last_modified: '2022-09-09'
-    },
-    {
-        title: 'Babylon',
-        last_modified: '2022-10-02'
-    }
-]
-
 function PlotsTab() {
     const navigate = useNavigate()
+    const { getID } = useUserContext()
+    const userID = getID()
+    const [plots, setPlots] = useState([])
+
     useEffect(() => {
         getPlotDetails()
     }, [])
 
     const getPlotDetails = async () => {
-        const id = ''
-        const response = await api.get(`/raw-data/user/${id}`)
+        await api
+            .get(`/raw-data/user/${userID}`)
+            .then(response => {
+                if (response.status == 200) {
+                    setPlots(response.data)
+                }
+            })
+            .catch(e => {
+                console.error('Getting Plots', e)
+            })
     }
 
     const navigateToPlot = id => {
         console.log(id)
-        // navigate(`/visualise/${id}`)
+        navigate(`/visualise/${id}`)
     }
 
     return (
@@ -70,10 +68,10 @@ function PlotsTab() {
                 </Box>
                 <List>
                     {plots.map(plot => (
-                        <div key={plot.title}>
+                        <div key={plot.collection_title}>
                             <ListItem
                                 onClick={() => {
-                                    navigateToPlot(plot.title)
+                                    navigateToPlot(plot.collection_id)
                                 }}
                                 secondaryAction={
                                     <IconButton color='primary' aria-label='delete plot' component='label'>
@@ -97,8 +95,8 @@ function PlotsTab() {
                                             lineHeight: 2,
                                             color: 'rgba(255, 255, 255, 0.5)'
                                         }}
-                                        primary={plot.title}
-                                        secondary={'Last Modified: ' + plot.last_modified}
+                                        primary={plot.collection_title}
+                                        secondary={'Last Modified: ' + new Date(plot.last_modified).toUTCString()}
                                     />
                                 </ListItemButton>
                             </ListItem>

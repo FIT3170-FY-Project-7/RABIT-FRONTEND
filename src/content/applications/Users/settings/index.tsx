@@ -20,7 +20,7 @@ const TabsWrapper = styled(Tabs)(
 )
 
 function ManagementUserSettings() {
-    const [currentTab, setCurrentTab] = useState<string>('activity')
+    const [currentTab, setCurrentTab] = useState<string>('plots')
 
     const tabs = [
         { value: 'activity', label: 'Activity' },
