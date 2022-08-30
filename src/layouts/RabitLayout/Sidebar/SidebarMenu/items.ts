@@ -1,6 +1,5 @@
-import ExploreIcon from '@mui/icons-material/Explore'
-import ForumIcon from '@mui/icons-material/Forum'
-import HomeIcon from '@mui/icons-material/Home'
+import UploadIcon from '@mui/icons-material/Upload'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { ReactNode } from 'react'
 
 export interface MenuItem {
@@ -18,33 +17,17 @@ export interface MenuItems {
 
 const menuItems: MenuItems[] = [
     {
-        heading: '',
+        heading: 'Pages',
         items: [
             {
-                name: 'Home',
-                link: '/overview',
-                icon: HomeIcon
+                name: 'Upload',
+                link: '/upload',
+                icon: UploadIcon
             },
             {
-                name: 'Discussion',
-                link: '/Discussion',
-                icon: ForumIcon,
-                badge: '1'
-            },
-            {
-                name: 'Explore',
-                icon: ExploreIcon,
-                link: '/management/profile',
-                items: [
-                    {
-                        name: 'Plots',
-                        link: '/management/profile/details'
-                    },
-                    {
-                        name: 'Metadata',
-                        link: '/management/profile/settings'
-                    }
-                ]
+                name: 'Past Uploads',
+                link: '/history',
+                icon: AccessTimeIcon
             }
         ]
     }

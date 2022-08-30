@@ -4,9 +4,7 @@ import Reorder from 'react-reorder'
 
 const ParameterSelector = ({ items: input_items, default: initial_active, onUpdate: callback }) => {
     /* 
-
     Drag and drop selector for adding, removing, and reordering active parameters.
-
     */
     const [items, setItems] = useState({
         'inactive-items': input_items.filter(i => !initial_active.includes(i)),
