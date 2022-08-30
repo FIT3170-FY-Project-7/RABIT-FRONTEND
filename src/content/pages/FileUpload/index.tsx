@@ -66,10 +66,11 @@ export default function UploadPage() {
                     maxWidth: '1000px',
                     gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
-                    margin: '1rem'
+                    margin: '1rem',
+                    marginTop: '2rem'
                 }}
             >
-                <Typography variant='h1'>Upload Raw Data</Typography>
+                <Typography variant='h1'>Upload</Typography>
                 <TextField
                     margin='dense'
                     fullWidth

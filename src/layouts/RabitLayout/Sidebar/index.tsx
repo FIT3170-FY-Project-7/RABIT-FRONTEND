@@ -39,7 +39,7 @@ const TopSection = styled(Box)(
 function Sidebar() {
     return (
         <SidebarWrapper>
-            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
                 <TopSection>
                     <Logo />
                 </TopSection>
