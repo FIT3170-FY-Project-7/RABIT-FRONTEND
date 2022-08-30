@@ -130,7 +130,7 @@ export default function UploadPage() {
 
                     {enableDeleteLast? (
                     <Button onClick={deleteSelectedFile}>Delete Last</Button>
-                    ) : null}
+                     ): null}
                 </Box>
                 <FileUploadButton
                     enableButton={!!selectedFiles?.length}
