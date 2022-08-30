@@ -33,25 +33,23 @@ export default function UploadPage() {
         setFileNames(names)
     }
 
-    useEffect(()=>{
-        if(selectedFiles.length>0){
+    useEffect(() => {
+        if (selectedFiles.length > 0) {
             setDeleteLast(true)
-        } else if(selectedFiles.length==0){
+        } else if (selectedFiles.length == 0) {
             setDeleteLast(false)
         }
 
-        
         if (selectedFiles.length < 4) {
             //remove error if less then 4 files again
             setEnableSizeLimitError(false)
         }
 
-        
         if (selectedFiles.length >= 4) {
             setEnableSizeLimitError(true)
             setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
         }
-    },[selectedFiles]);
+    }, [selectedFiles])
 
     const deleteSelectedFile = file => {
         const newFiles = [...selectedFiles] // make a var for the new array
@@ -67,11 +65,9 @@ export default function UploadPage() {
                 sx={{
                     display: 'grid',
                     width: '100%',
-                    maxWidth: '1000px',
                     gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
-                    margin: '1rem',
-                    marginTop: '2rem'
+                    margin: '5rem'
                 }}
             >
                 <Typography variant='h1'>Upload</Typography>
@@ -123,9 +119,7 @@ export default function UploadPage() {
                         </Button>
                     ) : null}
 
-                    {enableDeleteLast? (
-                    <Button onClick={deleteSelectedFile}>Delete Last</Button>
-                     ): null}
+                    {enableDeleteLast ? <Button onClick={deleteSelectedFile}>Delete Last</Button> : null}
                 </Box>
                 <FileUploadButton
                     enableButton={!!selectedFiles?.length}

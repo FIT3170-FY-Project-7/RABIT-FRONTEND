@@ -41,39 +41,43 @@ export default function DragFilesBox({ updateSelectedFiles }) {
                     padding: '50px 0',
                     textAlign: 'center',
                     textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.6)'
+                    color: 'rgba(255,255,255,0.6)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
                 }}
             >
                 Drop your files here
-            
-            <Box sx={{
-                        margin: '0.5rem'
-                    }}>
-            <Typography variant='h4' style={{ textAlign: 'center' }}>
-                    OR
-            </Typography>
-            </Box>
-
-            <Box sx={{
-                        margin: '1rem'
-                    }}>
-
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Input
-                inputProps={{ accept: '.json', multiple: true}}
-                style={{ display: 'none' }}
-                id='file-select-button'
-                type='file'
-                onChange={changeHandler}
-            />
-            <label htmlFor='file-select-button'>
-                <Button variant='contained' component='span' startIcon={<FileOpenIcon />}>
-                    Select a File
-                </Button>
-            </label>
+                <Box
+                    sx={{
+                        marginTop: '1rem'
+                    }}
+                >
+                    <Typography variant='h4' style={{ textAlign: 'center' }}>
+                        OR
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{
+                        marginTop: '1rem'
+                    }}
+                >
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Input
+                            inputProps={{ accept: '.json', multiple: true }}
+                            style={{ display: 'none' }}
+                            id='file-select-button'
+                            type='file'
+                            onChange={changeHandler}
+                        />
+                        <label htmlFor='file-select-button'>
+                            <Button variant='contained' component='span' startIcon={<FileOpenIcon />}>
+                                Select a File
+                            </Button>
+                        </label>
+                    </div>
+                </Box>
             </div>
-            </Box>
-        </div>
         </Box>
     )
 }
