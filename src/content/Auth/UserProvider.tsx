@@ -45,12 +45,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     const enforceLogin = () => {
         var localJWT = localStorage.getItem('jwt')
         if (localJWT != null){
-            setjwt(localJWT)
+            return true
         }
-        else{
-            return false
-        }
-        return true
+        return false
     }
 
     const logout = () => {

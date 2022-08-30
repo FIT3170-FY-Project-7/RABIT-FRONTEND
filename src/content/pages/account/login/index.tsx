@@ -13,7 +13,7 @@ import {
     Typography
 } from '@mui/material'
 import GoogleLogo from 'assets/images/logo/google.svg'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useNotify } from 'react-admin'
 import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
@@ -98,9 +98,16 @@ const Login = () => {
  * Component for the login form.
  */
 const LoginForm = () => {
-    const { login } = useUserContext()
+    const { login, enforceLogin } = useUserContext()
     const navigate = useNavigate()
     const notify = useNotify()
+
+    //If jwt alrdy in local storage, render profile page
+    if (enforceLogin()){
+        useEffect(() => {
+            navigate('/management/profile')
+    })
+    }
 
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
