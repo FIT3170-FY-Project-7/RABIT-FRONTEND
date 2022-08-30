@@ -88,16 +88,6 @@ export default function UploadPage() {
                     rows={3}
                     variant='filled'
                 />
-                <Box
-                    sx={{
-                        margin: '1rem'
-                    }}
-                >
-                    <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
-                </Box>
-                <Typography variant='h4' style={{ textAlign: 'center' }}>
-                    OR
-                </Typography>
                 <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
                 <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
                     {selectedFiles.map((file, ind) => (
