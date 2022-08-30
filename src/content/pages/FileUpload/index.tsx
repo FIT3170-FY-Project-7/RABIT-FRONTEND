@@ -27,12 +27,6 @@ export default function UploadPage() {
 
         Array.from(state).forEach((file: File) => names.push(file.name))
 
-        if (selectedFiles.length >= 3) {
-            console.log('error')
-            setEnableSizeLimitError(true)
-            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
-        }
-
         console.log('state', state)
         console.log('state', selectedFiles.length)
         console.log('select', selectedFiles)
@@ -45,17 +39,24 @@ export default function UploadPage() {
         } else if(selectedFiles.length==0){
             setDeleteLast(false)
         }
+
+        
+        if (selectedFiles.length < 4) {
+            //remove error if less then 4 files again
+            setEnableSizeLimitError(false)
+        }
+
+        
+        if (selectedFiles.length >= 4) {
+            setEnableSizeLimitError(true)
+            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
+        }
     },[selectedFiles]);
 
     const deleteSelectedFile = file => {
         const newFiles = [...selectedFiles] // make a var for the new array
         newFiles.splice(file, 1) // remove the file from the array
         setSelectedFiles(newFiles) // update the state
-
-        if (selectedFiles.length <= 4) {
-            //remove error if less then 4 files again
-            setEnableSizeLimitError(false)
-        }
     }
 
     useEffect(() => console.log(selectedFiles), [selectedFiles])
