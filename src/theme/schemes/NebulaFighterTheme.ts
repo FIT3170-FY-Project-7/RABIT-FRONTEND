@@ -222,7 +222,7 @@ export const NebulaFighterTheme = createTheme({
         menuItemIconColorActive: colors.layout.sidebar.menuItemIconColorActive,
         menuItemHeadingColor: colors.layout.sidebar.menuItemHeadingColor,
         boxShadow: '1px 0 0 #272C48',
-        width: '200px'
+        width: '250px'
     },
     header: {
         height: '88px',

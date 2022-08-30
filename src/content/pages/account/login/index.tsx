@@ -1,13 +1,24 @@
-import { Box, Button, Card, Grid, TextField, Tooltip } from '@mui/material'
-import { Helmet } from 'react-helmet-async'
-
 import { RememberMe, RememberMeOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
-import { ButtonGroup, Divider, IconButton, InputAdornment, Typography } from '@mui/material'
-import { FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Logo from '../../../../components/LogoSign'
-
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Card,
+    Divider,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Tooltip,
+    Typography
+} from '@mui/material'
 import GoogleLogo from 'assets/images/logo/google.svg'
+import { FormEvent, useEffect, useState } from 'react'
+import { useNotify } from 'react-admin'
+import { Helmet } from 'react-helmet-async'
+import { Link, useNavigate } from 'react-router-dom'
+import Logo from '../../../../components/LogoSign'
+import { useUserContext } from '../../../Auth/UserContext'
 
 const Login = () => {
     return (
@@ -87,13 +98,24 @@ const Login = () => {
  * Component for the login form.
  */
 const LoginForm = () => {
+    const { login, enforceLogin } = useUserContext()
+    const navigate = useNavigate()
+    const notify = useNotify()
+
+    //If jwt alrdy in local storage, render profile page
+    if (enforceLogin()){
+        useEffect(() => {
+            navigate('/management/profile')
+    })
+    }
+
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
 
     // Remember Me
     const [rememberMe, setRememberMe] = useState(false)
 
-    // Username
+    // Username (which is actually the inputted email ffs)
     const [username, setUsername] = useState('')
     const [usernameError, setUsernameError] = useState(false)
 
@@ -114,9 +136,15 @@ const LoginForm = () => {
         if (usernameInvalid || passwordInvalid) return
 
         // TODO: Login logic.
-
+        // test
         // Prevent default form action (which would refresh the page).
         e.preventDefault()
+
+        try {
+            login(username, password)
+        } catch (err) {
+            notify(err)
+        }
     }
 
     return (
@@ -175,5 +203,4 @@ const LoginForm = () => {
         </Grid>
     )
 }
-
 export default Login
