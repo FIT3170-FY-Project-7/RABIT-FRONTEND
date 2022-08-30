@@ -101,6 +101,7 @@ const LoginForm = () => {
     const { login } = useUserContext()
     const navigate = useNavigate()
     const notify = useNotify()
+
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
 
@@ -134,7 +135,6 @@ const LoginForm = () => {
 
         try {
             login(username, password)
-            navigate('/management/profile')
         } catch (err) {
             notify(err)
         }
