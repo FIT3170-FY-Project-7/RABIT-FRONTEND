@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TwitterPicker } from 'react-color'
 import { colours } from '../constants/Colours'
 
-function ColourPicker({ handleColourChange }) {
+function ColourPicker({ handleColourChange, initial }) {
+    /*
+    Creates a colour picker to change the colour of the plot.
+    */
     const [displayColourPicker, setDisplayColourPicker] = useState(false)
-    const [currentColour, setCurrentColour] = useState(colours.plotDefault)
+
+    const [currentColour, setCurrentColour] = useState(initial ?? colours.plotDefault)
+
     const handleClick = () => {
         setDisplayColourPicker(!displayColourPicker)
     }
@@ -15,38 +20,55 @@ function ColourPicker({ handleColourChange }) {
         setCurrentColour(colour.hex)
         handleColourChange(colour)
     }
+
+    useEffect(() => {
+        setCurrentColour(initial ?? colours.plotDefault)
+    }, [initial])
+
     return (
         <div
             style={{
                 position: 'relative',
-                paddingTop: '2px'
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
             }}
         >
             <div>Colour</div>
-            <button
-                onClick={handleClick}
-                style={{ width: '40px', height: '40px', backgroundColor: currentColour }}
-            ></button>
-            {displayColourPicker ? (
-                <div
+            <div>
+                <button
+                    onClick={handleClick}
                     style={{
-                        position: 'absolute',
-                        zIndex: '2'
+                        width: '40px',
+                        height: '40px',
+                        backgroundColor: currentColour,
+                        borderRadius: '20%',
+                        border: 'none',
+                        cursor: 'pointer'
                     }}
-                >
+                ></button>
+                {displayColourPicker ? (
                     <div
                         style={{
-                            position: 'fixed',
-                            top: '0px',
-                            right: '0px',
-                            bottom: '0px',
-                            left: '0px'
+                            position: 'absolute',
+                            zIndex: '2'
                         }}
-                        onClick={handleClose}
-                    />
-                    <TwitterPicker onChange={handleColourSelected} />
-                </div>
-            ) : null}
+                    >
+                        <div
+                            style={{
+                                position: 'fixed',
+                                top: '0px',
+                                right: '0px',
+                                bottom: '0px',
+                                left: '0px'
+                            }}
+                            onClick={handleClose}
+                        />
+                        <TwitterPicker onChange={handleColourSelected} />
+                    </div>
+                ) : null}
+            </div>
         </div>
     )
 }

@@ -10,9 +10,7 @@ type HistogramPropType = {
 
 const HistogramPlot = ({ datasets, parameter, config }: HistogramPropType) => {
     /* 
-
     Renders the histogram plots using the D3 library. Calls create() in HistogramD3 to render graph SVG.
-
     */
     const elem = useRef(null)
 

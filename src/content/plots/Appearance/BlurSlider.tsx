@@ -1,6 +1,21 @@
-import React from 'react'
+import { useEffect, useRef } from 'react'
+function BlurSlider({ initial, handleBlurChange }) {
+    /*
+    Creates a slider to change the smoothness of the plot.
+    */
+    const inputRef = useRef(null)
+    const textRef = useRef(null)
+    useEffect(() => {
+        inputRef.current.value = initial
+        textRef.current.innerText = `Blur Radius: ${Number(initial).toFixed(1)}`
+    }, [initial])
 
-function BlurSlider({ handleBlurChange }) {
+    const handleChange = event => {
+        const blur_num = event.target.value
+        textRef.current.innerHTML = `Blur Radius: ${Number(blur_num).toFixed(1)}`
+        handleBlurChange(blur_num)
+    }
+
     return (
         <div
             style={{
@@ -11,7 +26,7 @@ function BlurSlider({ handleBlurChange }) {
                 justifyContent: 'center'
             }}
         >
-            <div style={{ minWidth: '50px' }} className='appearance-configuration-slider-value'>
+            <div style={{ minWidth: '50px' }} ref={textRef}>
                 Blur Radius: 1.0
             </div>
             <input
@@ -19,8 +34,9 @@ function BlurSlider({ handleBlurChange }) {
                 min='0'
                 max='5'
                 step='0.1'
-                defaultValue='1'
-                onChange={event => handleBlurChange(event)}
+                defaultValue={initial}
+                onChange={event => handleChange(event)}
+                ref={inputRef}
             />
         </div>
     )

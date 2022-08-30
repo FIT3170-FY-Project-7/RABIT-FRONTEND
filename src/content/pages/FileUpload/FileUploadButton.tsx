@@ -11,17 +11,15 @@ import api from '../../../api'
 
 interface FileUpload {
     enableButton: boolean
-    selectedFile: any
-    selectedKeys: Array<string>
-    title: String
-    description: String
-    buttonMessage: String
+    selectedFiles: File[]
+    title: string
+    description: string
+    buttonMessage: string
 }
 
 export default function FileUploadButton({
     enableButton,
-    selectedFile,
-    selectedKeys,
+    selectedFiles,
     title,
     description,
     buttonMessage
@@ -30,7 +28,6 @@ export default function FileUploadButton({
     const navigate = useNavigate()
 
     const handleSubmission = async () => {
-        const results = []
         const options = {
             onUploadProgress: progressEvent => {
                 const { loaded, total } = progressEvent
@@ -42,53 +39,46 @@ export default function FileUploadButton({
             }
         }
 
-        await selectedFile.text().then(async jsonString => {
-            var json = JSON.parse(jsonString)
-            json.selected_keys = selectedKeys
-            json.title = title
-            json.description = description
-            console.log(json.selected_keys)
+        const data = new FormData()
+        data.append('title', title)
+        data.append('description', description)
+        for (const selectedFile of selectedFiles) {
+            const content = await selectedFile.text()
+            const fileData = {
+                posterior: { content: JSON.parse(content)?.posterior?.content }
+            }
 
-            // console.log(json);
-            json = JSON.stringify(json)
-            // console.log(jsonMerged);
-            const data = new FormData()
+            const blob = new Blob([JSON.stringify(fileData)], { type: 'application/json' })
+            data.append('file', blob)
+        }
 
-            const blob = new Blob([json], { type: 'application/json' })
-            console.log(blob)
-            data.append('file', blob) //
+        const response = await api.post('/raw-data', data, options)
 
-            //dev solution to test upload works
-            //run `npx nodemon ./server.tsx` in repo root to run local test server
-            await api.post('/uploads', data, options).then(res => {
-                console.log(res.statusText)
-                console.log(uploadPercentage)
-            })
-
-            //getting data
-            // const filename = "1653141037449";
-        })
-
-        navigate('/visualise')
+        navigate(`/visualise/${response.data.id}`)
     }
     return (
         <div>
-            <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                    disabled={!enableButton}
-                    variant='contained'
-                    startIcon={<UploadIcon />}
-                    onClick={handleSubmission}
-                >
-                    {buttonMessage}
-                </Button>
-            </Box>
-            <Box sx={{ paddingTop: 2 }}>
-                <LinearProgress variant='determinate' value={uploadPercentage} />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-                <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
-            </Box>
+            {uploadPercentage ? (
+                <>
+                    <Box sx={{ paddingTop: 2 }}>
+                        <LinearProgress variant='determinate' value={uploadPercentage} />
+                    </Box>
+                    <Box sx={{ minWidth: 35 }}>
+                        <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
+                    </Box>
+                </>
+            ) : (
+                <Box style={{ display: 'flex', justifyContent: 'end' }}>
+                    <Button
+                        disabled={!enableButton}
+                        variant='contained'
+                        startIcon={<UploadIcon />}
+                        onClick={handleSubmission}
+                    >
+                        {buttonMessage}
+                    </Button>
+                </Box>
+            )}
         </div>
     )
 }

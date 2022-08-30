@@ -1,10 +1,9 @@
 import { MathJaxContext } from 'better-react-mathjax'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
-import downloadjs from 'downloadjs'
-import html2canvas from 'html2canvas'
-import { Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
+import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
@@ -31,7 +30,7 @@ const DatasetConfigDefault: DatasetConfig = {
     quantiles: [0.5],
     color: '#0088FF',
     line_width: 1.25,
-    blur_radius: 0.1
+    blur_radius: 1
 }
 
 const ParameterConfigDefault: ParameterConfig = {
@@ -40,22 +39,36 @@ const ParameterConfigDefault: ParameterConfig = {
     domain: [0, 0]
 }
 
-function PlotsPage({ file }) {
+const colors = [
+    '#0088FF',
+    '#BF40BF',
+    '#800000',
+    '#FF8800',
+    '#FFCC00',
+    '#FFFF00',
+    '#0088FF',
+    '#00CC00',
+    '#FF0000',
+    '#FF8800',
+    '#FFCC00',
+    '#FFFF00'
+]
+
+function PlotsPage({ files, availableParameters, title, description }) {
     /* 
-
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
-    including the parameter selectors and the corner plot itself. 
-
+    including the parameter selectors and the corner plot itself. It also hosts the download button and the appearance config.
     */
-    const [datasets, setDatasets] = useState<DatasetConfig[]>([
-        {
+    const [datasets, setDatasets] = useState<DatasetConfig[]>(
+        files.map((file, index) => ({
             ...DatasetConfigDefault,
-            data: file['posterior']['content']
-        }
-    ])
+            color: colors[index],
+            data: file.posterior.content
+        }))
+    )
     const [parameters, setParameters] = useState<ParameterConfig[]>([])
     const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
-    const defaultParameters = file.selected_keys
+    const defaultParameters = files.selected_keys ?? []
 
     // Config for MathJax rendering of mathematical symbols
     const MathJaxConfig = {
@@ -70,44 +83,13 @@ function PlotsPage({ file }) {
         }
     }
 
-    // Function for corner plot image download.
-    const downloadCornerPlotImage = async () => {
-        const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-        if (!cornerPlotElmt) return
-
-        const canvas = await html2canvas(cornerPlotElmt)
-        const dataURL = canvas.toDataURL('image/png')
-        downloadjs(dataURL, 'corner-plot.png', 'image/png')
+    // Functions for corner plot image download.
+    const downloadCornerPlotPNG = async () => {
+        PlotDownloadService.downloadAsPNG()
     }
 
-    const colors = [
-        '#0088FF',
-        '#BF40BF',
-        '#800000',
-        '#FF8800',
-        '#FFCC00',
-        '#FFFF00',
-        '#0088FF',
-        '#00CC00',
-        '#FF0000',
-        '#FF8800',
-        '#FFCC00',
-        '#FFFF00'
-    ]
-    const processFiles = e => {
-        const reader = new FileReader()
-        reader.onload = e => {
-            const newDataset = JSON.parse(e.target.result as string)
-            setDatasets(data => [
-                ...data,
-                {
-                    ...DatasetConfigDefault,
-                    data: newDataset['posterior']['content'],
-                    color: colors[data.length]
-                }
-            ])
-        }
-        reader.readAsText(e.target.files[0])
+    const downloadCornerPlotSVG = async () => {
+        PlotDownloadService.downloadAsSVG()
     }
 
     // Called from CheckboxDropdown component to fill parameters with ParameterConfig values
@@ -124,33 +106,51 @@ function PlotsPage({ file }) {
         )
     }
 
-    // Called to populate initial parameters
+    // Called to populate initial parameters on first update and whenever parameters change
+    const firstUpdateRef = useRef(true)
     useEffect(() => {
-        updateParameters(defaultParameters)
-    }, [])
+        updateParameters(firstUpdateRef.current ? defaultParameters : parameters.map(p => p.name))
+        firstUpdateRef.current = false
+    }, [datasets])
 
     return (
-        <div>
-            <input type='file' onChange={processFiles}></input>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
+            <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
+                Visualise {title ?? 'Data'}
+            </Typography>
+            {description && (
+                <Typography variant='body1' sx={{ marginBottom: '1rem' }}>
+                    {description}
+                </Typography>
+            )}
             <MathJaxContext config={MathJaxConfig}>
+                <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
+                    Select parameters to plot
+                </Typography>
                 <CheckboxDropdown
                     defaultChecked={defaultParameters}
-                    keys={Object.keys(datasets[0].data)}
+                    keys={availableParameters ?? []}
                     setSelectedKeys={updateParameters}
-                    sx={{ margin: '2rem 0 2rem 0' }}
                 />
                 <div
                     className='corner-plot-appearance-config-container'
-                    style={{ display: 'flex', justifyContent: 'space-around' }}
+                    style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}
                 >
                     <CornerPlot datasets={datasets} parameters={parameters} config={config} />
-                    <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                    <Box>
+                        <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Button variant='contained' onClick={downloadCornerPlotPNG} sx={{ marginRight: '1rem' }}>
+                                Download as PNG
+                            </Button>
+                            <Button variant='contained' onClick={downloadCornerPlotSVG}>
+                                Download as SVG
+                            </Button>
+                        </Box>
+                    </Box>
                 </div>
-                <Button variant='contained' onClick={downloadCornerPlotImage}>
-                    Download Image
-                </Button>
             </MathJaxContext>
-        </div>
+        </Box>
     )
 }
 

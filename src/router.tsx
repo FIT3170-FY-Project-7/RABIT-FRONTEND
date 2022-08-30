@@ -74,7 +74,7 @@ const routes: RouteObject[] = [
         element: <RabitLayout />,
         children: [
             // TODO: Convert to login screen.
-            { path: '/visualise', element: <Datapage /> },
+            { path: '/visualise/:id', element: <Datapage /> },
             { path: '/visualise/view/:id', element: <StaticPlotViewPage /> },
             { path: 'upload', element: <FileUpload /> },
             { path: '*', element: <Status404 /> }

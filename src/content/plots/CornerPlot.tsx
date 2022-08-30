@@ -7,6 +7,7 @@ import HistogramPlot from './HistogramPlot'
 import AxisX from './AxisX'
 import AxisY from './AxisY'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
+import { NebulaFighterTheme } from '../../theme/schemes/NebulaFighterTheme'
 
 type CornerPlotPropType = {
     datasets: DatasetConfig[]
@@ -16,9 +17,7 @@ type CornerPlotPropType = {
 
 function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
     /* 
-
     Corner plot with logic to house the contour and histogram plots. Also renders the axes along the left side and bottom.
-
     */
     const mathjax = useContext(MathJaxBaseContext)
     const mathjaxTimer = useRef(null)
@@ -35,7 +34,11 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
     }
 
     return (
-        <div className='corner-plot' style={{ width: 'min-content', backgroundColor: '#070C27' }}>
+        <div
+            id='corner-plot-id'
+            className='corner-plot'
+            style={{ flexGrow: 1, backgroundColor: NebulaFighterTheme.palette.background.default }}
+        >
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
             parameter and all previous parameters. */}
