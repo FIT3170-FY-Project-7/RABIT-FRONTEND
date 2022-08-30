@@ -2,6 +2,7 @@
 import { lazy, Suspense } from 'react'
 import { RouteObject } from 'react-router'
 import { Navigate } from 'react-router-dom'
+import  RequireAuth  from './components/ProtectedRoute'
 
 // Types.
 import type { ComponentProps, ComponentType } from 'react'
@@ -43,6 +44,7 @@ const FileUpload = Loader(lazy(() => import('./content/pages/FileUpload')))
 const routes: RouteObject[] = [
     {
         element: <BaseLayout />,
+        
         children: [
             { index: true, element: <Login /> },
             { path: 'login', element: <Navigate to='/' replace /> },
@@ -53,7 +55,7 @@ const routes: RouteObject[] = [
     },
     {
         path: 'management',
-        element: <RabitLayout />,
+        element: <RabitLayout /> ,
         children: [
             {
                 path: '',
@@ -61,6 +63,7 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'profile',
+                element: <RequireAuth />,
                 children: [
                     { path: '', element: <Navigate to='details' replace /> },
                     { path: 'details', element: <UserProfile /> },

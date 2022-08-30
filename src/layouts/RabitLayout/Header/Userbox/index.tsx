@@ -21,6 +21,7 @@ import { useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import AvatarAvi from 'assets/images/avatars/avivajpeyi.png'
+import { useUserContext } from '../../../../content/Auth/UserContext'
 
 const UserBoxButton = styled(Button)(
     ({ theme }) => `
@@ -59,6 +60,7 @@ function HeaderUserbox() {
         jobtitle: 'Project Manager'
     }
 
+    const { logout } = useUserContext()
     const ref = useRef<any>(null)
     const [isOpen, setOpen] = useState<boolean>(false)
 
@@ -120,7 +122,7 @@ function HeaderUserbox() {
                 </List>
                 <Divider />
                 <Box sx={{ m: 1 }}>
-                    <Button color='primary' fullWidth>
+                    <Button color='primary' onClick={logout} fullWidth>
                         <LockOpenTwoToneIcon sx={{ mr: 1 }} />
                         Sign out
                     </Button>

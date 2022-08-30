@@ -13,11 +13,11 @@ import {
 } from '@mui/material'
 import { FormEvent, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../../../components/LogoSign'
-
+import { useUserContext } from '../../../Auth/UserContext'
 import GoogleLogo from 'assets/images/logo/google.svg'
+import { useNotify } from 'react-admin'
 
 function SignUp() {
     return (
@@ -90,6 +90,10 @@ function SignUp() {
 }
 
 function SignupForm() {
+    const { signUp } = useUserContext()
+    const navigate = useNavigate()
+    const notify = useNotify()
+
     // Password Visibility
     const [passwordVisible, setPasswordVisible] = useState(false)
 
@@ -132,9 +136,15 @@ function SignupForm() {
         if (fullNameInvalid || usernameInvalid || emailInvalid || passwordInvalid || confirmPasswordInvalid) return
 
         // TODO: Signup logic.
-
         // Prevent default form action (which would refresh the page).
         e.preventDefault()
+        
+        try {
+            signUp(email, fullName, password)
+        } catch (err) {
+            notify(err)
+        }
+
     }
 
     return (
