@@ -33,16 +33,19 @@ export default function UploadPage() {
             setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
         }
 
-        if (selectedFiles.length > 0){
-            setDeleteLast(true)
-        }
-
-
         console.log('state', state)
         console.log('state', selectedFiles.length)
         console.log('select', selectedFiles)
         setFileNames(names)
     }
+
+    useEffect(()=>{
+        if(selectedFiles.length>0){
+            setDeleteLast(true)
+        } else if(selectedFiles.length==0){
+            setDeleteLast(false)
+        }
+    },[selectedFiles]);
 
     const deleteSelectedFile = file => {
         const newFiles = [...selectedFiles] // make a var for the new array
