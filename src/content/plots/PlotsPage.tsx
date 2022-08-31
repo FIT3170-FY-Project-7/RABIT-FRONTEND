@@ -2,11 +2,13 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useRef, useState } from 'react'
 import CheckboxDropdown from '../pages/FileUpload/CheckboxDropdown'
 import CornerPlot from './CornerPlot'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, Card, Link } from '@mui/material'
 import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
+import { uploadCornerPlotConfigs } from './PlotUploadShare'
+import CopyToClipboardButton from './CopyToClipboardButton'
 
 const PlotConfigDefault: PlotConfig = {
     plot_size: 500,
@@ -30,7 +32,8 @@ const DatasetConfigDefault: DatasetConfig = {
     quantiles: [0.5],
     color: '#0088FF',
     line_width: 1.25,
-    blur_radius: 1
+    blur_radius: 1,
+    file_id: ''
 }
 
 const ParameterConfigDefault: ParameterConfig = {
@@ -63,11 +66,15 @@ function PlotsPage({ files, availableParameters, title, description }) {
         files.map((file, index) => ({
             ...DatasetConfigDefault,
             color: colors[index],
-            data: file.posterior.content
+            data: file.posterior.content,
+            file_id: file.file_id
         }))
     )
+    const isInitialMount = useRef(true)
     const [parameters, setParameters] = useState<ParameterConfig[]>([])
     const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
+    const [shareLink, setShareLink] = useState<string>('')
+    const [runUpdateShare, setRunUpdateShare] = useState<boolean>(true)
     const defaultParameters = files.selected_keys ?? []
 
     // Config for MathJax rendering of mathematical symbols
@@ -83,6 +90,8 @@ function PlotsPage({ files, availableParameters, title, description }) {
         }
     }
 
+    const getCollectionId = () => window.location.href.split('/').slice(-1).pop()
+
     // Functions for corner plot image download.
     const downloadCornerPlotPNG = async () => {
         PlotDownloadService.downloadAsPNG()
@@ -91,6 +100,31 @@ function PlotsPage({ files, availableParameters, title, description }) {
     const downloadCornerPlotSVG = async () => {
         PlotDownloadService.downloadAsSVG()
     }
+
+    const constructShareLink = (corner_id: string) => {
+        const baseURL = window.location.href.split('/')[2]
+        return `${baseURL}/visualise/view/${corner_id}`
+    }
+
+    // Get share link only in updates post-mount
+    useEffect(() => {
+        const getLink = async () => {
+            try {
+                const corner_id = await uploadCornerPlotConfigs(getCollectionId(), config, datasets, parameters)
+                setShareLink(constructShareLink(corner_id))
+            } catch (err) {
+                console.error(err)
+                setShareLink('Link could not be generated')
+            }
+        }
+
+        if (isInitialMount.current) {
+            isInitialMount.current = false
+        } else {
+            getLink()
+            setShareLink('Loading')
+        }
+    }, [runUpdateShare])
 
     // Called from CheckboxDropdown component to fill parameters with ParameterConfig values
     const updateParameters = (new_parameters: string[]) => {
@@ -146,6 +180,25 @@ function PlotsPage({ files, availableParameters, title, description }) {
                             <Button variant='contained' onClick={downloadCornerPlotSVG}>
                                 Download as SVG
                             </Button>
+                        </Box>
+                        <Box>
+                            <Button
+                                variant='contained'
+                                onClick={() => setRunUpdateShare(!runUpdateShare)}
+                                sx={{ marginLeft: '1rem' }}
+                            >
+                                Generate shareable link
+                            </Button>
+
+                            {/* Add a visible share link if one was generated */}
+                            {shareLink && (
+                                <Box>
+                                    <Card>
+                                        <CopyToClipboardButton copyText={shareLink} />
+                                        <Link href={shareLink}>{shareLink}</Link>
+                                    </Card>
+                                </Box>
+                            )}
                         </Box>
                     </Box>
                 </div>

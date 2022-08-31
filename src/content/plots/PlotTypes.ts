@@ -23,6 +23,7 @@ export type DatasetConfig = {
     color: string
     line_width: number
     blur_radius: number
+    file_id: string
 }
 
 export type ParameterConfig = {
