@@ -2,6 +2,7 @@
 import { lazy, Suspense } from 'react'
 import { RouteObject } from 'react-router'
 import { Navigate } from 'react-router-dom'
+import RequireAuth from './components/ProtectedRoute'
 
 // Types.
 import type { ComponentProps, ComponentType } from 'react'
@@ -22,7 +23,7 @@ const Loader = (Component: ComponentType) => (props: ComponentProps<typeof Compo
 // Applications.
 const UserProfile = Loader(lazy(() => import('./content/applications/Users/profile')))
 const UserSettings = Loader(lazy(() => import('./content/applications/Users/settings')))
-const Datapage = Loader(lazy(() => import('./content/datapage')))
+const Visualise = Loader(lazy(() => import('./content/visualise')))
 
 // login, signup and password reset page
 const Login = Loader(lazy(() => import('./content/pages/account/login')))
@@ -43,6 +44,7 @@ const FileUpload = Loader(lazy(() => import('./content/pages/FileUpload')))
 const routes: RouteObject[] = [
     {
         element: <BaseLayout />,
+
         children: [
             { index: true, element: <Login /> },
             { path: 'login', element: <Navigate to='/' replace /> },
@@ -61,6 +63,7 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'profile',
+                element: <RequireAuth />,
                 children: [
                     { path: '', element: <Navigate to='details' replace /> },
                     { path: 'details', element: <UserProfile /> },
@@ -73,7 +76,7 @@ const routes: RouteObject[] = [
         element: <RabitLayout />,
         children: [
             // TODO: Convert to login screen.
-            { path: 'visualise/:id', element: <Datapage /> },
+            { path: 'visualise/:id', element: <Visualise /> },
             { path: 'upload', element: <FileUpload /> },
             { path: '*', element: <Status404 /> }
         ]

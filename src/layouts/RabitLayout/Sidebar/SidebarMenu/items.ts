@@ -17,13 +17,8 @@ export interface MenuItems {
 
 const menuItems: MenuItems[] = [
     {
-        heading: 'Pages',
+        heading: '',
         items: [
-            {
-                name: 'Upload',
-                link: '/upload',
-                icon: UploadIcon
-            },
             {
                 name: 'Past Uploads',
                 link: '/history',
