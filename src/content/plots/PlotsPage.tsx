@@ -114,7 +114,7 @@ function PlotsPage({ files, availableParameters, title, description }) {
     }, [datasets])
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1, margin: '5rem' }}>
             <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
                 Visualise {title ?? 'Data'}
             </Typography>

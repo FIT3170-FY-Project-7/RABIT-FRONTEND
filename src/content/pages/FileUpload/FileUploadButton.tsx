@@ -25,9 +25,11 @@ export default function FileUploadButton({
     buttonMessage
 }: FileUpload) {
     const [uploadPercentage, setUploadPercentage] = useState(0)
+    const [upload, setUpload] = useState(false)
     const navigate = useNavigate()
 
     const handleSubmission = async () => {
+        setUpload(true)
         const options = {
             onUploadProgress: progressEvent => {
                 const { loaded, total } = progressEvent
@@ -44,21 +46,16 @@ export default function FileUploadButton({
         data.append('description', description)
         for (const selectedFile of selectedFiles) {
             const content = await selectedFile.text()
-            const fileData = {
-                posterior: { content: JSON.parse(content)?.posterior?.content }
-            }
-
-            const blob = new Blob([JSON.stringify(fileData)], { type: 'application/json' })
+            const blob = new Blob([content], { type: 'application/json' })
             data.append('file', blob)
         }
 
         const response = await api.post('/raw-data', data, options)
-
         navigate(`/visualise/${response.data.id}`)
     }
     return (
         <div>
-            {uploadPercentage ? (
+            {upload ? (
                 <>
                     <Box sx={{ paddingTop: 2 }}>
                         <LinearProgress variant='determinate' value={uploadPercentage} />
