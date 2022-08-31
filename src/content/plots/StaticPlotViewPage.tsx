@@ -7,6 +7,7 @@ import { Button } from '@mui/material'
 import { PlotConfig, DatasetConfig, ParameterConfig, ApiParameterConfig } from './PlotTypes'
 import { colours } from './constants/Colours'
 import api from '../../api'
+import { useParams } from 'react-router'
 
 const PlotConfigDefault: PlotConfig = {
     plot_size: 700,
@@ -31,10 +32,8 @@ function StaticPlotViewPage() {
     const [datasetConfig, setDatasetConfig] = useState<DatasetConfig[]>([])
     const [parameterConfig, setParameterConfig] = useState<ParameterConfig[]>([])
 
-    // Fetch plot ID assuming it is the last part of the URL
-    // E.g. Rabit/visualise/view/123
-    // Plot ID will be 123
-    const plot_id = window.location.href.split('/').slice(-1).pop()
+    const params = useParams()
+    const plot_id = params.id
 
     // ============================================
     // Todo: Investigate weird output results (slightly different from normal plotting)
