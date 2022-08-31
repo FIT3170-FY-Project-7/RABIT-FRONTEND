@@ -15,6 +15,7 @@ export default function UploadPage() {
     const [description, setDescription] = useState('')
     const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
     const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
+    const [enableDeleteLast, setDeleteLast] = useState(false)
 
     const updateSelectedFiles = state => {
         setSelectedFiles([...selectedFiles, ...state])
@@ -26,27 +27,34 @@ export default function UploadPage() {
 
         Array.from(state).forEach((file: File) => names.push(file.name))
 
-        if (selectedFiles.length >= 3) {
-            console.log('error')
-            setEnableSizeLimitError(true)
-            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
-        }
-
         console.log('state', state)
         console.log('state', selectedFiles.length)
         console.log('select', selectedFiles)
         setFileNames(names)
     }
 
+    useEffect(() => {
+        if (selectedFiles.length > 0) {
+            setDeleteLast(true)
+        } else if (selectedFiles.length == 0) {
+            setDeleteLast(false)
+        }
+
+        if (selectedFiles.length < 4) {
+            //remove error if less then 4 files again
+            setEnableSizeLimitError(false)
+        }
+
+        if (selectedFiles.length >= 4) {
+            setEnableSizeLimitError(true)
+            setsizeLimitError('Keep Files to less then 4 to prevent plotting issues')
+        }
+    }, [selectedFiles])
+
     const deleteSelectedFile = file => {
         const newFiles = [...selectedFiles] // make a var for the new array
         newFiles.splice(file, 1) // remove the file from the array
         setSelectedFiles(newFiles) // update the state
-
-        if (selectedFiles.length <= 4) {
-            //remove error if less then 4 files again
-            setEnableSizeLimitError(false)
-        }
     }
 
     useEffect(() => console.log(selectedFiles), [selectedFiles])
@@ -57,11 +65,9 @@ export default function UploadPage() {
                 sx={{
                     display: 'grid',
                     width: '100%',
-                    maxWidth: '1000px',
                     gap: 2,
                     gridTemplateColumns: 'repeat(1, 1fr)',
-                    margin: '1rem',
-                    marginTop: '2rem'
+                    margin: '5rem'
                 }}
             >
                 <Typography variant='h1'>Upload</Typography>
@@ -82,16 +88,6 @@ export default function UploadPage() {
                     rows={3}
                     variant='filled'
                 />
-                <Box
-                    sx={{
-                        margin: '1rem'
-                    }}
-                >
-                    <FileSelectButton updateSelectedFiles={updateSelectedFiles} />
-                </Box>
-                <Typography variant='h4' style={{ textAlign: 'center' }}>
-                    OR
-                </Typography>
                 <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
                 <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
                     {selectedFiles.map((file, ind) => (
@@ -122,7 +118,8 @@ export default function UploadPage() {
                             {sizeLimitError}
                         </Button>
                     ) : null}
-                    <Button onClick={deleteSelectedFile}>Delete Last</Button>
+
+                    {enableDeleteLast ? <Button onClick={deleteSelectedFile}>Delete Last</Button> : null}
                 </Box>
                 <FileUploadButton
                     enableButton={!!selectedFiles?.length}
