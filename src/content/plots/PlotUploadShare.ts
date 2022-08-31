@@ -11,8 +11,6 @@ export const uploadCornerPlotConfigs = async (
     // or otherwise to whatever temporary/default user ID is in Nectar
     const userId = 'temp'
 
-    // TODO: make sure all the required information is still here after the backend data changes!
-
     const reqBody = {
         user_id: userId,
         collection_id: collectionId,

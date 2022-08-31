@@ -122,8 +122,8 @@ function PlotsPage({
   // Get share link only in updates post-mount
   const sharePlot = async () => {
     try {
-      const corner_id = await uploadCornerPlotConfigs(id, config, datasets, parameters)
-      setShareLink(constructShareLink(corner_id))
+      const shareResponse = await uploadCornerPlotConfigs(id, config, datasets, parameters)
+      setShareLink(constructShareLink(shareResponse.cornerPlotId))
     } catch (err) {
       console.error(err)
       setShareLink('Link could not be generated')
@@ -155,7 +155,7 @@ function PlotsPage({
               </Button>
             </Box>
             <Box>
-              <Button variant='contained' onClick={() => sharePlot} sx={{ marginLeft: '1rem' }}>
+              <Button variant='contained' onClick={sharePlot} sx={{ marginLeft: '1rem' }}>
                 Generate shareable link
               </Button>
 

@@ -78,7 +78,7 @@ const routes: RouteObject[] = [
     children: [
       // TODO: Convert to login screen.
       { path: 'visualise/:id', element: <Visualise /> },
-      { path: '/visualise/view/:id', element: <StaticPlotViewPage /> },
+      { path: 'visualise/view/:id', element: <StaticPlotViewPage /> },
       { path: 'upload', element: <FileUpload /> },
       { path: '*', element: <Status404 /> }
     ]
