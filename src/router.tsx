@@ -13,12 +13,13 @@ import RabitLayout from './layouts/RabitLayout'
 
 // Loader.
 import SuspenseLoader from './components/SuspenseLoader'
+import StaticPlotViewPage from './content/plots/StaticPlotViewPage'
 const Loader = (Component: ComponentType) => (props: ComponentProps<typeof Component>) =>
-    (
-        <Suspense fallback={<SuspenseLoader />}>
-            <Component {...props} />
-        </Suspense>
-    )
+  (
+    <Suspense fallback={<SuspenseLoader />}>
+      <Component {...props} />
+    </Suspense>
+  )
 
 // Applications.
 const UserProfile = Loader(lazy(() => import('./content/applications/Users/profile')))
@@ -42,45 +43,46 @@ const FileUpload = Loader(lazy(() => import('./content/pages/FileUpload')))
 
 // Routes.
 const routes: RouteObject[] = [
-    {
-        element: <BaseLayout />,
+  {
+    element: <BaseLayout />,
 
+    children: [
+      { index: true, element: <Login /> },
+      { path: 'login', element: <Navigate to='/' replace /> },
+      { path: 'signup', element: <Signup /> },
+      { path: 'reset-password', element: <ResetPassword /> },
+      { path: '*', element: <Status404 /> }
+    ]
+  },
+  {
+    path: 'management',
+    element: <RabitLayout />,
+    children: [
+      {
+        path: '',
+        element: <Navigate to='/management/profile' replace />
+      },
+      {
+        path: 'profile',
+        element: <RequireAuth />,
         children: [
-            { index: true, element: <Login /> },
-            { path: 'login', element: <Navigate to='/' replace /> },
-            { path: 'signup', element: <Signup /> },
-            { path: 'reset-password', element: <ResetPassword /> },
-            { path: '*', element: <Status404 /> }
+          { path: '', element: <Navigate to='details' replace /> },
+          { path: 'details', element: <UserProfile /> },
+          { path: 'settings', element: <UserSettings /> }
         ]
-    },
-    {
-        path: 'management',
-        element: <RabitLayout />,
-        children: [
-            {
-                path: '',
-                element: <Navigate to='/management/profile' replace />
-            },
-            {
-                path: 'profile',
-                element: <RequireAuth />,
-                children: [
-                    { path: '', element: <Navigate to='details' replace /> },
-                    { path: 'details', element: <UserProfile /> },
-                    { path: 'settings', element: <UserSettings /> }
-                ]
-            }
-        ]
-    },
-    {
-        element: <RabitLayout />,
-        children: [
-            // TODO: Convert to login screen.
-            { path: 'visualise/:id', element: <Visualise /> },
-            { path: 'upload', element: <FileUpload /> },
-            { path: '*', element: <Status404 /> }
-        ]
-    }
+      }
+    ]
+  },
+  {
+    element: <RabitLayout />,
+    children: [
+      // TODO: Convert to login screen.
+      { path: 'visualise/:id', element: <Visualise /> },
+      { path: 'visualise/view/:id', element: <StaticPlotViewPage /> },
+      { path: 'upload', element: <FileUpload /> },
+      { path: '*', element: <Status404 /> }
+    ]
+  }
 ]
 
 export default routes
