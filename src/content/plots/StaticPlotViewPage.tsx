@@ -35,9 +35,6 @@ function StaticPlotViewPage() {
     const params = useParams()
     const plot_id = params.id
 
-    // ============================================
-    // Todo: Investigate weird output results (slightly different from normal plotting)
-    // ============================================
     useEffect(() => {
         setConfig(config => ({
             ...config,
