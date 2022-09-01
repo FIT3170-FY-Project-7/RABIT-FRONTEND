@@ -40,6 +40,7 @@ const StatusMaintenance = Loader(lazy(() => import('./content/pages/Status/Maint
 
 // File Upload Page
 const FileUpload = Loader(lazy(() => import('./content/pages/FileUpload')))
+const UserPlots = Loader(lazy(() => import('./content/pages/UserPlots')))
 
 // Routes.
 const routes: RouteObject[] = [
@@ -80,6 +81,7 @@ const routes: RouteObject[] = [
       { path: 'visualise/:id', element: <Visualise /> },
       { path: 'visualise/view/:id', element: <StaticPlotViewPage /> },
       { path: 'upload', element: <FileUpload /> },
+      { path: 'plots', element: <UserPlots /> },
       { path: '*', element: <Status404 /> }
     ]
   }
