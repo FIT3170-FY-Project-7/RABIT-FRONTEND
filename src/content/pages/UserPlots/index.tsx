@@ -63,10 +63,10 @@ function UserPlots() {
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Box pb={2}>
-          <Typography variant='h3'>Plots</Typography>
+          <Typography variant='h1'>Plots</Typography>
           <Typography variant='subtitle2'>View and delete your plots</Typography>
         </Box>
-        <List>
+        <List sx={{ paddingLeft: 0 }}>
           {plots.map(plot => (
             <div key={plot.collection_title}>
               <ListItem

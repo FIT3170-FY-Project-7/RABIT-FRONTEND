@@ -36,10 +36,13 @@ const Visualise = () => {
       ) : (
         <div>
           <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
-            View {data.title ?? 'Data'}
+            Visualise
           </Typography>
-          <Typography variant='body1' sx={{ marginBottom: '1rem' }}>
-            Description: {data.description ?? 'N/A'}
+          <Typography variant='h3' sx={{ marginBottom: '1rem' }}>
+            {data.title ?? 'Data'}
+          </Typography>
+          <Typography variant='subtitle2' sx={{ marginBottom: '2rem' }}>
+            {data.description}
           </Typography>
           <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
             Select parameters to plot

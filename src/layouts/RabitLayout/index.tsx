@@ -36,7 +36,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = () => {
       <Sidebar />
       <MainWrapper>
         <Header />
-        <MainContent sx={{ margin: '4rem' }}>
+        <MainContent sx={{ margin: '3rem' }}>
           <Outlet />
         </MainContent>
       </MainWrapper>
