@@ -67,6 +67,7 @@ function PlotsPage({
   const [parameters, setParameters] = useState<ParameterConfig[]>([])
   const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
   const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState<string>('')
 
   useEffect(() => {
     setDatasets(
@@ -114,11 +115,13 @@ function PlotsPage({
   const sharePlot = async () => {
     try {
       const shareResponse = await uploadCornerPlotConfigs(id, config, datasets, parameters)
-      navigator.clipboard.writeText(constructShareLink(shareResponse.cornerPlotId))
+      navigator.clipboard.writeText(constructShareLink(shareResponse))
+      setSnackbarMessage('Link copied to clipboard')
       setOpen(true)
     } catch (err) {
       console.error(err)
-      setShareLink('Link could not be generated')
+      setSnackbarMessage('Link could not be generated')
+      setOpen(true)
     }
   }
 
@@ -145,7 +148,7 @@ function PlotsPage({
                     Generate Shareable Link
                   </Button>
                   <Snackbar
-                    message='Link copied to clibboard'
+                    message={snackbarMessage}
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     autoHideDuration={2000}
                     onClose={() => setOpen(false)}
