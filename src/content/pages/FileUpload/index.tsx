@@ -121,7 +121,7 @@ export default function UploadPage() {
           {enableDeleteLast ? <Button onClick={deleteSelectedFile}>Delete Last</Button> : null}
         </Box>
         <FileUploadButton
-          enableButton={!!selectedFiles?.length}
+          enableButton={selectedFiles?.length > 0 && !!title}
           selectedFiles={selectedFiles}
           title={title}
           description={description}
