@@ -61,7 +61,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '',
-        element: <Navigate to='/management/profile' replace />
+        element: <Navigate to='/upload' replace />
       },
       {
         path: 'profile',

@@ -33,7 +33,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
             response => {
                 setjwt(response.data.jwt)
                 localStorage.setItem('jwt', response.data.jwt)
-                navigate('/management/profile')
+                navigate('/upload')
             },
             error => {
                 console.log(error)
@@ -61,7 +61,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
             response => {
                 setjwt(response.data.jwt)
                 localStorage.setItem('jwt', jwt)
-                navigate('/management/profile')
+                navigate('/upload')
             },
             error => {
                 console.log(error)

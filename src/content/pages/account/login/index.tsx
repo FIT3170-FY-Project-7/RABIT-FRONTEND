@@ -105,7 +105,7 @@ const LoginForm = () => {
     //If jwt alrdy in local storage, render profile page
     if (enforceLogin()){
         useEffect(() => {
-            navigate('/management/profile')
+            navigate('/upload')
     })
     }
 
