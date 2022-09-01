@@ -7,11 +7,11 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 
 interface SidebarLayoutProps {
-    children?: ReactNode
+  children?: ReactNode
 }
 
 const MainWrapper = styled(Box)(
-    ({ theme }) => `
+  ({ theme }) => `
         flex: 1 1 auto;
         display: flex;
         height: 100%;
@@ -22,7 +22,7 @@ const MainWrapper = styled(Box)(
 )
 
 const MainContent = styled(Box)(
-    ({ theme }) => `
+  ({ theme }) => `
         margin: 1;
         display: flex;
         flex-direction: column;
@@ -31,17 +31,17 @@ const MainContent = styled(Box)(
 )
 
 const SidebarLayout: FC<SidebarLayoutProps> = () => {
-    return (
-        <>
-            <Sidebar />
-            <MainWrapper>
-                <Header />
-                <MainContent>
-                    <Outlet />
-                </MainContent>
-            </MainWrapper>
-        </>
-    )
+  return (
+    <>
+      <Sidebar />
+      <MainWrapper>
+        <Header />
+        <MainContent sx={{ margin: '3rem' }}>
+          <Outlet />
+        </MainContent>
+      </MainWrapper>
+    </>
+  )
 }
 
 export default SidebarLayout
