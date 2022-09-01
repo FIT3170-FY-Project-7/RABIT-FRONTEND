@@ -146,25 +146,27 @@ function PlotsPage({
           <CornerPlot datasets={datasets} parameters={parameters} config={scaledConfig} />
           <Box>
             <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Button variant='contained' onClick={downloadCornerPlotPNG} sx={{ marginRight: '1rem' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button variant='contained' onClick={downloadCornerPlotPNG} sx={{ width: '48%' }}>
                 Download as PNG
               </Button>
-              <Button variant='contained' onClick={downloadCornerPlotSVG}>
+              <Button variant='contained' onClick={downloadCornerPlotSVG} sx={{ width: '48%' }}>
                 Download as SVG
               </Button>
             </Box>
-            <Box>
-              <Button variant='contained' onClick={sharePlot} sx={{ marginLeft: '1rem' }}>
+            <Box sx={{ marginTop: '10px', width: '100%' }}>
+              <Button variant='contained' onClick={sharePlot} sx={{ width: '100%', marginBottom: '5px' }}>
                 Generate shareable link
               </Button>
 
               {/* Add a visible share link if one was generated */}
               {shareLink && (
                 <Box>
-                  <Card>
+                  <Card sx={{ padding: '5px' }}>
                     <CopyToClipboardButton copyText={shareLink} />
-                    <Link href={shareLink}>{shareLink}</Link>
+                    <Link href={shareLink} sx={{ width: '90%', overflowWrap: 'break-word' }}>
+                      {shareLink}
+                    </Link>
                   </Card>
                 </Box>
               )}
