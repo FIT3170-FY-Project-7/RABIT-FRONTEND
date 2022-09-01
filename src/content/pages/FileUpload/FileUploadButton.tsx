@@ -61,7 +61,7 @@ export default function FileUploadButton({
     })
     setIsProcessing(false)
 
-    navigate(`/visualise/${response.data.id}`)
+    navigate(`/visualise/${response.id}`)
   }
 
   if (isUploading) {
