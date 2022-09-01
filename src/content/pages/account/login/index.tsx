@@ -161,8 +161,8 @@ const LoginForm = () => {
                 <TextField
                     onChange={e => setUsername(e.target.value)}
                     error={usernameError}
-                    label='Username'
-                    placeholder='Enter username...'
+                    label='Email'
+                    placeholder='Enter email...'
                     variant='outlined'
                     required
                     fullWidth
