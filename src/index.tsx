@@ -1,30 +1,29 @@
 // ==============================|| IMPORTS ||============================== //
 
 // React.
-import { createRoot     } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
-import { HashRouter     } from 'react-router-dom'
+
+import { BrowserRouter } from 'react-router-dom'
 
 // App.
 import App from './App'
-import * as serviceWorker from './serviceWorker'
 import { SidebarProvider } from './contexts/SidebarContext'
+import * as serviceWorker from './serviceWorker'
 
 // Styling.
 import 'nprogress/nprogress.css'
 
 // ==============================|| REACT DOM RENDER ||============================== //
 
-console.log("test")
-
 const container = document.getElementById('root')
-const root      = createRoot(container)
+const root = createRoot(container)
 root.render(
     <HelmetProvider>
         <SidebarProvider>
-            <HashRouter >
+            <BrowserRouter>
                 <App />
-            </HashRouter >
+            </BrowserRouter>
         </SidebarProvider>
     </HelmetProvider>
 )
