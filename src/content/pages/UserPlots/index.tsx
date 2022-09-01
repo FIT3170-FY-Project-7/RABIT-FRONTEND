@@ -43,7 +43,7 @@ function UserPlots() {
 
   const getPlotDetails = async () => {
     await api
-      .get(`/raw-data/user/${userID}`)
+      .get(`/raw-data`)
       .then(response => {
         if (response.status == 200) {
           setPlots(response.data)
