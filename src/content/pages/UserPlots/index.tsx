@@ -66,7 +66,7 @@ function UserPlots() {
           <Typography variant='h1'>Plots</Typography>
           <Typography variant='subtitle2'>View and delete your plots</Typography>
         </Box>
-        <List>
+        <List sx={{ paddingLeft: 0 }}>
           {plots.map(plot => (
             <div key={plot.collection_title}>
               <ListItem
