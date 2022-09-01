@@ -68,7 +68,7 @@ function UserPlots() {
         </Box>
         <List sx={{ paddingLeft: 0 }}>
           {plots.map(plot => (
-            <div key={plot.collection_title}>
+            <div key={plot.collection_id}>
               <ListItem
                 onClick={() => {
                   navigateToPlot(plot.collection_id)

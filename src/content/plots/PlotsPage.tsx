@@ -1,7 +1,7 @@
 import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
-import { Box, Button, Typography, Card, Link } from '@mui/material'
+import { Box, Button, Typography, Card, Link, Snackbar } from '@mui/material'
 import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
@@ -9,6 +9,7 @@ import * as d3 from 'd3'
 import { uploadCornerPlotConfigs } from './PlotUploadShare'
 import CopyToClipboardButton from './CopyToClipboardButton'
 import { useParams } from 'react-router-dom'
+import DownloadButton from '../../components/Download/DownloadButton'
 
 const PlotConfigDefault: PlotConfig = {
   plot_size: 500,
@@ -65,8 +66,7 @@ function PlotsPage({
   const [datasets, setDatasets] = useState<DatasetConfig[]>()
   const [parameters, setParameters] = useState<ParameterConfig[]>([])
   const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
-  const [runUpdateShare, setRunUpdateShare] = useState<boolean>(true)
-  const [shareLink, setShareLink] = useState<string>('')
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setDatasets(
@@ -105,15 +105,6 @@ function PlotsPage({
     }
   }
 
-  // Functions for corner plot image download.
-  const downloadCornerPlotPNG = async () => {
-    PlotDownloadService.downloadAsPNG()
-  }
-
-  const downloadCornerPlotSVG = async () => {
-    PlotDownloadService.downloadAsSVG()
-  }
-
   const constructShareLink = (corner_id: string) => {
     const baseURL = window.location.href.split('/')[2]
     return `${baseURL}/visualise/view/${corner_id}`
@@ -123,7 +114,8 @@ function PlotsPage({
   const sharePlot = async () => {
     try {
       const shareResponse = await uploadCornerPlotConfigs(id, config, datasets, parameters)
-      setShareLink(constructShareLink(shareResponse.cornerPlotId))
+      navigator.clipboard.writeText(constructShareLink(shareResponse.cornerPlotId))
+      setOpen(true)
     } catch (err) {
       console.error(err)
       setShareLink('Link could not be generated')
@@ -148,30 +140,17 @@ function PlotsPage({
             <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
             {parameters.length > 0 && (
               <Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Button variant='contained' onClick={downloadCornerPlotPNG} sx={{ width: '48%' }}>
-                    Download as PNG
-                  </Button>
-                  <Button variant='contained' onClick={downloadCornerPlotSVG} sx={{ width: '48%' }}>
-                    Download as SVG
-                  </Button>
-                </Box>
                 <Box sx={{ marginTop: '10px', width: '100%' }}>
                   <Button variant='contained' onClick={sharePlot} sx={{ width: '100%', marginBottom: '5px' }}>
-                    Generate shareable link
+                    Generate Shareable Link
                   </Button>
-
-                  {/* Add a visible share link if one was generated */}
-                  {shareLink && (
-                    <Box>
-                      <Card sx={{ padding: '5px' }}>
-                        <CopyToClipboardButton copyText={shareLink} />
-                        <Link href={shareLink} sx={{ width: '90%', overflowWrap: 'break-word' }}>
-                          {shareLink}
-                        </Link>
-                      </Card>
-                    </Box>
-                  )}
+                  <Snackbar
+                    message='Link copied to clibboard'
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={2000}
+                    onClose={() => setOpen(false)}
+                    open={open}
+                  />
                 </Box>
               </Box>
             )}

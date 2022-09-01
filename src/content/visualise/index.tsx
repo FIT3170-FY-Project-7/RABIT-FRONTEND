@@ -8,6 +8,7 @@ import { useMemo, useState } from 'react'
 import CheckboxDropdown, { OptionType } from './CheckboxDropdown'
 import PlotsPage from '../plots/PlotsPage'
 import Plot from './Plot'
+import DownloadButton from '../../components/Download/DownloadButton'
 
 export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
 
@@ -35,9 +36,12 @@ const Visualise = () => {
         <div>Loading</div>
       ) : (
         <div>
-          <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
-            Visualise
-          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
+              Visualise
+            </Typography>
+            {parameters.length > 0 && <DownloadButton />}
+          </Box>
           <Typography variant='h3' sx={{ marginBottom: '1rem' }}>
             {data.title ?? 'Data'}
           </Typography>
@@ -54,6 +58,7 @@ const Visualise = () => {
             value={parameters}
             setValue={setParameters}
           />
+
           <Plot files={data.files} parameterNames={parameters.map(parameter => parameter.value)} />
         </div>
       )}

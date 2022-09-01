@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
 import html2canvas from 'html2canvas'
-import { Button } from '@mui/material'
+import { Box } from '@mui/material'
 import { PlotConfig, DatasetConfig, ParameterConfig, ApiParameterConfig } from './PlotTypes'
 import { colours } from './constants/Colours'
 import api from '../../api'
 import { useParams } from 'react-router'
+import DownloadButton from '../../components/Download/DownloadButton'
 
 const PlotConfigDefault: PlotConfig = {
   plot_size: 700,
@@ -84,12 +85,12 @@ function StaticPlotViewPage() {
   return (
     <div>
       <MathJaxContext config={MathJaxConfig}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <DownloadButton />
+        </Box>
         <div className='corner-plot-appearance-config-container'>
           <CornerPlot datasets={datasetConfig} parameters={parameterConfig} config={config} />
         </div>
-        <Button variant='contained' onClick={downloadCornerPlotImage}>
-          Download Image
-        </Button>
       </MathJaxContext>
     </div>
   )
