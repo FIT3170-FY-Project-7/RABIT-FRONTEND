@@ -54,7 +54,7 @@ function DatasetConfiguration({
         setIsSaved(false)
         setNewDataset(prevState => ({
             ...prevState,
-            blur_radius: new_blur_radius
+            blur_radius: +new_blur_radius
         }))
     }
 
