@@ -3,29 +3,29 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { ReactNode } from 'react'
 
 export interface MenuItem {
-    link?: string
-    icon?: ReactNode
-    badge?: string
-    items?: MenuItem[]
-    name: string
+  link?: string
+  icon?: ReactNode
+  badge?: string
+  items?: MenuItem[]
+  name: string
 }
 
 export interface MenuItems {
-    items: MenuItem[]
-    heading: string
+  items: MenuItem[]
+  heading: string
 }
 
 const menuItems: MenuItems[] = [
-    {
-        heading: '',
-        items: [
-            {
-                name: 'Past Uploads',
-                link: '/history',
-                icon: AccessTimeIcon
-            }
-        ]
-    }
+  {
+    heading: '',
+    items: [
+      {
+        name: 'My Plots',
+        link: '/plots',
+        icon: AccessTimeIcon
+      }
+    ]
+  }
 ]
 
 export default menuItems
