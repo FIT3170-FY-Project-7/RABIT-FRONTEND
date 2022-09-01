@@ -24,6 +24,7 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .style('display', 'flex')
     .style('justify-content', 'center')
     .style('align-items', 'center')
+    .style('word-break', 'break-word')
     .html(parameter.display_text)
 
   // Create scale
