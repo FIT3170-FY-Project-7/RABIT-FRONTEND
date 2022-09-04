@@ -1,5 +1,5 @@
 import UploadIcon from '@mui/icons-material/Upload'
-import { Button } from '@mui/material'
+import { Button, Dialog } from '@mui/material'
 import csvToJson from 'csvtojson'
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
@@ -8,6 +8,8 @@ import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../api'
+import Modal from '@mui/material/Modal';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface FileUpload {
   enableButton: boolean
@@ -16,6 +18,22 @@ interface FileUpload {
   description: string
   buttonMessage: string
 }
+
+
+const modal_style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: '16px'
+};
+
+
 
 export default function FileUploadButton({
   enableButton,
@@ -78,7 +96,35 @@ export default function FileUploadButton({
   }
 
   if (isProcessing) {
-    return <div>Processing raw data, please wait...</div>
+
+    return (
+
+      <div>
+      <Modal
+        open={true}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modal_style} >
+          <Box sx={{ display: 'flex', alignItems: 'centre', justifyContent: 'center' ,margin: '10%'}}>
+            <CircularProgress />
+          </Box>
+          <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
+            Processing raw data please wait...
+          </Typography>
+        </Box>
+      </Modal>
+
+    </div>
+
+    )
+    
+
+    
+
+
+
+    
   }
 
   return (
