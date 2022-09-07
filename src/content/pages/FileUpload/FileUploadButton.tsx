@@ -8,8 +8,9 @@ import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../api'
-import Modal from '@mui/material/Modal';
-import CircularProgress from '@mui/material/CircularProgress';
+import Modal from '@mui/material/Modal'
+import CircularProgress from '@mui/material/CircularProgress'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 interface FileUpload {
   enableButton: boolean
@@ -19,7 +20,6 @@ interface FileUpload {
   buttonMessage: string
 }
 
-
 const modal_style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -27,13 +27,11 @@ const modal_style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid rgba(255, 255, 255, 0.2)',
   boxShadow: 24,
   p: 4,
   borderRadius: '16px'
-};
-
-
+}
 
 export default function FileUploadButton({
   enableButton,
@@ -77,54 +75,49 @@ export default function FileUploadButton({
     await api.post('/raw-data/process', {
       fileIds
     })
-    setIsProcessing(false)
 
     navigate(`/visualise/${response.id}`)
   }
 
-  if (isUploading) {
+  if (isUploading || isProcessing) {
     return (
       <div>
-        <Box sx={{ paddingTop: 2 }}>
-          <LinearProgress variant='determinate' value={uploadPercentage} />
-        </Box>
-        <Box sx={{ minWidth: 35 }}>
-          <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
-        </Box>
+        <Modal open={true} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+          <Box sx={modal_style}>
+            <Box sx={{ display: 'flex', alignItems: 'centre', justifyContent: 'center', margin: '10%' }}>
+              <CircularProgress />
+            </Box>
+            <Box sx={{ paddingTop: 2 }}>
+              <LinearProgress variant='determinate' value={uploadPercentage} />
+            </Box>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
+            </Box>
+            {isProcessing && (
+              <Box
+                sx={{
+                  marginTop: '1rem',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography id='modal-modal-title' variant='h6' component='h2' align='center'>
+                  Uploading Complete
+                </Typography>
+                <CheckCircleIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem' }} />
+              </Box>
+            )}
+            <Box sx={{ marginTop: '1rem' }}>
+              <Typography id='modal-modal-title' variant='h6' component='h2' align='center'>
+                {`${isProcessing ? 'Processing' : 'Uploading'} please wait...`}
+              </Typography>
+            </Box>
+          </Box>
+        </Modal>
       </div>
     )
-  }
-
-  if (isProcessing) {
-
-    return (
-
-      <div>
-      <Modal
-        open={true}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={modal_style} >
-          <Box sx={{ display: 'flex', alignItems: 'centre', justifyContent: 'center' ,margin: '10%'}}>
-            <CircularProgress />
-          </Box>
-          <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
-            Processing raw data please wait...
-          </Typography>
-        </Box>
-      </Modal>
-
-    </div>
-
-    )
-    
-
-    
-
-
-
-    
   }
 
   return (
