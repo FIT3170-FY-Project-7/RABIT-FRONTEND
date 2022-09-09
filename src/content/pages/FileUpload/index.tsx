@@ -71,10 +71,10 @@ export default function UploadPage() {
     }
   }, [selectedFiles])
 
-  const deleteSelectedFile = file => {
-    const newFiles = [...selectedFiles] // make a var for the new array
-    newFiles.splice(file, 1) // remove the file from the array
-    setSelectedFiles(newFiles) // update the state
+  function removeSelectedFile(index){
+    const newFiles = [...selectedFiles]
+    newFiles.splice(index, 1)
+    setSelectedFiles(newFiles)
   }
 
   useEffect(() => console.log(selectedFiles), [selectedFiles])
@@ -153,19 +153,33 @@ export default function UploadPage() {
         </Modal>
         <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
         <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
-          {selectedFiles.map((file, ind) => (
+        {selectedFiles.map((file, ind) => (
+
+        <div key={ind}>
             <Button
-              type='button'
-              key={ind}
-              variant='outlined'
-              style={{
-                maxWidth: 'fit-content',
-                marginTop: ind > 0 ? '1rem' : ''
-              }}
-            >
-              {file.name}
-            </Button>
-          ))}
+            type='button'
+            
+            variant='outlined'
+            style={{
+              maxWidth: 'fit-content',
+              marginTop: ind > 0 ? '1rem' : ''
+            }}
+          >
+            {file.name}
+          </Button>
+
+          <Button
+            onClick={() => removeSelectedFile(ind)}
+            style={{
+              maxWidth: 'fit-content',
+              marginTop: ind > 0 ? '1rem' : ''
+            }}
+          >
+            X
+          </Button>
+        </div>
+
+))}
 
           {enableSizeLimitError ? (
             <Button
@@ -181,8 +195,6 @@ export default function UploadPage() {
               {sizeLimitError}
             </Button>
           ) : null}
-
-          {enableDeleteLast ? <Button onClick={deleteSelectedFile}>Delete Last</Button> : null}
         </Box>
         <FileUploadButton
           enableButton={selectedFiles?.length > 0 && !!title}
