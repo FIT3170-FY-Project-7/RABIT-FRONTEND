@@ -10,6 +10,7 @@ import ParameterSelector from './ParameterSelector'
 import HelpIcon from '@mui/icons-material/Help'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const modal_style = {
   position: 'absolute' as 'absolute',
@@ -34,7 +35,6 @@ export default function UploadPage() {
   const [description, setDescription] = useState('')
   const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
   const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
-  const [enableDeleteLast, setDeleteLast] = useState(false)
   const [openFileFormatModal, setOpenFileFormatModal] = useState(false)
 
   const updateSelectedFiles = state => {
@@ -54,11 +54,6 @@ export default function UploadPage() {
   }
 
   useEffect(() => {
-    if (selectedFiles.length > 0) {
-      setDeleteLast(true)
-    } else if (selectedFiles.length == 0) {
-      setDeleteLast(false)
-    }
 
     if (selectedFiles.length < 4) {
       //remove error if less then 4 files again
@@ -72,9 +67,9 @@ export default function UploadPage() {
   }, [selectedFiles])
 
   function removeSelectedFile(index){
-    const newFiles = [...selectedFiles]
-    newFiles.splice(index, 1)
-    setSelectedFiles(newFiles)
+    const newFiles = [...selectedFiles] //create new array based off current files
+    newFiles.splice(index, 1) //remove selected file
+    setSelectedFiles(newFiles) //re-set array
   }
 
   useEffect(() => console.log(selectedFiles), [selectedFiles])
@@ -162,21 +157,15 @@ export default function UploadPage() {
             variant='outlined'
             style={{
               maxWidth: 'fit-content',
-              marginTop: ind > 0 ? '1rem' : ''
+              marginTop: '5px'
             }}
           >
             {file.name}
           </Button>
 
-          <Button
-            onClick={() => removeSelectedFile(ind)}
-            style={{
-              maxWidth: 'fit-content',
-              marginTop: ind > 0 ? '1rem' : ''
-            }}
-          >
-            X
-          </Button>
+          <IconButton aria-label="delete" onClick={() => removeSelectedFile(ind)}>
+              <RemoveCircleIcon color='error' fontSize='small'/>
+          </IconButton>
         </div>
 
 ))}
