@@ -15,8 +15,8 @@ const PlotConfigDefault: PlotConfig = {
   plot_size: 500,
   subplot_size: 150,
   margin: {
-    horizontal: 10,
-    vertical: 10
+    horizontal: 5,
+    vertical: 5
   },
   axis: {
     size: 100,
