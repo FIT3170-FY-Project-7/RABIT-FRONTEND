@@ -20,8 +20,8 @@ const PlotConfigDefault: PlotConfig = {
   },
   axis: {
     size: 100,
-    tickSize: 10,
-    ticks: 4
+    tickSize: 5,
+    ticks: 3
   },
   background_color: '#CFE5FF'
 }

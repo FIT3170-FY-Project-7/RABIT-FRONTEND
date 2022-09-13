@@ -34,7 +34,14 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .range([0, config.subplot_size - 1])
 
   // Add scales to axis
-  const x_axis = svg.append('g').call(d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize))
+  const x_axis = svg
+    .append('g')
+    .call(d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize).tickSizeOuter(0))
+    .selectAll('text')
+    .style('text-anchor', 'end')
+    .attr('dx', '-.8em')
+    .attr('dy', '.15em')
+    .attr('transform', 'rotate(-45)')
 
   // Explicitly colour the axis so they display correctly when downloaded
   x_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
