@@ -10,21 +10,9 @@ import ParameterSelector from './ParameterSelector'
 import HelpIcon from '@mui/icons-material/Help'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-
-const modal_style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  outline: 'none',
-  bgcolor: 'background.paper',
-  border: '2px solid rgba(255, 255, 255, 0.2)',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '16px'
-}
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import ParameterForm from './ParameterForm'
+import { modal_style } from './constants'
 
 const example = { posterior: { content: 'value' } }
 
@@ -54,7 +42,6 @@ export default function UploadPage() {
   }
 
   useEffect(() => {
-
     if (selectedFiles.length < 4) {
       //remove error if less then 4 files again
       setEnableSizeLimitError(false)
@@ -66,7 +53,7 @@ export default function UploadPage() {
     }
   }, [selectedFiles])
 
-  function removeSelectedFile(index){
+  function removeSelectedFile(index) {
     const newFiles = [...selectedFiles] //create new array based off current files
     newFiles.splice(index, 1) //remove selected file
     setSelectedFiles(newFiles) //re-set array
@@ -148,27 +135,24 @@ export default function UploadPage() {
         </Modal>
         <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
         <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
-        {selectedFiles.map((file, ind) => (
+          {selectedFiles.map((file, ind) => (
+            <div key={ind}>
+              <Button
+                type='button'
+                variant='outlined'
+                style={{
+                  maxWidth: 'fit-content',
+                  marginTop: '5px'
+                }}
+              >
+                {file.name}
+              </Button>
 
-        <div key={ind}>
-            <Button
-            type='button'
-            
-            variant='outlined'
-            style={{
-              maxWidth: 'fit-content',
-              marginTop: '5px'
-            }}
-          >
-            {file.name}
-          </Button>
-
-          <IconButton aria-label="delete" onClick={() => removeSelectedFile(ind)}>
-              <RemoveCircleIcon color='error' fontSize='small'/>
-          </IconButton>
-        </div>
-
-))}
+              <IconButton aria-label='delete' onClick={() => removeSelectedFile(ind)}>
+                <RemoveCircleIcon color='error' fontSize='small' />
+              </IconButton>
+            </div>
+          ))}
 
           {enableSizeLimitError ? (
             <Button

@@ -11,6 +11,7 @@ import api from '../../../api'
 import Modal from '@mui/material/Modal'
 import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { modal_style } from './constants'
 
 interface FileUpload {
   enableButton: boolean
@@ -18,19 +19,6 @@ interface FileUpload {
   title: string
   description: string
   buttonMessage: string
-}
-
-const modal_style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid rgba(255, 255, 255, 0.2)',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '16px'
 }
 
 export default function FileUploadButton({
