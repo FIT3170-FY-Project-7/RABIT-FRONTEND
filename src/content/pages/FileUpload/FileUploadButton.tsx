@@ -8,6 +8,7 @@ import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../api'
+import chunkUpload from '../../../utils/chunkUpload'
 
 interface FileUpload {
   enableButton: boolean
@@ -31,37 +32,26 @@ export default function FileUploadButton({
 
   const handleSubmission = async () => {
     setIsUploading(true)
-    const options = {
-      onUploadProgress: progressEvent => {
-        const { loaded, total } = progressEvent
-        let percentage = Math.floor((loaded * 100) / total)
-        //console.log(`${loaded}kb of ${total}kb | ${percentage}%`)
-        //correctly works as a progress bar in console (throttle speed to test or use a big file)
+    const fileIds = await api
+      .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
+      .then(res => res.data.fileIds)
 
-        setUploadPercentage(percentage)
-      }
+    for (const [i, file] of selectedFiles.entries()) {
+      await chunkUpload(fileIds[i], file)
     }
-
-    const data = new FormData()
-    data.append('title', title)
-    data.append('description', description)
-    for (const selectedFile of selectedFiles) {
-      const content = await selectedFile.text()
-      const blob = new Blob([content], { type: 'application/json' })
-      data.append('file', blob)
-    }
-
-    const response = await api.post('/raw-data', data, options).then(res => res.data)
-    const fileIds = response.fileIds
     setIsUploading(false)
 
     setIsProcessing(true)
-    await api.post('/raw-data/process', {
-      fileIds
-    })
+    const plotCollection = await api
+      .post('/raw-data/process', {
+        title,
+        description,
+        fileIds
+      })
+      .then(res => res.data)
     setIsProcessing(false)
 
-    navigate(`/visualise/${response.id}`)
+    navigate(`/visualise/${plotCollection.id}`)
   }
 
   if (isUploading) {
