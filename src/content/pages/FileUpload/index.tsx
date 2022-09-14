@@ -89,7 +89,7 @@ export default function UploadPage() {
           rows={3}
           variant='filled'
         />
-
+        <ParameterForm />
         <Box
           sx={{
             marginTop: '1rem',
