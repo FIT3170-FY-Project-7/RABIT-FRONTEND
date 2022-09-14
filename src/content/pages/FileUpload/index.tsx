@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Box, TextField, Divider, Typography, Button, Modal } from '@mui/material'
-import FileSelectButton from './FileSelectButton'
 import FileUploadButton from './FileUploadButton'
-import CheckboxDropdown from './CheckboxDropdown'
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
 import DragFilesBox from './DragFilesBox'
-import FileDescriptionBox from './FileDescriptionBox'
-import ParameterSelector from './ParameterSelector'
 import HelpIcon from '@mui/icons-material/Help'
 import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
@@ -109,6 +105,7 @@ export default function UploadPage() {
         </Box>
         <Modal
           open={openFileFormatModal}
+          onClose={() => setOpenFileFormatModal(false)}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
         >
@@ -117,7 +114,7 @@ export default function UploadPage() {
               color='primary'
               aria-label='upload picture'
               component='label'
-              sx={{ position: 'absolute', top: '-15px', right: '-15px', fontSize: 'large' }}
+              sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
               onClick={() => setOpenFileFormatModal(false)}
             >
               <CancelIcon />

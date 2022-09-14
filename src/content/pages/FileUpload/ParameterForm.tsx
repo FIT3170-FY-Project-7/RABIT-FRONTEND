@@ -3,25 +3,17 @@ import {
   Autocomplete,
   Box,
   FormControlLabel,
-  FormGroup,
+  IconButton,
   Modal,
-  Paper,
   Switch,
   Tab,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Tabs,
   TextField,
   Typography
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
 import { extrinsicParameters, intrinsicParameters, modal_style, otherParameters } from './constants'
-import CheckboxDropdown from './CheckboxDropdown'
-import { KeyboardCapslock } from '@mui/icons-material'
+import CancelIcon from '@mui/icons-material/Cancel'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -96,6 +88,15 @@ function ParameterForm() {
         aria-describedby='modal-modal-description'
       >
         <Box sx={{ minWidth: '60%', ...modal_style }}>
+          <IconButton
+            color='primary'
+            aria-label='upload picture'
+            component='label'
+            sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
+            onClick={() => setOpenParamaterModal(false)}
+          >
+            <CancelIcon />
+          </IconButton>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label='basic tabs example'>
               {Object.keys(parameters).map((key, i) => (
