@@ -9,7 +9,13 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
 import { extrinsicParameters, intrinsicParameters, modal_style, otherParameters } from './constants'
@@ -87,7 +93,7 @@ function ParameterForm() {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={{ minWidth: '60%', ...modal_style }}>
+        <Box sx={{ minWidth: '50%', ...modal_style }}>
           <IconButton
             color='primary'
             aria-label='upload picture'
@@ -106,7 +112,20 @@ function ParameterForm() {
           </Box>
           {Object.keys(parameters).map((key, i) => (
             <TabPanel value={tab} index={i} key={i}>
-              <Autocomplete
+              <Typography variant='h3' sx={{ mb: 2 }}>Parameters in this category</Typography>
+              <TableContainer sx={{ maxHeight: 350 }}>
+                <Table>
+                  <TableHead></TableHead>
+                  <TableBody>
+                    {Object.keys(parameters[key]).map(value =>
+                      <TableRow key={value}>
+                        <TableCell>{parameters[key][value]}</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/* <Autocomplete
                 disablePortal
                 id='combo-box-demo'
                 options={parameters[key]}
@@ -117,7 +136,7 @@ function ParameterForm() {
                     label={`${key.charAt(0).toUpperCase() + key.substring(1)} Parameters Selected`}
                   />
                 )}
-              />
+              /> */}
             </TabPanel>
           ))}
         </Box>
