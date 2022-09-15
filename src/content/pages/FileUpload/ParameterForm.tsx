@@ -57,18 +57,18 @@ function a11yProps(index: number) {
 function ParameterForm() {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
-  const [all, setAll] = useState(false)
+  const [other, setOther] = useState(false)
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
-  useEffect(() => {
-    if (all) {
-      setIntrinsic(true)
-      setExtrinsic(true)
-    }
-  }, [all])
+  // useEffect(() => {
+  //   if (other) {
+  //     setIntrinsic(true)
+  //     setExtrinsic(true)
+  //   }
+  // }, [other])
 
   return (
     <>
@@ -153,8 +153,8 @@ function ParameterForm() {
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={all} onChange={e => setAll(e.target.checked)} />}
-          label='All (Intrinsic + Extrinsic + Other)'
+          control={<Switch checked={other} onChange={e => setOther(e.target.checked)} />}
+          label='Other'
           labelPlacement='start'
         />
       </Box>
