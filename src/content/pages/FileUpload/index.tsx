@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Box, TextField, Divider, Typography, Button } from '@mui/material'
-import FileSelectButton from './FileSelectButton'
+import { Box, TextField, Divider, Typography, Button, Modal } from '@mui/material'
 import FileUploadButton from './FileUploadButton'
-import CheckboxDropdown from './CheckboxDropdown'
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
 import DragFilesBox from './DragFilesBox'
-import FileDescriptionBox from './FileDescriptionBox'
-import ParameterSelector from './ParameterSelector'
+import HelpIcon from '@mui/icons-material/Help'
+import CancelIcon from '@mui/icons-material/Cancel'
+import IconButton from '@mui/material/IconButton'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import ParameterForm from './ParameterForm'
+import { modal_style } from './constants'
+
+const example = { posterior: { content: 'value' } }
 
 export default function UploadPage() {
   const [selectedFiles, setSelectedFiles] = useState([])
@@ -15,7 +19,7 @@ export default function UploadPage() {
   const [description, setDescription] = useState('')
   const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
   const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
-  const [enableDeleteLast, setDeleteLast] = useState(false)
+  const [openFileFormatModal, setOpenFileFormatModal] = useState(false)
 
   const updateSelectedFiles = state => {
     setSelectedFiles([...selectedFiles, ...state])
@@ -34,12 +38,6 @@ export default function UploadPage() {
   }
 
   useEffect(() => {
-    if (selectedFiles.length > 0) {
-      setDeleteLast(true)
-    } else if (selectedFiles.length == 0) {
-      setDeleteLast(false)
-    }
-
     if (selectedFiles.length < 4) {
       //remove error if less then 4 files again
       setEnableSizeLimitError(false)
@@ -51,10 +49,10 @@ export default function UploadPage() {
     }
   }, [selectedFiles])
 
-  const deleteSelectedFile = file => {
-    const newFiles = [...selectedFiles] // make a var for the new array
-    newFiles.splice(file, 1) // remove the file from the array
-    setSelectedFiles(newFiles) // update the state
+  function removeSelectedFile(index) {
+    const newFiles = [...selectedFiles] //create new array based off current files
+    newFiles.splice(index, 1) //remove selected file
+    setSelectedFiles(newFiles) //re-set array
   }
 
   useEffect(() => console.log(selectedFiles), [selectedFiles])
@@ -87,20 +85,70 @@ export default function UploadPage() {
           rows={3}
           variant='filled'
         />
+        <ParameterForm />
+        <Box
+          sx={{
+            marginTop: '1rem',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            maxWidth: 'fit-content',
+            cursor: 'pointer'
+          }}
+          onClick={() => setOpenFileFormatModal(true)}
+        >
+          <Typography sx={{ color: '#FFCC00', textDecoration: 'underline' }} variant='h5'>
+            Accepted Files
+          </Typography>
+          <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: '#FFCC00' }} />
+        </Box>
+        <Modal
+          open={openFileFormatModal}
+          onClose={() => setOpenFileFormatModal(false)}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={modal_style}>
+            <IconButton
+              color='primary'
+              aria-label='upload picture'
+              component='label'
+              sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
+              onClick={() => setOpenFileFormatModal(false)}
+            >
+              <CancelIcon />
+            </IconButton>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Accepted Files
+            </Typography>
+            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+              Accepted file format inclues .json
+            </Typography>
+            <div>
+              <pre>{JSON.stringify(example, null, 2)}</pre>
+            </div>
+          </Box>
+        </Modal>
         <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
         <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
           {selectedFiles.map((file, ind) => (
-            <Button
-              type='button'
-              key={ind}
-              variant='outlined'
-              style={{
-                maxWidth: 'fit-content',
-                marginTop: ind > 0 ? '1rem' : ''
-              }}
-            >
-              {file.name}
-            </Button>
+            <div key={ind}>
+              <Button
+                type='button'
+                variant='outlined'
+                style={{
+                  maxWidth: 'fit-content',
+                  marginTop: '5px'
+                }}
+              >
+                {file.name}
+              </Button>
+
+              <IconButton aria-label='delete' onClick={() => removeSelectedFile(ind)}>
+                <RemoveCircleIcon color='error' fontSize='small' />
+              </IconButton>
+            </div>
           ))}
 
           {enableSizeLimitError ? (
@@ -117,8 +165,6 @@ export default function UploadPage() {
               {sizeLimitError}
             </Button>
           ) : null}
-
-          {enableDeleteLast ? <Button onClick={deleteSelectedFile}>Delete Last</Button> : null}
         </Box>
         <FileUploadButton
           enableButton={selectedFiles?.length > 0 && !!title}
