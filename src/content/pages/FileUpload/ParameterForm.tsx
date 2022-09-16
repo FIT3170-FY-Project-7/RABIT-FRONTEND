@@ -2,6 +2,7 @@
 import {
   Autocomplete,
   Box,
+  Checkbox,
   FormControlLabel,
   IconButton,
   Modal,
@@ -124,17 +125,17 @@ function ParameterForm() {
       </Modal>
       <Box>
         <FormControlLabel
-          control={<Switch checked={intrinsic} onChange={e => setIntrinsic(e.target.checked)} />}
+          control={<Checkbox checked={intrinsic} onChange={e => setIntrinsic(e.target.checked)} />}
           label='Intrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={extrinsic} onChange={e => setExtrinsic(e.target.checked)} />}
+          control={<Checkbox checked={extrinsic} onChange={e => setExtrinsic(e.target.checked)} />}
           label='Extrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={all} onChange={e => setAll(e.target.checked)} />}
+          control={<Checkbox checked={all} onChange={e => setAll(e.target.checked)} />}
           label='All (Intrinsic + Extrinsic + Other)'
           labelPlacement='start'
         />
