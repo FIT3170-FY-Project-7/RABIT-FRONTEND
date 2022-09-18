@@ -4,12 +4,33 @@ import * as d3 from 'd3'
 import { NebulaFighterTheme } from '../../theme/schemes/NebulaFighterTheme'
 
 const PlotDownloadService = {
-    downloadAsPNG: async () => {
+    downloadAsPNGRed: async () => {
         const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
         if (!cornerPlotElmt) return
         changeColours('white', 'black')
 
         const canvas = await html2canvas(cornerPlotElmt)
+        const dataURL = canvas.toDataURL('image/png')
+        downloadjs(dataURL, 'corner-plot.png', 'image/png')
+
+        changeColours(NebulaFighterTheme.palette.background.default, 'white')
+    },
+    downloadAsPNG: async () => {
+        const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
+        if (!cornerPlotElmt) return
+        changeColours('white', 'black')
+        const copiedCornerPlotElmt = cornerPlotElmt.cloneNode(
+            true
+          ) as HTMLElement;
+          copiedCornerPlotElmt.style.position = 'fixed';
+          copiedCornerPlotElmt.style.right = '100%';
+          copiedCornerPlotElmt.style.height = 'auto';
+      
+          document.body.append(copiedCornerPlotElmt);
+
+        const canvas = await html2canvas(copiedCornerPlotElmt)
+        copiedCornerPlotElmt.remove();
+
         const dataURL = canvas.toDataURL('image/png')
         downloadjs(dataURL, 'corner-plot.png', 'image/png')
 
