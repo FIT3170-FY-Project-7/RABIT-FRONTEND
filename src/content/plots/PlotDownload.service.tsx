@@ -28,10 +28,13 @@ const PlotDownloadService = {
       
           document.body.append(copiedCornerPlotElmt);
 
-        const canvas = await html2canvas(copiedCornerPlotElmt)
+        const canvas = await html2canvas(copiedCornerPlotElmt,{scale: 2,windowWidth: copiedCornerPlotElmt.scrollWidth,
+            windowHeight: copiedCornerPlotElmt.scrollHeight})
+        
+
         copiedCornerPlotElmt.remove();
 
-        const dataURL = canvas.toDataURL('image/png')
+        const dataURL = canvas.toDataURL('image/png',1.0)
         downloadjs(dataURL, 'corner-plot.png', 'image/png')
 
         changeColours(NebulaFighterTheme.palette.background.default, 'white')
