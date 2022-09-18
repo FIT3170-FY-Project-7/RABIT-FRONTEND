@@ -39,11 +39,11 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .append('g')
     .attr('transform', `translate(${config.axis.size}, 0)`)
     .call(d3.axisLeft(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize).tickSizeOuter(0))
-    .selectAll('text')
+    /*.selectAll('text')
     .style('text-anchor', 'end')
 
     .attr('dy', '-1em')
-    .attr('transform', 'rotate(-45)')
+    .attr('transform', 'rotate(-45)')*/
 
   // Explicitly colour the axis so they display correctly when downloaded
   y_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)

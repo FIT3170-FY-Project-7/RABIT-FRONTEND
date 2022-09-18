@@ -76,6 +76,7 @@ const changeColours = (backgroundColour, labelsColour) => {
 
     d3.selectAll('.axis-lines').style('stroke', labelsColour)
     d3.selectAll('.axis-labels').style('fill', labelsColour)
+    
 }
 
 export default PlotDownloadService
