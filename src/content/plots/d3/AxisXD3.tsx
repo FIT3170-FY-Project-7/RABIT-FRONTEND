@@ -37,6 +37,9 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
   const x_axis = svg
     .append('g')
     .call(d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize).tickSizeOuter(0))
+
+  // Rotate axis labels
+  x_axis
     .selectAll('text')
     .style('text-anchor', 'end')
     .attr('dx', '-.8em')
