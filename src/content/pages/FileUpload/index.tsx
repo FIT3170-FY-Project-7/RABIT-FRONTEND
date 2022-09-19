@@ -144,9 +144,11 @@ export default function UploadPage() {
               >
                 {file.name}
               </Button>
-
-              <IconButton aria-label='delete' onClick={() => removeSelectedFile(ind)}>
-                <RemoveCircleIcon color='error' fontSize='small' />
+              <IconButton
+                style={{marginTop: '5px'}}
+                aria-label='delete'
+                onClick={() => removeSelectedFile(ind)}>
+                <RemoveCircleIcon color='error' />
               </IconButton>
             </div>
           ))}

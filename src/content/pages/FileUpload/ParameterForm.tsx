@@ -18,7 +18,7 @@ import {
   TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
-import { extrinsicParameters, intrinsicParameters, modal_style, otherParameters } from './constants'
+import { extrinsicParameters, intrinsicParameters, miscellaneousParameters, otherParameters, modal_style,  } from './constants'
 import CancelIcon from '@mui/icons-material/Cancel'
 
 interface TabPanelProps {
@@ -57,11 +57,12 @@ function a11yProps(index: number) {
 function ParameterForm() {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
+  const [misc, setMiscellaneous] = useState(false)
   const [other, setOther] = useState(false)
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
-  const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
+  const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, miscellaneous: miscellaneousParameters, other: otherParameters }
 
   // useEffect(() => {
   //   if (other) {
@@ -150,6 +151,11 @@ function ParameterForm() {
         <FormControlLabel
           control={<Switch checked={extrinsic} onChange={e => setExtrinsic(e.target.checked)} />}
           label='Extrinsic'
+          labelPlacement='start'
+        />
+        <FormControlLabel
+          control={<Switch checked={misc} onChange={e => setMiscellaneous(e.target.checked)} />}
+          label='Miscellaneous'
           labelPlacement='start'
         />
         <FormControlLabel

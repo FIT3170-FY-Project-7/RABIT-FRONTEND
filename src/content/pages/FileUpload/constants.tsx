@@ -49,7 +49,7 @@ export const modal_style = {
     'redshift',
     'comoving_distance'
   ]
-  export const otherParameters = [
+  export const miscellaneousParameters = [
     'chirp_mass',
     'mass_ratio',
     'a_1',
@@ -129,4 +129,8 @@ export const modal_style = {
     'H1_optimal_snr',
     'L1_matched_filter_snr',
     'L1_optimal_snr'
+  ]
+
+  export const otherParameters = [
+    'All other parameters not defined under Intrinsic, Extrinsic, or Miscellaneous'
   ]
