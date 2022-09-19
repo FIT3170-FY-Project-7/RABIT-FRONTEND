@@ -36,7 +36,14 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
   // Add scales to axis
   const x_axis = svg
     .append('g')
-    .call(d3.axisBottom(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize).tickSizeOuter(0))
+    .call(
+      d3
+        .axisBottom(scale)
+        .ticks(config.axis.ticks)
+        .tickSize(config.axis.tickSize)
+        .tickSizeOuter(0)
+        .tickFormat(d3.format('.4'))
+    )
 
   // Rotate axis labels
   x_axis
@@ -45,6 +52,8 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .attr('dx', '-.8em')
     .attr('dy', '.15em')
     .attr('transform', 'rotate(-45)')
+
+  x_axis.style('position', 'relative')
 
   // Explicitly colour the axis so they display correctly when downloaded
   x_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)

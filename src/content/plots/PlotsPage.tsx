@@ -129,7 +129,12 @@ function PlotsPage({
     return <div>Loading</div>
   }
 
-  const scaledConfig = { ...config, subplot_size: config.plot_size / parameters.length }
+  const scaledConfig = {
+    ...config,
+    subplot_size: config.plot_size / parameters.length,
+    // Reduce tick count if parameter count is high
+    ...(parameters.length > 7 && { axis: { ...config.axis, ticks: 2 } })
+  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>

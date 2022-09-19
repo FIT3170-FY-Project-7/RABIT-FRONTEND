@@ -38,7 +38,14 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
   const y_axis = svg
     .append('g')
     .attr('transform', `translate(${config.axis.size}, 0)`)
-    .call(d3.axisLeft(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize).tickSizeOuter(0))
+    .call(
+      d3
+        .axisLeft(scale)
+        .ticks(config.axis.ticks)
+        .tickSize(config.axis.tickSize)
+        .tickSizeOuter(0)
+        .tickFormat(d3.format('.4'))
+    )
 
   // Rotate axis labels
   y_axis
