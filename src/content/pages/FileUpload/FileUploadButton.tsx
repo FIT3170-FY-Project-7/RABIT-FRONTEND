@@ -13,10 +13,6 @@ import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { modal_style } from './constants'
 import chunkUpload from '../../../utils/chunkUpload'
-import Modal from '@mui/material/Modal'
-import CircularProgress from '@mui/material/CircularProgress'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { modal_style } from './constants'
 
 interface FileUpload {
   enableButton: boolean
