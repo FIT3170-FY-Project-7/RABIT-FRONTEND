@@ -75,6 +75,7 @@ export default function UploadPage() {
           onChange={e => setTitle(e.target.value)}
           label='Title'
           variant='filled'
+          required
         />
         <TextField
           margin='dense'
