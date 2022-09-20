@@ -23,6 +23,11 @@ const menuItems: MenuItems[] = [
         name: 'My Plots',
         link: '/plots',
         icon: AccessTimeIcon
+      },
+      {
+        name: 'Upload',
+        link: '/upload',
+        icon: UploadIcon
       }
     ]
   }

@@ -43,13 +43,13 @@ function Sidebar() {
     const navigate = useNavigate()
     return (
         <SidebarWrapper>
-            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center'}}>
                 <TopSection>
                     <Logo />
                 </TopSection>
-                <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
+                {/* <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
                     <UploadIcon sx={{ mr: 1 }} /> Upload
-                </Fab>
+                </Fab> */}
 
                 <SidebarMenu />
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
