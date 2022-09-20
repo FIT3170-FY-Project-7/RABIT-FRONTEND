@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom'
 import DownloadButton from '../../components/Download/DownloadButton'
 
 const PlotConfigDefault: PlotConfig = {
-  plot_size: 500,
+  plot_size: 500, // change this so that it takes the size of the parent container
   subplot_size: 150,
   margin: {
     horizontal: 5,

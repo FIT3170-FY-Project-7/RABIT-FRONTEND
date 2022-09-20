@@ -44,14 +44,19 @@ function Sidebar() {
         <SidebarWrapper>
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
                 <TopSection>
+                    {/* rabit logo is created here */}
                     <Logo />
                 </TopSection>
+
                 <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
+                    {/* upload button created here */}
                     <UploadIcon sx={{ mr: 1 }} /> Upload
                 </Fab>
 
-                <SidebarMenu />
+                <SidebarMenu /> {/* sidebar menu is created here */}
+
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
+                    {/* displays the user profile */}
                     <HeaderUserbox />
                 </Box>
             </Box>

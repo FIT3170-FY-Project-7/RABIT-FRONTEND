@@ -11,7 +11,8 @@ interface SidebarLayoutProps {
 }
 
 const MainWrapper = styled(Box)(
-  ({ theme }) => `
+    // wrapper to store the main content
+    ({ theme }) => `
         flex: 1 1 auto;
         display: flex;
         height: 100%;
@@ -22,7 +23,9 @@ const MainWrapper = styled(Box)(
 )
 
 const MainContent = styled(Box)(
-  ({ theme }) => `
+    // main content goes here
+    ({ theme }) => `
+        flex: 1 1 auto;
         margin: 1;
         display: flex;
         flex-direction: column;
