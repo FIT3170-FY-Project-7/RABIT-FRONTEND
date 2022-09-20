@@ -8,6 +8,10 @@ import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../api'
+import Modal from '@mui/material/Modal'
+import CircularProgress from '@mui/material/CircularProgress'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { modal_style } from './constants'
 import chunkUpload from '../../../utils/chunkUpload'
 import Modal from '@mui/material/Modal'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -36,13 +40,28 @@ export default function FileUploadButton({
 
   const handleSubmission = async () => {
     setIsUploading(true)
+    const options = {
+      onUploadProgress: progressEvent => {
+        const { loaded, total } = progressEvent
+        let percentage = Math.floor((loaded * 100) / total)
+        //console.log(`${loaded}kb of ${total}kb | ${percentage}%`)
+        //correctly works as a progress bar in console (throttle speed to test or use a big file)
+
+
+        setUploadPercentage(percentage)
+      }
+    }
     const fileIds = await api
       .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
       .then(res => res.data.fileIds)
 
-    for (const [i, file] of selectedFiles.entries()) {
-      await chunkUpload(fileIds[i], file)
-    }
+      for (const [i, file] of selectedFiles.entries()) {
+        await chunkUpload(fileIds[i], file)
+      }
+
+    
+
+    
     setIsUploading(false)
 
     setIsProcessing(true)
@@ -53,7 +72,6 @@ export default function FileUploadButton({
         fileIds
       })
       .then(res => res.data)
-    setIsProcessing(false)
 
     navigate(`/visualise/${plotCollection.id}`)
   }

@@ -1,8 +1,7 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Autocomplete,
   Box,
-  Checkbox,
   FormControlLabel,
   IconButton,
   Modal,
@@ -10,7 +9,13 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
 import { extrinsicParameters, intrinsicParameters, modal_style, otherParameters } from './constants'
@@ -52,18 +57,18 @@ function a11yProps(index: number) {
 function ParameterForm() {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
-  const [all, setAll] = useState(false)
+  const [other, setOther] = useState(false)
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
-  useEffect(() => {
-    if (all) {
-      setIntrinsic(true)
-      setExtrinsic(true)
-    }
-  }, [all])
+  // useEffect(() => {
+  //   if (other) {
+  //     setIntrinsic(true)
+  //     setExtrinsic(true)
+  //   }
+  // }, [other])
 
   return (
     <>
@@ -88,7 +93,7 @@ function ParameterForm() {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={{ minWidth: '60%', ...modal_style }}>
+        <Box sx={{ minWidth: '50%', ...modal_style }}>
           <IconButton
             color='primary'
             aria-label='upload picture'
@@ -101,13 +106,26 @@ function ParameterForm() {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label='basic tabs example'>
               {Object.keys(parameters).map((key, i) => (
-                <Tab label={key.charAt(0).toUpperCase() + key.substring(1)} {...a11yProps(i)} />
+                <Tab key={i} label={key.charAt(0).toUpperCase() + key.substring(1)} {...a11yProps(i)} />
               ))}
             </Tabs>
           </Box>
           {Object.keys(parameters).map((key, i) => (
-            <TabPanel value={tab} index={i}>
-              <Autocomplete
+            <TabPanel value={tab} index={i} key={i}>
+              <Typography variant='h3' sx={{ mb: 2 }}>Parameters in this category</Typography>
+              <TableContainer sx={{ maxHeight: 350 }}>
+                <Table>
+                  <TableHead></TableHead>
+                  <TableBody>
+                    {Object.keys(parameters[key]).map(value =>
+                      <TableRow key={value}>
+                        <TableCell>{parameters[key][value]}</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/* <Autocomplete
                 disablePortal
                 id='combo-box-demo'
                 options={parameters[key]}
@@ -118,25 +136,25 @@ function ParameterForm() {
                     label={`${key.charAt(0).toUpperCase() + key.substring(1)} Parameters Selected`}
                   />
                 )}
-              />
+              /> */}
             </TabPanel>
           ))}
         </Box>
       </Modal>
       <Box>
         <FormControlLabel
-          control={<Checkbox checked={intrinsic} onChange={e => setIntrinsic(e.target.checked)} />}
+          control={<Switch checked={intrinsic} onChange={e => setIntrinsic(e.target.checked)} />}
           label='Intrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Checkbox checked={extrinsic} onChange={e => setExtrinsic(e.target.checked)} />}
+          control={<Switch checked={extrinsic} onChange={e => setExtrinsic(e.target.checked)} />}
           label='Extrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Checkbox checked={all} onChange={e => setAll(e.target.checked)} />}
-          label='All (Intrinsic + Extrinsic + Other)'
+          control={<Switch checked={other} onChange={e => setOther(e.target.checked)} />}
+          label='Other'
           labelPlacement='start'
         />
       </Box>
