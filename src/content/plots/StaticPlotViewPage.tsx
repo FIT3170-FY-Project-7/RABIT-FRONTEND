@@ -2,7 +2,6 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
-import html2canvas from 'html2canvas'
 import { Box } from '@mui/material'
 import { PlotConfig, DatasetConfig, ParameterConfig, ApiParameterConfig } from './PlotTypes'
 import { colours } from './constants/Colours'
@@ -70,16 +69,6 @@ function StaticPlotViewPage() {
     startup: {
       typeset: false
     }
-  }
-
-  // Function for corner plot image download.
-  const downloadCornerPlotImage = async () => {
-    const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-    if (!cornerPlotElmt) return
-
-    const canvas = await html2canvas(cornerPlotElmt)
-    const dataURL = canvas.toDataURL('image/png')
-    downloadjs(dataURL, 'corner-plot.png', 'image/png')
   }
 
   return (
