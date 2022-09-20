@@ -20,11 +20,12 @@ const SidebarWrapper = styled(Box)(
         background  : ${theme.sidebar.background};
         box-shadow  : ${theme.sidebar.boxShadow};
         height      : 100%;
-                
-        @media (min-width: ${theme.breakpoints.values.lg}px) {
-            position                    : fixed;
-            z-index                     : 10;
-        }
+        position    : fixed;
+        z-index     : 10;        
+        // @media (min-width: ${theme.breakpoints.values.lg}px) {
+        //     position                    : fixed;
+        //     z-index                     : 10;
+        // }
     `
 )
 

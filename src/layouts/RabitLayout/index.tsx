@@ -15,10 +15,10 @@ const MainWrapper = styled(Box)(
         flex: 1 1 auto;
         display: flex;
         height: 100%;
-        
-        @media (min-width: ${theme.breakpoints.values.lg}px) {
-            padding-left: ${theme.sidebar.width};
-        }`
+        padding-left: ${theme.sidebar.width};
+        // @media (min-width: ${theme.breakpoints.values.lg}px) {
+        //     padding-left: ${theme.sidebar.width};
+        // }`
 )
 
 const MainContent = styled(Box)(
