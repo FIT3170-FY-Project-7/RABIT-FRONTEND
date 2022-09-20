@@ -20,8 +20,28 @@ const SidebarWrapper = styled(Box)(
         background  : ${theme.sidebar.background};
         box-shadow  : ${theme.sidebar.boxShadow};
         height      : 100%;
-                
+
+        @media (min-width: ${theme.breakpoints.values.xs}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.sm}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.md}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
         @media (min-width: ${theme.breakpoints.values.lg}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.xl}px) {
             position                    : fixed;
             z-index                     : 10;
         }
