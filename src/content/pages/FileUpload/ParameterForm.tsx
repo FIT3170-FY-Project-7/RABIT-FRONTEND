@@ -63,12 +63,24 @@ function ParameterForm() {
 
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   if (other) {
   //     setIntrinsic(true)
   //     setExtrinsic(true)
   //   }
   // }, [other])
+=======
+  useEffect(() => {
+    if (all) {
+      setIntrinsic(true)
+      setExtrinsic(true)
+    }else{
+      setIntrinsic(false)
+      setExtrinsic(false)
+    }
+  }, [all])
+>>>>>>> upload-ui-changes
 
   return (
     <>
@@ -112,6 +124,7 @@ function ParameterForm() {
           </Box>
           {Object.keys(parameters).map((key, i) => (
             <TabPanel value={tab} index={i} key={i}>
+<<<<<<< HEAD
               <Typography variant='h3' sx={{ mb: 2 }}>Parameters in this category</Typography>
               <TableContainer sx={{ maxHeight: 350 }}>
                 <Table>
@@ -126,6 +139,9 @@ function ParameterForm() {
                 </Table>
               </TableContainer>
               {/* <Autocomplete
+=======
+              <Autocomplete
+>>>>>>> upload-ui-changes
                 disablePortal
                 id='combo-box-demo'
                 options={parameters[key]}
