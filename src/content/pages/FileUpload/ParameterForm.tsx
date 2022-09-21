@@ -62,6 +62,9 @@ function ParameterForm() {
     if (all) {
       setIntrinsic(true)
       setExtrinsic(true)
+    }else{
+      setIntrinsic(false)
+      setExtrinsic(false)
     }
   }, [all])
 
@@ -101,12 +104,12 @@ function ParameterForm() {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label='basic tabs example'>
               {Object.keys(parameters).map((key, i) => (
-                <Tab label={key.charAt(0).toUpperCase() + key.substring(1)} {...a11yProps(i)} />
+                <Tab key={i} label={key.charAt(0).toUpperCase() + key.substring(1)} {...a11yProps(i)} />
               ))}
             </Tabs>
           </Box>
           {Object.keys(parameters).map((key, i) => (
-            <TabPanel value={tab} index={i}>
+            <TabPanel value={tab} index={i} key={i}>
               <Autocomplete
                 disablePortal
                 id='combo-box-demo'
