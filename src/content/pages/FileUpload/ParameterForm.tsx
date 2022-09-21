@@ -58,29 +58,30 @@ function ParameterForm() {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
   const [other, setOther] = useState(false)
+  const [all, setAll] = useState(false)
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   if (other) {
-  //     setIntrinsic(true)
-  //     setExtrinsic(true)
-  //   }
-  // }, [other])
-=======
   useEffect(() => {
     if (all) {
       setIntrinsic(true)
       setExtrinsic(true)
+      setOther(true)
     }else{
       setIntrinsic(false)
       setExtrinsic(false)
+      setOther(false)
     }
-  }, [all])
->>>>>>> upload-ui-changes
+  },[all])
+  useEffect(() => {
+    if(all && (!intrinsic || !extrinsic || !other)){
+      setAll(false)
+    }
+  },[intrinsic,extrinsic,other])
+
+
 
   return (
     <>
@@ -124,7 +125,6 @@ function ParameterForm() {
           </Box>
           {Object.keys(parameters).map((key, i) => (
             <TabPanel value={tab} index={i} key={i}>
-<<<<<<< HEAD
               <Typography variant='h3' sx={{ mb: 2 }}>Parameters in this category</Typography>
               <TableContainer sx={{ maxHeight: 350 }}>
                 <Table>
@@ -138,21 +138,6 @@ function ParameterForm() {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {/* <Autocomplete
-=======
-              <Autocomplete
->>>>>>> upload-ui-changes
-                disablePortal
-                id='combo-box-demo'
-                options={parameters[key]}
-                getOptionDisabled={() => true}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label={`${key.charAt(0).toUpperCase() + key.substring(1)} Parameters Selected`}
-                  />
-                )}
-              /> */}
             </TabPanel>
           ))}
         </Box>
@@ -171,6 +156,11 @@ function ParameterForm() {
         <FormControlLabel
           control={<Switch checked={other} onChange={e => setOther(e.target.checked)} />}
           label='Other'
+          labelPlacement='start'
+        />
+        <FormControlLabel
+          control={<Switch checked={all} onChange={e => setAll(e.target.checked)} />}
+          label='All'
           labelPlacement='start'
         />
       </Box>
