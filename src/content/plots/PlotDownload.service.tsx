@@ -14,30 +14,30 @@ const PlotDownloadService = {
       })
     },
     downloadAsSVG: () => {
-      const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-      changeColours('white', 'black')
-      var serializer = new XMLSerializer()
-      var source = serializer.serializeToString(cornerPlotElmt)
+        const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
+        changeColours('white', 'black')
+        var serializer = new XMLSerializer()
+        var source = serializer.serializeToString(cornerPlotElmt)
 
-      //add name spaces.
-      if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"')
-      }
-      if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"')
-      }
+        //add name spaces.
+        if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"')
+        }
+        if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"')
+        }
 
-      //add xml declaration
-      source = '<?xml version="1.0" standalone="no"?>\r\n' + source
+        //add xml declaration
+        source = '<?xml version="1.0" standalone="no"?>\r\n' + source
 
-      //convert svg source to URI data scheme.
-      var url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source)
+        //convert svg source to URI data scheme.
+        var url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source)
 
-      var downloadLink = document.createElement('a')
-      downloadLink.href = url
-      downloadLink.download = 'corner-plot.svg'
-      downloadLink.click()
-      changeColours(NebulaFighterTheme.palette.background.default, 'white')
+        var downloadLink = document.createElement('a')
+        downloadLink.href = url
+        downloadLink.download = 'corner-plot.svg'
+        downloadLink.click()
+        changeColours(NebulaFighterTheme.palette.background.default, 'white')
     }
 }
 

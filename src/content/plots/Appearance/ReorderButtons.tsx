@@ -20,11 +20,11 @@ const ReorderButtons = ({ index, datasetsLength, reorderCallback }) => {
     return (
         <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%'
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%'
             }}
             title='Reorder your datasets. Lower datasets will be drawn last, and display on top.'
         >
