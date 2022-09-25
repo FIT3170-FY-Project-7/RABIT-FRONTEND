@@ -35,7 +35,7 @@ export const extrinsicParameters = [
   'redshift',
   'comoving_distance'
 ]
-export const miscellaneousParameters = [
+export const otherParameters = [
   'chirp_mass',
   'mass_ratio',
   'a_1',
