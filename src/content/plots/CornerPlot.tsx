@@ -40,8 +40,8 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
             style={{ backgroundColor: NebulaFighterTheme.palette.background.default }}
         >
             {/* For each initial parameter, create a new row containing a Histogram of the 
-                  current parameter's data and contour plots for the intersections of the current
-                  parameter and all previous parameters. */}
+            current parameter's data and contour plots for the intersections of the current
+            parameter and all previous parameters. */}
             {parameters.map((parameter_1: ParameterConfig, index: number) => (
                 <div key={`row-${parameter_1.name}`} style={{ display: 'flex' }}>
                     {/* Y Axis for this row, do not add for first row since vertical axis do not matter on a histogram */}
@@ -75,7 +75,7 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
             {/* X Axis for all parameters */}
             <div key={'axis-x-row'} style={{ display: 'flex' }}>
                 {/* This div adds the necessary empty space in the bottom left of the plot. Floating right was causing
-                        issues for plot image download, since floating takes divs out of page flow   */}
+                issues for plot image download, since floating takes divs out of page flow   */}
                 <div style={{ width: config.axis.size }}></div>
                 {parameters.map((parameter_1: ParameterConfig) => (
                     <AxisX

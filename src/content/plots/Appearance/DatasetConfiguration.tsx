@@ -45,9 +45,9 @@ function DatasetConfiguration({
 
     return (
         <Card
-          key={`appearance-config-${index}`}
-          className='dataset-configuration-container'
-          style={{ backgroundColor: colours.appearanceConfigBackground }}
+            key={`appearance-config-${index}`}
+            className='dataset-configuration-container'
+            style={{ backgroundColor: colours.appearanceConfigBackground }}
         >
             <div style={{ width: '100%', height: '15%', display: 'flex', justifyContent: 'left', alignItems: 'center' }}>
                 <div style={{ marginRight: '10px', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>

@@ -42,12 +42,11 @@ const create = (el: HTMLElement, dataset: DatasetConfig, parameter: ParameterCon
     }, [])
 
     // Render this list of points as a path.
-    svg
-      .append('path')
-      .attr('d', d3.line()(line_points))
-      .attr('fill', 'none')
-      .attr('stroke', dataset.color)
-      .style('stroke-width', dataset.line_width)
+    svg.append('path')
+        .attr('d', d3.line()(line_points))
+        .attr('fill', 'none')
+        .attr('stroke', dataset.color)
+        .style('stroke-width', dataset.line_width)
 
     // If there are quantiles, calculate and add to svg
     if (dataset.quantiles) {
@@ -56,15 +55,14 @@ const create = (el: HTMLElement, dataset: DatasetConfig, parameter: ParameterCon
             const quantile_x = d3.quantileSorted(x_s, quantile)
 
             // draw vertical line
-            svg
-              .append('line')
-              .attr('x1', x_axis(quantile_x))
-              .attr('x2', x_axis(quantile_x))
-              .attr('y1', 0)
-              .attr('y2', config.subplot_size)
-              .attr('stroke', dataset.color)
-              .style('stroke-width', dataset.line_width)
-              .style('stroke-dasharray', '5, 5')
+            svg.append('line')
+                .attr('x1', x_axis(quantile_x))
+                .attr('x2', x_axis(quantile_x))
+                .attr('y1', 0)
+                .attr('y2', config.subplot_size)
+                .attr('stroke', dataset.color)
+                .style('stroke-width', dataset.line_width)
+                .style('stroke-dasharray', '5, 5')
     })
   }
 }
