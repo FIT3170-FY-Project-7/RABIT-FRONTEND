@@ -27,19 +27,19 @@ function DatasetConfiguration({
     reorderCallback,
     updateDatasets
 }: DatasetConfigurationPropType) {
-    const handleColourChange = (index: number) => colour => {
+    const handleColourChange = colour => {
         updateDatasets({ ...dataset, color: colour.hex })
     }
 
-    const handleSigmaChange = (index: number) => event => {
+    const handleSigmaChange = event => {
         let sigmas_input = event.target.value
         if (sigmas_input > 4) {
-          sigmas_input = 4
+            sigmas_input = 4
         }
         updateDatasets({ ...dataset, sigmas: Array.from({ length: sigmas_input }, (_, index) => index + 1) })
     }
 
-    const handleBlurChange = (index: number) => new_blur_radius => {
+    const handleBlurChange = new_blur_radius => {
         updateDatasets({ ...dataset, blur_radius: +new_blur_radius })
     }
 
@@ -60,9 +60,9 @@ function DatasetConfiguration({
                 </div>
             </div>
             <div className='appearance-pickers'>
-                <ColourPicker key={`picker-${index}`} initial={dataset.color} handleColourChange={handleColourChange(index)} />
-                <SigmaPicker initial={dataset.sigmas} handleSigmaChange={handleSigmaChange(index)} />
-                <BlurSlider initial={dataset.blur_radius} handleBlurChange={handleBlurChange(index)} />
+                <ColourPicker key={`picker-${index}`} initial={dataset.color} handleColourChange={handleColourChange} />
+                <SigmaPicker initial={dataset.sigmas} handleSigmaChange={handleSigmaChange} />
+                <BlurSlider initial={dataset.blur_radius} handleBlurChange={handleBlurChange} />
 
                 <ReorderButtons index={index} datasetsLength={datasetsLength} reorderCallback={reorderCallback} />
             </div>

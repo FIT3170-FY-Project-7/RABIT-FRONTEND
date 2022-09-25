@@ -63,8 +63,8 @@ const create = (el: HTMLElement, dataset: DatasetConfig, parameter: ParameterCon
                 .attr('stroke', dataset.color)
                 .style('stroke-width', dataset.line_width)
                 .style('stroke-dasharray', '5, 5')
-    })
-  }
+        })
+    }
 }
 
 const destroy = el => {
