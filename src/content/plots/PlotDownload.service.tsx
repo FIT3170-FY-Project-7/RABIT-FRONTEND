@@ -42,14 +42,14 @@ const PlotDownloadService = {
 }
 
 const changeColours = (backgroundColour, labelsColour) => {
-  const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-  cornerPlotElmt.style.backgroundColor = backgroundColour
+    const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
+    cornerPlotElmt.style.backgroundColor = backgroundColour
 
-  let svg = d3.select('#corner-plot-id')
-  svg.selectAll('foreignObject').style('color', labelsColour)
+    let svg = d3.select('#corner-plot-id')
+    svg.selectAll('foreignObject').style('color', labelsColour)
 
-  d3.selectAll('.axis-lines').style('stroke', labelsColour)
-  d3.selectAll('.axis-labels').style('fill', labelsColour)
+    d3.selectAll('.axis-lines').style('stroke', labelsColour)
+    d3.selectAll('.axis-labels').style('fill', labelsColour)
 }
 
 export default PlotDownloadService
