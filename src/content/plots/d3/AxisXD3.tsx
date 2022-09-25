@@ -42,7 +42,7 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
         .ticks(config.axis.ticks)
         .tickSize(config.axis.tickSize)
         .tickSizeOuter(0)
-        .tickFormat(d3.format('.4'))
+        .tickFormat(d3.format('.3'))
     )
 
   // Rotate axis labels
