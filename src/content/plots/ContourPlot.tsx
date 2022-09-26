@@ -29,7 +29,8 @@ const ContourPlot = ({ datasets, parameter_x, parameter_y, config }: ContourPlot
                 height: config.subplot_size,
                 marginRight: config.margin.horizontal,
                 marginTop: config.margin.vertical,
-                backgroundColor: config.background_color
+                backgroundColor: config.background_color,
+                border: '1px solid black'
             }}
             ref={elem}
         ></svg>

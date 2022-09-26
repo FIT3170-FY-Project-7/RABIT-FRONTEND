@@ -28,7 +28,8 @@ const HistogramPlot = ({ datasets, parameter, config }: HistogramPropType) => {
                 height: config.subplot_size,
                 marginRight: config.margin.horizontal,
                 marginTop: config.margin.vertical,
-                backgroundColor: config.background_color
+                backgroundColor: config.background_color,
+                border: '1px solid black'
             }}
             ref={elem}
         ></svg>

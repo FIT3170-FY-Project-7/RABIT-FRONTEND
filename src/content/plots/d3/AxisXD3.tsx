@@ -1,6 +1,7 @@
 // The X axis created using D3
 
 import * as d3 from 'd3'
+import { colours } from '../constants/Colours'
 import { PlotConfig, ParameterConfig } from '../PlotTypes'
 
 const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig) => {
@@ -49,16 +50,16 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
   x_axis
     .selectAll('text')
     .style('text-anchor', 'end')
-    .attr('dx', '-.8em')
+    .attr('dx', '-0.5em')
     .attr('dy', '.15em')
     .attr('transform', 'rotate(-45)')
 
   x_axis.style('position', 'relative')
 
   // Explicitly colour the axis so they display correctly when downloaded
-  x_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
-  x_axis.selectAll('path').style('stroke', 'white').classed('axis-lines', true)
-  x_axis.selectAll('text').style('fill', 'white').classed('axis-labels', true)
+  x_axis.selectAll('line').style('stroke', colours.axesColour).classed('axis-lines', true)
+  x_axis.selectAll('path').style('stroke', 'black')
+  x_axis.selectAll('text').style('fill', colours.axesColour).classed('axis-labels', true)
 }
 
 const destroy = el => {

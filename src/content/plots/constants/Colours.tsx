@@ -1,6 +1,7 @@
 export const colours = {
     plotDefault: '#0088FF',
-    plotBackground: '#CFE5FF',
+    plotBackground: 'white',
     appearanceConfigBackground: '#111633',
-    pickerBackground: '#1B2038'
+    pickerBackground: '#1B2038',
+    axesColour: 'white'
 }

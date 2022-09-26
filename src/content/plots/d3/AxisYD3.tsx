@@ -1,6 +1,7 @@
 // The Y axis created using D3
 
 import * as d3 from 'd3'
+import { colours } from '../constants/Colours'
 import { PlotConfig, ParameterConfig } from '../PlotTypes'
 
 const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig) => {
@@ -52,13 +53,14 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .selectAll('text')
     .style('text-anchor', 'end')
 
-    .attr('dy', '-1em')
+    .attr('dy', '-.5em')
+    .attr('dx', '.5em')
     .attr('transform', 'rotate(-45)')
 
   // Explicitly colour the axis so they display correctly when downloaded
-  y_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
-  y_axis.selectAll('path').style('stroke', 'white').classed('axis-lines', true)
-  y_axis.selectAll('text').style('fill', 'white').classed('axis-labels', true)
+  y_axis.selectAll('line').style('stroke', colours.axesColour).classed('axis-lines', true)
+  y_axis.selectAll('path').style('stroke', 'black')
+  y_axis.selectAll('text').style('fill', colours.axesColour).classed('axis-labels', true)
 }
 
 const destroy = el => {
