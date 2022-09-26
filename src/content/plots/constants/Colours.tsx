@@ -3,5 +3,6 @@ export const colours = {
     plotBackground: 'white',
     appearanceConfigBackground: '#111633',
     pickerBackground: '#1B2038',
-    axesColour: 'white'
+    axesColour: 'white',
+    plotBorder: '1px solid black'
 }

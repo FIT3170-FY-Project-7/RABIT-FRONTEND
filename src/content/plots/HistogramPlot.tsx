@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { colours } from './constants/Colours'
 import HistD3 from './d3/HistogramD3'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 
@@ -29,7 +30,7 @@ const HistogramPlot = ({ datasets, parameter, config }: HistogramPropType) => {
                 marginRight: config.margin.horizontal,
                 marginTop: config.margin.vertical,
                 backgroundColor: config.background_color,
-                border: '1px solid black'
+                outline: colours.plotBorder
             }}
             ref={elem}
         ></svg>
