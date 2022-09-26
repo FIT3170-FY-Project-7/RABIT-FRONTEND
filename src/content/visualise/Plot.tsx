@@ -13,9 +13,13 @@ type ParamQueryResult = {
 }
 
 const Plot = ({ files, parameterNames }: { files: FilesType; parameterNames: string[] }) => {
+  const filenameLookup: Record<string, string> = {}
+  const parameternameLookup: Record<string, string> = {}
   const queryDefinitions = []
   for (const file of files) {
+    filenameLookup[file.fileId] = file.fileName
     for (const parameterName of parameterNames) {
+      parameternameLookup[parameterName] = undefined
       const parameterId = file.parameters.find(parameter => parameter.name === parameterName).id
       queryDefinitions.push({
         queryKey: ['parameter', parameterId],
@@ -46,11 +50,16 @@ const Plot = ({ files, parameterNames }: { files: FilesType; parameterNames: str
     if (!(fileId in rawDatasets)) {
       rawDatasets[fileId] = {}
     }
+
+    // Add a new ParameterLabel if the parameter has not been added yet
+    if (!parameternameLookup[data.parameterName]) {
+      parameterLabels.push({ parameterName: data.parameterName, parameterLabel: data.parameterLabel })
+      parameternameLookup[data.parameterName] = data.parameterLabel
+    }
     rawDatasets[fileId][data.parameterName] = data.posterior
-    parameterLabels.push({ parameterName: data.parameterName, parameterLabel: data.parameterLabel })
   }
 
-  return <PlotsPage rawDatasets={rawDatasets} parameterLabels={parameterLabels} />
+  return <PlotsPage rawDatasets={rawDatasets} parameterLabels={parameterLabels} filenameLookup={filenameLookup} />
 }
 
 export default Plot

@@ -70,7 +70,7 @@ function DatasetConfiguration({
             style={{ backgroundColor: colours.appearanceConfigBackground }}
         >
             <div style={{ width: '100%', height: '15%', display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ margin: '0', fontWeight: 'bold' }}>Dataset {index + 1}</div>
+                <div style={{ margin: '0', fontWeight: 'bold' }}>{dataset.file_name}</div>
                 <button
                     className='appearance-apply-button'
                     disabled={isSaved}

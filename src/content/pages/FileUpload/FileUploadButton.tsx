@@ -18,6 +18,11 @@ interface FileUpload {
   buttonMessage: string
 }
 
+interface FileIdentifier {
+  id: string
+  name: string
+}
+
 export default function FileUploadButton({
   enableButton,
   selectedFiles,
@@ -36,8 +41,11 @@ export default function FileUploadButton({
       .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
       .then(res => res.data.fileIds)
 
+    const fileDetails: FileIdentifier[] = []
+
     for (const [i, file] of selectedFiles.entries()) {
       await chunkUpload(fileIds[i], file)
+      fileDetails.push({ id: fileIds[i], name: file.name })
     }
     setIsUploading(false)
 
@@ -46,7 +54,7 @@ export default function FileUploadButton({
       .post('/raw-data/process', {
         title,
         description,
-        fileIds
+        fileDetails
       })
       .then(res => res.data)
     setIsProcessing(false)

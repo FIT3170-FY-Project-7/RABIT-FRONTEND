@@ -35,7 +35,8 @@ const DatasetConfigDefault: DatasetConfig = {
   color: '#0088FF',
   line_width: 1.25,
   blur_radius: 1,
-  file_id: ''
+  file_id: '',
+  file_name: ''
 }
 
 const colors = [
@@ -55,10 +56,12 @@ const colors = [
 
 function PlotsPage({
   rawDatasets,
-  parameterLabels
+  parameterLabels,
+  filenameLookup
 }: {
   rawDatasets: Record<string, Record<string, number[]>>
   parameterLabels: ParameterLabel[]
+  filenameLookup: Record<string, string>
 }) {
   /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
@@ -76,7 +79,8 @@ function PlotsPage({
         ...DatasetConfigDefault,
         color: colors[i],
         data,
-        file_id
+        file_id,
+        file_name: filenameLookup[file_id]
       }))
     )
   }, [rawDatasets])
