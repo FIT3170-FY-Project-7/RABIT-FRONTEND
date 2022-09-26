@@ -1,8 +1,16 @@
 import { useQueries } from '@tanstack/react-query'
 import React from 'react'
-import { FilesType } from '.'
+import { FilesType, ParameterLabel } from '.'
 import api, { QUERY_DEFAULTS } from '../../api'
 import PlotsPage from '../plots/PlotsPage'
+
+type ParamQueryResult = {
+  fileId: string
+  parameterId: string
+  parameterName: string
+  parameterLabel: string
+  posterior: number[]
+}
 
 const Plot = ({ files, parameterNames }: { files: FilesType; parameterNames: string[] }) => {
   const queryDefinitions = []
@@ -11,13 +19,13 @@ const Plot = ({ files, parameterNames }: { files: FilesType; parameterNames: str
       const parameterId = file.parameters.find(parameter => parameter.name === parameterName).id
       queryDefinitions.push({
         queryKey: ['parameter', parameterId],
-        queryFn: () => api.get(`/raw-data/parameter/${parameterId}`).then(res => res.data),
+        queryFn: (): Promise<ParamQueryResult> => api.get(`/raw-data/parameter/${parameterId}`).then(res => res.data),
         ...QUERY_DEFAULTS
       })
     }
   }
 
-  const queries = useQueries<{ fileId: string; parameterId: string; parameterName: string; posterior: number[] }[]>({
+  const queries = useQueries<ParamQueryResult[]>({
     queries: queryDefinitions
   })
 
@@ -29,15 +37,20 @@ const Plot = ({ files, parameterNames }: { files: FilesType; parameterNames: str
   // console.log(queries, loading)
   // console.log(queries.map(query => query.data?.posteriorName, query.data?.posterior))
   const rawDatasets: Record<string, Record<string, number[]>> = {}
+  const parameterLabels: ParameterLabel[] = []
   for (const query of queries) {
-    const fileId = query.data.fileId
+    // For some reason, it's nearly impossible to apply the type to the data normally, so we need to do this
+    const data = query.data as ParamQueryResult
+
+    const fileId = data.fileId
     if (!(fileId in rawDatasets)) {
       rawDatasets[fileId] = {}
     }
-    rawDatasets[fileId][query.data.parameterName] = query.data.posterior
+    rawDatasets[fileId][data.parameterName] = data.posterior
+    parameterLabels.push({ parameterName: data.parameterName, parameterLabel: data.parameterLabel })
   }
 
-  return <PlotsPage rawDatasets={rawDatasets} parameterNames={parameterNames} />
+  return <PlotsPage rawDatasets={rawDatasets} parameterLabels={parameterLabels} />
 }
 
 export default Plot

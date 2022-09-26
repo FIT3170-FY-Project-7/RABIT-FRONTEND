@@ -10,6 +10,7 @@ import { uploadCornerPlotConfigs } from './PlotUploadShare'
 import CopyToClipboardButton from './CopyToClipboardButton'
 import { useParams } from 'react-router-dom'
 import DownloadButton from '../../components/Download/DownloadButton'
+import { ParameterLabel } from '../visualise'
 
 const PlotConfigDefault: PlotConfig = {
   plot_size: 500,
@@ -54,10 +55,10 @@ const colors = [
 
 function PlotsPage({
   rawDatasets,
-  parameterNames
+  parameterLabels
 }: {
   rawDatasets: Record<string, Record<string, number[]>>
-  parameterNames: string[]
+  parameterLabels: ParameterLabel[]
 }) {
   /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
@@ -83,13 +84,13 @@ function PlotsPage({
   useEffect(() => {
     if (datasets) {
       setParameters(
-        parameterNames.map(p => {
-          const combined_data = [].concat(...datasets.map(d => d.data[p]))
-          return { name: p, display_text: p, domain: d3.extent(combined_data) }
+        parameterLabels.map(p => {
+          const combined_data = [].concat(...datasets.map(d => d.data[p.parameterName]))
+          return { name: p.parameterName, display_text: p.parameterLabel, domain: d3.extent(combined_data) }
         })
       )
     }
-  }, [datasets, parameterNames])
+  }, [datasets, parameterLabels])
 
   const { id } = useParams()
 

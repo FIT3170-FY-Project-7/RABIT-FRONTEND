@@ -11,6 +11,7 @@ import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
 
 export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
+export type ParameterLabel = { parameterName: string; parameterLabel: string; }
 
 const Visualise = () => {
   const { id } = useParams()
