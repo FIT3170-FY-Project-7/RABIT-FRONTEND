@@ -2,14 +2,12 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
 import { Box, Button, Typography, Card, Link, Snackbar } from '@mui/material'
-import PlotDownloadService from './PlotDownload.service'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
 import { uploadCornerPlotConfigs } from './PlotUploadShare'
-import CopyToClipboardButton from './CopyToClipboardButton'
 import { useParams } from 'react-router-dom'
-import DownloadButton from '../../components/Download/DownloadButton'
+import { colours } from './constants/Colours'
 
 const PlotConfigDefault: PlotConfig = {
   plot_size: 500, // change this so that it takes the size of the parent container
@@ -23,7 +21,7 @@ const PlotConfigDefault: PlotConfig = {
     tickSize: 5,
     ticks: 3
   },
-  background_color: '#CFE5FF'
+  background_color: colours.plotBackground
 }
 
 const DatasetConfigDefault: DatasetConfig = {
