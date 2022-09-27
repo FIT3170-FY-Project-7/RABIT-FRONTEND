@@ -57,19 +57,38 @@ function a11yProps(index: number) {
 function ParameterForm() {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
-  const [misc, setMiscellaneous] = useState(false)
   const [other, setOther] = useState(false)
+  const [all, setAll] = useState(false)
+  const [selectedBuckets, setSelectedBuckets] = useState([])
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, miscellaneous: miscellaneousParameters, other: otherParameters }
 
-  // useEffect(() => {
-  //   if (other) {
-  //     setIntrinsic(true)
-  //     setExtrinsic(true)
-  //   }
-  // }, [other])
+  useEffect(() => {
+    if(all){
+      setIntrinsic(true)
+      setExtrinsic(true)
+      setOther(true)
+    }
+    else if(!all && (intrinsic  && extrinsic && other)){
+      setIntrinsic(false)
+      setExtrinsic(false)
+      setOther(false)
+    }    
+  }, [all])
+
+  useEffect(() => {
+    if(all && !(intrinsic && extrinsic && other)){
+      setAll(false)
+    }
+  }, [intrinsic,extrinsic,other])
+
+  useEffect(() => {
+    console.log(selectedBuckets)
+  }, [intrinsic,extrinsic,other])
+
+
 
   return (
     <>
@@ -126,41 +145,29 @@ function ParameterForm() {
                   </TableBody>
                 </Table>
               </TableContainer>
-              {/* <Autocomplete
-                disablePortal
-                id='combo-box-demo'
-                options={parameters[key]}
-                getOptionDisabled={() => true}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label={`${key.charAt(0).toUpperCase() + key.substring(1)} Parameters Selected`}
-                  />
-                )}
-              /> */}
             </TabPanel>
           ))}
         </Box>
       </Modal>
       <Box>
         <FormControlLabel
-          control={<Switch checked={intrinsic} onChange={e => setIntrinsic(e.target.checked)} />}
+          control={<Switch checked={intrinsic} onChange={e => (setIntrinsic(e.target.checked), setSelectedBuckets([e.target.checked,extrinsic,other]))} />}
           label='Intrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={extrinsic} onChange={e => setExtrinsic(e.target.checked)} />}
+          control={<Switch checked={extrinsic} onChange={e => (setExtrinsic(e.target.checked),setSelectedBuckets([intrinsic,e.target.checked,other]))} />}
           label='Extrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={misc} onChange={e => setMiscellaneous(e.target.checked)} />}
-          label='Miscellaneous'
+          control={<Switch checked={other} onChange={e => (setOther(e.target.checked),setSelectedBuckets([intrinsic,extrinsic,e.target.checked]))} />}
+          label='Other'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={other} onChange={e => setOther(e.target.checked)} />}
-          label='Other'
+          control={<Switch checked={all} onChange={e => (setAll(e.target.checked),setSelectedBuckets([e.target.checked,e.target.checked,e.target.checked]))} />}
+          label='All'
           labelPlacement='start'
         />
       </Box>

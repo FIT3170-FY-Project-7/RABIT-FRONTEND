@@ -8,12 +8,11 @@ import { FileUpload, Percent } from '@mui/icons-material'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../api'
+import chunkUpload from '../../../utils/chunkUpload'
 import Modal from '@mui/material/Modal'
 import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { modal_style } from './constants'
-import chunkUpload from '../../../utils/chunkUpload'
-
 interface FileUpload {
   enableButton: boolean
   selectedFiles: File[]

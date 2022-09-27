@@ -10,7 +10,25 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import ParameterForm from './ParameterForm'
 import { modal_style } from './constants'
 
-const example = { posterior: { content: 'value' } }
+const example = {
+  posterior: {
+    content: {
+      attribute1: [0.15186366972638765, -0.796240857285804],
+      attribute2: [
+        {
+          complex: true,
+          real: 20.274669606394458,
+          imag: -1.9407450062971325
+        },
+        {
+          complex: true,
+          real: 20.36245193237846,
+          imag: -1.486144336535883
+        }
+      ]
+    }
+  }
+}
 
 export default function UploadPage() {
   const [selectedFiles, setSelectedFiles] = useState([])
@@ -98,9 +116,7 @@ export default function UploadPage() {
           }}
           onClick={() => setOpenFileFormatModal(true)}
         >
-          <Typography sx={{ color: '#FFCC00', textDecoration: 'underline' }} variant='h5'>
-            Accepted Files
-          </Typography>
+          <Typography variant='h4'>Accepted Files</Typography>
           <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: '#FFCC00' }} />
         </Box>
         <Modal
