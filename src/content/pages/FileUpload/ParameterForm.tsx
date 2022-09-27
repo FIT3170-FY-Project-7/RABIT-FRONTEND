@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import {
   Autocomplete,
   Box,
@@ -18,7 +18,7 @@ import {
   TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
-import { extrinsicParameters, intrinsicParameters, miscellaneousParameters, otherParameters, modal_style,  } from './constants'
+import { extrinsicParameters, intrinsicParameters, otherParameters, modal_style } from './constants'
 import CancelIcon from '@mui/icons-material/Cancel'
 
 interface TabPanelProps {
@@ -63,32 +63,29 @@ function ParameterForm() {
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
-  const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, miscellaneous: miscellaneousParameters, other: otherParameters }
+  const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
   useEffect(() => {
-    if(all){
+    if (all) {
       setIntrinsic(true)
       setExtrinsic(true)
       setOther(true)
-    }
-    else if(!all && (intrinsic  && extrinsic && other)){
+    } else if (!all && intrinsic && extrinsic && other) {
       setIntrinsic(false)
       setExtrinsic(false)
       setOther(false)
-    }    
+    }
   }, [all])
 
   useEffect(() => {
-    if(all && !(intrinsic && extrinsic && other)){
+    if (all && !(intrinsic && extrinsic && other)) {
       setAll(false)
     }
-  }, [intrinsic,extrinsic,other])
+  }, [intrinsic, extrinsic, other])
 
   useEffect(() => {
     console.log(selectedBuckets)
-  }, [intrinsic,extrinsic,other])
-
-
+  }, [intrinsic, extrinsic, other])
 
   return (
     <>
@@ -132,16 +129,18 @@ function ParameterForm() {
           </Box>
           {Object.keys(parameters).map((key, i) => (
             <TabPanel value={tab} index={i} key={i}>
-              <Typography variant='h3' sx={{ mb: 2 }}>Parameters in this category</Typography>
+              <Typography variant='h4' sx={{ mb: 2 }}>
+                {key.charAt(0).toUpperCase() + key.substring(1)} Parameters
+              </Typography>
               <TableContainer sx={{ maxHeight: 350 }}>
                 <Table>
                   <TableHead></TableHead>
                   <TableBody>
-                    {Object.keys(parameters[key]).map(value =>
+                    {Object.keys(parameters[key]).map(value => (
                       <TableRow key={value}>
                         <TableCell>{parameters[key][value]}</TableCell>
                       </TableRow>
-                    )}
+                    ))}
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -151,22 +150,45 @@ function ParameterForm() {
       </Modal>
       <Box>
         <FormControlLabel
-          control={<Switch checked={intrinsic} onChange={e => (setIntrinsic(e.target.checked), setSelectedBuckets([e.target.checked,extrinsic,other]))} />}
+          control={
+            <Switch
+              checked={intrinsic}
+              onChange={e => (setIntrinsic(e.target.checked), setSelectedBuckets([e.target.checked, extrinsic, other]))}
+            />
+          }
           label='Intrinsic'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={extrinsic} onChange={e => (setExtrinsic(e.target.checked),setSelectedBuckets([intrinsic,e.target.checked,other]))} />}
+          control={
+            <Switch
+              checked={extrinsic}
+              onChange={e => (setExtrinsic(e.target.checked), setSelectedBuckets([intrinsic, e.target.checked, other]))}
+            />
+          }
           label='Extrinsic'
           labelPlacement='start'
         />
+
         <FormControlLabel
-          control={<Switch checked={other} onChange={e => (setOther(e.target.checked),setSelectedBuckets([intrinsic,extrinsic,e.target.checked]))} />}
+          control={
+            <Switch
+              checked={other}
+              onChange={e => (setOther(e.target.checked), setSelectedBuckets([intrinsic, extrinsic, e.target.checked]))}
+            />
+          }
           label='Other'
           labelPlacement='start'
         />
         <FormControlLabel
-          control={<Switch checked={all} onChange={e => (setAll(e.target.checked),setSelectedBuckets([e.target.checked,e.target.checked,e.target.checked]))} />}
+          control={
+            <Switch
+              checked={all}
+              onChange={e => (
+                setAll(e.target.checked), setSelectedBuckets([e.target.checked, e.target.checked, e.target.checked])
+              )}
+            />
+          }
           label='All'
           labelPlacement='start'
         />

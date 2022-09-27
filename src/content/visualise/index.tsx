@@ -48,7 +48,7 @@ const Visualise = () => {
           <Typography variant='subtitle2' sx={{ marginBottom: '2rem' }}>
             {data.description}
           </Typography>
-          <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
+          <Typography variant='h4' sx={{ marginBottom: '0.5rem' }}>
             Select parameters to plot
           </Typography>
           <CheckboxDropdown
