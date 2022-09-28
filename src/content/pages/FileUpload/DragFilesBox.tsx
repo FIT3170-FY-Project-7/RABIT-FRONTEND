@@ -12,8 +12,9 @@ export default function DragFilesBox({ updateSelectedFiles }) {
     // Adds files to variable after each file is dropped
     function handleDrop(e) {
         e.preventDefault()
-        updateSelectedFiles([...e.dataTransfer.files])
-        console.log(files)
+        var newFiles = e.dataTransfer.files
+        newFiles = [...newFiles].filter((x) => x.type == "application/json")
+        updateSelectedFiles(newFiles)
     }
 
     const changeHandler = event => {
