@@ -13,7 +13,6 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .attr('height', config.axis.size)
     .style('overflow', 'visible')
 
-  console.log(parameter.display_text)
   // Labeling
   svg
     .append('foreignObject')
