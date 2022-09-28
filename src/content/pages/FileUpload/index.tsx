@@ -35,6 +35,7 @@ export default function UploadPage() {
   const [fileNames, setFileNames] = useState([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [selectedBuckets, setSelectedBuckets] = useState([])
   const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
   const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
   const [openFileFormatModal, setOpenFileFormatModal] = useState(false)
@@ -93,6 +94,7 @@ export default function UploadPage() {
           onChange={e => setTitle(e.target.value)}
           label='Title'
           variant='filled'
+          required
         />
         <TextField
           margin='dense'
@@ -103,7 +105,7 @@ export default function UploadPage() {
           rows={3}
           variant='filled'
         />
-        <ParameterForm />
+        <ParameterForm selectedBuckets={selectedBuckets} setSelectedBuckets={setSelectedBuckets} />
         <Box
           sx={{
             marginTop: '1rem',
@@ -160,10 +162,7 @@ export default function UploadPage() {
               >
                 {file.name}
               </Button>
-              <IconButton
-                style={{marginTop: '5px'}}
-                aria-label='delete'
-                onClick={() => removeSelectedFile(ind)}>
+              <IconButton style={{ marginTop: '5px' }} aria-label='delete' onClick={() => removeSelectedFile(ind)}>
                 <RemoveCircleIcon color='error' />
               </IconButton>
             </div>
@@ -185,7 +184,7 @@ export default function UploadPage() {
           ) : null}
         </Box>
         <FileUploadButton
-          enableButton={selectedFiles?.length > 0 && !!title}
+          enableButton={selectedFiles?.length > 0 && !!title && !!selectedBuckets?.length > 0}
           selectedFiles={selectedFiles}
           title={title}
           description={description}

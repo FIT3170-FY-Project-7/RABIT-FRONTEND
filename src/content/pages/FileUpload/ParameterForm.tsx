@@ -54,12 +54,12 @@ function a11yProps(index: number) {
   }
 }
 
-function ParameterForm() {
+function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
   const [other, setOther] = useState(false)
   const [all, setAll] = useState(false)
-  const [selectedBuckets, setSelectedBuckets] = useState([])
+
   const [openParamaterModal, setOpenParamaterModal] = useState(false)
   const [tab, setTab] = useState(0)
 
@@ -101,7 +101,7 @@ function ParameterForm() {
         }}
         onClick={() => setOpenParamaterModal(true)}
       >
-        <Typography variant='h4'>Select Parameters to Upload</Typography>
+        <Typography variant='h4'>Select Parameters to Upload*</Typography>
         <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: '#FFCC00' }} />
       </Box>
       <Modal

@@ -42,7 +42,6 @@ export default function FileUploadButton({
         //console.log(`${loaded}kb of ${total}kb | ${percentage}%`)
         //correctly works as a progress bar in console (throttle speed to test or use a big file)
 
-
         setUploadPercentage(percentage)
       }
     }
@@ -50,13 +49,10 @@ export default function FileUploadButton({
       .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
       .then(res => res.data.fileIds)
 
-      for (const [i, file] of selectedFiles.entries()) {
-        await chunkUpload(fileIds[i], file)
-      }
+    for (const [i, file] of selectedFiles.entries()) {
+      await chunkUpload(fileIds[i], file)
+    }
 
-    
-
-    
     setIsUploading(false)
 
     setIsProcessing(true)
@@ -79,9 +75,11 @@ export default function FileUploadButton({
             <Box sx={{ display: 'flex', alignItems: 'centre', justifyContent: 'center', margin: '10%' }}>
               <CircularProgress />
             </Box>
-            <Box sx={{ paddingTop: 2 }}>
-              <LinearProgress variant='determinate' value={uploadPercentage} />
-            </Box>
+            {isUploading && (
+              <Box sx={{ paddingTop: 2 }}>
+                <LinearProgress variant='determinate' value={uploadPercentage} />
+              </Box>
+            )}
             <Box sx={{ minWidth: 35 }}>
               <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
             </Box>
