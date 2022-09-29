@@ -19,6 +19,7 @@ interface FileUpload {
   title: string
   description: string
   buttonMessage: string
+  selectedBuckets: boolean[]
 }
 
 export default function FileUploadButton({
@@ -26,7 +27,8 @@ export default function FileUploadButton({
   selectedFiles,
   title,
   description,
-  buttonMessage
+  buttonMessage,
+  selectedBuckets
 }: FileUpload) {
   const [uploadPercentage, setUploadPercentage] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
@@ -53,6 +55,10 @@ export default function FileUploadButton({
       await chunkUpload(fileIds[i], file)
     }
 
+    const paramBuckets = await api
+      .post<{ buckets: string }>('/raw-data/param-buckets', { buckets: selectedBuckets })
+      .then(res => res.data.buckets)
+
     setIsUploading(false)
 
     setIsProcessing(true)
@@ -64,6 +70,9 @@ export default function FileUploadButton({
       })
       .then(res => res.data)
 
+      
+
+    
     navigate(`/visualise/${plotCollection.id}`)
   }
 

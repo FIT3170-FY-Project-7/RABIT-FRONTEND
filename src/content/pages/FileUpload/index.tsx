@@ -189,6 +189,7 @@ export default function UploadPage() {
           title={title}
           description={description}
           buttonMessage='Upload file(s)'
+          selectedBuckets={selectedBuckets}
         />
       </Box>
     </Box>
