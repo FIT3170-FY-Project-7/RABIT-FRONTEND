@@ -35,21 +35,6 @@ const DatasetConfigDefault: DatasetConfig = {
   file_id: ''
 }
 
-const colors = [
-  '#0088FF',
-  '#BF40BF',
-  '#800000',
-  '#FF8800',
-  '#FFCC00',
-  '#FFFF00',
-  '#0088FF',
-  '#00CC00',
-  '#FF0000',
-  '#FF8800',
-  '#FFCC00',
-  '#FFFF00'
-]
-
 function PlotsPage({
   rawDatasets,
   parameterNames
@@ -71,7 +56,7 @@ function PlotsPage({
     setDatasets(
       Object.entries(rawDatasets).map(([file_id, data], i) => ({
         ...DatasetConfigDefault,
-        color: colors[i],
+        color: (i < colours.colourPickerOptions.length) ? colours.colourPickerOptions[i] : colours.plotDefault,
         data,
         file_id
       }))

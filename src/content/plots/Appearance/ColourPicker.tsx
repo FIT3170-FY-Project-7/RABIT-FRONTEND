@@ -65,7 +65,7 @@ function ColourPicker({ handleColourChange, initial }) {
                             }}
                             onClick={handleClose}
                         />
-                        <TwitterPicker onChange={handleColourSelected} />
+                        <TwitterPicker color={colours.plotDefault} colors={colours.colourPickerOptions} onChange={handleColourSelected} />
                     </div>
                 ) : null}
             </div>
