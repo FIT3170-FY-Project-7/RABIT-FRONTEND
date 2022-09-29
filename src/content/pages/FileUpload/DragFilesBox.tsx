@@ -8,11 +8,26 @@ const API = 'http://localhost:8000/upload'
 export default function DragFilesBox({ updateSelectedFiles }) {
     const [dropzoneActive, setDropzoneActive] = useState(false)
     const [files, setFiles] = useState([])
+    const [errorMessage, setErrorMessage] = useState('');
+    const [enableFileTypeError, setEnableFileTypeError] = useState(false)
+    const [fileTypeError, setFileTypeError] = useState('')
 
     // Adds files to variable after each file is dropped
     function handleDrop(e) {
         e.preventDefault()
         var newFiles = e.dataTransfer.files
+        var errorOccured = false
+        for (var i = 0; i < newFiles.length; i++) {
+            if (newFiles[i].type != "application/json") {
+                errorOccured = true
+            }
+        }
+        if (errorOccured) {
+            setEnableFileTypeError(true)
+            setFileTypeError('One or more files were not in format .json and have not been added');
+        } else {
+            setEnableFileTypeError(false)
+        }
         newFiles = [...newFiles].filter((x) => x.type == "application/json")
         updateSelectedFiles(newFiles)
     }
@@ -25,6 +40,21 @@ export default function DragFilesBox({ updateSelectedFiles }) {
 
     return (
         <Box>
+            <div>
+                {enableFileTypeError ? (
+                <Button
+                type='button'
+                variant='outlined'
+                color='error'
+                style={{
+                    maxWidth: 'fit-content',
+                    marginTop: 25
+                }}
+                >
+                {fileTypeError}
+                </Button>
+            ) : null} 
+          </div>
             <div
                 onDragOver={e => {
                     setDropzoneActive(true)
