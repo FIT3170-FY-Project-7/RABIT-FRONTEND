@@ -35,7 +35,7 @@ const Visualise = () => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div>
+        <div style={{height: '100%'}}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
               Visualise

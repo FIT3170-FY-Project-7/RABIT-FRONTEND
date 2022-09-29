@@ -37,7 +37,7 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
         <div
             id='corner-plot-id'
             className='corner-plot'
-            style={{ backgroundColor: NebulaFighterTheme.palette.background.default }}
+            style={{ backgroundColor: NebulaFighterTheme.palette.background.default, height: '100%'}}
         >
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current

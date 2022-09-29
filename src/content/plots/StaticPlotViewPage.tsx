@@ -34,6 +34,29 @@ function StaticPlotViewPage() {
   const params = useParams()
   const plot_id = params.id
 
+  const [plotHeight, setPlotHeight] = useState(() => {
+    var plot = document.getElementById('corner-plot-appearance-config-container')
+    return plot ? plot.offsetHeight : config.plot_size
+  })
+
+  window.addEventListener('resize', dynamicSizing)
+
+  function dynamicSizing() {
+    var plot = document.getElementById('corner-plot-id') // id: corner-plot-id
+    if (plot != null) {
+      setPlotHeight(plot.offsetHeight)
+    } else {
+      setPlotHeight(config.plot_size)
+    }
+  }
+
+  useEffect(() => dynamicSizing(),[])
+
+  const scaledConfig = {
+    ...config,
+    subplot_size: (plotHeight * 0.9) / parameterConfig.length 
+  }
+
   useEffect(() => {
     setConfig(config => ({
       ...config,
@@ -72,13 +95,13 @@ function StaticPlotViewPage() {
   }
 
   return (
-    <div>
+    <div style={{height: '100%'}}>
       <MathJaxContext config={MathJaxConfig}>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <DownloadButton />
         </Box>
-        <div className='corner-plot-appearance-config-container'>
-          <CornerPlot datasets={datasetConfig} parameters={parameterConfig} config={config} />
+        <div className='corner-plot-appearance-config-container' style={{height: '100%'}}>
+          <CornerPlot datasets={datasetConfig} parameters={parameterConfig} config={scaledConfig} />
         </div>
       </MathJaxContext>
     </div>
