@@ -1,13 +1,14 @@
 import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
-import { Box, Button, Typography, Card, Link, Snackbar } from '@mui/material'
+import { Box, Button, Typography, Card, Link, Snackbar, autocompleteClasses } from '@mui/material'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
 import { uploadCornerPlotConfigs } from './PlotUploadShare'
 import { useParams } from 'react-router-dom'
 import { colours } from './constants/Colours'
+import { getElementAtEvent } from 'react-chartjs-2'
 
 const PlotConfigDefault: PlotConfig = {
   plot_size: 500, // change this so that it takes the size of the parent container
@@ -66,6 +67,23 @@ function PlotsPage({
   const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
   const [open, setOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState<string>('')
+  const [plotHeight, setPlotHeight] = useState(() => {
+    var plot = document.getElementById('corner-plot-holder')
+    return plot ? plot.offsetHeight : config.plot_size
+  })
+
+  window.addEventListener('resize', dynamicSizing)
+
+  function dynamicSizing() {
+    var plot = document.getElementById('corner-plot-holder') // id: corner-plot-holder
+    if (plot != null) {
+      setPlotHeight(plot.offsetHeight)
+    } else {
+      setPlotHeight(config.plot_size)
+    }
+  }
+
+  useEffect(() => dynamicSizing(),[])
 
   useEffect(() => {
     setDatasets(
@@ -86,6 +104,7 @@ function PlotsPage({
           return { name: p, display_text: p, domain: d3.extent(combined_data) }
         })
       )
+      dynamicSizing()
     }
   }, [datasets, parameterNames])
 
@@ -129,19 +148,23 @@ function PlotsPage({
 
   const scaledConfig = {
     ...config,
-    subplot_size: config.plot_size / parameters.length,
+    subplot_size: (plotHeight * 0.65) / parameters.length,
     // Reduce tick count if parameter count is high
     ...(parameters.length > 7 && { axis: { ...config.axis, ticks: 2 } })
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1, height: '100%' }}>
       <MathJaxContext config={MathJaxConfig}>
         <div
+          id='corner-plot-holder'
           className='corner-plot-appearance-config-container'
-          style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}
+          style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', height: '100%' }}
         >
+          {/* Creates the corner plot */}
           <CornerPlot datasets={datasets} parameters={parameters} config={scaledConfig} />
+
+          {/* Creates the appearance change box and share link */}
           <Box>
             <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
             {parameters.length > 0 && (
