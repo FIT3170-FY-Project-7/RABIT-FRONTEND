@@ -36,6 +36,8 @@ const DatasetConfigDefault: DatasetConfig = {
   file_id: ''
 }
 
+const plotSizeRatio = 0.55
+
 function PlotsPage({
   rawDatasets,
   parameterNames
@@ -52,23 +54,12 @@ function PlotsPage({
   const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
   const [open, setOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState<string>('')
-  const [plotHeight, setPlotHeight] = useState(() => {
-    var plot = document.getElementById('corner-plot-holder')
-    return plot ? plot.offsetHeight : config.plot_size
-  })
+  const [plotHeight, setPlotHeight] = useState(window.innerHeight * plotSizeRatio)
 
-  window.addEventListener('resize', dynamicSizing)
-
-  function dynamicSizing() {
-    var plot = document.getElementById('corner-plot-holder') // id: corner-plot-holder
-    if (plot != null) {
-      setPlotHeight(plot.offsetHeight)
-    } else {
-      setPlotHeight(config.plot_size)
-    }
+  window.addEventListener('resize', resizePlot)
+  function resizePlot() {
+      setPlotHeight(window.innerHeight * plotSizeRatio)
   }
-
-  useEffect(() => dynamicSizing(),[])
 
   useEffect(() => {
     setDatasets(
@@ -89,7 +80,7 @@ function PlotsPage({
           return { name: p, display_text: p, domain: d3.extent(combined_data) }
         })
       )
-      dynamicSizing()
+      resizePlot()
     }
   }, [datasets, parameterNames])
 
@@ -133,18 +124,17 @@ function PlotsPage({
 
   const scaledConfig = {
     ...config,
-    subplot_size: (plotHeight * 0.65) / parameters.length,
+    subplot_size: plotHeight / parameters.length,
     // Reduce tick count if parameter count is high
     ...(parameters.length > 7 && { axis: { ...config.axis, ticks: 2 } })
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1, height: '100%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
       <MathJaxContext config={MathJaxConfig}>
         <div
-          id='corner-plot-holder'
           className='corner-plot-appearance-config-container'
-          style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', height: '100%' }}
+          style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem'}}
         >
           {/* Creates the corner plot */}
           <CornerPlot datasets={datasets} parameters={parameters} config={scaledConfig} />

@@ -45,7 +45,7 @@ const Visualise = () => {
           <Typography variant='h3' sx={{ marginBottom: '1rem' }}>
             {data.title ?? 'Data'}
           </Typography>
-          <Typography variant='subtitle2' sx={{ marginBottom: '2rem' }}>
+          <Typography variant='subtitle2' sx={{ marginBottom: '0.5rem' }}>
             {data.description}
           </Typography>
           <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
