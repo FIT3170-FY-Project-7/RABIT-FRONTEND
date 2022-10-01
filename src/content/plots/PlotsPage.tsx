@@ -58,7 +58,7 @@ function PlotsPage({
 
   window.addEventListener('resize', resizePlot)
   function resizePlot() {
-      setPlotHeight(window.innerHeight * plotSizeRatio)
+      setPlotHeight(Math.max((window.innerHeight * plotSizeRatio), 500))
   }
 
   useEffect(() => {
