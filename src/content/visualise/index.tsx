@@ -10,6 +10,7 @@ import PlotsPage from '../plots/PlotsPage'
 import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
 import TabCheckboxDropdown from './TabCheckboxDropdown'
+import { extrinsicParameters, intrinsicParameters, bothParameters } from '../constants'
 
 export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
 
@@ -37,19 +38,19 @@ const Visualise = () => {
   const parametersSelected = [
     {
       name: 'Intrinsic',
-      options: parameterOptions?.slice(0, 10),
+      options: parameterOptions?.filter(parameter => intrinsicParameters.includes(parameter.label)),
       type: intrinsicParametersSelected,
       setType: setIntrinsicParametersSelected
     },
     {
       name: 'Extrinsic',
-      options: parameterOptions?.slice(10, 20),
+      options: parameterOptions?.filter(parameter => extrinsicParameters.includes(parameter.label)),
       type: extrinsicParametersSelected,
       setType: setExtrinsicParametersSelected
     },
     {
       name: 'Other',
-      options: parameterOptions?.slice(30, 40),
+      options: parameterOptions?.filter(parameter => !intrinsicParameters.includes(parameter.label) && !extrinsicParameters.includes(parameter.label)),
       type: otherParametersSelected,
       setType: setOtherParametersSelected
     }

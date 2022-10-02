@@ -12,7 +12,7 @@ import chunkUpload from '../../../utils/chunkUpload'
 import Modal from '@mui/material/Modal'
 import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { modal_style } from './constants'
+import { modalStyle } from './modalStyle'
 interface FileUpload {
   enableButton: boolean
   selectedFiles: File[]
@@ -55,9 +55,9 @@ export default function FileUploadButton({
       await chunkUpload(fileIds[i], file)
     }
 
-    const paramBuckets = await api
-      .post<{ buckets: string }>('/raw-data/param-buckets', { buckets: selectedBuckets })
-      .then(res => res.data.buckets)
+    // const paramBuckets = await api
+    //   .post<{ buckets: string }>('/raw-data/param-buckets', { buckets: selectedBuckets })
+    //   .then(res => res.data.buckets)
 
     setIsUploading(false)
 
@@ -66,13 +66,11 @@ export default function FileUploadButton({
       .post('/raw-data/process', {
         title,
         description,
-        fileIds
+        fileIds,
+        selectedBuckets
       })
       .then(res => res.data)
 
-      
-
-    
     navigate(`/visualise/${plotCollection.id}`)
   }
 
@@ -80,7 +78,7 @@ export default function FileUploadButton({
     return (
       <div>
         <Modal open={true} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
-          <Box sx={modal_style}>
+          <Box sx={modalStyle}>
             <Box sx={{ display: 'flex', alignItems: 'centre', justifyContent: 'center', margin: '10%' }}>
               <CircularProgress />
             </Box>

@@ -8,7 +8,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import IconButton from '@mui/material/IconButton'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import ParameterForm from './ParameterForm'
-import { modal_style } from './constants'
+import { modalStyle } from './modalStyle'
 
 const example = {
   posterior: {
@@ -127,7 +127,7 @@ export default function UploadPage() {
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
         >
-          <Box sx={modal_style}>
+          <Box sx={modalStyle}>
             <IconButton
               color='primary'
               aria-label='upload picture'

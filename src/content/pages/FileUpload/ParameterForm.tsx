@@ -18,7 +18,8 @@ import {
   TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
-import { extrinsicParameters, intrinsicParameters, otherParameters, modal_style } from './constants'
+import { extrinsicParameters, intrinsicParameters, otherParameters } from '../../constants'
+import { modalStyle } from './modalStyle'
 import CancelIcon from '@mui/icons-material/Cancel'
 
 interface TabPanelProps {
@@ -110,7 +111,7 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={{ minWidth: '50%', ...modal_style }}>
+        <Box sx={{ minWidth: '50%', ...modalStyle }}>
           <IconButton
             color='primary'
             aria-label='upload picture'
