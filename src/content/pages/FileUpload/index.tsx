@@ -149,7 +149,8 @@ export default function UploadPage() {
           </Box>
         </Modal>
         <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
-        <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
+        <Typography variant='h4'>Selected Files</Typography>
+        <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'row', flexWrap: 'wrap' }}>
           {selectedFiles.map((file, ind) => (
             <div key={ind}>
               <Button
