@@ -1,4 +1,4 @@
-export const default_translation = (parameter_name: string): string => parameter_name.replace('_', ' ')
+export const default_translation = (parameter_name: string): string => parameter_name.replaceAll('_', ' ')
 
 export const latex_translations = {
     "chirp_mass": "$\\mathcal{M}$",
