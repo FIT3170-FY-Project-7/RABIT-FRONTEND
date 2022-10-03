@@ -6,11 +6,10 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import CheckboxDropdown, { OptionType } from './CheckboxDropdown'
-import PlotsPage from '../plots/PlotsPage'
 import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
 import TabCheckboxDropdown from './TabCheckboxDropdown'
-import { extrinsicParameters, intrinsicParameters, bothParameters } from '../constants'
+import { extrinsicParameters, intrinsicParameters} from '../constants'
 
 export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
 
@@ -29,10 +28,27 @@ const Visualise = () => {
   )
   console.log(parameters)
 
+  // Calculate the parameters that are available in all files to be used in the dropdown
   const parameterOptions = useMemo(() => {
+    // Get list of all parameters in each file
     const fileParameters = data?.files?.map(file => file.parameters.map(parameter => parameter.name))
+
+    // Get parameters shared by all files
     const sharedParameters = fileParameters?.reduce((a, b) => a.filter(c => b.includes(c)))
-    return sharedParameters?.map(parameterName => ({ label: parameterName, value: parameterName }))
+
+    // Split common parameters into each parameter type, intrinsic, extrinsic and others
+    const intrinsic = [], extrinsic = [], other = [];
+    sharedParameters?.sort().forEach(parameter => {
+      if (intrinsicParameters.includes(parameter)) intrinsic.push(parameter)
+      else if (extrinsicParameters.includes(parameter)) extrinsic.push(parameter)
+      else other.push(parameter)
+    })
+
+    // Recombine into a single array of options
+    const rebuiltParameters = [].concat(intrinsic, extrinsic, other)
+
+    // Convert to data structure for dropdown
+    return rebuiltParameters?.map(parameterName => ({ label: parameterName, value: parameterName }))
   }, [data?.files])
 
   const parametersSelected = [
@@ -68,7 +84,7 @@ const Visualise = () => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div>
+        <div style={{height: '100%'}}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
               Visualise
@@ -78,7 +94,7 @@ const Visualise = () => {
           <Typography variant='h3' sx={{ marginBottom: '1rem' }}>
             {data.title ?? 'Data'}
           </Typography>
-          <Typography variant='subtitle2' sx={{ marginBottom: '2rem' }}>
+          <Typography variant='subtitle2' sx={{ marginBottom: '0.5rem' }}>
             {data.description}
           </Typography>
           <TabCheckboxDropdown values={parametersSelected} />

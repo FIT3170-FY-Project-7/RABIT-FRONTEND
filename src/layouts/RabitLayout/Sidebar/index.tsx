@@ -20,12 +20,31 @@ const SidebarWrapper = styled(Box)(
         background  : ${theme.sidebar.background};
         box-shadow  : ${theme.sidebar.boxShadow};
         height      : 100%;
-        position    : fixed;
-        z-index     : 10;        
-        // @media (min-width: ${theme.breakpoints.values.lg}px) {
-        //     position                    : fixed;
-        //     z-index                     : 10;
-        // }
+
+        @media (min-width: ${theme.breakpoints.values.xs}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.sm}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.md}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.lg}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.xl}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
     `
 )
 
@@ -45,14 +64,19 @@ function Sidebar() {
         <SidebarWrapper>
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center'}}>
                 <TopSection>
+                    {/* rabit logo is created here */}
                     <Logo />
                 </TopSection>
-                {/* <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
+
+                <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
+                    {/* upload button created here */}
                     <UploadIcon sx={{ mr: 1 }} /> Upload
                 </Fab> */}
 
-                <SidebarMenu />
+                <SidebarMenu /> {/* sidebar menu is created here */}
+
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
+                    {/* displays the user profile */}
                     <HeaderUserbox />
                 </Box>
             </Box>

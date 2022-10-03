@@ -24,20 +24,21 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
 
     // Function to rescan the page for LaTeX elements and rerender them.
     const rerenderMathJax = () => {
+        // TODO: Determine why mathjax scans the entire page for LaTeX strings, not confined by the context in PlotsPage.tsx
         clearTimeout(mathjaxTimer.current)
 
         mathjaxTimer.current = setTimeout(() => {
             mathjax.promise.then(m => {
                 m.typeset()
             })
-        }, 500)
+        }, 100)
     }
 
     return (
         <div
             id='corner-plot-id'
             className='corner-plot'
-            style={{ flexGrow: 1, backgroundColor: NebulaFighterTheme.palette.background.default }}
+            style={{ backgroundColor: NebulaFighterTheme.palette.background.default}}
         >
             {/* For each initial parameter, create a new row containing a Histogram of the 
             current parameter's data and contour plots for the intersections of the current
@@ -68,12 +69,7 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
                     ))}
 
                     {/* Histogram for current parameters */}
-                    <HistogramPlot
-                        key={`hist-${parameter_1.name}`}
-                        datasets={datasets}
-                        parameter={parameter_1}
-                        config={config}
-                    />
+                    <HistogramPlot key={`hist-${parameter_1.name}`} datasets={datasets} parameter={parameter_1} config={config} />
                 </div>
             ))}
 

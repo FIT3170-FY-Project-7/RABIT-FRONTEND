@@ -1,7 +1,9 @@
 // The Y axis created using D3
 
 import * as d3 from 'd3'
+import { colours } from '../constants/Colours'
 import { PlotConfig, ParameterConfig } from '../PlotTypes'
+import { latex_translations, default_translation } from '../constants/LaTeX'
 
 const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig) => {
   // Append SVG
@@ -26,7 +28,7 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .style('justify-content', 'center')
     .style('align-items', 'center')
     .style('word-break', 'break-word')
-    .html(parameter.display_text)
+    .html(latex_translations[parameter.display_text] ?? default_translation(parameter.display_text))
 
   // Create scale
   const scale = d3
@@ -38,12 +40,28 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
   const y_axis = svg
     .append('g')
     .attr('transform', `translate(${config.axis.size}, 0)`)
-    .call(d3.axisLeft(scale).ticks(config.axis.ticks).tickSize(config.axis.tickSize))
+    .call(
+      d3
+        .axisLeft(scale)
+        .ticks(config.axis.ticks)
+        .tickSize(config.axis.tickSize)
+        .tickSizeOuter(0)
+        .tickFormat(d3.format('.3'))
+    )
+
+  // Rotate axis labels
+  y_axis
+    .selectAll('text')
+    .style('text-anchor', 'end')
+
+    .attr('dy', '-.5em')
+    .attr('dx', '.5em')
+    .attr('transform', 'rotate(-45)')
 
   // Explicitly colour the axis so they display correctly when downloaded
-  y_axis.selectAll('line').style('stroke', 'white').classed('axis-lines', true)
-  y_axis.selectAll('path').style('stroke', 'white').classed('axis-lines', true)
-  y_axis.selectAll('text').style('fill', 'white').classed('axis-labels', true)
+  y_axis.selectAll('line').style('stroke', colours.axesColour).classed('axis-lines', true)
+  y_axis.selectAll('path').style('stroke', 'black')
+  y_axis.selectAll('text').style('fill', colours.axesColour).classed('axis-labels', true)
 }
 
 const destroy = el => {
