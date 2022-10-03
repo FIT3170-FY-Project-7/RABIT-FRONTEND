@@ -1,4 +1,6 @@
 import { colours } from '../constants/Colours'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 const ReorderButtons = ({ index, datasetsLength, reorderCallback }) => {
     /*
@@ -12,7 +14,8 @@ const ReorderButtons = ({ index, datasetsLength, reorderCallback }) => {
         alignItems: 'center',
         height: '30%',
         aspectRatio: '1',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        padding: '0'
     }
     return (
         <div
@@ -23,16 +26,17 @@ const ReorderButtons = ({ index, datasetsLength, reorderCallback }) => {
                 justifyContent: 'center',
                 height: '100%'
             }}
+            title='Reorder your datasets. Lower datasets will be drawn last, and display on top.'
         >
             <button disabled={index - 1 < 0} onClick={() => reorderCallback(index, index - 1)} style={buttonStyling}>
-                ↑
+                <KeyboardArrowUpIcon />
             </button>
             <button
                 disabled={index + 1 > datasetsLength - 1}
                 onClick={() => reorderCallback(index, index + 1)}
                 style={buttonStyling}
             >
-                ↓
+                <KeyboardArrowDownIcon />
             </button>
         </div>
     )
