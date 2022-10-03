@@ -1,6 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react'
 import {
-  Autocomplete,
   Box,
   FormControlLabel,
   IconButton,
@@ -8,7 +7,6 @@ import {
   Switch,
   Tab,
   Tabs,
-  TextField,
   Typography,
   TableContainer,
   Table,
@@ -81,11 +79,9 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
   useEffect(() => {
     if (all && !(intrinsic && extrinsic && other)) {
       setAll(false)
+    } else if (!all && (intrinsic && extrinsic && other)) {
+      setAll(true)
     }
-  }, [intrinsic, extrinsic, other])
-
-  useEffect(() => {
-    console.log(selectedBuckets)
   }, [intrinsic, extrinsic, other])
 
   return (
@@ -108,13 +104,10 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
       <Modal
         open={openParamaterModal}
         onClose={() => setOpenParamaterModal(false)}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
       >
         <Box sx={{ minWidth: '50%', ...modalStyle }}>
           <IconButton
             color='primary'
-            aria-label='upload picture'
             component='label'
             sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
             onClick={() => setOpenParamaterModal(false)}
@@ -122,7 +115,7 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
             <CancelIcon />
           </IconButton>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} aria-label='basic tabs example'>
+            <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
               {Object.keys(parameters).map((key, i) => (
                 <Tab key={i} label={key.charAt(0).toUpperCase() + key.substring(1)} {...a11yProps(i)} />
               ))}
@@ -185,9 +178,7 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
           control={
             <Switch
               checked={all}
-              onChange={e => (
-                setAll(e.target.checked), setSelectedBuckets([e.target.checked, e.target.checked, e.target.checked])
-              )}
+              onChange={e => (setAll(e.target.checked), setSelectedBuckets([e.target.checked, e.target.checked, e.target.checked]))}
             />
           }
           label='All'

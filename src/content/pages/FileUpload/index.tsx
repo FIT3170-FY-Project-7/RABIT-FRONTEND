@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Box, TextField, Divider, Typography, Button, Modal } from '@mui/material'
 import FileUploadButton from './FileUploadButton'
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
@@ -184,7 +184,7 @@ export default function UploadPage() {
           ) : null}
         </Box>
         <FileUploadButton
-          enableButton={selectedFiles?.length > 0 && !!title && !!selectedBuckets?.length > 0}
+          enableButton={selectedFiles?.length > 0 && title && selectedBuckets?.includes(true)}
           selectedFiles={selectedFiles}
           title={title}
           description={description}
