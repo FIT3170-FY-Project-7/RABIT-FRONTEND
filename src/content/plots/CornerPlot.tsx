@@ -24,13 +24,14 @@ function CornerPlot({ datasets, parameters, config }: CornerPlotPropType) {
 
     // Function to rescan the page for LaTeX elements and rerender them.
     const rerenderMathJax = () => {
+        // TODO: Determine why mathjax scans the entire page for LaTeX strings, not confined by the context in PlotsPage.tsx
         clearTimeout(mathjaxTimer.current)
 
         mathjaxTimer.current = setTimeout(() => {
             mathjax.promise.then(m => {
                 m.typeset()
             })
-        }, 500)
+        }, 100)
     }
 
     return (

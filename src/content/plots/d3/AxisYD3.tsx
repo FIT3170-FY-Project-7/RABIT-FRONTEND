@@ -3,6 +3,7 @@
 import * as d3 from 'd3'
 import { colours } from '../constants/Colours'
 import { PlotConfig, ParameterConfig } from '../PlotTypes'
+import { latex_translations, default_translation } from '../constants/LaTeX'
 
 const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig) => {
   // Append SVG
@@ -27,7 +28,7 @@ const create = (el: HTMLElement, parameter: ParameterConfig, config: PlotConfig)
     .style('justify-content', 'center')
     .style('align-items', 'center')
     .style('word-break', 'break-word')
-    .html(parameter.display_text)
+    .html(latex_translations[parameter.display_text] ?? default_translation(parameter.display_text))
 
   // Create scale
   const scale = d3

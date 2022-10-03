@@ -63,12 +63,29 @@ function PlotsPage({
 
   useEffect(() => {
     setDatasets(
-      Object.entries(rawDatasets).map(([file_id, data], i) => ({
-        ...DatasetConfigDefault,
-        color: (i < colours.colourPickerOptions.length) ? colours.colourPickerOptions[i] : colours.plotDefault,
-        data,
-        file_id
-      }))
+
+      Object.entries(rawDatasets).map(([file_id, data], i) => {
+        // Convert a complex number to it's magnitude
+        const toMagnitude = (complexNum) => {
+          return Math.sqrt(complexNum.real ** 2 + complexNum.imag ** 2);
+        }
+
+        // Check for complex values
+        Object.keys(data).forEach(key => {
+          // If first value in data is complex
+          if ((data[key][0] as any).__complex__) {
+            // Convert to magnitude
+            data[key] = data[key].map(toMagnitude)
+          }
+        })
+
+        return ({
+          ...DatasetConfigDefault,
+          color: (i < colours.colourPickerOptions.length) ? colours.colourPickerOptions[i] : colours.plotDefault,
+          data,
+          file_id
+        })
+      })
     )
   }, [rawDatasets])
 
