@@ -1,4 +1,3 @@
-import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone'
 import { Box, Button, Hidden, Stack } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Scrollbars } from 'react-custom-scrollbars-2'
@@ -62,17 +61,17 @@ function Sidebar() {
     const navigate = useNavigate()
     return (
         <SidebarWrapper>
-            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
                 <TopSection>
                     {/* rabit logo is created here */}
                     <Logo />
                 </TopSection>
-
+                
+                {/* upload button created here
                 <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
-                    {/* upload button created here */}
                     <UploadIcon sx={{ mr: 1 }} /> Upload
-                </Fab> */}
-
+                </Fab>*/}
+            
                 <SidebarMenu /> {/* sidebar menu is created here */}
 
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
