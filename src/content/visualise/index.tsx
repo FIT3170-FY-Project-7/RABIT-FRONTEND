@@ -53,7 +53,7 @@ const Visualise = () => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div>
+        <div style={{height: '100%'}}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography variant='h1' sx={{ marginBottom: '1rem' }}>
               Visualise
@@ -63,7 +63,7 @@ const Visualise = () => {
           <Typography variant='h3' sx={{ marginBottom: '1rem' }}>
             {data.title ?? 'Data'}
           </Typography>
-          <Typography variant='subtitle2' sx={{ marginBottom: '2rem' }}>
+          <Typography variant='subtitle2' sx={{ marginBottom: '0.5rem' }}>
             {data.description}
           </Typography>
           <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>

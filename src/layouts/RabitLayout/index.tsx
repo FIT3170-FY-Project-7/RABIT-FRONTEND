@@ -11,18 +11,39 @@ interface SidebarLayoutProps {
 }
 
 const MainWrapper = styled(Box)(
-  ({ theme }) => `
+    // wrapper to store the main content
+    ({ theme }) => `
         flex: 1 1 auto;
         display: flex;
         height: 100%;
+
+        @media (min-width: ${theme.breakpoints.values.xs}px) {
+            padding-left: ${theme.sidebar.width};
+        }
+        
+        @media (min-width: ${theme.breakpoints.values.sm}px) {
+            padding-left: ${theme.sidebar.width};
+        }
+
+        @media (min-width: ${theme.breakpoints.values.md}px) {
+            padding-left: ${theme.sidebar.width};
+        }
         
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             padding-left: ${theme.sidebar.width};
-        }`
+        }
+
+        @media (min-width: ${theme.breakpoints.values.xl}px) {
+            padding-left: ${theme.sidebar.width};
+        }
+        `
+        
 )
 
 const MainContent = styled(Box)(
-  ({ theme }) => `
+    // main content goes here
+    ({ theme }) => `
+        flex: 1 1 auto;
         margin: 1;
         display: flex;
         flex-direction: column;

@@ -1,19 +1,17 @@
 import downloadjs from 'downloadjs'
-import html2canvas from 'html2canvas'
 import * as d3 from 'd3'
 import { NebulaFighterTheme } from '../../theme/schemes/NebulaFighterTheme'
+import * as htmlToImage from 'html-to-image'
 
 const PlotDownloadService = {
-    downloadAsPNG: async () => {
-        const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-        if (!cornerPlotElmt) return
-        changeColours('white', 'black')
-
-        const canvas = await html2canvas(cornerPlotElmt)
-        const dataURL = canvas.toDataURL('image/png')
-        downloadjs(dataURL, 'corner-plot.png', 'image/png')
-
+    downloadAsPNG: () => {
+      const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
+      if (!cornerPlotElmt) return
+      changeColours('white', 'black')
+      htmlToImage.toPng(cornerPlotElmt, { canvasHeight: 2500, canvasWidth: 2500 }).then(function (dataUrl) {
+        downloadjs(dataUrl, 'corner-plot.png')
         changeColours(NebulaFighterTheme.palette.background.default, 'white')
+      })
     },
     downloadAsSVG: () => {
         const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')

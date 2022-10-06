@@ -35,7 +35,7 @@ function BlurSlider({ initial, handleBlurChange }) {
                 max='5'
                 step='0.1'
                 defaultValue={initial}
-                onChange={event => handleChange(event)}
+                onMouseUp={event => handleChange(event)}
                 ref={inputRef}
             />
         </div>
