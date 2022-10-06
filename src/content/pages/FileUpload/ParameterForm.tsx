@@ -16,7 +16,7 @@ import {
   TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
-import { extrinsicParameters, intrinsicParameters, otherParameters } from '../../constants'
+import { extrinsicParameters, intrinsicParameters, otherParameters } from '../../../../../sharedData/parameterBuckets'
 import { modalStyle } from './modalStyle'
 import CancelIcon from '@mui/icons-material/Cancel'
 

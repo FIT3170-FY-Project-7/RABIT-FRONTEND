@@ -9,7 +9,7 @@ import CheckboxDropdown, { OptionType } from './CheckboxDropdown'
 import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
 import TabCheckboxDropdown from './TabCheckboxDropdown'
-import { extrinsicParameters, intrinsicParameters} from '../constants'
+import { extrinsicParameters, intrinsicParameters} from '../../../../sharedData/parameterBuckets'
 
 export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
 
