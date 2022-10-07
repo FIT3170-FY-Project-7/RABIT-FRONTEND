@@ -53,14 +53,14 @@ export default function FileUploadButton({
     }
     const fileIds = await api
       .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
-      .then(res => res.data.fileIds).catch(error => {
+      .then(res => res.data.fileIds)
+      .catch(error => {
         setErrorMessage(true)
         setIsUploading(false)
         setIsProcessing(false)
 
       })
 
-      console.log("FileIds: " + fileIds)
 
     for (const [i, file] of selectedFiles.entries()) {
       await chunkUpload(fileIds[i], file)
@@ -86,8 +86,6 @@ export default function FileUploadButton({
         setIsProcessing(false)
         setErrorMessage(true)
       })
-
-    console.log("Plot Collection:" + plotCollection)
 
     navigate(`/visualise/${plotCollection.id}`)
   }
