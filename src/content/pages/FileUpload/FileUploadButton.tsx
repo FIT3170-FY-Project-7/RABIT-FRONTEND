@@ -1,5 +1,5 @@
 import UploadIcon from '@mui/icons-material/Upload'
-import { Button, Dialog } from '@mui/material'
+import { Button, Dialog, IconButton, } from '@mui/material'
 import csvToJson from 'csvtojson'
 import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
@@ -13,6 +13,9 @@ import Modal from '@mui/material/Modal'
 import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { modalStyle } from './modalStyle'
+import CancelIcon from '@mui/icons-material/Cancel'
+import ErrorIcon from '@mui/icons-material/Error';
+
 interface FileUpload {
   enableButton: boolean
   selectedFiles: File[]
@@ -33,6 +36,7 @@ export default function FileUploadButton({
   const [uploadPercentage, setUploadPercentage] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmission = async () => {
@@ -49,7 +53,14 @@ export default function FileUploadButton({
     }
     const fileIds = await api
       .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
-      .then(res => res.data.fileIds)
+      .then(res => res.data.fileIds).catch(error => {
+        setErrorMessage(true)
+        setIsUploading(false)
+        setIsProcessing(false)
+
+      })
+
+      console.log("FileIds: " + fileIds)
 
     for (const [i, file] of selectedFiles.entries()) {
       await chunkUpload(fileIds[i], file)
@@ -70,8 +81,51 @@ export default function FileUploadButton({
         selectedBuckets
       })
       .then(res => res.data)
+      .catch(error => {
+        setIsUploading(false)
+        setIsProcessing(false)
+        setErrorMessage(true)
+      })
+
+    console.log("Plot Collection:" + plotCollection)
 
     navigate(`/visualise/${plotCollection.id}`)
+  }
+
+  if(errorMessage && (!isUploading && !isProcessing)){
+
+    return (
+      <div>
+        <Modal open={true} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+          <Box sx={modalStyle}>
+            <IconButton
+              color='primary'
+              component='label'
+              sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
+              onClick={() => setErrorMessage(false)}
+            >
+              <CancelIcon />
+            </IconButton>
+
+            <Box
+                sx={{
+                  marginTop: '1rem',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography id='modal-modal-title' variant='h6' component='h2' align='center' color={"red"}>
+                  Error Uploading File
+                </Typography>
+                <ErrorIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: "red" }} />
+              </Box>
+            
+          </Box>
+        </Modal>
+      </div>
+    )
   }
 
   if (isUploading || isProcessing) {
