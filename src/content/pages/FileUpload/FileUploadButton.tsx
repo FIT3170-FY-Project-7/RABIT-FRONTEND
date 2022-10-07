@@ -83,13 +83,15 @@ export default function FileUploadButton({
               <CircularProgress />
             </Box>
             {isUploading && (
-              <Box sx={{ paddingTop: 2 }}>
-                <LinearProgress variant='determinate' value={uploadPercentage} />
-              </Box>
+              <>
+                <Box sx={{ paddingTop: 2 }}>
+                  <LinearProgress variant='determinate' value={uploadPercentage} />
+                </Box>
+                <Box sx={{ minWidth: 35 }}>
+                  <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
+                </Box>
+              </>
             )}
-            <Box sx={{ minWidth: 35 }}>
-              <Typography variant='body2' color='text.secondary'>{`${uploadPercentage}%`}</Typography>
-            </Box>
             {isProcessing && (
               <Box
                 sx={{
