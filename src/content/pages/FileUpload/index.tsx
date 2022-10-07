@@ -119,7 +119,7 @@ export default function UploadPage() {
           onClick={() => setOpenFileFormatModal(true)}
         >
           <Typography variant='h4'>Accepted Files</Typography>
-          <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: '#FFCC00' }} />
+          <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem' }} />
         </Box>
         <Modal
           open={openFileFormatModal}
@@ -149,7 +149,6 @@ export default function UploadPage() {
           </Box>
         </Modal>
         <DragFilesBox updateSelectedFiles={updateSelectedFiles} />
-        <Typography variant='h4'>Selected Files</Typography>
         <Box style={{ display: 'flex', justifyContent: 'left', flexDirection: 'column' }}>
           {selectedFiles.map((file, ind) => (
             <div key={ind}>
