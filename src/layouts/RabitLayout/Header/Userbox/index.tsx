@@ -113,7 +113,7 @@ function HeaderUserbox() {
                     </ListItem>
                     <ListItem button to='/visualise' component={NavLink}>
                         <InsightsIcon fontSize='small' />
-                        <ListItemText primary='My Plots' />
+                        <ListItemText primary='Explore' />
                     </ListItem>
                     <ListItem button to='/management/profile/settings' component={NavLink}>
                         <AccountTreeTwoToneIcon fontSize='small' />

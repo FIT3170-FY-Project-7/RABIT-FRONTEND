@@ -20,7 +20,7 @@ const menuItems: MenuItems[] = [
     heading: '',
     items: [
       {
-        name: 'My Plots',
+        name: 'Explore',
         link: '/plots',
         icon: AccessTimeIcon
       }
