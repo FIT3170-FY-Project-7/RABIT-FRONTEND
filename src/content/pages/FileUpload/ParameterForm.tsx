@@ -79,7 +79,7 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
   useEffect(() => {
     if (all && !(intrinsic && extrinsic && other)) {
       setAll(false)
-    } else if (!all && (intrinsic && extrinsic && other)) {
+    } else if (!all && intrinsic && extrinsic && other) {
       setAll(true)
     }
   }, [intrinsic, extrinsic, other])
@@ -99,12 +99,9 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
         onClick={() => setOpenParamaterModal(true)}
       >
         <Typography variant='h4'>Select Parameters to Upload*</Typography>
-        <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: '#FFCC00' }} />
+        <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem' }} />
       </Box>
-      <Modal
-        open={openParamaterModal}
-        onClose={() => setOpenParamaterModal(false)}
-      >
+      <Modal open={openParamaterModal} onClose={() => setOpenParamaterModal(false)}>
         <Box sx={{ minWidth: '50%', ...modalStyle }}>
           <IconButton
             color='primary'
@@ -178,7 +175,9 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
           control={
             <Switch
               checked={all}
-              onChange={e => (setAll(e.target.checked), setSelectedBuckets([e.target.checked, e.target.checked, e.target.checked]))}
+              onChange={e => (
+                setAll(e.target.checked), setSelectedBuckets([e.target.checked, e.target.checked, e.target.checked])
+              )}
             />
           }
           label='All'
