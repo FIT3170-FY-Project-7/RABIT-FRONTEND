@@ -1,5 +1,5 @@
 ﻿import { Box, Divider, Tab, Tabs, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckboxDropdown from './CheckboxDropdown'
 
 interface TabPanelProps {
@@ -53,22 +53,26 @@ export default function TabCheckboxDropdown({ values }: { values: ParameterArray
       </Typography>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabIndex} onChange={(e, number) => setTabIndex(number)} aria-label='basic tabs example'>
-          {values.map((parameter, i) => (
-            <Tab key={i} label={parameter.name} {...a11yProps(i)} />
-          ))}
+          {values
+            .filter(({ options }) => options.length !== 0)
+            .map((parameter, i) => (
+              <Tab key={i} label={parameter.name} {...a11yProps(i)} />
+            ))}
         </Tabs>
       </Box>
-      {values.map((parameter, i) => (
-        <TabPanel value={tabIndex} index={i} key={i}>
-          <CheckboxDropdown
-            options={parameter.options}
-            placeholder=''
-            label={`${parameter.name} Parameters`}
-            value={parameter.type}
-            setValue={parameter.setType}
-          />
-        </TabPanel>
-      ))}
+      {values
+        .filter(({ options }) => options.length !== 0)
+        .map((parameter, i) => (
+          <TabPanel value={tabIndex} index={i} key={i}>
+            <CheckboxDropdown
+              options={parameter.options}
+              placeholder=''
+              label={`${parameter.name} Parameters`}
+              value={parameter.type}
+              setValue={parameter.setType}
+            />
+          </TabPanel>
+        ))}
     </Box>
   )
 }
