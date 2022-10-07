@@ -10,7 +10,8 @@ import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
 import { intrinsicParameters, extrinsicParameters } from './constants/Parameters'
 
-export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
+export type FilesType = { fileId: string; fileName: string; parameters: { id: string; name: string }[] }[]
+export type ParameterLabel = { parameterName: string; parameterLabel: string }
 
 const Visualise = () => {
   const { id } = useParams()

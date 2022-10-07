@@ -24,6 +24,7 @@ export type DatasetConfig = {
     line_width: number
     blur_radius: number
     file_id: string
+    file_name: string
 }
 
 export type ParameterConfig = {
@@ -37,4 +38,5 @@ export type ApiParameterConfig = {
     parameter_name: string
     file_id: string
     domain: [number, number]
+    label_text: string
 }
