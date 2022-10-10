@@ -98,7 +98,10 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
         }}
         onClick={() => setOpenParamaterModal(true)}
       >
-        <Typography variant='h4'>Select Parameters to Upload*</Typography>
+        <Typography variant='h4'>Select Parameters to Upload</Typography>
+        <Typography style={{ color: 'red' }} variant='h4'>
+          *
+        </Typography>
         <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem' }} />
       </Box>
       <Modal open={openParamaterModal} onClose={() => setOpenParamaterModal(false)}>

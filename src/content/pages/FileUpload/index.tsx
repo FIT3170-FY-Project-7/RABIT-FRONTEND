@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Box, TextField, Divider, Typography, Button, Modal } from '@mui/material'
+import { Box, TextField, Typography, Button, Modal, TextFieldProps } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import FileUploadButton from './FileUploadButton'
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
 import DragFilesBox from './DragFilesBox'
@@ -9,26 +10,14 @@ import IconButton from '@mui/material/IconButton'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import ParameterForm from './ParameterForm'
 import { modalStyle } from './modalStyle'
+import { createTheme } from '@mui/material'
+import { EXAMPLE } from './constants'
 
-const example = {
-  posterior: {
-    content: {
-      attribute1: [0.15186366972638765, -0.796240857285804],
-      attribute2: [
-        {
-          complex: true,
-          real: 20.274669606394458,
-          imag: -1.9407450062971325
-        },
-        {
-          complex: true,
-          real: 20.36245193237846,
-          imag: -1.486144336535883
-        }
-      ]
-    }
+const CssTextField = styled((props: TextFieldProps) => <TextField {...props} />)(({ theme }) => ({
+  '& .MuiFormLabel-asterisk': {
+    color: 'red'
   }
-}
+}))
 
 export default function UploadPage() {
   const [selectedFiles, setSelectedFiles] = useState([])
@@ -50,9 +39,6 @@ export default function UploadPage() {
 
     Array.from(state).forEach((file: File) => names.push(file.name))
 
-    console.log('state', state)
-    console.log('state', selectedFiles.length)
-    console.log('select', selectedFiles)
     setFileNames(names)
   }
 
@@ -87,7 +73,7 @@ export default function UploadPage() {
         }}
       >
         <Typography variant='h1'>Upload</Typography>
-        <TextField
+        <CssTextField
           margin='dense'
           fullWidth
           defaultValue={fileNames[0]}
@@ -100,7 +86,7 @@ export default function UploadPage() {
           margin='dense'
           fullWidth
           onChange={e => setDescription(e.target.value)}
-          label='Description'
+          label='Add a description'
           multiline
           rows={3}
           variant='filled'
@@ -118,7 +104,10 @@ export default function UploadPage() {
           }}
           onClick={() => setOpenFileFormatModal(true)}
         >
-          <Typography variant='h4'>Accepted Files</Typography>
+          <Typography variant='h4'>Bilby Outputs</Typography>
+          <Typography variant='h4' sx={{ color: 'red' }}>
+            *
+          </Typography>
           <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem' }} />
         </Box>
         <Modal
@@ -138,13 +127,13 @@ export default function UploadPage() {
               <CancelIcon />
             </IconButton>
             <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Accepted Files
+              Required File Format
             </Typography>
             <Typography id='modal-modal-description' sx={{ mt: 2 }}>
               Accepted file format inclues .json
             </Typography>
             <div>
-              <pre>{JSON.stringify(example, null, 2)}</pre>
+              <pre>{JSON.stringify(EXAMPLE, null, 2)}</pre>
             </div>
           </Box>
         </Modal>

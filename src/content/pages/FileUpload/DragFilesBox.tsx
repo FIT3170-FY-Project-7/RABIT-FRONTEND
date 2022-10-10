@@ -46,7 +46,9 @@ export default function DragFilesBox({ updateSelectedFiles }) {
           justifyContent: 'center'
         }}
       >
-        Drop your files here*
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+          <Typography variant='h6'>Drop your files here</Typography>
+        </Box>
         <Box
           sx={{
             marginTop: '1rem'
