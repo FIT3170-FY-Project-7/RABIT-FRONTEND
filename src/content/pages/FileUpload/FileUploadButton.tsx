@@ -36,7 +36,8 @@ export default function FileUploadButton({
   const [uploadPercentage, setUploadPercentage] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const [isError, setIsError] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmission = async () => {
@@ -55,7 +56,8 @@ export default function FileUploadButton({
       .post<{ fileIds: string[] }>('/raw-data/file-ids', { fileCount: selectedFiles.length })
       .then(res => res.data.fileIds)
       .catch(error => {
-        setErrorMessage(true)
+        setIsError(true)
+        setErrorMessage("Network error")
         setIsUploading(false)
         setIsProcessing(false)
 
@@ -84,13 +86,14 @@ export default function FileUploadButton({
       .catch(error => {
         setIsUploading(false)
         setIsProcessing(false)
-        setErrorMessage(true)
+        setIsError(true)
+        setErrorMessage("Invalid file format")
       })
 
     navigate(`/visualise/${plotCollection.id}`)
   }
 
-  if(errorMessage && (!isUploading && !isProcessing)){
+  if(isError && (!isUploading && !isProcessing)){
 
     return (
       <div>
@@ -100,7 +103,7 @@ export default function FileUploadButton({
               color='primary'
               component='label'
               sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
-              onClick={() => setErrorMessage(false)}
+              onClick={() => setIsError(false)}
             >
               <CancelIcon />
             </IconButton>
@@ -114,10 +117,15 @@ export default function FileUploadButton({
                   alignItems: 'center'
                 }}
               >
+                <div>
                 <Typography id='modal-modal-title' variant='h6' component='h2' align='center' color={"red"}>
                   Error Uploading File
                 </Typography>
-                <ErrorIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem', color: "red" }} />
+                <Typography id='modal-modal-title' variant='h6' component='h2' align='center' color={"white"}>
+                  Reason: {errorMessage}
+                </Typography>
+                </div>
+                
               </Box>
             
           </Box>
