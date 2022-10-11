@@ -30,7 +30,6 @@ const Visualise = () => {
     () => api.get(`/raw-data/plot-collection/${id}`).then(res => res.data),
     QUERY_DEFAULTS
   )
-  console.log(parameters)
 
   // Calculate the parameters that are available in all files to be used in the dropdown
   const parameterOptions = useMemo(() => {
