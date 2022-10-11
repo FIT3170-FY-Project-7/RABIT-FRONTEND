@@ -130,7 +130,7 @@ export default function UploadPage() {
               Required File Format
             </Typography>
             <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-              Accepted file format inclues .json
+              Accepted file format: .json
             </Typography>
             <div>
               <pre>{JSON.stringify(EXAMPLE, null, 2)}</pre>
