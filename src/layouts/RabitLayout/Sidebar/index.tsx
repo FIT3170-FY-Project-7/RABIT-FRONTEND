@@ -1,12 +1,9 @@
 import { Box, Button, Hidden, Stack } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { Scrollbars } from 'react-custom-scrollbars-2'
 import { NavLink as RouterLink, useNavigate } from 'react-router-dom'
 import Logo from '../../../components/Logo'
 import HeaderUserbox from '../Header/Userbox'
 import SidebarMenu from './SidebarMenu'
-import UploadIcon from '@mui/icons-material/Upload'
-import Fab from '@mui/material/Fab'
 
 const Input = styled('input')({
     display: 'none'
@@ -66,12 +63,7 @@ function Sidebar() {
                     {/* rabit logo is created here */}
                     <Logo />
                 </TopSection>
-                
-                {/* upload button created here
-                <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
-                    <UploadIcon sx={{ mr: 1 }} /> Upload
-                </Fab>*/}
-            
+
                 <SidebarMenu /> {/* sidebar menu is created here */}
 
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
