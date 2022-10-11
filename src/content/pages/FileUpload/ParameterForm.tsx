@@ -16,9 +16,14 @@ import {
   TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
-import { extrinsicParameters, intrinsicParameters, otherParameters } from '../../../../../sharedData/parameterBuckets'
 import { modalStyle } from './modalStyle'
 import CancelIcon from '@mui/icons-material/Cancel'
+
+import parameters from '../../../../../sharedData/parameterBuckets.json'
+
+const intrinsicParameters = parameters.intrinsicParameters
+const extrinsicParameters = parameters.extrinsicParameters
+const otherParameters = parameters.otherParameters
 
 interface TabPanelProps {
   children?: React.ReactNode
