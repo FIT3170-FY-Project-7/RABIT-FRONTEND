@@ -25,6 +25,11 @@ interface FileUpload {
   selectedBuckets: boolean[]
 }
 
+interface FileIdentifier {
+  id: string
+  name: string
+}
+
 export default function FileUploadButton({
   enableButton,
   selectedFiles,
@@ -64,8 +69,11 @@ export default function FileUploadButton({
       })
 
 
+    const fileDetails: FileIdentifier[] = []
+
     for (const [i, file] of selectedFiles.entries()) {
       await chunkUpload(fileIds[i], file)
+      fileDetails.push({ id: fileIds[i], name: file.name })
     }
 
     // const paramBuckets = await api
@@ -79,7 +87,7 @@ export default function FileUploadButton({
       .post('/raw-data/process', {
         title,
         description,
-        fileIds,
+        fileDetails,
         selectedBuckets
       })
       .then(res => res.data)

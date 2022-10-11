@@ -9,6 +9,7 @@ import { uploadCornerPlotConfigs } from './PlotUploadShare'
 import { useParams } from 'react-router-dom'
 import { colours } from './constants/Colours'
 import { getElementAtEvent } from 'react-chartjs-2'
+import { ParameterLabel } from '../visualise'
 
 const PlotConfigDefault: PlotConfig = {
   plot_size: 500, // change this so that it takes the size of the parent container
@@ -33,17 +34,20 @@ const DatasetConfigDefault: DatasetConfig = {
   color: '#0088FF',
   line_width: 1.25,
   blur_radius: 1,
-  file_id: ''
+  file_id: '',
+  file_name: ''
 }
 
 const plotSizeRatio = 0.55
 
 function PlotsPage({
   rawDatasets,
-  parameterNames
+  parameterLabels,
+  filenameLookup
 }: {
   rawDatasets: Record<string, Record<string, number[]>>
-  parameterNames: string[]
+  parameterLabels: ParameterLabel[]
+  filenameLookup: Record<string, string>
 }) {
   /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
@@ -83,7 +87,8 @@ function PlotsPage({
           ...DatasetConfigDefault,
           color: (i < colours.colourPickerOptions.length) ? colours.colourPickerOptions[i] : colours.plotDefault,
           data,
-          file_id
+          file_id,
+          file_name: filenameLookup[file_id]
         })
       })
     )
@@ -92,14 +97,14 @@ function PlotsPage({
   useEffect(() => {
     if (datasets) {
       setParameters(
-        parameterNames.map(p => {
-          const combined_data = [].concat(...datasets.map(d => d.data[p]))
-          return { name: p, display_text: p, domain: d3.extent(combined_data) }
+        parameterLabels.map(p => {
+          const combined_data = [].concat(...datasets.map(d => d.data[p.parameterName]))
+          return { name: p.parameterName, display_text: p.parameterLabel, domain: d3.extent(combined_data) }
         })
       )
       resizePlot()
     }
-  }, [datasets, parameterNames])
+  }, [datasets, parameterLabels])
 
   const { id } = useParams()
 

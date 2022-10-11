@@ -64,7 +64,7 @@ function StaticPlotViewPage() {
     return apiParams.map((apiParam): ParameterConfig => {
       return {
         name: apiParam.parameter_name,
-        display_text: apiParam.parameter_name,
+        display_text: apiParam.label_text,
         domain: apiParam.domain
       }
     })
