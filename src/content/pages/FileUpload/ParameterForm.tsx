@@ -129,7 +129,8 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
           {Object.keys(parameters).map((key, i) => (
             <TabPanel value={tab} index={i} key={i}>
               <Typography variant='h4' sx={{ mb: 2 }}>
-                {key.charAt(0).toUpperCase() + key.substring(1)} Parameters
+                {key.charAt(0).toUpperCase() + key.substring(1)} Parameters 
+                {key == "other" && <Typography>Other parameters includes all parameters that are not categorised as intrinsic or extrsinisc, below are examples of Bilby outputs that would be categorised as other </Typography>}
               </Typography>
               <TableContainer sx={{ maxHeight: 350 }}>
                 <Table>
