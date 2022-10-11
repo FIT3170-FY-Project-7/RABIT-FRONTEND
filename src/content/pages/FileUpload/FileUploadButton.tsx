@@ -14,7 +14,6 @@ import CircularProgress from '@mui/material/CircularProgress'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { modalStyle } from './modalStyle'
 import CancelIcon from '@mui/icons-material/Cancel'
-import ErrorIcon from '@mui/icons-material/Error';
 
 interface FileUpload {
   enableButton: boolean
@@ -75,10 +74,6 @@ export default function FileUploadButton({
       await chunkUpload(fileIds[i], file)
       fileDetails.push({ id: fileIds[i], name: file.name })
     }
-
-    // const paramBuckets = await api
-    //   .post<{ buckets: string }>('/raw-data/param-buckets', { buckets: selectedBuckets })
-    //   .then(res => res.data.buckets)
 
     setIsUploading(false)
 
