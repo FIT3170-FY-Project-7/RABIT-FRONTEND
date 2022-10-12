@@ -43,6 +43,8 @@ const UserBoxText = styled(Box)(
 
 const UserBoxLabel = styled(Typography)(
     ({ theme }) => `
+        overflow-wrap: true;
+        word-break: break-all;'
         font-weight: ${theme.typography.fontWeightBold};
         color: ${theme.palette.secondary.main};
         display: block;`
