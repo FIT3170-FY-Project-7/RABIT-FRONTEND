@@ -53,7 +53,7 @@ const Plot = ({ files, parameterNames }: { files: FilesType; parameterNames: str
 
     // Add a new ParameterLabel if the parameter has not been added yet
     if (!parameternameLookup[data.parameterName]) {
-      parameterLabels.push({ parameterName: data.parameterName, parameterLabel: data.parameterLabel })
+      parameterLabels.push({ parameterName: data.parameterName, parameterLabel: data.parameterLabel, domainSet: false })
       parameternameLookup[data.parameterName] = data.parameterLabel
     }
     rawDatasets[fileId][data.parameterName] = data.posterior
