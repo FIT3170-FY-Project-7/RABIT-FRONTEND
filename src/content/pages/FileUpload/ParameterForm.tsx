@@ -25,7 +25,7 @@ import { NullableBooleanInput } from 'react-admin'
 
 const intrinsicParameters = parameters.intrinsicParameters
 const extrinsicParameters = parameters.extrinsicParameters
-const otherParameters = parameters.otherParameters
+const otherParameters = parameters.otherParametersSample
 
 
 
