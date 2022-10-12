@@ -24,7 +24,7 @@ export default function UploadPage() {
   const [fileNames, setFileNames] = useState([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [selectedBuckets, setSelectedBuckets] = useState([])
+  const [selectedBuckets, setSelectedBuckets] = useState([false, false, false])
   const [sizeLimitError, setsizeLimitError] = useState('') //error message for size error, for now works for amount of files but in future need to implement file size too
   const [enableSizeLimitError, setEnableSizeLimitError] = useState(false)
   const [openFileFormatModal, setOpenFileFormatModal] = useState(false)

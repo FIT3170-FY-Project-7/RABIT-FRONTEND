@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState, useRef } from 'react'
 import {
   Box,
   FormControlLabel,
@@ -21,6 +21,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import ParameterModal from './ParameterModal'
 
 import parameters from '../../../../../sharedData/parameterBuckets.json'
+import { NullableBooleanInput } from 'react-admin'
 
 const intrinsicParameters = parameters.intrinsicParameters
 const extrinsicParameters = parameters.extrinsicParameters
@@ -35,8 +36,41 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
   const [all, setAll] = useState(false)
   const [openParameterModal, setOpenParameterModal] = useState(false)
 
-
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
+
+  function parameterSwitch(label, targetParameter, targetParameterSetter) {
+    let replaceIndex = []
+    switch (label) {
+      case ("Intrinsic"): 
+        replaceIndex = [0]
+        break
+      case ("Extrinsic"):
+        replaceIndex = [1]
+        break
+      case ("Other"):
+        replaceIndex = [2]
+        break
+      case ("All"):
+        replaceIndex = [0,1,2]
+    }
+    let newBucketsSelected = [intrinsic, extrinsic, other]
+    return (
+      <FormControlLabel
+        control={
+          <Switch
+            checked={targetParameter}
+            onChange={e => (
+              targetParameterSetter(e.target.checked),
+              newBucketsSelected = newBucketsSelected.map((x, i) => {return replaceIndex.includes(i) ? e.target.checked : x}),
+              setSelectedBuckets(newBucketsSelected))}
+          />
+        }
+        label={label}
+        labelPlacement='start'
+      />
+    )
+  }
+
 
   useEffect(() => {
     if (all) {
@@ -76,49 +110,10 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
       </Box>
       <ParameterModal openParameterModal={openParameterModal} setOpenParameterModal={setOpenParameterModal}></ParameterModal>
       <Box>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={intrinsic}
-              onChange={e => (setIntrinsic(e.target.checked), setSelectedBuckets([e.target.checked, extrinsic, other]))}
-            />
-          }
-          label='Intrinsic'
-          labelPlacement='start'
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={extrinsic}
-              onChange={e => (setExtrinsic(e.target.checked), setSelectedBuckets([intrinsic, e.target.checked, other]))}
-            />
-          }
-          label='Extrinsic'
-          labelPlacement='start'
-        />
-
-        <FormControlLabel
-          control={
-            <Switch
-              checked={other}
-              onChange={e => (setOther(e.target.checked), setSelectedBuckets([intrinsic, extrinsic, e.target.checked]))}
-            />
-          }
-          label='Other'
-          labelPlacement='start'
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={all}
-              onChange={e => (
-                setAll(e.target.checked), setSelectedBuckets([e.target.checked, e.target.checked, e.target.checked])
-              )}
-            />
-          }
-          label='All'
-          labelPlacement='start'
-        />
+        {parameterSwitch("Intrinsic", intrinsic, setIntrinsic)}
+        {parameterSwitch("Extrinsic", extrinsic, setExtrinsic)}
+        {parameterSwitch("Other", other, setOther)}
+        {parameterSwitch("All", all, setAll)}
       </Box>
     </>
   )
