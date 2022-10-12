@@ -43,7 +43,7 @@ export default function ParameterModal({ openParameterModal, setOpenParameterMod
   const [tab, setTab] = useState(0)
   return (
     <Modal open={openParameterModal} onClose={() => setOpenParameterModal(false)}>
-      <Box sx={{ minWidth: '50%', height: '50%', ...modalStyle }}>
+      <Box sx={{ minWidth: '50%', ...modalStyle }}>
         <IconButton
           color='primary'
           sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
