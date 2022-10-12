@@ -59,24 +59,24 @@ export default function ParameterModal({ openParameterModal, setOpenParameterMod
           </Tabs>
         </Box>
         {Object.keys(parameters).map((key, i) => (
-          <Box sx={{display: 'flex-grow'}}>
-          <TabPanel value={tab} index={i} key={i}>
-            <Typography variant='h4'>
-              {key=="otherParameters" && <Typography>Other parameters includes all parameters that are not categorised as intrinsic or extrsinisc, below are examples of Bilby outputs that would be categorised as other: </Typography>}
-            </Typography>
-            <TableContainer sx={{maxHeight: '300px', overflowY: 'scroll' }}>
-              <Table>
-                <TableHead></TableHead>
-                <TableBody>
-                  {Object.keys(parameters[key]).map(value => (
-                    <TableRow key={value}>
-                      <TableCell>{parameters[key][value]}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </TabPanel>
+          <Box sx={{display: 'flex-grow'}} key={i}>
+            <TabPanel value={tab} index={i}>
+              <Typography variant='h4'>
+                {key=="otherParametersSample" && <Typography>Other parameters includes all parameters that are not categorised as intrinsic or extrsinisc, below are examples of Bilby outputs that would be categorised as other: </Typography>}
+              </Typography>
+              <TableContainer sx={{maxHeight: '300px', overflowY: 'scroll' }}>
+                <Table>
+                  <TableHead></TableHead>
+                  <TableBody>
+                    {Object.keys(parameters[key]).map(value => (
+                      <TableRow key={value}>
+                        <TableCell>{parameters[key][value]}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
           </Box>
         ))}
       </Box>
