@@ -9,10 +9,10 @@ import CheckboxDropdown, { OptionType } from './CheckboxDropdown'
 import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
 import TabCheckboxDropdown from './TabCheckboxDropdown'
-import parameters from '../../../../sharedData/parameterBuckets.json'
+// import parameters from '../../../../sharedData/parameterBuckets.json'
 
-const intrinsicParameters = parameters.intrinsicParameters
-const extrinsicParameters = parameters.extrinsicParameters
+// const intrinsicParameters = parameters.intrinsicParameters
+// const extrinsicParameters = parameters.extrinsicParameters
 
 export type FilesType = { fileId: string; fileName: string; parameters: { id: string; name: string }[] }[]
 export type ParameterLabel = { parameterName: string; parameterLabel: string }
@@ -28,6 +28,12 @@ const Visualise = () => {
   const { data, isLoading } = useQuery<{ title: string; description: string; files: FilesType }>(
     ['plotCollection', id],
     () => api.get(`/raw-data/plot-collection/${id}`).then(res => res.data),
+    QUERY_DEFAULTS
+  )
+
+  const { data: { intrinsicParameters, extrinsicParameters } } = useQuery<{ intrinsicParameters: string[]; extrinsicParameters: string[]; otherParametersSample: string[]; }>(
+    [],
+    () => api.get("/raw-data/parameter-buckets").then(res => res.data),
     QUERY_DEFAULTS
   )
 

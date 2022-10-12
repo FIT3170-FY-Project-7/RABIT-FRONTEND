@@ -91,7 +91,7 @@ export default function UploadPage() {
           rows={3}
           variant='filled'
         />
-        <ParameterForm selectedBuckets={selectedBuckets} setSelectedBuckets={setSelectedBuckets} />
+        <ParameterForm setSelectedBuckets={setSelectedBuckets} />
         <Box
           sx={{
             marginTop: '1rem',
