@@ -28,7 +28,7 @@ function TabPanel(props: TabPanelProps) {
   )
 }
 
-function a11yProps(index: number) {
+function tabProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`
@@ -56,7 +56,7 @@ export default function TabCheckboxDropdown({ values }: { values: ParameterArray
           {values
             .filter(({ options }) => options.length !== 0)
             .map((parameter, i) => (
-              <Tab key={i} label={parameter.name} {...a11yProps(i)} />
+              <Tab key={i} label={parameter.name} {...tabProps(i)} />
             ))}
         </Tabs>
       </Box>
