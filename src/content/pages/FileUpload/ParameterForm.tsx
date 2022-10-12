@@ -18,6 +18,7 @@ import {
 import HelpIcon from '@mui/icons-material/Help'
 import { modalStyle } from './modalStyle'
 import CancelIcon from '@mui/icons-material/Cancel'
+import ParameterModal from './ParameterModal'
 
 import parameters from '../../../../../sharedData/parameterBuckets.json'
 
@@ -25,47 +26,15 @@ const intrinsicParameters = parameters.intrinsicParameters
 const extrinsicParameters = parameters.extrinsicParameters
 const otherParameters = parameters.otherParameters
 
-interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
-}
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role='tabpanel'
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
-  }
-}
 
 function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
   const [other, setOther] = useState(false)
   const [all, setAll] = useState(false)
+  const [openParameterModal, setOpenParameterModal] = useState(false)
 
-  const [openParamaterModal, setOpenParamaterModal] = useState(false)
-  const [tab, setTab] = useState(0)
 
   const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
@@ -96,58 +65,16 @@ function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
           marginTop: '1rem',
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
           maxWidth: 'fit-content',
           cursor: 'pointer'
         }}
-        onClick={() => setOpenParamaterModal(true)}
+        onClick={() => setOpenParameterModal(true)}
       >
         <Typography variant='h4'>Select Parameters to Upload</Typography>
-        <Typography style={{ color: 'red' }} variant='h4'>
-          *
-        </Typography>
+        <Typography style={{ color: 'red' }} variant='h4'>*</Typography>
         <HelpIcon sx={{ fontSize: 'medium', marginLeft: '0.25rem' }} />
       </Box>
-      <Modal open={openParamaterModal} onClose={() => setOpenParamaterModal(false)}>
-        <Box sx={{ minWidth: '50%', ...modalStyle }}>
-          <IconButton
-            color='primary'
-            component='label'
-            sx={{ position: 'absolute', top: '-18px', right: '-18px', fontSize: 'large' }}
-            onClick={() => setOpenParamaterModal(false)}
-          >
-            <CancelIcon />
-          </IconButton>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
-              {Object.keys(parameters).map((key, i) => (
-                <Tab key={i} label={key.charAt(0).toUpperCase() + key.substring(1)} {...a11yProps(i)} />
-              ))}
-            </Tabs>
-          </Box>
-          {Object.keys(parameters).map((key, i) => (
-            <TabPanel value={tab} index={i} key={i}>
-              <Typography variant='h4' sx={{ mb: 2 }}>
-                {key.charAt(0).toUpperCase() + key.substring(1)} Parameters 
-                {key == "other" && <Typography>Other parameters includes all parameters that are not categorised as intrinsic or extrsinisc, below are examples of Bilby outputs that would be categorised as other </Typography>}
-              </Typography>
-              <TableContainer sx={{ maxHeight: 350 }}>
-                <Table>
-                  <TableHead></TableHead>
-                  <TableBody>
-                    {Object.keys(parameters[key]).map(value => (
-                      <TableRow key={value}>
-                        <TableCell>{parameters[key][value]}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </TabPanel>
-          ))}
-        </Box>
-      </Modal>
+      <ParameterModal openParameterModal={openParameterModal} setOpenParameterModal={setOpenParameterModal}></ParameterModal>
       <Box>
         <FormControlLabel
           control={
