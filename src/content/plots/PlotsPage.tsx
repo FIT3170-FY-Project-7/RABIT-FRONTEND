@@ -59,6 +59,7 @@ function PlotsPage({
   const [open, setOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState<string>('')
   const [plotHeight, setPlotHeight] = useState(window.innerHeight * plotSizeRatio)
+  const [parameterDomains, setParameterDomains] = useState<[[String, Number, Number]]>()
 
   window.addEventListener('resize', resizePlot)
   function resizePlot() {
@@ -99,7 +100,8 @@ function PlotsPage({
       setParameters(
         parameterLabels.map(p => {
           const combined_data = [].concat(...datasets.map(d => d.data[p.parameterName]))
-          return { name: p.parameterName, display_text: p.parameterLabel, domain: d3.extent(combined_data) }
+          const dom = getDomain(p)
+          return { name: p.parameterName, display_text: p.parameterLabel, domain: !dom ? dom : d3.extent(combined_data) }
         })
       )
       resizePlot()
@@ -149,6 +151,15 @@ function PlotsPage({
     subplot_size: plotHeight / parameters.length,
     // Reduce tick count if parameter count is high
     ...(parameters.length > 7 && { axis: { ...config.axis, ticks: 2 } })
+  }
+
+  const getDomain = (parameter : ParameterLabel) => {
+      for (var i of parameterDomains) {
+        if (parameter.parameterName == i[0]) {
+          return [i[1],i[2]]
+        }
+      }
+      return null
   }
 
   return (
