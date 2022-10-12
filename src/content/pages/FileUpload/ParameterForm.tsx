@@ -2,41 +2,19 @@
 import {
   Box,
   FormControlLabel,
-  IconButton,
-  Modal,
   Switch,
-  Tab,
-  Tabs,
   Typography,
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell
 } from '@mui/material'
 import HelpIcon from '@mui/icons-material/Help'
-import { modalStyle } from './modalStyle'
-import CancelIcon from '@mui/icons-material/Cancel'
 import ParameterModal from './ParameterModal'
 
-import parameters from '../../../../../sharedData/parameterBuckets.json'
-import { NullableBooleanInput } from 'react-admin'
 
-const intrinsicParameters = parameters.intrinsicParameters
-const extrinsicParameters = parameters.extrinsicParameters
-const otherParameters = parameters.otherParametersSample
-
-
-
-function ParameterForm({ selectedBuckets, setSelectedBuckets }) {
+function ParameterForm({setSelectedBuckets }) {
   const [intrinsic, setIntrinsic] = useState(false)
   const [extrinsic, setExtrinsic] = useState(false)
   const [other, setOther] = useState(false)
   const [all, setAll] = useState(false)
   const [openParameterModal, setOpenParameterModal] = useState(false)
-
-  const parameters = { intrinsic: intrinsicParameters, extrinsic: extrinsicParameters, other: otherParameters }
 
   function parameterSwitch(label, targetParameter, targetParameterSetter) {
     let replaceIndex = []
