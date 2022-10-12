@@ -31,14 +31,17 @@ const Visualise = () => {
     QUERY_DEFAULTS
   )
 
-  const { data: { intrinsicParameters, extrinsicParameters } } = useQuery<{ intrinsicParameters: string[]; extrinsicParameters: string[]; otherParametersSample: string[]; }>(
+  const { data: bucketData, isLoading: bucketsLoading } = useQuery<{ intrinsicParameters: string[]; extrinsicParameters: string[]; otherParametersSample: string[]; }>(
     [],
     () => api.get("/raw-data/parameter-buckets").then(res => res.data),
     QUERY_DEFAULTS
   )
 
+  const {intrinsicParameters, extrinsicParameters} = bucketData ?? {}
+
   // Calculate the parameters that are available in all files to be used in the dropdown
   const parameterOptions = useMemo(() => {
+
     // Get list of all parameters in each file
     const fileParameters = data?.files?.map(file => file.parameters.map(parameter => parameter.name))
 
@@ -48,8 +51,8 @@ const Visualise = () => {
     // Split common parameters into each parameter type, intrinsic, extrinsic and others
     const intrinsic = [], extrinsic = [], other = [];
     sharedParameters?.sort().forEach(parameter => {
-      if (intrinsicParameters.includes(parameter)) intrinsic.push(parameter)
-      else if (extrinsicParameters.includes(parameter)) extrinsic.push(parameter)
+      if (intrinsicParameters?.includes(parameter)) intrinsic.push(parameter)
+      else if (extrinsicParameters?.includes(parameter)) extrinsic.push(parameter)
       else other.push(parameter)
     })
 
@@ -58,24 +61,24 @@ const Visualise = () => {
 
     // Convert to data structure for dropdown
     return rebuiltParameters?.map(parameterName => ({ label: parameterName, value: parameterName }))
-  }, [data?.files])
+  }, [data?.files, intrinsicParameters, extrinsicParameters])
 
   const parametersSelected = [
     {
       name: 'Intrinsic',
-      options: parameterOptions?.filter(parameter => intrinsicParameters.includes(parameter.label)),
+      options: parameterOptions?.filter(parameter => intrinsicParameters?.includes(parameter.label)),
       type: intrinsicParametersSelected,
       setType: setIntrinsicParametersSelected
     },
     {
       name: 'Extrinsic',
-      options: parameterOptions?.filter(parameter => extrinsicParameters.includes(parameter.label)),
+      options: parameterOptions?.filter(parameter => extrinsicParameters?.includes(parameter.label)),
       type: extrinsicParametersSelected,
       setType: setExtrinsicParametersSelected
     },
     {
       name: 'Other',
-      options: parameterOptions?.filter(parameter => !intrinsicParameters.includes(parameter.label) && !extrinsicParameters.includes(parameter.label)),
+      options: parameterOptions?.filter(parameter => !intrinsicParameters?.includes(parameter.label) && !extrinsicParameters?.includes(parameter.label)),
       type: otherParametersSelected,
       setType: setOtherParametersSelected
     }
@@ -90,7 +93,7 @@ const Visualise = () => {
       <Helmet>
         <title>RABIT - Visualise</title>
       </Helmet>
-      {isLoading ? (
+      {isLoading || bucketsLoading ? (
         <div>Loading</div>
       ) : (
         <div style={{height: '100%'}}>
