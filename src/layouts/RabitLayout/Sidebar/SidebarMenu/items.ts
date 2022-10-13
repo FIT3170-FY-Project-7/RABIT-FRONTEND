@@ -20,10 +20,16 @@ const menuItems: MenuItems[] = [
     heading: '',
     items: [
       {
-        name: 'My Plots',
+        name: 'Upload',
+        link: '/upload',
+        icon: UploadIcon
+      },
+      {
+        name: 'Explore',
         link: '/plots',
         icon: AccessTimeIcon
       }
+
     ]
   }
 ]

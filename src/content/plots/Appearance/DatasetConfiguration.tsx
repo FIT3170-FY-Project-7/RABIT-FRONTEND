@@ -51,7 +51,7 @@ function DatasetConfiguration({
         >
             <div style={{ width: '100%', height: '15%', display: 'flex', justifyContent: 'left', alignItems: 'center' }}>
                 <div style={{ marginRight: '10px', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
-                    Dataset {index + 1}
+                    {dataset.file_name}
                 </div>
                 <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
                     <Tooltip title={helpMessage}>

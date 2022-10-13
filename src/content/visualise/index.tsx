@@ -1,28 +1,47 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import Footer from '../../components/Footer'
 import api, { QUERY_DEFAULTS } from '../../api'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import CheckboxDropdown, { OptionType } from './CheckboxDropdown'
 import Plot from './Plot'
 import DownloadButton from '../../components/Download/DownloadButton'
-import { intrinsicParameters, extrinsicParameters } from './constants/Parameters'
+import TabCheckboxDropdown from './TabCheckboxDropdown'
+// import parameters from '../../../../sharedData/parameterBuckets.json'
 
-export type FilesType = { fileId: string; parameters: { id: string; name: string }[] }[]
+// const intrinsicParameters = parameters.intrinsicParameters
+// const extrinsicParameters = parameters.extrinsicParameters
+
+export type FilesType = { fileId: string; fileName: string; parameters: { id: string; name: string }[] }[]
+export type ParameterLabel = { parameterName: string; parameterLabel: string }
 
 const Visualise = () => {
   const { id } = useParams()
   const [parameters, setParameters] = useState<OptionType[]>([])
+
+  const [intrinsicParametersSelected, setIntrinsicParametersSelected] = useState<OptionType[]>([])
+  const [extrinsicParametersSelected, setExtrinsicParametersSelected] = useState<OptionType[]>([])
+  const [otherParametersSelected, setOtherParametersSelected] = useState<OptionType[]>([])
+
   const { data, isLoading } = useQuery<{ title: string; description: string; files: FilesType }>(
     ['plotCollection', id],
     () => api.get(`/raw-data/plot-collection/${id}`).then(res => res.data),
     QUERY_DEFAULTS
   )
 
+  const { data: bucketData, isLoading: bucketsLoading } = useQuery<{ intrinsicParameters: string[]; extrinsicParameters: string[]; otherParametersSample: string[]; }>(
+    [],
+    () => api.get("/raw-data/parameter-buckets").then(res => res.data),
+    QUERY_DEFAULTS
+  )
+
+  const {intrinsicParameters, extrinsicParameters} = bucketData ?? {}
+
   // Calculate the parameters that are available in all files to be used in the dropdown
   const parameterOptions = useMemo(() => {
+
     // Get list of all parameters in each file
     const fileParameters = data?.files?.map(file => file.parameters.map(parameter => parameter.name))
 
@@ -32,8 +51,8 @@ const Visualise = () => {
     // Split common parameters into each parameter type, intrinsic, extrinsic and others
     const intrinsic = [], extrinsic = [], other = [];
     sharedParameters?.sort().forEach(parameter => {
-      if (intrinsicParameters.includes(parameter)) intrinsic.push(parameter)
-      else if (extrinsicParameters.includes(parameter)) extrinsic.push(parameter)
+      if (intrinsicParameters?.includes(parameter)) intrinsic.push(parameter)
+      else if (extrinsicParameters?.includes(parameter)) extrinsic.push(parameter)
       else other.push(parameter)
     })
 
@@ -42,14 +61,39 @@ const Visualise = () => {
 
     // Convert to data structure for dropdown
     return rebuiltParameters?.map(parameterName => ({ label: parameterName, value: parameterName }))
-  }, [data?.files])
+  }, [data?.files, intrinsicParameters, extrinsicParameters])
+
+  const parametersSelected = [
+    {
+      name: 'Intrinsic',
+      options: parameterOptions?.filter(parameter => intrinsicParameters?.includes(parameter.label)),
+      type: intrinsicParametersSelected,
+      setType: setIntrinsicParametersSelected
+    },
+    {
+      name: 'Extrinsic',
+      options: parameterOptions?.filter(parameter => extrinsicParameters?.includes(parameter.label)),
+      type: extrinsicParametersSelected,
+      setType: setExtrinsicParametersSelected
+    },
+    {
+      name: 'Other',
+      options: parameterOptions?.filter(parameter => !intrinsicParameters?.includes(parameter.label) && !extrinsicParameters?.includes(parameter.label)),
+      type: otherParametersSelected,
+      setType: setOtherParametersSelected
+    }
+  ]
+
+  useEffect(() => {
+    setParameters(intrinsicParametersSelected.concat(extrinsicParametersSelected, otherParametersSelected))
+  }, [intrinsicParametersSelected, extrinsicParametersSelected, otherParametersSelected])
 
   return (
     <Box padding='1rem' height='100%' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}>
       <Helmet>
         <title>RABIT - Visualise</title>
       </Helmet>
-      {isLoading ? (
+      {isLoading || bucketsLoading ? (
         <div>Loading</div>
       ) : (
         <div style={{height: '100%'}}>
@@ -65,18 +109,17 @@ const Visualise = () => {
           <Typography variant='subtitle2' sx={{ marginBottom: '0.5rem' }}>
             {data.description}
           </Typography>
-          <Typography variant='body2' sx={{ marginBottom: '0.5rem' }}>
-            Select parameters to plot
-          </Typography>
-          <CheckboxDropdown
-            options={parameterOptions}
-            placeholder=''
-            label='Parameters'
-            value={parameters}
-            setValue={setParameters}
-          />
-
-          <Plot files={data.files} parameterNames={parameters.map(parameter => parameter.value)} />
+          <TabCheckboxDropdown values={parametersSelected} />
+          {parameters?.length == 0 ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+              <Divider />
+              <Typography variant='h5' sx={{ marginBottom: '0.5rem', color: '#FFCC00' }}>
+                Select parameters to view plot
+              </Typography>
+            </Box>
+          ) : (
+            <Plot files={data.files} parameterNames={parameters.map(parameter => parameter.value)} />
+          )}
         </div>
       )}
       <Footer />

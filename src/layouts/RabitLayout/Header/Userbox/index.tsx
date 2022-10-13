@@ -43,6 +43,8 @@ const UserBoxText = styled(Box)(
 
 const UserBoxLabel = styled(Typography)(
     ({ theme }) => `
+        overflow-wrap: true;
+        word-break: break-all;'
         font-weight: ${theme.typography.fontWeightBold};
         color: ${theme.palette.secondary.main};
         display: block;`
@@ -113,7 +115,7 @@ function HeaderUserbox() {
                     </ListItem>
                     <ListItem button to='/visualise' component={NavLink}>
                         <InsightsIcon fontSize='small' />
-                        <ListItemText primary='My Plots' />
+                        <ListItemText primary='Explore' />
                     </ListItem>
                     <ListItem button to='/management/profile/settings' component={NavLink}>
                         <AccountTreeTwoToneIcon fontSize='small' />
