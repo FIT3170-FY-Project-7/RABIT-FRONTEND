@@ -122,7 +122,6 @@ const Visualise = () => {
           )}
         </div>
       )}
-      <Footer />
     </Box>
   )
 }
