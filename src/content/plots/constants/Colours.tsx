@@ -6,15 +6,13 @@ export const colours = {
   axesColour: 'white',
   plotBorder: '1px solid black',
   colourPickerOptions: [
-    '#BC0000',
-    '#FF0074',
-    '#FF8921',
-    '#FFB61E',
-    '#069F00',
-    '#0088FF',
-    '#001BAA',
-    '#BF40BF',
-    '#919191',
+    '#0072B2',
+    '#D55E00',
+    '#CC79A7',
+    '#009E73',
+    '#E69F00',
+    '#56B4E9',
+    '#F0E442',
     '#000000'
   ]
 }
