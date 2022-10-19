@@ -55,7 +55,6 @@ function UserPlots() {
   }
 
   const navigateToPlot = id => {
-    console.log(id)
     navigate(`/visualise/${id}`)
   }
 
