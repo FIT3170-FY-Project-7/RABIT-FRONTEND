@@ -11,8 +11,6 @@ const ParameterSelector = ({ items: input_items, default: initial_active, onUpda
         'active-items': initial_active
     })
     const [autoUpdate, setAutoUpdate] = useState(true)
-    console.log(input_items)
-    console.log(initial_active)
 
     const onReorder = (_, previousIndex, nextIndex, fromId, toId) => {
         if (fromId === toId) {
