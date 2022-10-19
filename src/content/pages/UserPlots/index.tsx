@@ -54,7 +54,8 @@ function UserPlots() {
       })
   }
 
-  const navigateToPlot = (id: string) => {
+  const navigateToPlot = id => {
+    console.log(id)
     navigate(`/visualise/${id}`)
   }
 
@@ -72,11 +73,6 @@ function UserPlots() {
                 onClick={() => {
                   navigateToPlot(plot.collection_id)
                 }}
-                secondaryAction={
-                  <IconButton color='primary' aria-label='delete plot' component='label'>
-                    <DeleteIcon />
-                  </IconButton>
-                }
                 disablePadding
               >
                 <ListItemButton>
