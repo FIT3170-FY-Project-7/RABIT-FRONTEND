@@ -28,7 +28,7 @@ const AxisX = ({ parameter, config, rerender }: AxisXPropType) => {
             style={{
                 width: config.subplot_size,
                 height: config.axis.size,
-                marginRight: config.margin.horizontal
+                marginRight: config.margin.horizontal,
             }}
             ref={elem}
         ></div>

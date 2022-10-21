@@ -1,29 +1,29 @@
 import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
-import { Box, Button, Typography, Card, Link, Snackbar } from '@mui/material'
-import PlotDownloadService from './PlotDownload.service'
+import { Box, Button, Typography, Card, Link, Snackbar, autocompleteClasses } from '@mui/material'
 import AppearanceConfig from './Appearance/AppearanceConfiguration'
 import { PlotConfig, DatasetConfig, ParameterConfig } from './PlotTypes'
 import * as d3 from 'd3'
 import { uploadCornerPlotConfigs } from './PlotUploadShare'
-import CopyToClipboardButton from './CopyToClipboardButton'
 import { useParams } from 'react-router-dom'
-import DownloadButton from '../../components/Download/DownloadButton'
+import { colours } from './constants/Colours'
+import { getElementAtEvent } from 'react-chartjs-2'
+import { ParameterLabel } from '../visualise'
 
 const PlotConfigDefault: PlotConfig = {
-  plot_size: 500,
+  plot_size: 500, // change this so that it takes the size of the parent container
   subplot_size: 150,
   margin: {
-    horizontal: 10,
-    vertical: 10
+    horizontal: 5,
+    vertical: 5
   },
   axis: {
     size: 100,
-    tickSize: 10,
-    ticks: 4
+    tickSize: 5,
+    ticks: 3
   },
-  background_color: '#CFE5FF'
+  background_color: colours.plotBackground
 }
 
 const DatasetConfigDefault: DatasetConfig = {
@@ -34,30 +34,20 @@ const DatasetConfigDefault: DatasetConfig = {
   color: '#0088FF',
   line_width: 1.25,
   blur_radius: 1,
-  file_id: ''
+  file_id: '',
+  file_name: ''
 }
 
-const colors = [
-  '#0088FF',
-  '#BF40BF',
-  '#800000',
-  '#FF8800',
-  '#FFCC00',
-  '#FFFF00',
-  '#0088FF',
-  '#00CC00',
-  '#FF0000',
-  '#FF8800',
-  '#FFCC00',
-  '#FFFF00'
-]
+const plotSizeRatio = 0.55
 
 function PlotsPage({
   rawDatasets,
-  parameterNames
+  parameterLabels,
+  filenameLookup
 }: {
   rawDatasets: Record<string, Record<string, number[]>>
-  parameterNames: string[]
+  parameterLabels: ParameterLabel[]
+  filenameLookup: Record<string, string>
 }) {
   /* 
     This is the skeleton component for our plots page. It hosts all relevant components for the user to create plots
@@ -68,28 +58,53 @@ function PlotsPage({
   const [config, setConfig] = useState<PlotConfig>(PlotConfigDefault)
   const [open, setOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState<string>('')
+  const [plotHeight, setPlotHeight] = useState(window.innerHeight * plotSizeRatio)
+
+  window.addEventListener('resize', resizePlot)
+  function resizePlot() {
+      setPlotHeight(Math.max((window.innerHeight * plotSizeRatio), 500))
+  }
 
   useEffect(() => {
     setDatasets(
-      Object.entries(rawDatasets).map(([file_id, data], i) => ({
-        ...DatasetConfigDefault,
-        color: colors[i],
-        data,
-        file_id
-      }))
+
+      Object.entries(rawDatasets).map(([file_id, data], i) => {
+        // Convert a complex number to it's magnitude
+        const toMagnitude = (complexNum) => {
+          return Math.sqrt(complexNum.real ** 2 + complexNum.imag ** 2);
+        }
+
+        // Check for complex values
+        Object.keys(data).forEach(key => {
+          // If first value in data is complex
+          if ((data[key][0] as any).__complex__) {
+            // Convert to magnitude
+            data[key] = data[key].map(toMagnitude)
+          }
+        })
+
+        return ({
+          ...DatasetConfigDefault,
+          color: (i < colours.colourPickerOptions.length) ? colours.colourPickerOptions[i] : colours.plotDefault,
+          data,
+          file_id,
+          file_name: filenameLookup[file_id]
+        })
+      })
     )
   }, [rawDatasets])
 
   useEffect(() => {
     if (datasets) {
       setParameters(
-        parameterNames.map(p => {
-          const combined_data = [].concat(...datasets.map(d => d.data[p]))
-          return { name: p, display_text: p, domain: d3.extent(combined_data) }
+        parameterLabels.map(p => {
+          const combined_data = [].concat(...datasets.map(d => d.data[p.parameterName]))
+          return { name: p.parameterName, display_text: p.parameterLabel, domain: d3.extent(combined_data) }
         })
       )
+      resizePlot()
     }
-  }, [datasets, parameterNames])
+  }, [datasets, parameterLabels])
 
   const { id } = useParams()
 
@@ -129,16 +144,24 @@ function PlotsPage({
     return <div>Loading</div>
   }
 
-  const scaledConfig = { ...config, subplot_size: config.plot_size / parameters.length }
+  const scaledConfig = {
+    ...config,
+    subplot_size: plotHeight / parameters.length,
+    // Reduce tick count if parameter count is high
+    ...(parameters.length > 7 && { axis: { ...config.axis, ticks: 2 } })
+  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'start', flexGrow: 1 }}>
       <MathJaxContext config={MathJaxConfig}>
         <div
           className='corner-plot-appearance-config-container'
-          style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}
+          style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem'}}
         >
+          {/* Creates the corner plot */}
           <CornerPlot datasets={datasets} parameters={parameters} config={scaledConfig} />
+
+          {/* Creates the appearance change box and share link */}
           <Box>
             <AppearanceConfig datasets={datasets} setDatasets={setDatasets} />
             {parameters.length > 0 && (

@@ -46,15 +46,20 @@ const UserPlots = Loader(lazy(() => import('./content/pages/UserPlots')))
 const routes: RouteObject[] = [
   {
     element: <BaseLayout />,
-
     children: [
+      { index: true, element: <Navigate to='/plots' replace/> },
+      // Uncomment below and comment the line above to enable login/signup URLs
+      /*
       { index: true, element: <Login /> },
       { path: 'login', element: <Navigate to='/' replace /> },
       { path: 'signup', element: <Signup /> },
       { path: 'reset-password', element: <ResetPassword /> },
+      */
       { path: '*', element: <Status404 /> }
     ]
   },
+  // Uncomment below to enable profile URLs
+  /*
   {
     path: 'management',
     element: <RabitLayout />,
@@ -74,10 +79,10 @@ const routes: RouteObject[] = [
       }
     ]
   },
+  */
   {
     element: <RabitLayout />,
     children: [
-      // TODO: Convert to login screen.
       { path: 'visualise/:id', element: <Visualise /> },
       { path: 'visualise/view/:id', element: <StaticPlotViewPage /> },
       { path: 'upload', element: <FileUpload /> },

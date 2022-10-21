@@ -2,7 +2,6 @@ import { MathJaxContext } from 'better-react-mathjax'
 import { useEffect, useState } from 'react'
 import CornerPlot from './CornerPlot'
 import downloadjs from 'downloadjs'
-import html2canvas from 'html2canvas'
 import { Box } from '@mui/material'
 import { PlotConfig, DatasetConfig, ParameterConfig, ApiParameterConfig } from './PlotTypes'
 import { colours } from './constants/Colours'
@@ -24,6 +23,7 @@ const PlotConfigDefault: PlotConfig = {
   },
   background_color: colours.plotBackground
 }
+const plotSizeRatio = 0.75
 
 function StaticPlotViewPage() {
   /* This page will render for the route "visualise/view/*" for any id after view/  */
@@ -34,6 +34,17 @@ function StaticPlotViewPage() {
 
   const params = useParams()
   const plot_id = params.id
+
+  const [plotHeight, setPlotHeight] = useState(window.innerHeight * plotSizeRatio)
+  window.addEventListener('resize', resizePlot)
+  function resizePlot() {
+      setPlotHeight(window.innerHeight * plotSizeRatio)
+  }
+
+  const scaledConfig = {
+    ...config,
+    subplot_size: plotHeight / parameterConfig.length,
+  }
 
   useEffect(() => {
     setConfig(config => ({
@@ -53,7 +64,7 @@ function StaticPlotViewPage() {
     return apiParams.map((apiParam): ParameterConfig => {
       return {
         name: apiParam.parameter_name,
-        display_text: apiParam.parameter_name,
+        display_text: apiParam.label_text,
         domain: apiParam.domain
       }
     })
@@ -72,24 +83,14 @@ function StaticPlotViewPage() {
     }
   }
 
-  // Function for corner plot image download.
-  const downloadCornerPlotImage = async () => {
-    const cornerPlotElmt = document.querySelector<HTMLElement>('.corner-plot')
-    if (!cornerPlotElmt) return
-
-    const canvas = await html2canvas(cornerPlotElmt)
-    const dataURL = canvas.toDataURL('image/png')
-    downloadjs(dataURL, 'corner-plot.png', 'image/png')
-  }
-
   return (
     <div>
       <MathJaxContext config={MathJaxConfig}>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <DownloadButton />
         </Box>
-        <div className='corner-plot-appearance-config-container'>
-          <CornerPlot datasets={datasetConfig} parameters={parameterConfig} config={config} />
+        <div style={{display: 'flex', justifyContent: 'left'}}>
+          <CornerPlot datasets={datasetConfig} parameters={parameterConfig} config={scaledConfig} />
         </div>
       </MathJaxContext>
     </div>

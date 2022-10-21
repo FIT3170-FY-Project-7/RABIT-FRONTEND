@@ -1,13 +1,9 @@
-import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone'
 import { Box, Button, Hidden, Stack } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { Scrollbars } from 'react-custom-scrollbars-2'
 import { NavLink as RouterLink, useNavigate } from 'react-router-dom'
 import Logo from '../../../components/Logo'
 import HeaderUserbox from '../Header/Userbox'
 import SidebarMenu from './SidebarMenu'
-import UploadIcon from '@mui/icons-material/Upload'
-import Fab from '@mui/material/Fab'
 
 const Input = styled('input')({
     display: 'none'
@@ -20,8 +16,28 @@ const SidebarWrapper = styled(Box)(
         background  : ${theme.sidebar.background};
         box-shadow  : ${theme.sidebar.boxShadow};
         height      : 100%;
-                
+
+        @media (min-width: ${theme.breakpoints.values.xs}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.sm}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.md}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
         @media (min-width: ${theme.breakpoints.values.lg}px) {
+            position                    : fixed;
+            z-index                     : 10;
+        }
+
+        @media (min-width: ${theme.breakpoints.values.xl}px) {
             position                    : fixed;
             z-index                     : 10;
         }
@@ -44,14 +60,14 @@ function Sidebar() {
         <SidebarWrapper>
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'center' }}>
                 <TopSection>
+                    {/* rabit logo is created here */}
                     <Logo />
                 </TopSection>
-                <Fab variant='extended' color='primary' onClick={() => navigate('/upload')}>
-                    <UploadIcon sx={{ mr: 1 }} /> Upload
-                </Fab>
 
-                <SidebarMenu />
+                <SidebarMenu /> {/* sidebar menu is created here */}
+
                 <Box sx={{ marginTop: 'auto', marginBottom: '1rem' }}>
+                    {/* displays the user profile */}
                     <HeaderUserbox />
                 </Box>
             </Box>
